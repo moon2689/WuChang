@@ -18,8 +18,8 @@ MonoBehaviour:
   PlayerInputType: 1
   PlayerID: 1
   StartSceneID: 2
-  m_BornPos: {x: -177.9, y: 109.8, z: -349}
-  m_BornRotY: 0
+  m_BornPos: {x: 253, y: 182, z: -140}
+  m_BornRotY: -177
   OpenWitchTime: 1
   WitchTimeSeconds: 1.2
   DodgeCostStamina: 20

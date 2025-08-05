@@ -170,15 +170,15 @@ namespace Saber.World
             {
                 // 新游戏cg动画
                 m_LoadType = ELoadType.None;
+                /*
                 Vector3 position = GameApp.Entry.Config.GameSetting.m_BornPos;
                 Quaternion rotation = Quaternion.Euler(0, GameApp.Entry.Config.GameSetting.m_BornRotY, 0);
                 TimelineManager timelineManager = TimelineManager.Create("CGNewGame");
                 timelineManager.BindPlayer();
                 timelineManager.Play(position, rotation, null);
-                /*
+                */
                 m_Player.transform.position = GameApp.Entry.Config.GameSetting.m_BornPos;
                 m_Player.transform.rotation = Quaternion.Euler(0, GameApp.Entry.Config.GameSetting.m_BornRotY, 0);
-                */
             }
             else if (m_LoadType == ELoadType.ToNextSceneByPortal)
             {
