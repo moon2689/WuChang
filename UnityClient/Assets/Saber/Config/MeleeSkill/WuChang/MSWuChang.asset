@@ -17,7 +17,7 @@ MonoBehaviour:
   - m_ID: 1
     m_AnimStates:
     - m_Name: LightAttack1
-      m_EventData: {fileID: 11400000, guid: c2fd8e58f3a447c48bb7ff9ef9429e89, type: 2}
+      m_EventData: {fileID: 11400000, guid: 21b6efb740c967b408e60b0d1419bfcf, type: 2}
     CostStrength: 5
     m_CostPower: 0
     m_CDSeconds: 0
@@ -25,8 +25,72 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
-    m_ChainSkillIDs: 020000000600000008000000
+    m_ChainSkillIDs: 02000000
     m_AIPramAttackDistance:
       minValue: 0
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+  - m_ID: 2
+    m_AnimStates:
+    - m_Name: LightAttack2
+      m_EventData: {fileID: 11400000, guid: 7d421da6e57e0fe4499d02def8a8d36b, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 03000000
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+  - m_ID: 3
+    m_AnimStates:
+    - m_Name: LightAttack3
+      m_EventData: {fileID: 11400000, guid: c32564bda27c12b4e9414ea275460241, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 04000000
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+  - m_ID: 4
+    m_AnimStates:
+    - m_Name: LightAttack4
+      m_EventData: {fileID: 11400000, guid: f34581d4edb1cfb40b9fccf737f944c8, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 05000000
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+  - m_ID: 5
+    m_AnimStates:
+    - m_Name: LightAttack5
+      m_EventData: {fileID: 11400000, guid: c84de50a01c826a4badbefb822e93e3f, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 0.5
       maxValue: 2
     m_AttackTriggerDistance: 0

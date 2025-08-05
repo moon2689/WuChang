@@ -171,6 +171,7 @@ namespace Saber.CharacterController
             {
                 return CurrentState.CanExit || !CurrentState.IsTriggering;
             }
+            /*
             else if (canSwitchType == EStateSwitchType.SkillCanBreak)
             {
                 if (CurrentState.CanExit || !CurrentState.IsTriggering)
@@ -185,6 +186,7 @@ namespace Saber.CharacterController
 
                 return false;
             }
+            */
             else if (canSwitchType == EStateSwitchType.CanTriggerSkill)
             {
                 return true;

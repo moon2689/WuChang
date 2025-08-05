@@ -174,7 +174,9 @@ MonoBehaviour:
       m_WeaponObj: {fileID: 0}
     m_AIInfo:
       m_WarningRange: 15
-    m_Nodes: []
+    m_Nodes:
+    - m_Type: 24
+      m_NodeTrans: {fileID: 6153310854026616086}
   m_CharacterInfo:
     m_ClothInfo:
       m_Enable: 0
@@ -205,3 +207,9 @@ MonoBehaviour:
     m_SpeedWalk: 1.6
     m_SpeedRun: 4
     m_SpeedSprint: 7
+--- !u!4 &6153310854026616086 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -7155285808582977154, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5320900606771807336}
+  m_PrefabAsset: {fileID: 0}

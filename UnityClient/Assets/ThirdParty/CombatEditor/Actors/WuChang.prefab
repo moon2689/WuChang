@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6059394496598505425
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8904595017343724380}
+  - component: {fileID: 3701084817777203149}
+  m_Layer: 0
+  m_Name: WuChang
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8904595017343724380
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6059394496598505425}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3701084817777203149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6059394496598505425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49002ae783b04ba4ba0926f0608ad401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectedAbility: {fileID: 0}
+  CombatDatas:
+  - IsFolded: 1
+    Label: LightAttack
+    CombatObjs:
+    - {fileID: 11400000, guid: 21b6efb740c967b408e60b0d1419bfcf, type: 2}
+    - {fileID: 11400000, guid: 7d421da6e57e0fe4499d02def8a8d36b, type: 2}
+    - {fileID: 11400000, guid: c32564bda27c12b4e9414ea275460241, type: 2}
+    - {fileID: 11400000, guid: f34581d4edb1cfb40b9fccf737f944c8, type: 2}
+    - {fileID: 11400000, guid: c84de50a01c826a4badbefb822e93e3f, type: 2}
+  clip: {fileID: 0}

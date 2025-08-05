@@ -24,9 +24,9 @@ namespace Saber.CharacterController
         CannotSwitch = 0, //不可转换
         CanSwitchAnyTime = 1, //可随时转换
         WaitStateCanExit = 2, //等待状态可退出时即可转换
-        SkillCanBreak = 3, //技能可被打断，如前遥
+        DodgeToSprint = 3,
         CanTriggerSkill = 4, //检查是否可以释放技能
-        DodgeToSprint = 5,
+        WaitSkillCanCombo = 5,
     }
 
     public static class StateHelper
@@ -38,8 +38,8 @@ namespace Saber.CharacterController
             //Id Mo Sk Do GH De Di Fa We UI    // from:
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, }, // Idle
             { 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, }, // Move
-            { 0, 2, 1, 1, 1, 2, 1, 2, 1, 2, }, // Skill
-            { 0, 5, 4, 2, 1, 2, 1, 2, 1, 2, }, // Dodge
+            { 0, 2, 1, 2, 1, 2, 1, 2, 1, 2, }, // Skill
+            { 0, 3, 4, 2, 1, 2, 1, 2, 1, 2, }, // Dodge
             { 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, }, // GetHit
             { 0, 0, 0, 0, 1, 1, 1, 2, 1, 0, }, // Defense
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, }, // Die
