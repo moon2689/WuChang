@@ -194,6 +194,17 @@ namespace Saber.CharacterController
                        skillCanTrigger.CanTriggerSkill();
                 */
             }
+            else if (canSwitchType == EStateSwitchType.DodgeToSprint)
+            {
+                if (Actor.MoveSpeedV == EMoveSpeedV.Sprint && CurrentState is Dodge dodge)
+                {
+                    return dodge.CanSwitchToSprint;
+                }
+                else
+                {
+                    return CurrentState.CanExit || !CurrentState.IsTriggering;
+                }
+            }
             else
             {
                 throw new InvalidOperationException("Unknown switch type: " + canSwitchType);
@@ -294,11 +305,6 @@ namespace Saber.CharacterController
             return TryEnterState(EStateType.Die);
         }
 
-        public virtual bool Jump(Vector3 axis)
-        {
-            return false;
-        }
-
         public virtual bool Dodge(Vector3 axis)
         {
             return false;
@@ -306,16 +312,6 @@ namespace Saber.CharacterController
 
         public virtual void OnParried()
         {
-        }
-
-        public virtual bool ToggleGlide()
-        {
-            return false;
-        }
-
-        public virtual bool ToggleFly()
-        {
-            return false;
         }
 
         public virtual bool DefenseStart()
@@ -348,21 +344,6 @@ namespace Saber.CharacterController
                 Defense defense = (Defense)CurrentState;
                 defense.OnHit(dmgInfo);
             }
-        }
-
-        public virtual bool Slide()
-        {
-            return false;
-        }
-
-        public virtual bool Climb()
-        {
-            return false;
-        }
-
-        public virtual bool StopClimb()
-        {
-            return false;
         }
 
         public virtual void ForceFall(bool playFallAnim = true)

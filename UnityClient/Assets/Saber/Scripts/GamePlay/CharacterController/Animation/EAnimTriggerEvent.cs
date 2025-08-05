@@ -17,6 +17,7 @@ namespace Saber.CharacterController
         PlaySound,
         RecoverHP,
         PlayExpression,
+        DodgeToSprint,
     }
 
     [Serializable]

@@ -117,9 +117,9 @@ namespace Saber.AI
                 timerStay -= Time.deltaTime;
                 if (timerStay < 0)
                 {
-                    if (CalcProbability(20))
-                        ToJump();
-                    else
+                    // if (CalcProbability(20))
+                    //     ToJump();
+                    // else
                         ToAttack();
                     yield break;
                 }
@@ -129,11 +129,11 @@ namespace Saber.AI
                 {
                     if (m_DistanceToEnemy < LockingEnemy.CurrentSkill.SkillConfig.m_AIPramAttackDistance.maxValue)
                     {
-                        if (Monster.m_MonsterInfo.m_CanJump)
-                        {
-                            ToJump();
-                            yield break;
-                        }
+                        // if (Monster.m_MonsterInfo.m_CanJump)
+                        // {
+                        //     ToJump();
+                        //     yield break;
+                        // }
                     }
                 }
 
@@ -290,57 +290,6 @@ namespace Saber.AI
                 }
 
                 yield return null;
-            }
-        }
-
-        void ToJump()
-        {
-            SwitchCoroutine(JumpItor());
-        }
-
-        IEnumerator JumpItor()
-        {
-            if (!Monster.m_MonsterInfo.m_CanJump)
-            {
-                ToStalemate();
-                yield break;
-            }
-
-            Vector3 axis;
-            if (m_DistanceToEnemy < 2)
-            {
-                axis = new Vector3(0, 0, -1);
-            }
-            else
-            {
-                int v = UnityEngine.Random.Range(0, 100);
-                if (v < 40)
-                    axis = new Vector3(1, 0, 0);
-                else if (v < 80)
-                    axis = new Vector3(-1, 0, 0);
-                else
-                    axis = new Vector3(0, 0, -1);
-            }
-
-            bool jumped = false;
-
-            while (true)
-            {
-                if (Actor.CurrentStateType != EStateType.Jump)
-                {
-                    if (!jumped)
-                    {
-                        if (Actor.Jump(axis))
-                            jumped = true;
-                    }
-                    else
-                    {
-                        ToStalemate();
-                        yield break;
-                    }
-                }
-
-                yield return new WaitForSeconds(0.1f);
             }
         }
     }

@@ -7,7 +7,7 @@ namespace Saber.CharacterController
 {
     public class Idle : ActorStateBase
     {
-        public override bool ApplyRootMotionSetWhenEnter => false;
+        public override bool ApplyRootMotionSetWhenEnter => true;
 
         //private bool m_IsFalling;
         private SCharacter Character;

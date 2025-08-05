@@ -231,11 +231,6 @@ namespace Saber.AI
             */
         }
 
-        protected void OnJumpDown()
-        {
-            Actor.Jump(new Vector3(0, 0, 1));
-        }
-
         public override void Update()
         {
             base.Update();

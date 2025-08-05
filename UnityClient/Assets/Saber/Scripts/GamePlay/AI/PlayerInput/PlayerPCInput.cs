@@ -85,7 +85,7 @@ namespace Saber.AI
 
             // jump
             var jump = new InputRow(true, "Jump", "Jump", KeyCode.G, InputButton.Down, InputType.Key);
-            jump.OnInputDown.AddListener(OnJumpDown);
+            //jump.OnInputDown.AddListener(OnJumpDown);
             m_Input.Inputs.Add(jump);
 
             // dodge

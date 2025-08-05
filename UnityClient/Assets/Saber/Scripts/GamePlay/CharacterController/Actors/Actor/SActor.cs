@@ -405,11 +405,6 @@ namespace Saber.CharacterController
             return CStateMachine.OnHit(dmgInfo);
         }
 
-        public bool Jump(Vector3 axis)
-        {
-            return CStateMachine.Jump(axis);
-        }
-
         public bool Fall()
         {
             return CStateMachine.Fall();
@@ -429,33 +424,6 @@ namespace Saber.CharacterController
         {
             CStateMachine.OnParried();
         }
-
-        public bool ToggleGlide()
-        {
-            return CStateMachine.ToggleGlide();
-        }
-
-        public bool ToggleFly()
-        {
-            return CStateMachine.ToggleFly();
-        }
-
-        public void ToggleFlyRise(bool rise)
-        {
-            if (CurrentStateType == EStateType.Fly)
-            {
-                Fly fly = (Fly)CStateMachine.CurrentState;
-                if (rise)
-                {
-                    fly.StartRise();
-                }
-                else
-                {
-                    fly.StopRise();
-                }
-            }
-        }
-
 
         public bool DefenseStart()
         {
@@ -489,11 +457,6 @@ namespace Saber.CharacterController
 
         public virtual void Speech()
         {
-        }
-
-        public void Slide()
-        {
-            CStateMachine.Slide();
         }
 
         public virtual void UseItem(UseItem.EItemType itemType)

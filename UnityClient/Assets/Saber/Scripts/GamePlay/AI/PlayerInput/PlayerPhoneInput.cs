@@ -15,8 +15,6 @@ namespace Saber.AI
         private bool m_PressDefense;
         private Portal m_CurrentStayingPortal;
         private GodStatue m_CurrentStayingGodStatue;
-        private float m_PressDodgeDownTime, m_PressDodgeUpTime;
-        private float m_PressFlyDownTime, m_PressFlyUpTime;
         private Vector3 m_Stick;
         private float m_StickLength;
 
@@ -74,11 +72,6 @@ namespace Saber.AI
             }
 
             UpdateMovement();
-
-            // 冲刺处理输入
-            UpdateSprintInput();
-
-            UpdateFlyInput();
         }
 
         // 镜头
@@ -256,87 +249,17 @@ namespace Saber.AI
 
         void Wnd_JoyStick.IHandler.OnPressFly(bool value)
         {
-            if (value)
-            {
-                m_PressFlyDownTime = Time.time;
-            }
-            else
-            {
-                if (Time.time - m_PressFlyDownTime < 0.2f)
-                {
-                    Actor.ToggleFly();
-                }
-                else if (Actor.CurrentStateType == EStateType.Fly)
-                {
-                    Actor.ToggleFlyRise(false);
-                }
-
-                m_PressFlyUpTime = Time.time;
-            }
+           
         }
 
-        void UpdateFlyInput()
-        {
-            if (Actor.CurrentStateType == EStateType.Fly)
-            {
-                if (m_PressFlyDownTime > m_PressFlyUpTime && Time.time - m_PressFlyDownTime > 0.2f)
-                {
-                    Actor.ToggleFlyRise(true);
-                }
-            }
-        }
+     
 
         void Wnd_JoyStick.IHandler.OnPressDodge(bool value)
         {
+            m_Sprint = value;
             if (value)
             {
-                // 长按冲刺后，再按则跳跃
-                if (Time.time - m_PressDodgeUpTime < 0.2f && m_PressDodgeUpTime - m_PressDodgeDownTime > 1f)
-                {
-                    OnJumpDown();
-                }
-                else
-                {
-                    bool glideSucceed = Actor.ToggleGlide();
-                    if (!glideSucceed)
-                        OnDodgeDown();
-                }
-
-                m_PressDodgeDownTime = Time.time;
-            }
-            else
-            {
-                m_PressDodgeUpTime = Time.time;
-            }
-        }
-
-        /// <summary>处理冲刺输入</summary>
-        void UpdateSprintInput()
-        {
-            if (m_Sprint)
-            {
-                // 放开后在0.2秒内未按下则取消冲刺
-                if (m_PressDodgeDownTime < m_PressDodgeUpTime && Time.time - m_PressDodgeUpTime > 0.2f)
-                {
-                    m_Sprint = false;
-                    // if (Actor.CurrentStateType == EStateType.Fly)
-                    // {
-                    //     Actor.ToggleFlyRise(false);
-                    // }
-                }
-            }
-            else
-            {
-                // 按下后在0.2秒内未放开则冲刺
-                if (m_PressDodgeDownTime > m_PressDodgeUpTime && Time.time - m_PressDodgeDownTime > 0.2f)
-                {
-                    m_Sprint = true;
-
-                    // if (Actor.CurrentStateType == EStateType.Fly)
-                    // {
-                    //     Actor.ToggleFlyRise(true);
-                    // }
-                }
+                OnDodgeDown();
             }
         }
 

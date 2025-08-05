@@ -24,6 +24,7 @@ namespace Saber.CharacterController
         }
 
         public Vector3 DodgeAxis { get; set; }
+        public bool CanSwitchToSprint { get; private set; }
 
 
         public Dodge() : base(EStateType.Dodge)
@@ -36,6 +37,7 @@ namespace Saber.CharacterController
 
             m_CanExit = false;
             m_CanTriggerSkill = false;
+            CanSwitchToSprint = false;
 
             Actor.CStats.CostStamina(GameApp.Entry.Config.GameSetting.DodgeCostStamina);
             Actor.CPhysic.EnableSlopeMovement = false;
@@ -96,6 +98,11 @@ namespace Saber.CharacterController
             {
                 m_CanExit = true;
                 Actor.Invincible = false;
+                CanSwitchToSprint = true;
+            }
+            else if (eventObj.EventType == EAnimTriggerEvent.DodgeToSprint)
+            {
+                CanSwitchToSprint = true;
             }
         }
 

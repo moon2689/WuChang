@@ -7,13 +7,9 @@ namespace Saber.CharacterController
         private const float k_NoInputEndTime = 0.04f;
 
         private ActorFootstep[] m_ActorFootstep;
-        private string m_PlayingMoveStartAnim;
-        private string m_SprintTurnAnim;
         private string m_EndAnim;
         private float m_TimerCheckEnd;
-        private Vector3 m_FrontDir;
         private SCharacter m_Character;
-        private bool m_ApplyRootMotion;
 
 
         public override bool CanEnter
@@ -65,18 +61,6 @@ namespace Saber.CharacterController
 
             Actor.UpdateMovementAxisAnimatorParams = false;
 
-            // 播放冲刺时的起始动画
-            if (Actor.MoveSpeedV == EMoveSpeedV.Sprint)
-            {
-                float curSpeedV = Actor.CAnim.GetCurSmoothFloat(EAnimatorParams.Vertical);
-                if (curSpeedV < 0.5)
-                {
-                    GameHelper.EDir4 dir = Actor.DesiredMoveDir.Calc4Dir(Actor.transform.forward, out _);
-                    m_PlayingMoveStartAnim = $"Sprint{dir}Start";
-                    Actor.CAnim.Play(m_PlayingMoveStartAnim, force: true);
-                }
-            }
-
             for (int i = 0; i < m_ActorFootstep.Length; i++)
             {
                 m_ActorFootstep[i].ActiveSelf = true;
@@ -96,8 +80,8 @@ namespace Saber.CharacterController
             }
 
             // 无输入则认为移动自动结束
-            //if (!Actor.IsDraggingMovementAxis)
-            if (Actor.MovementAxisMagnitude < 0.1f)
+            if (!Actor.IsDraggingMovementAxis)
+                //if (Actor.MovementAxisMagnitude < 0.1f)
             {
                 m_TimerCheckEnd -= base.DeltaTime;
                 if (m_TimerCheckEnd < 0)
@@ -187,25 +171,12 @@ namespace Saber.CharacterController
         {
             base.OnStay();
 
-            if (m_PlayingMoveStartAnim.IsNotEmpty() && !Actor.CAnim.IsPlayingOrWillPlay(m_PlayingMoveStartAnim, 0.6f))
-            {
-                m_PlayingMoveStartAnim = null;
-            }
-
-            if (m_SprintTurnAnim.IsNotEmpty() && !Actor.CAnim.IsPlayingOrWillPlay(m_SprintTurnAnim))
-            {
-                m_SprintTurnAnim = null;
-            }
-
-            // 当播放移动动画时，关闭root motion，使用程序控制位移
-            // 当播放其它动画，如转向等时，使用root motion控制
-            m_ApplyRootMotion = m_SprintTurnAnim.IsNotEmpty() || m_PlayingMoveStartAnim.IsNotEmpty();
-            Actor.CPhysic.ApplyRootMotion = m_ApplyRootMotion;
-
             if (StateMachine.Fall())
             {
                 return;
             }
+
+            Actor.CPhysic.ApplyRootMotion = m_EndAnim.IsNotEmpty();
 
             // 当未输入时，结束移动并退出
             if (TryEndMove())
@@ -223,12 +194,6 @@ namespace Saber.CharacterController
                 UpdateMoveLock(); //当锁定敌人，并且未冲刺时，玩家始终面朝向敌人
             }
 
-            // 转向
-            if (m_PlayingMoveStartAnim.IsEmpty() && m_SprintTurnAnim.IsEmpty())
-            {
-                Actor.CPhysic.AlignForwardTo(m_FrontDir, 720);
-            }
-
             Actor.CStats.StaminaRecoverSpeed = StaminaRecoverSpeed;
         }
 
@@ -238,16 +203,13 @@ namespace Saber.CharacterController
         {
             int moveSpeed = (int)Actor.MoveSpeedV;
             bool isSprint = Actor.MoveSpeedV == EMoveSpeedV.Sprint;
+            float verticalValue = Actor.MovementAxisMagnitude * moveSpeed;
 
             Actor.CAnim.SetSmoothFloat(EAnimatorParams.Horizontal, 0);
-            Actor.CAnim.SetSmoothFloat(EAnimatorParams.Vertical, Actor.MovementAxisMagnitude * moveSpeed);
-            m_FrontDir = Actor.DesiredMoveDir;
+            Actor.CAnim.SetSmoothFloat(EAnimatorParams.Vertical, verticalValue);
 
             if (isSprint)
             {
-                // 冲刺中的急转向
-                TryPlaySprintTurnAnim();
-
                 // 若体力为0，则等待体力恢复一定值再冲刺，否则抖动
                 Actor.CStats.CostStamina(10 * base.DeltaTime);
                 if (Actor.CStats.CurrentStamina <= 0)
@@ -257,17 +219,14 @@ namespace Saber.CharacterController
             }
 
             // 位移
-            if (!m_ApplyRootMotion)
-            {
-                float speed = GetSpeedVertical();
-                Actor.CPhysic.AdditivePosition += Actor.DesiredMoveDir * speed * base.DeltaTime;
-            }
+            float speed = GetSpeedVertical();
+            //Actor.CPhysic.AdditivePosition += Actor.DesiredMoveDir * speed * base.DeltaTime;
+            Actor.CPhysic.AdditivePosition += Actor.transform.forward * speed * base.DeltaTime;
+
+            Actor.CPhysic.AlignForwardTo(Actor.DesiredMoveDir, verticalValue > 2 ? 360 : 720);
 
             // 播放移动动画
-            if (m_PlayingMoveStartAnim.IsEmpty() && m_SprintTurnAnim.IsEmpty())
-            {
-                Actor.CAnim.Play("MoveFree");
-            }
+            Actor.CAnim.Play("MoveFree");
         }
 
         /// <summary>当锁定敌人，并且未冲刺时，玩家始终面朝向敌人</summary>
@@ -276,48 +235,21 @@ namespace Saber.CharacterController
             int moveSpeed = (int)Actor.MoveSpeedV;
             Actor.CAnim.SetSmoothFloat(EAnimatorParams.Horizontal, Actor.MovementAxis.x * moveSpeed);
             Actor.CAnim.SetSmoothFloat(EAnimatorParams.Vertical, Actor.MovementAxis.z * moveSpeed);
-            m_FrontDir = Actor.DesiredLookDir;
 
             // 位移
-            if (!m_ApplyRootMotion)
-            {
-                float speed = GetSpeed2D();
-                Actor.CPhysic.AdditivePosition += Actor.DesiredMoveDir * speed * base.DeltaTime;
-            }
+            float speed = GetSpeed2D();
+            Actor.CPhysic.AdditivePosition += Actor.DesiredMoveDir * speed * base.DeltaTime;
+
+            Actor.CPhysic.AlignForwardTo(Actor.DesiredLookDir, 720);
 
             // 播放移动动画
-            if (m_PlayingMoveStartAnim.IsEmpty() && m_SprintTurnAnim.IsEmpty())
-            {
-                Actor.CAnim.Play("Move");
-            }
-        }
-
-        // 冲刺中的急转向
-        private void TryPlaySprintTurnAnim()
-        {
-            if (m_SprintTurnAnim.IsNotEmpty() || m_PlayingMoveStartAnim.IsNotEmpty())
-            {
-                return;
-            }
-
-            float curSpeedV = Actor.CAnim.GetCurSmoothFloat(EAnimatorParams.Vertical);
-            if (curSpeedV < 2.5f)
-                return;
-
-            float dot = Vector3.Dot(Actor.transform.forward, Actor.DesiredMoveDir);
-            if (dot >= 0)
-                return;
-
-            m_SprintTurnAnim = "SprintTurn";
-            Actor.CAnim.Play(m_SprintTurnAnim, blendTime: 0.2f);
+            Actor.CAnim.Play("Move");
         }
 
         protected override void OnExit()
         {
             base.OnExit();
 
-            m_PlayingMoveStartAnim = null;
-            m_SprintTurnAnim = null;
             m_EndAnim = null;
 
             Actor.UpdateMovementAxisAnimatorParams = true;

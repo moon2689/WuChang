@@ -32,7 +32,6 @@ namespace Saber.CharacterController
         public bool m_PlaySoundWhenIdle;
         public List<AudioClip> m_IdleSoundClips;
 
-        public bool m_CanJump;
         public bool m_CanDodge;
         public bool m_CanDefense;
 

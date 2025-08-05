@@ -22,11 +22,6 @@ namespace Saber.CharacterController
             base.RegisterState(new MonsterDie());
             base.RegisterState(new Weak());
 
-            if (Monster.m_MonsterInfo.m_CanJump)
-            {
-                base.RegisterState(new MonsterJump());
-            }
-
             if (Monster.m_MonsterInfo.m_MoveByRootMotion)
             {
                 base.RegisterState(new MonsterRootMotionMove());
@@ -175,11 +170,6 @@ namespace Saber.CharacterController
             {
                 ((MonsterDefense)CurrentState).OnHit(dmgInfo);
             }
-        }
-
-        public override bool Jump(Vector3 axis)
-        {
-            return TryEnterState<MonsterJump>(EStateType.Jump, state => state.JumpAxis = axis);
         }
     }
 }

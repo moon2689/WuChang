@@ -53,7 +53,6 @@ namespace Saber.CharacterController
                         return !Actor.CPhysic.Grounded &&
                                Actor.CPhysic.GroundDistance > 1 &&
                                (Actor.CurrentStateType == EStateType.Fall ||
-                                Actor.CurrentStateType == EStateType.Jump ||
                                 Actor.CurrentStateType == EStateType.Skill);
 
                     case ETriggerCondition.InSprint:
