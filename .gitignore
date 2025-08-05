@@ -1,0 +1,16 @@
+*.DS_Store
+/UnityClient/.vs
+/UnityClient/.vsconfig
+/UnityClient/Library
+/UnityClient/UserSettings
+/UnityClient/Logs
+/UnityClient/obj
+/UnityClient/Temp
+/UnityClient.vsconfig
+/UnityClient/.idea
+/UnityClient/*.csproj
+/UnityClient/Assets/_Debug
+/UnityClient/Assets/_Debug.meta
+/UnityClient/Assets/StreamingAssets
+/UnityClient/Assets/StreamingAssets.meta
+/UnityClient/UMotionData
