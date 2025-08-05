@@ -1,0 +1,86 @@
+1.监听动画事件
+        /*
+        void ListeningAnimEvent()
+        {
+            var events = m_handler.DicAnimEvents;
+            if (events == null || events.Count == 0)
+                return;
+            if (IsSwitchingAnim)
+                return;
+
+            if (m_curAnimHash != m_CurStateInfo.shortNameHash)
+            {
+                m_curAnimHash = m_CurStateInfo.shortNameHash;
+                m_curEventIndex = 0;
+                m_oldNorTime = -1;
+                events.TryGetValue(m_curAnimHash, out m_curListEvent);
+            }
+
+            if (m_curListEvent == null)
+                return;
+
+            if (m_CurStateInfo.loop)
+            {
+                float norTime = m_CurStateInfo.normalizedTime % 1;
+                if (norTime < m_oldNorTime)
+                    m_curEventIndex = 0;
+                m_oldNorTime = norTime;
+
+                while (m_curEventIndex >= 0 && m_curEventIndex < m_curListEvent.Count)
+                {
+                    var config = m_curListEvent[m_curEventIndex];
+                    if (norTime >= config.TriggerTime)
+                    {
+                        TriggerAnimEvent(config);
+                        ++m_curEventIndex;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                while (true)
+                {
+                    if (m_curEventIndex >= 0 && m_curEventIndex < m_curListEvent.Count)
+                    {
+                        var config = m_curListEvent[m_curEventIndex];
+                        if (m_CurStateInfo.normalizedTime >= config.TriggerTime)
+                        {
+                            TriggerAnimEvent(config);
+                            ++m_curEventIndex;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        m_curListEvent = null;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // 触发动画事件
+        void TriggerAnimEvent(Item_AnimEvent config)
+        {
+            if (config == null)
+                return;
+
+            if (config.AnimEvent != AnimEventType.None)
+                m_handler.OnTriggerAnimEvent(config.AnimEvent, config);
+            else
+                Debug.LogError($"Unknown anim event:{config.AnimEvent},anim state:{config.AnimState},weapon style:{config.WeaponStyle},trigger time:{config.TriggerTime}");
+
+            Debug.Log($@"Trigger: {config.AnimEvent}
+time: {CurStateInfo.normalizedTime}
+loop: {CurStateInfo.loop}
+config: {config.WeaponStyle}  {config.AnimState}  {config.AnimEvent}  {config.TriggerTime}");
+
+        }
+        */

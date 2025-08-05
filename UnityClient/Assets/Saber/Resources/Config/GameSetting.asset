@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72feb60178654ec5b616fbfbe42d3f84, type: 3}
+  m_Name: GameSetting
+  m_EditorClassIdentifier: 
+  DebugFPS: 1
+  DebugFight: 0
+  OpenCameraLight: 0
+  PlayerInputType: 1
+  PlayerID: 1
+  StartSceneID: 2
+  m_BornPos: {x: -177.9, y: 109.8, z: -349}
+  m_BornRotY: 0
+  OpenWitchTime: 1
+  WitchTimeSeconds: 1.2
+  DodgeCostStamina: 20
+  TiredWhenStaminaZero: 0
+  IKBoneForceOnHit: 3
+  m_SoundSwordHitSword: []
+  m_SoundWeaponHitGround: []
+  m_SoundSharpWeaponHitBody: []
+  m_SoundFistHitBody: []
+  m_SoundClawHitBody: []
+  m_EffectBlood:
+  - {fileID: 2656253210798625995, guid: 2655b917cfc95e34d857e8c69bf28183, type: 3}
+  - {fileID: 7418544422921942892, guid: 750af0a5d4982784bbe12e5220fa1785, type: 3}
+  - {fileID: 1783644196897451110, guid: 1f823f4fde8fd2d4bab4de542f5707fe, type: 3}
+  - {fileID: 7697204193011395208, guid: 1b857c39392b4a24eb16560e5862658e, type: 3}
+  - {fileID: 4615089296703090045, guid: c5b6470489b25fa47b4a2683530ed573, type: 3}
+  - {fileID: 1684539932835899924, guid: b3ca71a3ab1a9d24e87d97960db10f90, type: 3}
+  - {fileID: 3955381085252325652, guid: f490843856723914589681c801e22fc1, type: 3}
+  m_EffectWeaponHitGround:
+  - {fileID: 6194057984719691496, guid: 175fa81dd978dc240ae5853d63492460, type: 3}
+  m_EffectSharpWeaponHitBody:
+  - {fileID: 2364612474286823039, guid: c1e5a9e993bb0fa47a812a514b240cd8, type: 3}
+  m_EffectFistHitBody:
+  - {fileID: 1258725013165278, guid: f00872eb3daf45d4cb44ebbbf9d203b7, type: 3}
+  m_EffectClawHitBody:
+  - {fileID: 8988347728098825957, guid: c7333fdb3c0630549b232f39fcb9a457, type: 3}
+  m_ShakeCameraOnHurt: 0
+  m_ShakeCameraDurationOnHurt: 0.2
+  m_ShakeCameraAmountOnHurt: 1
+  m_ShakeCameraSpeedOnHurt: 3
+  m_ShakeCameraHitOther: 0
+  m_ShakeCameraDuratiHitOther: 0.1
+  m_ShakeCameraAmountHitOther: 0.3
+  m_ShakeCameraSpeedHitOther: 3

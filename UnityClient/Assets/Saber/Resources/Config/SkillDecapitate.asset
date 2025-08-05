@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be02be86731742bd8f01e1df487acf5a, type: 3}
+  m_Name: SkillDecapitate
+  m_EditorClassIdentifier: 
+  DecapitateMaxDistance: 3
+  DecapitateMaxAngle: 30
+  m_DecapitateEnemyTime: 0.25
+  m_DecapitateEnemyFinishTime: 0.5
+  m_MagicCounterSuccessSound: {fileID: 8300000, guid: d3ef572fe3f873440a1a947e0f5e4354,
+    type: 3}
+  m_MagicCounterHitSound: {fileID: 8300000, guid: 8c3081d3fde9c254da96b7e4d5fe4e84,
+    type: 3}
+  m_EquipExeInsertBodySound: {fileID: 8300000, guid: 3955b99d67c414ab8a0c013134c11ecf,
+    type: 3}
+  m_EquipExeLeaveBodySound: {fileID: 8300000, guid: 7199b82b72fb7cd43a20a030ff2c2ad1,
+    type: 3}
+  m_EquipExecution: {fileID: 1834636023951904, guid: 54c2cf5638afae34da81214c658f8c49,
+    type: 3}
+  m_EquipExecutionParentBone: 21
+  m_EquipExecutionLocalPosition: {x: -0.187, y: -0.167, z: 0.071}
+  m_EquipExecutionLocalRotation: {x: 334.767, y: 290.625, z: 0}
+  m_EquipExecutionDisappearTime: 0.9
+  m_AlignDirectionEndTime: 0.4
+  m_BloodStartDecapitate: {fileID: 8129476537154334463, guid: f278962be0ad1614b9b5784fab88b9ae,
+    type: 3}
+  BloodPlayTime: 30
+  m_BloodFinishDecapitate: {fileID: 3893742223513842730, guid: b18795d463d2b194a809a48192d46868,
+    type: 3}
+  m_EffectMagicCounterSuccess: {fileID: 1812881953744270, guid: ed0c022a338d3384d9ee622d354a94e2,
+    type: 3}

@@ -1,0 +1,193 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Saber.CharacterController
+{
+    /// <summary>存储角色所有人性骨骼</summary>
+    public class CharacterBones
+    {
+        [SerializeField]
+        public enum EBone
+        {
+            None = 0,
+            Hips,
+            Spine,
+            Chest,
+            UpperChest,
+            Neck,
+            Head,
+
+            LeftUpperLeg,
+            RightUpperLeg,
+            LeftLowerLeg,
+            RightLowerLeg,
+            LeftFoot,
+            RightFoot,
+
+            LeftShoulder,
+            RightShoulder,
+            LeftUpperArm,
+            RightUpperArm,
+            LeftLowerArm,
+            RightLowerArm,
+            LeftHand,
+            RightHand,
+
+            LeftToes,
+            RightToes,
+
+            /*
+            LeftEye,
+            RightEye,
+            Jaw,
+            LeftThumbProximal,
+            LeftThumbIntermediate,
+            LeftThumbDistal,
+            LeftIndexProximal,
+            LeftIndexIntermediate,
+            LeftIndexDistal,
+            LeftMiddleProximal,
+            LeftMiddleIntermediate,
+            LeftMiddleDistal,
+            LeftRingProximal,
+            LeftRingIntermediate,
+            LeftRingDistal,
+            LeftLittleProximal,
+            LeftLittleIntermediate,
+            LeftLittleDistal,
+            RightThumbProximal,
+            RightThumbIntermediate,
+            RightThumbDistal,
+            RightIndexProximal,
+            RightIndexIntermediate,
+            RightIndexDistal,
+            RightMiddleProximal,
+            RightMiddleIntermediate,
+            RightMiddleDistal,
+            RightRingProximal,
+            RightRingIntermediate,
+            RightRingDistal,
+            RightLittleProximal,
+            RightLittleIntermediate,
+            RightLittleDistal,
+            */
+        }
+
+
+        //private List<HurtBox> m_ListHurtBox;
+        private Dictionary<EBone, Transform> m_DicBones;
+        private Dictionary<string, Transform> m_DicBonesByName;
+
+
+        public Transform this[EBone eBone]
+        {
+            get
+            {
+                m_DicBones.TryGetValue(eBone, out Transform t);
+                return t;
+            }
+        }
+
+        public Transform this[string name]
+        {
+            get
+            {
+                m_DicBonesByName.TryGetValue(name, out Transform t);
+                return t;
+            }
+        }
+
+        public SActor Actor { get; private set; }
+
+
+        public CharacterBones(SActor actor, Animator animator)
+        {
+            Actor = actor;
+            m_DicBones = new();
+
+            // find bones
+            var bones = animator.avatar.humanDescription.human;
+            Transform rootBone = actor.m_BaseActorInfo.m_RootBone;
+            if (rootBone == null)
+            {
+                rootBone = Actor.transform;
+            }
+
+            for (int i = 0; i < bones.Length; i++)
+            {
+                var b = bones[i];
+                string boneName = b.humanName.Replace(" ", "");
+                if (!Enum.TryParse<EBone>(boneName, out EBone eBone))
+                {
+                    //Debug.Log($"#1 boneName {boneName}");
+                    continue;
+                }
+
+                Transform trans = null;
+                rootBone.FindChildRecursive(b.boneName, ref trans);
+                if (trans)
+                    m_DicBones[eBone] = trans;
+            }
+
+            m_DicBonesByName = new();
+            foreach (var pair in m_DicBones)
+            {
+                m_DicBonesByName[pair.Value.name] = pair.Value;
+            }
+        }
+
+        public EBone GetBoneTypeByName(string boneName)
+        {
+            var bones = Actor.CAnim.AnimatorObj.avatar.humanDescription.human;
+            foreach (var b in bones)
+            {
+                if (b.boneName == boneName)
+                {
+                    string bName = b.humanName.Replace(" ", "");
+                    if (Enum.TryParse<EBone>(bName, out EBone eBone))
+                    {
+                        return eBone;
+                    }
+                }
+            }
+
+            return EBone.None;
+        }
+        
+        /*
+        void InitHurtBoxes()
+        {
+            AddHurtBox(BoneType.Head, new Vector3(0, 0), 0.15f, 0.4f);
+            AddHurtBox(BoneType.Chest, new Vector3(0, 0), 0.2f, 0.8f);
+            AddHurtBox(BoneType.LeftUpperArm, new Vector3(-0.25f, 0), 0.1f, 0.5f);
+            AddHurtBox(BoneType.LeftLowerArm, new Vector3(-0.25f, 0), 0.1f, 0.5f);
+            AddHurtBox(BoneType.RightUpperArm, new Vector3(-0.25f, 0), 0.1f, 0.5f);
+            AddHurtBox(BoneType.RightLowerArm, new Vector3(0.25f, 0), 0.1f, 0.5f);
+            AddHurtBox(BoneType.LeftUpperLeg, new Vector3(0.25f, 0), 0.1f, 0.5f);
+            AddHurtBox(BoneType.LeftLowerLeg, new Vector3(0.25f, 0), 0.1f, 0.5f);
+            AddHurtBox(BoneType.RightUpperLeg, new Vector3(-0.25f, 0), 0.1f, 0.5f);
+            AddHurtBox(BoneType.RightLowerLeg, new Vector3(-0.25f, 0), 0.1f, 0.5f);
+            AddHurtBox(BoneType.Spine, new Vector3(0.2f, 0), 0.4f, Actor.CPhysic.Height);
+        }
+
+        void AddHurtBox(BoneType boneType, Vector3 center, float radius, float height)
+        {
+            Transform trans = this[boneType];
+            if (!trans)
+                return;
+
+            GameObject boneObj = new GameObject("BoneObj_" + boneType);
+            boneObj.transform.parent = trans;
+            boneObj.transform.localPosition = Vector3.zero;
+            boneObj.transform.localRotation = Quaternion.identity;
+            boneObj.transform.localScale = Vector3.one;
+            if (m_hurtBox == null)
+                m_hurtBox = new List<HurtBox>();
+            HurtBox hb = HurtBox.Create(boneObj.transform);
+            hb.Init(this, boneType, center, radius, height);
+            m_hurtBox.Add(hb);
+        }
+        */
+    }
+}

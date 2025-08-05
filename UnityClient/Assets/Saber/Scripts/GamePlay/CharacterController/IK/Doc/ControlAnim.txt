@@ -1,0 +1,43 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ControlAnim : MonoBehaviour
+{
+    public Transform leftHandObj;
+    public Transform leftFootObj;
+    public Transform rightHandObj;
+    public Transform rightFootObj;
+    public Transform head;
+
+    private Animator m_Animator;
+
+    private void Awake()
+    {
+        m_Animator = this.GetComponent<Animator>();
+    }
+
+    private void OnAnimatorIK(int layerIndex)
+    {
+        if (!m_Animator)
+            return;
+        SetIkPosAndRot(AvatarIKGoal.LeftHand, 1, leftHandObj);
+        SetIkPosAndRot(AvatarIKGoal.LeftFoot, 1, leftFootObj);
+        SetIkPosAndRot(AvatarIKGoal.RightHand, 1, rightHandObj);
+        SetIkPosAndRot(AvatarIKGoal.RightFoot, 1, rightFootObj);
+        if (head)
+            m_Animator.SetLookAtPosition(head.position);
+        m_Animator.SetLookAtWeight(1f);
+    }
+
+    private void SetIkPosAndRot(AvatarIKGoal bodyName, float value, Transform goal = null)
+    {
+        m_Animator.SetIKPositionWeight(bodyName, value);
+        m_Animator.SetIKRotationWeight(bodyName, value);
+        if (goal != null)
+        {
+            m_Animator.SetIKPosition(bodyName, goal.position);
+            m_Animator.SetIKRotation(bodyName, goal.rotation);
+        }
+    }
+}

@@ -1,0 +1,256 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c21540f300c0c4eaa3632fff526654, type: 3}
+  m_Name: MSEnemy10109
+  m_EditorClassIdentifier: 
+  m_WeaponStyle: 0
+  m_SkillItems:
+  - m_ID: 1
+    m_AnimStates:
+    - m_Name: LightAttack1_L
+      m_EventData: {fileID: 11400000, guid: cf72fa6368f1f8a4983a8037fa8a99ad, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_AutoArmWeapon: 0
+    m_ChainSkillIDs: 02000000
+    m_AIPramAttackDistance:
+      minValue: 4
+      maxValue: 8
+    m_AttackTriggerDistance: 0
+  - m_ID: 2
+    m_AnimStates:
+    - m_Name: LightAttack1_R
+      m_EventData: {fileID: 11400000, guid: ab0ceb21fc5da5044ac0bc66b622f791, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_AutoArmWeapon: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 4
+      maxValue: 8
+    m_AttackTriggerDistance: 0
+  - m_ID: 3
+    m_AnimStates:
+    - m_Name: LightAttack2_1
+      m_EventData: {fileID: 11400000, guid: 3fdf6d51b6d875343ad1f1785e17aad3, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_AutoArmWeapon: 0
+    m_ChainSkillIDs: 04000000
+    m_AIPramAttackDistance:
+      minValue: 4
+      maxValue: 8
+    m_AttackTriggerDistance: 0
+  - m_ID: 4
+    m_AnimStates:
+    - m_Name: LightAttack2_2
+      m_EventData: {fileID: 11400000, guid: 6b30a3ac5212fd8498e44ca2b894611d, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_AutoArmWeapon: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 4
+      maxValue: 8
+    m_AttackTriggerDistance: 0
+  - m_ID: 5
+    m_AnimStates:
+    - m_Name: HeavyAttack1_1
+      m_EventData: {fileID: 11400000, guid: 0f2d22dd239f365488fc6265c37baa1c, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_AutoArmWeapon: 0
+    m_ChainSkillIDs: 0600000008000000
+    m_AIPramAttackDistance:
+      minValue: 4
+      maxValue: 8
+    m_AttackTriggerDistance: 0
+  - m_ID: 6
+    m_AnimStates:
+    - m_Name: HeavyAttack1_2L
+      m_EventData: {fileID: 11400000, guid: b9933ac747b1db14aa699f8eb5197d39, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_AutoArmWeapon: 0
+    m_ChainSkillIDs: 07000000
+    m_AIPramAttackDistance:
+      minValue: 4
+      maxValue: 8
+    m_AttackTriggerDistance: 0
+  - m_ID: 7
+    m_AnimStates:
+    - m_Name: HeavyAttack1_3L
+      m_EventData: {fileID: 11400000, guid: 269901f0b003ef646b07d0f1e241d7b1, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_AutoArmWeapon: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 4
+      maxValue: 8
+    m_AttackTriggerDistance: 0
+  - m_ID: 8
+    m_AnimStates:
+    - m_Name: HeavyAttack1_2R
+      m_EventData: {fileID: 11400000, guid: fee92ebe54e3e234caf7850032791729, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_AutoArmWeapon: 0
+    m_ChainSkillIDs: 09000000
+    m_AIPramAttackDistance:
+      minValue: 4
+      maxValue: 8
+    m_AttackTriggerDistance: 0
+  - m_ID: 9
+    m_AnimStates:
+    - m_Name: HeavyAttack1_3R
+      m_EventData: {fileID: 11400000, guid: 2dad264a63f3f7446a0595ce4f99c57b, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_AutoArmWeapon: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 4
+      maxValue: 8
+    m_AttackTriggerDistance: 0
+  - m_ID: 10
+    m_AnimStates:
+    - m_Name: RushAttack1
+      m_EventData: {fileID: 11400000, guid: 1297bc396c383c64f9a5516097829632, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_AutoArmWeapon: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 4
+      maxValue: 8
+    m_AttackTriggerDistance: 0
+  - m_ID: 11
+    m_AnimStates:
+    - m_Name: RushAttack2_1
+      m_EventData: {fileID: 11400000, guid: d781d17ccd2a8b34394e830d0ef37079, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_AutoArmWeapon: 0
+    m_ChainSkillIDs: 0c000000
+    m_AIPramAttackDistance:
+      minValue: 4
+      maxValue: 8
+    m_AttackTriggerDistance: 0
+  - m_ID: 12
+    m_AnimStates:
+    - m_Name: RushAttack2_2
+      m_EventData: {fileID: 11400000, guid: 9073fd17e1a0b2e4a8b6ba5740e9e1c1, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_AutoArmWeapon: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 4
+      maxValue: 8
+    m_AttackTriggerDistance: 0
+  - m_ID: 13
+    m_AnimStates:
+    - m_Name: SpecialAttack1
+      m_EventData: {fileID: 11400000, guid: 1855c6be6dae4a047bd5b29d178008b7, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_AutoArmWeapon: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 4
+      maxValue: 8
+    m_AttackTriggerDistance: 0
+  - m_ID: 14
+    m_AnimStates:
+    - m_Name: SpecialSkill1_Normal
+      m_EventData: {fileID: 11400000, guid: ecb90f0e8040f114b8930e4cb3501245, type: 2}
+    - m_Name: SpecialSkill1
+      m_EventData: {fileID: 0}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_AutoArmWeapon: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 4
+      maxValue: 8
+    m_AttackTriggerDistance: 0

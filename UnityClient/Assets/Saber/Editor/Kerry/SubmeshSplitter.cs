@@ -1,0 +1,260 @@
+using UnityEditor;
+using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.Windows;
+
+public class SubmeshSplitter
+{
+    //http://answers.unity3d.com/questions/1213025/separating-submeshes-into-unique-meshes.html
+    [MenuItem("美术/Submesh Splitter", false, 7002)]
+    public static void BuildWindowsAssetBundle()
+    {
+        GameObject[] objects = Selection.gameObjects;
+        for (int i = 0; i < objects.Length; i++)
+        {
+            ProcessGameObject(objects[i]);
+        }
+
+        UnityEngine.Debug.Log("Done splitting meshes into submeshes!  " + System.DateTime.Now);
+    }
+
+    public class MeshFromSubmesh
+    {
+        public Mesh mesh;
+        public int id; // Represent the ID of the sub mesh from with the new 'mesh' has been created
+    }
+
+    private static void ProcessGameObject(GameObject go)
+    {
+        SkinnedMeshRenderer meshRendererComponent = go.GetComponent<SkinnedMeshRenderer>();
+        if (!meshRendererComponent)
+        {
+            UnityEngine.Debug.LogError("MeshRenderer null for '" + go.name + "'!");
+            return;
+        }
+
+        Mesh mesh = go.GetComponent<SkinnedMeshRenderer>().sharedMesh;
+        if (!mesh)
+        {
+            UnityEngine.Debug.LogError("Mesh null for '" + go.name + "'!");
+            return;
+        }
+
+        List<MeshFromSubmesh> meshFromSubmeshes = GetAllSubMeshAsIsolatedMeshes(mesh);
+        if (meshFromSubmeshes == null || meshFromSubmeshes.Count == 0)
+        {
+            UnityEngine.Debug.LogError("List<MeshFromSubmesh> empty or null for '" + go.name + "'!");
+            return;
+        }
+
+        // string goName = go.name;
+        var rootPath = AssetDatabase.GetAssetPath(mesh).Replace('.', '_') + "_SubMesh";
+        if (!Directory.Exists(rootPath))
+        {
+            Directory.CreateDirectory(rootPath);
+            AssetDatabase.Refresh();
+        }
+
+        for (int i = 0; i < meshFromSubmeshes.Count; i++)
+        {
+            //string meshFromSubmeshName = goName + "_sub_" + i;
+            string meshFromSubmeshName = meshRendererComponent.sharedMaterials[i].name;
+            GameObject meshFromSubmeshGameObject = new GameObject();
+            meshFromSubmeshGameObject.name = meshFromSubmeshName;
+            meshFromSubmeshGameObject.transform.SetParent(meshRendererComponent.transform);
+            meshFromSubmeshGameObject.transform.localPosition = Vector3.zero;
+            meshFromSubmeshGameObject.transform.localRotation = Quaternion.identity;
+            SkinnedMeshRenderer meshFromSubmeshMeshRendererComponent = meshFromSubmeshGameObject.AddComponent<SkinnedMeshRenderer>();
+            meshFromSubmeshMeshRendererComponent.sharedMesh = meshFromSubmeshes[i].mesh;
+            // Don't forget to save the newly created mesh in the asset database (on disk)
+            string path = $"{rootPath}/{meshFromSubmeshName}.asset"; //mehs_path + meshFromSubmeshName + ".asset";
+            AssetDatabase.CreateAsset(meshFromSubmeshes[i].mesh, path);
+            UnityEngine.Debug.Log("Created: " + path);
+            // To use the same mesh renderer properties of the initial mesh
+            EditorUtility.CopySerialized(meshRendererComponent, meshFromSubmeshMeshRendererComponent);
+            // We just need the only one material used by the sub mesh in its renderer
+            Material material = meshFromSubmeshMeshRendererComponent.sharedMaterials[meshFromSubmeshes[i].id];
+            meshFromSubmeshMeshRendererComponent.sharedMaterials = new[] { material };
+            var newMesh = AssetDatabase.LoadAssetAtPath<Mesh>(path);
+            meshFromSubmeshMeshRendererComponent.sharedMesh = newMesh;
+        }
+    }
+
+    private static List<MeshFromSubmesh> GetAllSubMeshAsIsolatedMeshes(Mesh mesh)
+    {
+        List<MeshFromSubmesh> meshesToReturn = new List<MeshFromSubmesh>();
+        if (!mesh)
+        {
+            UnityEngine.Debug.LogError("No mesh passed into GetAllSubMeshAsIsolatedMeshes!");
+            return meshesToReturn;
+        }
+
+        int submeshCount = mesh.subMeshCount;
+        if (submeshCount < 2)
+        {
+            UnityEngine.Debug.LogError("Only " + submeshCount + " submeshes in mesh passed to GetAllSubMeshAsIsolatedMeshes");
+            return meshesToReturn;
+        }
+
+        MeshFromSubmesh m1;
+        for (int i = 0; i < submeshCount; i++)
+        {
+            m1 = new MeshFromSubmesh();
+            m1.id = i;
+            m1.mesh = mesh.GetSubmesh(i);
+            meshesToReturn.Add(m1);
+        }
+
+        return meshesToReturn;
+    }
+}
+
+public static class MeshExtension
+{
+    private class Vertices
+    {
+        List<Vector3> verts = null;
+        List<Vector2> uv1 = null;
+        List<Vector2> uv2 = null;
+        List<Vector2> uv3 = null;
+        List<Vector2> uv4 = null;
+        List<Vector3> normals = null;
+        List<Vector4> tangents = null;
+        List<Color32> colors = null;
+        List<BoneWeight> boneWeights = null;
+        public List<Matrix4x4> bindposes = null;
+
+        public Vertices()
+        {
+            verts = new List<Vector3>();
+        }
+
+        public Vertices(Mesh aMesh)
+        {
+            verts = CreateList(aMesh.vertices);
+            uv1 = CreateList(aMesh.uv);
+            uv2 = CreateList(aMesh.uv2);
+            uv3 = CreateList(aMesh.uv3);
+            uv4 = CreateList(aMesh.uv4);
+            normals = CreateList(aMesh.normals);
+            tangents = CreateList(aMesh.tangents);
+            colors = CreateList(aMesh.colors32);
+            boneWeights = CreateList(aMesh.boneWeights);
+            bindposes = CreateList(aMesh.bindposes);
+        }
+
+        private List<T> CreateList<T>(T[] aSource)
+        {
+            if (aSource == null || aSource.Length == 0)
+                return null;
+            return new List<T>(aSource);
+        }
+
+        private void Copy<T>(ref List<T> aDest, List<T> aSource, int aIndex)
+        {
+            if (aSource == null)
+                return;
+            if (aDest == null)
+                aDest = new List<T>();
+            aDest.Add(aSource[aIndex]);
+        }
+
+        public int Add(Vertices aOther, int aIndex)
+        {
+            int i = verts.Count;
+            Copy(ref verts, aOther.verts, aIndex);
+            Copy(ref uv1, aOther.uv1, aIndex);
+            Copy(ref uv2, aOther.uv2, aIndex);
+            Copy(ref uv3, aOther.uv3, aIndex);
+            Copy(ref uv4, aOther.uv4, aIndex);
+            Copy(ref normals, aOther.normals, aIndex);
+            Copy(ref tangents, aOther.tangents, aIndex);
+            Copy(ref colors, aOther.colors, aIndex);
+            Copy(ref boneWeights, aOther.boneWeights, aIndex);
+            //Copy(ref bindposes, aOther.bindposes, aIndex);
+            return i;
+        }
+
+        public void AssignTo(Mesh aTarget)
+        {
+            aTarget.SetVertices(verts);
+            if (uv1 != null) aTarget.SetUVs(0, uv1);
+            if (uv2 != null) aTarget.SetUVs(1, uv2);
+            if (uv3 != null) aTarget.SetUVs(2, uv3);
+            if (uv4 != null) aTarget.SetUVs(3, uv4);
+            if (normals != null) aTarget.SetNormals(normals);
+            if (tangents != null) aTarget.SetTangents(tangents);
+            if (colors != null) aTarget.SetColors(colors);
+            if (boneWeights != null) aTarget.boneWeights = boneWeights.ToArray();
+            if (bindposes != null) aTarget.bindposes = bindposes.ToArray();
+        }
+    }
+
+    public static Mesh GetSubmesh(this Mesh aMesh, int aSubMeshIndex)
+    {
+        if (aSubMeshIndex < 0 || aSubMeshIndex >= aMesh.subMeshCount)
+            return null;
+        int[] indices = aMesh.GetTriangles(aSubMeshIndex);
+        Vertices source = new Vertices(aMesh);
+        Vertices dest = new Vertices();
+        Dictionary<int, int> map = new Dictionary<int, int>();
+        int[] newIndices = new int[indices.Length];
+        for (int i = 0; i < indices.Length; i++)
+        {
+            int o = indices[i];
+            int n;
+            if (!map.TryGetValue(o, out n))
+            {
+                n = dest.Add(source, o);
+                map.Add(o, n);
+            }
+
+            newIndices[i] = n;
+        }
+
+        dest.bindposes = source.bindposes;
+        Mesh m = new Mesh();
+        m.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+        dest.AssignTo(m);
+        m.triangles = newIndices;
+        //CopyBlendShape(aMesh, m, map);
+        return m;
+    }
+
+    static void CopyBlendShape(Mesh from, Mesh to, Dictionary<int, int> map)
+    {
+        Dictionary<int, int> newMap = new();
+        foreach (var pair in map)
+        {
+            newMap.Add(pair.Value, pair.Key);
+        }
+
+        Vector3[] vertexFrom = new Vector3[from.vertexCount];
+        Vector3[] normalFrom = new Vector3[from.vertexCount];
+        Vector3[] tangentFrom = new Vector3[from.vertexCount];
+        Vector3[] vertexTo = new Vector3[to.vertexCount];
+        Vector3[] normalTo = new Vector3[to.vertexCount];
+        Vector3[] tangentTo = new Vector3[to.vertexCount];
+
+        for (int i = 0; i < from.blendShapeCount; i++)
+        {
+            string name = from.GetBlendShapeName(i);
+            int frameCount = from.GetBlendShapeFrameCount(i);
+
+            for (int j = 0; j < frameCount; j++)
+            {
+                float weight = from.GetBlendShapeFrameWeight(i, j);
+                from.GetBlendShapeFrameVertices(i, j, vertexFrom, normalFrom, tangentFrom);
+                for (int k = 0; k < to.vertexCount; k++)
+                {
+                    int originIndex = newMap[k];
+                    vertexTo[k] = vertexFrom[originIndex];
+                    normalTo[k] = normalFrom[originIndex];
+                    tangentTo[k] = tangentFrom[originIndex];
+                }
+
+                to.AddBlendShapeFrame(name, weight, vertexTo, normalTo, tangentTo);
+            }
+        }
+    }
+}
