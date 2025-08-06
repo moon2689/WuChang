@@ -56,7 +56,11 @@ namespace Saber.CharacterController
         public float TimeMultiplier
         {
             get => m_TimeMultiplier;
-            set => m_TimeMultiplier = value;
+            set
+            {
+                m_TimeMultiplier = value;
+                //Debug.Log($"time:{value}");
+            }
         }
 
         public BaseAI AI
@@ -481,11 +485,6 @@ namespace Saber.CharacterController
             CStats.PlayHealingEffect(CStats.MaxHp);
             CStats.ResetHPPointCount();
             CStats.ResetPower();
-
-            if (CStats.CurrentPower < 10)
-            {
-                CStats.CurrentPower = 10;
-            }
         }
 
         #endregion

@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: LightAttack1
   m_EditorClassIdentifier: 
   AbilityType: 0
-  Clip: {fileID: -2834233828350774366, guid: 21bbabdd0784d4b4f8a5399c65ae6d3b, type: 3}
+  Clip: {fileID: -2834233828350774366, guid: eb054940d462ab34189d759aceb3cfd9, type: 3}
   PreviewPercentageRange: {x: 0, y: 1}
   loopCount: 0
   events:
@@ -66,7 +66,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -3727932080083899111}
-  - EventTime: 0.5483871
+  - EventTime: 0.46451613
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2

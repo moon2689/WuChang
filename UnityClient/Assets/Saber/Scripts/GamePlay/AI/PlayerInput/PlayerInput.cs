@@ -51,28 +51,6 @@ namespace Saber.AI
 
         protected PlayerCamera PlayerCameraObj => GameApp.Entry.Game.PlayerCamera;
 
-        bool CanAheadInput
-        {
-            get
-            {
-                if (Actor == null)
-                    return false;
-
-                EStateType curState = Actor.CurrentStateType;
-                if (curState == EStateType.Dodge || curState == EStateType.Defense)
-                {
-                    return true;
-                }
-
-                if (curState == EStateType.Skill)
-                {
-                    return Actor.CurrentSkill.CurrentAttackState != EAttackStates.BeforeAttack && !Actor.CurrentSkill.ComboTimePassed;
-                }
-
-                return false;
-            }
-        }
-
 
         public abstract bool Active { set; }
         public abstract void OnPlayerExitPortal(Portal portal);
@@ -121,7 +99,7 @@ namespace Saber.AI
 
             bool succeed = Actor.TryTriggerSkill(key);
             // Debug.Log($"try trigger skill {key} {succeed}");
-            if (!succeed && CanAheadInput)
+            if (!succeed)
             {
                 m_AheadInput.SetData_Skill(key);
             }
@@ -135,16 +113,16 @@ namespace Saber.AI
                 return;
             }
 
-            if (!CanAheadInput)
-            {
-                m_AheadInput.Clear();
-                return;
-            }
-
             if (m_AheadInput.TryTrigger(Actor))
             {
                 m_AheadInput.Clear();
             }
+        }
+
+        protected void StartMove(EMoveSpeedV speedV, Vector3 axis)
+        {
+            Actor.StartMove(speedV, axis);
+            m_AheadInput.Clear();
         }
 
         protected void OnDefenseDown()
@@ -224,11 +202,8 @@ namespace Saber.AI
 
         protected void OnDodgeDown()
         {
-            Actor.Dodge();
-            /*
             if (!Actor.Dodge())
                 m_AheadInput.SetData_Dodge(Actor.MovementAxis);
-            */
         }
 
         public override void Update()
@@ -324,7 +299,7 @@ namespace Saber.AI
                 if (dir.magnitude > distanceOffset)
                 {
                     Actor.DesiredLookDir = dir;
-                    Actor.StartMove(EMoveSpeedV.Walk, new Vector3(0, 0, 1));
+                    StartMove(EMoveSpeedV.Walk, new Vector3(0, 0, 1));
                 }
                 else
                 {

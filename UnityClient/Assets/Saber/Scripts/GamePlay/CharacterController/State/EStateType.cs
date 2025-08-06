@@ -26,7 +26,6 @@ namespace Saber.CharacterController
         WaitStateCanExit = 2, //等待状态可退出时即可转换
         DodgeToSprint = 3,
         CanTriggerSkill = 4, //检查是否可以释放技能
-        WaitSkillCanCombo = 5,
     }
 
     public static class StateHelper

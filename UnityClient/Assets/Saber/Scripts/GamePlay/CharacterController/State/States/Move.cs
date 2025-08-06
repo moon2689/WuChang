@@ -4,11 +4,8 @@ namespace Saber.CharacterController
 {
     public class Move : ActorStateBase, ISkillCanTrigger
     {
-        private const float k_NoInputEndTime = 0.04f;
-
         private ActorFootstep[] m_ActorFootstep;
         private string m_EndAnim;
-        private float m_TimerCheckEnd;
         private SCharacter m_Character;
 
 
@@ -57,8 +54,6 @@ namespace Saber.CharacterController
             Actor.CAnim.ResetSmoothFloat(EAnimatorParams.Horizontal, 0);
             Actor.CAnim.ResetSmoothFloat(EAnimatorParams.Vertical, 0);
 
-            m_TimerCheckEnd = k_NoInputEndTime;
-
             Actor.UpdateMovementAxisAnimatorParams = false;
 
             for (int i = 0; i < m_ActorFootstep.Length; i++)
@@ -80,31 +75,22 @@ namespace Saber.CharacterController
             }
 
             // 无输入则认为移动自动结束
-            if (!Actor.IsDraggingMovementAxis)
-                //if (Actor.MovementAxisMagnitude < 0.1f)
+            if (Actor.MovementAxisMagnitude < 0.1f)
             {
-                m_TimerCheckEnd -= base.DeltaTime;
-                if (m_TimerCheckEnd < 0)
+                // 播放急停动画
+                m_EndAnim = GetEndAnim();
+                if (m_EndAnim.IsNotEmpty())
                 {
-                    // 播放急停动画
-                    m_EndAnim = GetEndAnim();
-                    if (m_EndAnim.IsNotEmpty())
-                    {
-                        Actor.CAnim.Play(m_EndAnim, blendTime: 0.1f);
-                        Actor.CAnim.SetSmoothFloat(EAnimatorParams.Horizontal, 0);
-                        Actor.CAnim.SetSmoothFloat(EAnimatorParams.Vertical, 0);
-                    }
-                    else
-                    {
-                        Exit();
-                    }
-
-                    return true;
+                    Actor.CAnim.Play(m_EndAnim, blendTime: 0.1f);
+                    Actor.CAnim.SetSmoothFloat(EAnimatorParams.Horizontal, 0);
+                    Actor.CAnim.SetSmoothFloat(EAnimatorParams.Vertical, 0);
                 }
-            }
-            else
-            {
-                m_TimerCheckEnd = k_NoInputEndTime;
+                else
+                {
+                    Exit();
+                }
+
+                return true;
             }
 
             return false;

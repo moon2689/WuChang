@@ -134,7 +134,7 @@ public class SkillConfigEditor : EditorBase
         item.m_FirstSkillOfCombo = EditorGUILayout.Toggle("起手技能:", item.m_FirstSkillOfCombo);
         if (item.m_FirstSkillOfCombo)
         {
-            item.m_CostPower = EditorGUILayout.FloatField("消耗能量:", item.m_CostPower);
+            item.m_CostPower = EditorGUILayout.IntField("消耗能量:", item.m_CostPower);
             item.m_CDSeconds = EditorGUILayout.FloatField("冷却时间（秒）:", item.m_CDSeconds);
         }
 

@@ -119,8 +119,6 @@ namespace Saber.CharacterController
             
             PlayDamageEffect(actor, hurtBox, curDmgInfo);
 
-            actor.CStats.CurrentPower += 3;
-
             // 声音
             PlayHitSound(actor, false, hurtBox, curDmgInfo);
 

@@ -223,7 +223,7 @@ public static class SaberTools
     }
 
     [MenuItem("Saber/打开场景 Launcher")]
-    static void OpenScene_Launcher()
+    public static void OpenScene_Launcher()
     {
         EditorSceneManager.OpenScene("Assets/Saber/Scenes/SLauncher.unity");
     }

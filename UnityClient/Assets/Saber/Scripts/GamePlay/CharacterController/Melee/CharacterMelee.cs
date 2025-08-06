@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Saber.CharacterController
 {
     /// <summary>处理角色战斗相关事务</summary>
-    public class CharacterMelee : SkillHeavyAttack.IHandler
+    public class CharacterMelee
     {
         public event Action Event_OnToggleArmedWeapon;
 
@@ -47,8 +47,6 @@ namespace Saber.CharacterController
                 return m_Skills;
             }
         }
-
-        public bool IsPressingHeavyAttack { get; set; }
 
         public BaseSkill this[int id]
         {
@@ -103,11 +101,7 @@ namespace Saber.CharacterController
             foreach (var item in m_SkillConfig.m_SkillItems)
             {
                 BaseSkill skillObj;
-                if (item.m_SkillType == ESkillType.HeavyAttack)
-                {
-                    skillObj = new SkillHeavyAttack(Actor, item, this);
-                }
-                else if (item.m_SkillType == ESkillType.Decapitate)
+                if (item.m_SkillType == ESkillType.Decapitate)
                 {
                     skillObj = m_SkillExecute = new SkillExecute(Actor, item);
                 }
@@ -326,16 +320,6 @@ namespace Saber.CharacterController
 
         public void Update()
         {
-            if (IsPressingHeavyAttack)
-            {
-                TryTriggerSkill(ESkillType.HeavyAttack);
-            }
-
-            // if (CHitReaction.Valid)
-            // {
-            //     CHitReaction.Update();
-            // }
-
             if (m_TimerClearAttackedDamageInfo >= 0)
             {
                 m_TimerClearAttackedDamageInfo -= Actor.DeltaTime;
@@ -350,7 +334,5 @@ namespace Saber.CharacterController
         {
             CWeapon.ToggleDamage(damage, enable);
         }
-
-        bool SkillHeavyAttack.IHandler.IsPressingKey => this.IsPressingHeavyAttack;
     }
 }

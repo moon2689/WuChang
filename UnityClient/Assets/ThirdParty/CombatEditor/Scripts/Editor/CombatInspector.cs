@@ -153,8 +153,8 @@ namespace CombatEditor
                         if (TargetObj.objectReferenceValue != null)
                         {
                             DrawAnimationClipSelector((AbilityScriptableObject)TargetObj.objectReferenceValue);
-                            DrawAbilityEventSelector((AbilityScriptableObject)TargetObj.objectReferenceValue);
                             DrawSelectSkillAnim((AbilityScriptableObject)TargetObj.objectReferenceValue);
+                            DrawAbilityEventSelector((AbilityScriptableObject)TargetObj.objectReferenceValue);
                         }
                     }
                 }
@@ -221,12 +221,7 @@ namespace CombatEditor
                 }
 
                 // [saber]
-                if (GUILayout.Button("Save"))
-                {
-                    m_CombatEditor.SaveControllersFromSceneToAsset();
-                }
-
-                if (GUILayout.Button("Clear Controllers"))
+                if (GUILayout.Button("清理"))
                 {
                     m_CombatEditor.ClearControllersInScene();
                 }
@@ -234,6 +229,16 @@ namespace CombatEditor
                 if (GUILayout.Button("关联技能配置"))
                 {
                     LinkSkillConfig();
+                }
+
+                if (GUILayout.Button("保存"))
+                {
+                    m_CombatEditor.SaveControllersFromSceneToAsset();
+                }
+
+                if (GUILayout.Button("离开"))
+                {
+                    SaberTools.OpenScene_Launcher();
                 }
             }
 

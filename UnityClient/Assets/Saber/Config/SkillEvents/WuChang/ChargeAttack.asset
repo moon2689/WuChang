@@ -1,0 +1,234 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9182644930719023948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4321efb720844eebda3a90b5dd0b8d5, type: 3}
+  m_Name: WeaponDamage
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_WeaponDamageSetting:
+    m_WeaponBone: 24
+    m_DamageValue: 5
+    m_DamageLevel: 0
+    m_ForceWhenGround: {x: 0, y: 0}
+    m_ForceWhenAir: {x: 0, y: 0}
+    m_OwnerForce: {x: 0, y: 0}
+    m_AlignEnemyPosWhenAirAttack: 0
+    m_AlignEnemyOffsetWhenAirAttack: {x: 1, y: 0}
+    m_AlignEnemyPosSecondsWhenAirAttack: 0.3
+--- !u!114 &-4971889854022305811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b6cfcfadd54440b975c2de0758518c, type: 3}
+  m_Name: AttackStates
+  m_EditorClassIdentifier: 
+  IsActive: 1
+--- !u!114 &-2886653428981209368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b781d06c00f873041aca107545370fa8, type: 3}
+  m_Name: DynamicTrail
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_WeaponBone: 24
+--- !u!114 &-1778113032579178570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d501cefcbf4f07b853a4b98226242e, type: 3}
+  m_Name: ChargeTime
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_QuickAnimSpeed: 5
+--- !u!114 &-1537055399419179549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f29d956cd14f76ae2ff6fbffccde20, type: 3}
+  m_Name: AlignToEnemy
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_RotateSpeed: 1080
+--- !u!114 &-64503482192311057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
+  m_Name: CanExit
+  m_EditorClassIdentifier: 
+  IsActive: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 757d9b080c65e9847b379b2a8a5ae8ab, type: 3}
+  m_Name: ChargeAttack
+  m_EditorClassIdentifier: 
+  AbilityType: 0
+  Clip: {fileID: -2142135557221048889, guid: eb054940d462ab34189d759aceb3cfd9, type: 3}
+  PreviewPercentageRange: {x: 0, y: 1}
+  loopCount: 0
+  events:
+  - EventTime: 0
+    EventRange: {x: 0, y: 0.185}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -1537055399419179549}
+  - EventTime: 0.74
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -64503482192311057}
+  - EventTime: 0.505
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 5327589079539160278}
+  - EventTime: 0
+    EventRange: {x: 0.48, y: 0.6}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -2886653428981209368}
+  - EventTime: 0
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -4971889854022305811}
+  - EventTime: 0
+    EventRange: {x: 0.49, y: 0.565}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -9182644930719023948}
+  - EventTime: 0
+    EventRange: {x: 0.335, y: 0.51}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 9122247368379906697}
+  - EventTime: 0
+    EventRange: {x: 0.66, y: 0.695}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 8133752312050658843}
+  - EventTime: 0
+    EventRange: {x: 0.11, y: 0.395}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -1778113032579178570}
+--- !u!114 &5327589079539160278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFX
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 964d0795c33f72e41977438324bad0f7, type: 3}
+  m_Volume: 1
+--- !u!114 &8133752312050658843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb9d103b2e74362b49578d9f2b35094, type: 3}
+  m_Name: ComboTime
+  m_EditorClassIdentifier: 
+  IsActive: 1
+--- !u!114 &9122247368379906697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f29d956cd14f76ae2ff6fbffccde20, type: 3}
+  m_Name: AlignToEnemy2
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_RotateSpeed: 1080

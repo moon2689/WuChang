@@ -17,11 +17,13 @@ namespace Saber.AI
         private GodStatue m_CurrentStayingGodStatue;
         private Vector3 m_Stick;
         private float m_StickLength;
+        private bool m_ToCheckChargeAttack;
+        private float m_PressDownHeavyAttackTime;
 
 
         public override bool Active
         {
-            set { s_WndJoyStick.IsShow = value; }
+            set => s_WndJoyStick.IsShow = value;
         }
 
         public override void Init(SActor actor)
@@ -72,6 +74,8 @@ namespace Saber.AI
             }
 
             UpdateMovement();
+
+            UpdateHeavyAttack();
         }
 
         // 镜头
@@ -219,21 +223,15 @@ namespace Saber.AI
             }
             else if (m_Sprint)
             {
-                Actor.MoveSpeedV = EMoveSpeedV.Sprint;
-                Actor.MovementAxis = m_Stick;
-                Actor.StartMove();
+                StartMove(EMoveSpeedV.Sprint, m_Stick);
             }
             else if (m_StickLength > 0.5f)
             {
-                Actor.MoveSpeedV = EMoveSpeedV.Run;
-                Actor.MovementAxis = m_Stick;
-                Actor.StartMove();
+                StartMove(EMoveSpeedV.Run, m_Stick);
             }
             else if (m_StickLength > 0.1f)
             {
-                Actor.MoveSpeedV = EMoveSpeedV.Walk;
-                Actor.MovementAxis = m_Stick;
-                Actor.StartMove();
+                StartMove(EMoveSpeedV.Walk, m_Stick);
             }
             else
             {
@@ -249,10 +247,7 @@ namespace Saber.AI
 
         void Wnd_JoyStick.IHandler.OnPressFly(bool value)
         {
-           
         }
-
-     
 
         void Wnd_JoyStick.IHandler.OnPressDodge(bool value)
         {
@@ -280,7 +275,30 @@ namespace Saber.AI
 
         void Wnd_JoyStick.IHandler.OnPressHeavyAttack(bool press)
         {
-            Actor.CMelee.IsPressingHeavyAttack = press;
+            m_ToCheckChargeAttack = press;
+            if (press)
+            {
+                m_PressDownHeavyAttackTime = Time.time;
+            }
+            else
+            {
+                if (Time.time - m_PressDownHeavyAttackTime < 0.2f)
+                {
+                    OnTriggerSkill(ESkillType.HeavyAttack);
+                }
+            }
+        }
+
+        void UpdateHeavyAttack()
+        {
+            if (m_ToCheckChargeAttack)
+            {
+                if (Time.time - m_PressDownHeavyAttackTime >= 0.2f)
+                {
+                    m_ToCheckChargeAttack = false;
+                    OnTriggerSkill(ESkillType.Skill1);
+                }
+            }
         }
 
         #endregion

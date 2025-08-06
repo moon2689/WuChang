@@ -27,22 +27,20 @@ namespace Saber.CharacterController
         public event Action OnPowerChange;
 
         private const int k_MaxHPCount = 10;
-        private const float k_PerPowerPointValue = 10;
 
         private IHandler m_Handler;
 
         private float m_CurrentHp,
-            m_CurrentStamina,
-            m_CurrentPower;
+            m_CurrentStamina;
 
         private float
             m_TimerRecoverStrengthDelay,
             m_TimerRecoverSuperArmor,
-            m_TimerStunBySuperArmorZero,
-            m_TimerReducePowerDelay;
+            m_TimerStunBySuperArmorZero;
 
         private EffectObject m_HealingEffect;
         private int m_HPPotionCount;
+        public int m_CurrentPower;
 
 
         SActor Actor { get; set; }
@@ -102,23 +100,19 @@ namespace Saber.CharacterController
 
         public bool IsHPFull => CurrentHp >= MaxHp;
 
-        public float CurrentPower
+        public int CurrentPower
         {
             get => m_CurrentPower;
-            set
+            private set
             {
                 m_CurrentPower = Mathf.Clamp(value, 0, MaxPower);
-                CurrentPowerPointCount = Mathf.FloorToInt(m_CurrentPower / k_PerPowerPointValue);
                 OnPowerChange?.Invoke();
-                m_TimerReducePowerDelay = 5;
             }
         }
 
         public float CurrentHPRatio { get; private set; }
         public float CurrentStaminaRatio { get; private set; }
-        private float MaxPower => Actor.StatsInfo.m_MaxPower;
-        public int MaxPowerPointCount => Mathf.FloorToInt(MaxPower / k_PerPowerPointValue);
-        public int CurrentPowerPointCount { get; private set; }
+        public int MaxPower => Actor.StatsInfo.m_MaxPower;
         public int ParredTimesSum { get; set; }
 
 
@@ -153,16 +147,6 @@ namespace Saber.CharacterController
             UpdateSuperArmor(deltaTime);
             UpdateHp(deltaTime);
             UpdateStamina(deltaTime);
-            //UpdatePower(deltaTime);
-        }
-
-        void UpdatePower(float deltaTime)
-        {
-            m_TimerReducePowerDelay -= deltaTime;
-            if (m_TimerReducePowerDelay <= 0 && CurrentPower > 0)
-            {
-                CurrentPower -= deltaTime * 3;
-            }
         }
 
         void UpdateHp(float deltaTime)
@@ -252,14 +236,17 @@ namespace Saber.CharacterController
 
         public void CostStamina(float value)
         {
-            /*
             CurrentStamina -= value;
 
             if (CurrentStamina <= 0)
             {
                 m_TimerRecoverStrengthDelay = 3;
             }
-            */
+        }
+
+        public void CostPower(int value)
+        {
+            CurrentPower -= value;
         }
 
         public void PlayHealingEffect(float hpValue)

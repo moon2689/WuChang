@@ -10,7 +10,7 @@ namespace Saber.AI
         {
             None,
             Skill,
-            //Dodge,
+            Dodge,
         }
 
         private EAheadInputType m_AheadType;
@@ -25,12 +25,10 @@ namespace Saber.AI
             {
                 return owner.TryTriggerSkill(m_Key);
             }
-            /*
             else if (m_AheadType == EAheadInputType.Dodge)
             {
                 return owner.Dodge(m_DodgeAxis);
             }
-            */
             else
             {
                 Debug.LogError("Unknown type:" + m_AheadType);
@@ -46,13 +44,12 @@ namespace Saber.AI
             m_Key = key;
         }
 
-        /*
         public void SetData_Dodge(Vector3 axis)
         {
+            //Debug.Log("SetData_Dodge:" + axis);
             m_AheadType = EAheadInputType.Dodge;
             m_DodgeAxis = axis;
         }
-        */
 
         public void Clear()
         {

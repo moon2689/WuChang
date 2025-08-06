@@ -37,7 +37,7 @@ namespace Saber.CharacterController
         public SkillAnimStateMachine[] m_AnimStates;
 
         public float CostStrength = 5;
-        public float m_CostPower;
+        public int m_CostPower;
         public float m_CDSeconds;
         public ESkillType m_SkillType;
         public ETriggerCondition m_TriggerCondition;
@@ -73,9 +73,7 @@ namespace Saber.CharacterController
         InGround,
         InAir,
         InDodgeForward,
-        InDodgeBack,
-        InDodgeLeft,
-        InDodgeRight,
+        InDodgeNotForward,
         InSprint,
     }
 

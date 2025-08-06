@@ -198,15 +198,36 @@ namespace Saber.CharacterController
             }
             else if (canSwitchType == EStateSwitchType.DodgeToSprint)
             {
-                if (Actor.MoveSpeedV == EMoveSpeedV.Sprint && CurrentState is Dodge dodge)
+                if (CurrentState.CanExit || !CurrentState.IsTriggering)
+                {
+                    return true;
+                }
+                else if (Actor.MoveSpeedV == EMoveSpeedV.Sprint && CurrentState is Dodge dodge)
                 {
                     return dodge.CanSwitchToSprint;
                 }
                 else
                 {
-                    return CurrentState.CanExit || !CurrentState.IsTriggering;
+                    return false;
                 }
             }
+            /*
+            else if (canSwitchType == EStateSwitchType.WaitSkillCanCombo)
+            {
+                if (CurrentState.CanExit || !CurrentState.IsTriggering)
+                {
+                    return true;
+                }
+                else if (CurrentState is SkillState skillState)
+                {
+                    return skillState.CurSkill.ComboTimeEntered;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            */
             else
             {
                 throw new InvalidOperationException("Unknown switch type: " + canSwitchType);

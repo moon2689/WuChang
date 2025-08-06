@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: LightAttack5
   m_EditorClassIdentifier: 
   AbilityType: 0
-  Clip: {fileID: 143067439738587107, guid: 21bbabdd0784d4b4f8a5399c65ae6d3b, type: 3}
+  Clip: {fileID: 143067439738587107, guid: eb054940d462ab34189d759aceb3cfd9, type: 3}
   PreviewPercentageRange: {x: 0, y: 1}
   loopCount: 0
   events:
@@ -83,7 +83,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -259096184214991634}
-  - EventTime: 0.5561497
+  - EventTime: 0.5775401
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -128,6 +128,28 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 6302318942914092496}
+  - EventTime: 0
+    EventRange: {x: 0.51336896, y: 0.56684494}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 5679929145430581010}
+--- !u!114 &5679929145430581010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb9d103b2e74362b49578d9f2b35094, type: 3}
+  m_Name: ComboTime
+  m_EditorClassIdentifier: 
+  IsActive: 1
 --- !u!114 &6302318942914092496
 MonoBehaviour:
   m_ObjectHideFlags: 0

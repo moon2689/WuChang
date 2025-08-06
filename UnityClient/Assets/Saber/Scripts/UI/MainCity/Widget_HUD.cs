@@ -110,7 +110,7 @@ namespace Saber.UI
 
         void RefreshPowerPoints()
         {
-            for (int i = 0; i < this.m_Actor.CStats.MaxPowerPointCount; i++)
+            for (int i = 0; i < this.m_Actor.CStats.MaxPower; i++)
             {
                 GameObject go;
                 if (i < m_PowerPoints.Count)
@@ -125,7 +125,7 @@ namespace Saber.UI
                     go.SetActive(true);
                 }
 
-                go.transform.GetChild(0).gameObject.SetActive(i < this.m_Actor.CStats.CurrentPowerPointCount);
+                go.transform.GetChild(0).gameObject.SetActive(i < this.m_Actor.CStats.CurrentPower);
             }
         }
 

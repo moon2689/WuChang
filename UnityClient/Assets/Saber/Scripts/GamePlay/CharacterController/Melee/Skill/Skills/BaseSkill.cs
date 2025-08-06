@@ -13,6 +13,7 @@ namespace Saber.CharacterController
         private int m_LastAnimHash;
         private Vector2? m_Speed;
         private bool m_AnimParamToGounedTriggered;
+        private bool m_InComboTime;
 
 
         public event Action OnSkillTrigger;
@@ -20,7 +21,22 @@ namespace Saber.CharacterController
         public SActor Actor { get; private set; }
 
         public bool IsTriggering { get; private set; }
-        public bool InComboTime { get; set; }
+
+        public bool InComboTime
+        {
+            get => m_InComboTime;
+            set
+            {
+                m_InComboTime = value;
+                if (value)
+                {
+                    ComboTimeEntered = true;
+                }
+            }
+        }
+
+        public bool ComboTimeEntered { get; private set; }
+
         public SkillItem SkillConfig { get; private set; }
         public bool HasCD => SkillConfig.m_CDSeconds > 0;
 
@@ -29,11 +45,6 @@ namespace Saber.CharacterController
             get
             {
                 if (Actor.CStats.CurrentStamina <= 0)
-                {
-                    return false;
-                }
-
-                if (Actor.CStats.CurrentPower < SkillConfig.m_CostPower)
                 {
                     return false;
                 }
@@ -56,10 +67,8 @@ namespace Saber.CharacterController
                                 Actor.CurrentStateType == EStateType.Skill);
 
                     case ETriggerCondition.InSprint:
-                    case ETriggerCondition.InDodgeBack:
                     case ETriggerCondition.InDodgeForward:
-                    case ETriggerCondition.InDodgeLeft:
-                    case ETriggerCondition.InDodgeRight:
+                    case ETriggerCondition.InDodgeNotForward:
                         // 在状态机中判断
                         return true;
 
@@ -120,6 +129,8 @@ namespace Saber.CharacterController
         /// <summary>是否安静，不破除潜行状态</summary>
         public virtual bool IsQuiet => false;
 
+        public bool IsPowerEnough { get; private set; }
+
 
         public BaseSkill(SActor actor, SkillItem skillConfig)
         {
@@ -144,6 +155,12 @@ namespace Saber.CharacterController
             m_Speed = null;
             m_AnimParamToGounedTriggered = false;
 
+            IsPowerEnough = Actor.CStats.CurrentPower >= SkillConfig.m_CostPower;
+            if (IsPowerEnough)
+            {
+                Actor.CStats.CostPower(SkillConfig.m_CostPower);
+            }
+
             // play anim
             if (SkillConfig.m_AnimStates.Length > 0)
             {
@@ -162,7 +179,6 @@ namespace Saber.CharacterController
             }
 
             Actor.CStats.CostStamina(SkillConfig.CostStrength);
-            Actor.CStats.CurrentPower -= SkillConfig.m_CostPower;
 
             /*
             if (Actor.CurrentWeapons != null)

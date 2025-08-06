@@ -121,21 +121,13 @@ namespace Saber.CharacterController
                 return false;
             }
 
-            if (skill.m_TriggerCondition == ETriggerCondition.InDodgeBack)
-            {
-                return m_Dir == GameHelper.EDir4.Back;
-            }
-            else if (skill.m_TriggerCondition == ETriggerCondition.InDodgeForward)
+           if (skill.m_TriggerCondition == ETriggerCondition.InDodgeForward)
             {
                 return m_Dir == GameHelper.EDir4.Front;
             }
-            else if (skill.m_TriggerCondition == ETriggerCondition.InDodgeLeft)
+            else if (skill.m_TriggerCondition == ETriggerCondition.InDodgeNotForward)
             {
-                return m_Dir == GameHelper.EDir4.Left;
-            }
-            else if (skill.m_TriggerCondition == ETriggerCondition.InDodgeRight)
-            {
-                return m_Dir == GameHelper.EDir4.Right;
+                return m_Dir != GameHelper.EDir4.Front;
             }
 
             return false;

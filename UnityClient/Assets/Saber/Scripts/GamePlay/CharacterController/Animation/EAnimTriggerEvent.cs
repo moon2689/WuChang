@@ -24,7 +24,7 @@ namespace Saber.CharacterController
     public enum EAnimRangeEvent
     {
         CanTriggerSkill,
-        HeavyAttackSlowAnim,
+        InChargeTime,
         CanBeDecapitate, //可被处决
         AlignDirection,
         CancelGravity,
