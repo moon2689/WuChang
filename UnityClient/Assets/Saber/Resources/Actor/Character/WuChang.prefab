@@ -138,7 +138,7 @@ MonoBehaviour:
       m_DefaultHpRecSpeed: 0
       m_MaxStamina: 100
       m_MaxSuperArmorValue: 0
-      m_MaxPower: 10
+      m_MaxPower: 3
       m_ParriedMaxTimes: 3
     m_PhysicInfo:
       m_Mass: 50

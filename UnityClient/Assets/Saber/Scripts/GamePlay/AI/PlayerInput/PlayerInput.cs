@@ -91,6 +91,12 @@ namespace Saber.AI
 
         protected void OnTriggerSkill(ESkillType key)
         {
+            if (Actor.CStats.CurrentStamina <= 0)
+            {
+                GameApp.Entry.UI.ShowTips("体力不足");
+                GameApp.Entry.Game.Audio.PlaySoundSkillFailed();
+            }
+
             bool needFindEnemy = LockingEnemy == null || Actor.CurrentStateType != EStateType.Skill;
             if (needFindEnemy)
             {
@@ -111,6 +117,11 @@ namespace Saber.AI
             if (!m_AheadInput.IsEnabled)
             {
                 return;
+            }
+
+            if (Actor.CStats.CurrentStamina <= 0)
+            {
+                m_AheadInput.Clear();
             }
 
             if (m_AheadInput.TryTrigger(Actor))
@@ -202,6 +213,12 @@ namespace Saber.AI
 
         protected void OnDodgeDown()
         {
+            if (Actor.CStats.CurrentStamina <= 0)
+            {
+                GameApp.Entry.UI.ShowTips("体力不足");
+                GameApp.Entry.Game.Audio.PlaySoundSkillFailed();
+            }
+
             if (!Actor.Dodge())
                 m_AheadInput.SetData_Dodge(Actor.MovementAxis);
         }
