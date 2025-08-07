@@ -44,7 +44,7 @@ namespace Saber.CharacterController
         {
             get
             {
-                if (Actor.CStats.CurrentStamina <= 0)
+                if (SkillConfig.CostStrength > 0 && Actor.CStats.CurrentStamina <= 0)
                 {
                     return false;
                 }

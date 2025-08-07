@@ -91,10 +91,16 @@ namespace Saber.AI
 
         protected void OnTriggerSkill(ESkillType key)
         {
-            if (Actor.CStats.CurrentStamina <= 0)
+            var tarSkill = GameApp.Entry.Game.Player.CMelee.GetSkillObject(key);
+            if (tarSkill.SkillConfig.CostStrength > 0 && Actor.CStats.CurrentStamina <= 0)
             {
                 GameApp.Entry.UI.ShowTips("体力不足");
                 GameApp.Entry.Game.Audio.PlaySoundSkillFailed();
+            }
+            else if (!tarSkill.IsCDCooldown)
+            {
+                GameApp.Entry.Game.Audio.PlaySoundSkillFailed();
+                GameApp.Entry.UI.ShowTips("技能正在冷却中", 0.1f);
             }
 
             bool needFindEnemy = LockingEnemy == null || Actor.CurrentStateType != EStateType.Skill;

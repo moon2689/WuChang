@@ -20,6 +20,7 @@ namespace CombatEditor
         //public TrailBehavior uvMethod;
         */
         public ENodeType m_WeaponBone = ENodeType.RightHand;
+        public bool m_NotTriggerWhenPowerEnough;
 
         //Write the data you need here.
         public override EventTimeType GetEventTimeType()
@@ -68,7 +69,16 @@ namespace CombatEditor
             executor.trail = trail;
             executor.StartTrail();
             */
-            base.Actor.CMelee.CWeapon.ShowWeaponTrail(EventObj.m_WeaponBone);
+            
+            bool trigger = true;
+            if (EventObj.m_NotTriggerWhenPowerEnough)
+            {
+                if (base.CurrentSkill.IsPowerEnough)
+                    trigger = false;
+            }
+
+            if (trigger)
+                base.Actor.CMelee.CWeapon.ShowWeaponTrail(EventObj.m_WeaponBone);
         }
 
         protected override void EndEffect()

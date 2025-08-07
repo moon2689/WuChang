@@ -59,4 +59,10 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f143ae5855760874eb7499c702326f41, type: 2}
     - {fileID: 11400000, guid: 45e3bb3cea5dd0248b0d833ef1fd8c40, type: 2}
     - {fileID: 11400000, guid: 3c42489d62b488743bdd7fe23ed63b33, type: 2}
+    - {fileID: 11400000, guid: 1ebe61dfe1d1f74439547d6c96c82dff, type: 2}
+  - IsFolded: 1
+    Label: Skill
+    CombatObjs:
+    - {fileID: 11400000, guid: 4b7853feca07eba40b7d1494f9d574df, type: 2}
+    - {fileID: 11400000, guid: df9e12259360e0a43a58ffdb6fe6ca33, type: 2}
   clip: {fileID: 0}

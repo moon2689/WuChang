@@ -337,16 +337,34 @@ namespace Saber.CharacterController
         {
             foreach (var c in m_DressingClothes)
             {
-                GameObject obj = GetClothObj(c);
-                SkinnedMeshRenderer[] smrArray = obj.GetComponentsInChildren<SkinnedMeshRenderer>();
-                foreach (var smr in smrArray)
+                GameObject clothObj = GetClothObj(c);
+                if (IsTheBoneUsed(bone, clothObj))
                 {
-                    if (smr.rootBone == bone)
-                        return true;
-
-                    if (smr.bones.Any(a => a == bone))
-                        return true;
+                    return true;
                 }
+            }
+
+            foreach (var pair in m_DicDefaultClothes)
+            {
+                if (IsTheBoneUsed(bone, pair.Value))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        static bool IsTheBoneUsed(Transform bone, GameObject clothObj)
+        {
+            SkinnedMeshRenderer[] smrArray = clothObj.GetComponentsInChildren<SkinnedMeshRenderer>();
+            foreach (var smr in smrArray)
+            {
+                if (smr.rootBone == bone)
+                    return true;
+
+                if (smr.bones.Any(a => a == bone))
+                    return true;
             }
 
             return false;

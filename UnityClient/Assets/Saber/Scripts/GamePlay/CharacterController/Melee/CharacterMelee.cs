@@ -8,8 +8,6 @@ namespace Saber.CharacterController
     /// <summary>处理角色战斗相关事务</summary>
     public class CharacterMelee
     {
-        public event Action Event_OnToggleArmedWeapon;
-
         private Dictionary<int, BaseSkill> m_DicSkills;
         private SkillConfig m_SkillConfig;
         private SkillItem[] m_Skills;

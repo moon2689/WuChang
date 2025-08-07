@@ -25,7 +25,7 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
-    m_ChainSkillIDs: 02000000090000000a000000
+    m_ChainSkillIDs: 02000000090000000a0000000c000000
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 2
@@ -41,7 +41,7 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
-    m_ChainSkillIDs: 03000000090000000a000000
+    m_ChainSkillIDs: 03000000090000000a0000000c000000
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -57,7 +57,7 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
-    m_ChainSkillIDs: 04000000090000000a000000
+    m_ChainSkillIDs: 04000000090000000a0000000c000000
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -73,7 +73,7 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
-    m_ChainSkillIDs: 05000000
+    m_ChainSkillIDs: 05000000090000000a0000000c000000
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -89,7 +89,7 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
-    m_ChainSkillIDs: 01000000090000000a000000
+    m_ChainSkillIDs: 090000000a0000000c000000
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -105,7 +105,7 @@ MonoBehaviour:
     m_TriggerCondition: 2
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
-    m_ChainSkillIDs: 02000000090000000a000000
+    m_ChainSkillIDs: 02000000090000000a0000000c000000
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -121,7 +121,7 @@ MonoBehaviour:
     m_TriggerCondition: 3
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
-    m_ChainSkillIDs: 02000000090000000a000000
+    m_ChainSkillIDs: 02000000090000000a0000000c000000
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -137,7 +137,7 @@ MonoBehaviour:
     m_TriggerCondition: 4
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
-    m_ChainSkillIDs: 02000000090000000a000000
+    m_ChainSkillIDs: 02000000090000000a0000000c000000
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -170,6 +170,54 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkillIDs: 03000000
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+  - m_ID: 11
+    m_AnimStates:
+    - m_Name: LightAttack3_2
+      m_EventData: {fileID: 11400000, guid: 1ebe61dfe1d1f74439547d6c96c82dff, type: 2}
+    CostStrength: 10
+    m_CostPower: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 04000000090000000a0000000c000000
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+  - m_ID: 12
+    m_AnimStates:
+    - m_Name: DoubleChop
+      m_EventData: {fileID: 11400000, guid: 4b7853feca07eba40b7d1494f9d574df, type: 2}
+    CostStrength: 0
+    m_CostPower: 2
+    m_CDSeconds: 0
+    m_SkillType: 4
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkillIDs: 0d000000
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+  - m_ID: 13
+    m_AnimStates:
+    - m_Name: DoubleChop2
+      m_EventData: {fileID: 11400000, guid: df9e12259360e0a43a58ffdb6fe6ca33, type: 2}
+    CostStrength: 5
+    m_CostPower: 1
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 05000000
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2

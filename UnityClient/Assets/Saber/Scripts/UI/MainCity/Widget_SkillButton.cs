@@ -68,20 +68,6 @@ namespace Saber.UI
 
         private void OnClickSkill()
         {
-            if (!IsPowerEnough)
-            {
-                GameApp.Entry.Game.Audio.PlaySoundSkillFailed();
-                GameApp.Entry.UI.ShowTips("能量不足", 0.1f);
-                return;
-            }
-
-            if (!m_SkillObj.IsCDCooldown)
-            {
-                GameApp.Entry.Game.Audio.PlaySoundSkillFailed();
-                GameApp.Entry.UI.ShowTips("技能正在冷却中", 0.1f);
-                return;
-            }
-
             m_Handler.OnClickSkillButton(m_SkillObj.SkillConfig.m_SkillType);
         }
 

@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 	[CustomEditor(typeof(AbilityEventObj_DynamicTrail))]
 	public class AbilityEventObj_DynamicTrailEditor :Editor
 	{
+		/*
 	    public override void OnInspectorGUI()
 	    {
 	        serializedObject.Update();
@@ -34,5 +35,6 @@ using UnityEngine.UIElements;
             }
             serializedObject.ApplyModifiedProperties();
 	    }
+	    */
 	}
 }

@@ -53,6 +53,7 @@ namespace CombatEditor
         //public InsedObject ParticleData = new InsedObject();
         public EventTimeType TimeType = EventTimeType.EventTime;
         public float m_HoldTime = 1f;
+        public bool OnlyTriggerWhenPowerEnough;
 
         public override EventTimeType GetEventTimeType()
         {
@@ -101,6 +102,11 @@ namespace CombatEditor
         public override void StartEffect()
         {
             base.StartEffect();
+            if (EventObj.OnlyTriggerWhenPowerEnough && !base.CurrentSkill.IsPowerEnough)
+            {
+                return;
+            }
+
             DestroyObj();
             m_InsedParticle = EventObj.ObjData.CreateObject(Actor);
             //Debug.Log("create "+m_InsedParticle.name);
