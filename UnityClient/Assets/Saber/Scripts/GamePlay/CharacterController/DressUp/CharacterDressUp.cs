@@ -6,7 +6,6 @@ using System.Linq;
 using MagicaCloth2;
 using Saber.Config;
 using Saber.Frame;
-
 using UnityEngine;
 
 namespace Saber.CharacterController
@@ -17,12 +16,9 @@ namespace Saber.CharacterController
         public class CharacterClothInfo
         {
             public bool m_Enable;
-            public Transform m_RootBone;
             public int[] m_DefaultClothes; //一般指内衣，和默认头发
             public int[] m_StartClothes; //初始服饰
-            public SkinnedMeshRenderer m_SMRBody;
-            public SkinnedMeshRenderer m_SMRLeg;
-            public SkinnedMeshRenderer m_SMRArm;
+            public SkinnedMeshRenderer[] m_DefaultSMR;
         }
 
         private SActor m_Actor;
@@ -32,34 +28,27 @@ namespace Saber.CharacterController
         private Dictionary<EClothType, GameObject> m_DicDefaultClothes = new();
         private Quaternion m_LeftFootRot, m_LeftToeRot, m_RightFootRot, m_RightToeRot;
         private float m_ShoesHeight;
+        private Transform m_RootBone;
 
 
         public bool Enable => m_ClothInfo.m_Enable;
-        public Quaternion LeftFootRot => m_LeftFootRot;
-        public Quaternion RightFootRot => m_RightFootRot;
-
-        public bool UpdateFootRotationForHighHeels { get; set; }
-
-
-        public float ShoesHeight
-        {
-            get => m_ShoesHeight;
-            private set
-            {
-                m_ShoesHeight = value;
-                m_Actor.SetGroundOffset(value);
-            }
-        }
 
 
         public CharacterDressUp(SActor actor, CharacterClothInfo info)
         {
             m_Actor = actor;
             m_ClothInfo = info;
+            m_RootBone = actor.GetNodeTransform(ENodeType.RootBone);
+
             if (Enable)
             {
+                foreach (var smr in info.m_DefaultSMR)
+                {
+                    smr.gameObject.SetActive(false);
+                }
+
                 LoadDefaultClothes();
-                //DressStartClothes();
+                DressStartClothes();
             }
         }
 
@@ -81,56 +70,7 @@ namespace Saber.CharacterController
         {
             foreach (var pair in m_DicDefaultClothes)
             {
-                bool isDressing;
-                if (pair.Key == EClothType.Hair)
-                {
-                    isDressing = m_DressingClothes.Any(a => a.m_ClothType == EClothType.Hair ||
-                                                            a.m_ClothType == EClothType.Full ||
-                                                            a.m_ClothType == EClothType.FullNoShoes);
-                }
-                else if (pair.Key == EClothType.TopDown)
-                {
-                    isDressing = m_DressingClothes.Any(a => a.m_ClothType == EClothType.FullNoHair ||
-                                                            a.m_ClothType == EClothType.TopDown ||
-                                                            a.m_ClothType == EClothType.FullNoShoes ||
-                                                            a.m_ClothType == EClothType.Full);
-                }
-                else if (pair.Key == EClothType.FullNoHair)
-                {
-                    isDressing = m_DressingClothes.Any(a => a.m_ClothType == EClothType.FullNoHair ||
-                                                            a.m_ClothType == EClothType.TopDown ||
-                                                            a.m_ClothType == EClothType.FullNoShoes ||
-                                                            a.m_ClothType == EClothType.Full ||
-                                                            a.m_ClothType == EClothType.Shoes);
-                }
-                else if (pair.Key == EClothType.Shoes)
-                {
-                    isDressing = m_DressingClothes.Any(a => a.m_ClothType == EClothType.Shoes ||
-                                                            a.m_ClothType == EClothType.FullNoHair ||
-                                                            a.m_ClothType == EClothType.Full);
-                }
-                else if (pair.Key == EClothType.Full)
-                {
-                    isDressing = m_DressingClothes.Any(a => a.m_ClothType == EClothType.Shoes ||
-                                                            a.m_ClothType == EClothType.Hair ||
-                                                            a.m_ClothType == EClothType.FullNoHair ||
-                                                            a.m_ClothType == EClothType.FullNoShoes ||
-                                                            a.m_ClothType == EClothType.TopDown ||
-                                                            a.m_ClothType == EClothType.Full);
-                }
-                else if (pair.Key == EClothType.FullNoShoes)
-                {
-                    isDressing = m_DressingClothes.Any(a => a.m_ClothType == EClothType.Hair ||
-                                                            a.m_ClothType == EClothType.FullNoHair ||
-                                                            a.m_ClothType == EClothType.FullNoShoes ||
-                                                            a.m_ClothType == EClothType.TopDown ||
-                                                            a.m_ClothType == EClothType.Full);
-                }
-                else
-                {
-                    throw new InvalidOperationException("Unknown cloth:" + pair.Key);
-                }
-
+                bool isDressing = m_DressingClothes.Any(a => a.m_ClothType == pair.Key);
                 pair.Value.SetActive(!isDressing);
             }
         }
@@ -169,64 +109,7 @@ namespace Saber.CharacterController
         /// <summary>穿上某衣服之前，先脱下对应部位衣服</summary>
         private void UndressClothBeforeDress(EClothType toDressClotyType)
         {
-            switch (toDressClotyType)
-            {
-                case EClothType.Hair:
-                    UndressCloth(EClothType.Full);
-                    UndressCloth(EClothType.FullNoShoes);
-                    UndressCloth(EClothType.Hair);
-                    break;
-
-                case EClothType.Full:
-                    UndressCloth(EClothType.Full);
-                    UndressCloth(EClothType.Hair);
-                    UndressCloth(EClothType.FullNoHair);
-                    UndressCloth(EClothType.FullNoShoes);
-                    UndressCloth(EClothType.TopDown);
-                    UndressCloth(EClothType.Shoes);
-                    break;
-
-                case EClothType.FullNoHair:
-                    UndressCloth(EClothType.Full);
-                    UndressCloth(EClothType.FullNoHair);
-                    UndressCloth(EClothType.FullNoShoes);
-                    UndressCloth(EClothType.TopDown);
-                    UndressCloth(EClothType.Shoes);
-                    break;
-
-                case EClothType.FullNoShoes:
-                    UndressCloth(EClothType.Full);
-                    UndressCloth(EClothType.Hair);
-                    UndressCloth(EClothType.FullNoHair);
-                    UndressCloth(EClothType.FullNoShoes);
-                    UndressCloth(EClothType.TopDown);
-                    break;
-
-                case EClothType.TopDown:
-                    UndressCloth(EClothType.Full);
-                    UndressCloth(EClothType.FullNoHair);
-                    UndressCloth(EClothType.FullNoShoes);
-                    UndressCloth(EClothType.TopDown);
-                    break;
-
-                case EClothType.Shoes:
-                    UndressCloth(EClothType.Full);
-                    UndressCloth(EClothType.Shoes);
-                    UndressCloth(EClothType.FullNoHair);
-                    break;
-
-                case EClothType.Chain:
-                    UndressCloth(EClothType.Chain);
-                    break;
-
-                case EClothType.Earrings:
-                    UndressCloth(EClothType.Earrings);
-                    break;
-
-                default:
-                    throw new InvalidOperationException("Unknown cloth type:" + toDressClotyType);
-            }
-
+            UndressCloth(toDressClotyType);
             ResetDefaultClothes();
         }
 
@@ -274,92 +157,6 @@ namespace Saber.CharacterController
         /// <summary>当穿衣服完成</summary>
         private void OnDressClothFinished(ClothItemInfo clothInfo, GameObject obj)
         {
-            if (clothInfo.m_ClothType == EClothType.Shoes || clothInfo.m_ClothType == EClothType.FullNoHair)
-            {
-                string leftFootName = m_Actor.GetNodeTransform(ENodeType.LeftFoot).name;
-                string leftToeName = m_Actor.GetNodeTransform(ENodeType.LeftToes).name;
-                string rightFootName = m_Actor.GetNodeTransform(ENodeType.RightFoot).name;
-                string rightToeName = m_Actor.GetNodeTransform(ENodeType.RightToes).name;
-                Transform leftFoot = null;
-                Transform leftToe = null;
-                Transform rightFoot = null;
-                Transform rightToe = null;
-                obj.transform.FindChildRecursive(leftFootName, ref leftFoot);
-                obj.transform.FindChildRecursive(leftToeName, ref leftToe);
-                obj.transform.FindChildRecursive(rightFootName, ref rightFoot);
-                obj.transform.FindChildRecursive(rightToeName, ref rightToe);
-                m_LeftFootRot = leftFoot.localRotation;
-                m_LeftToeRot = leftToe.localRotation;
-                m_RightFootRot = rightFoot.localRotation;
-                m_RightToeRot = rightToe.localRotation;
-
-                ShoesHeight = clothInfo.m_ShoesHeight;
-            }
-
-            TryClipSkin(clothInfo, obj);
-        }
-
-        /// <summary>裁剪身体某一部分，避免穿模</summary>
-        void TryClipSkin(ClothItemInfo clothInfo, GameObject obj)
-        {
-            if (clothInfo.m_ClothType != EClothType.FullNoHair && clothInfo.m_ClothType != EClothType.TopDown)
-                return;
-
-            ClearSkinClip();
-
-            ClothBodyClipConfig clipConfig = obj.GetComponent<ClothBodyClipConfig>();
-            if (clipConfig == null)
-                return;
-
-            foreach (var item in clipConfig.m_ClipItems)
-            {
-                SkinnedMeshRenderer tarSMR = item.m_ClipArea switch
-                {
-                    ClothBodyClipConfig.EClipArea.Arm => m_ClothInfo.m_SMRArm,
-                    ClothBodyClipConfig.EClipArea.Leg => m_ClothInfo.m_SMRLeg,
-                    ClothBodyClipConfig.EClipArea.Body => m_ClothInfo.m_SMRBody,
-                    _ => throw new InvalidOperationException("Unknown:" + item.m_ClipArea),
-                };
-
-                if (item.m_ClipType == ClothBodyClipConfig.EClipType.Hide)
-                {
-                    tarSMR.gameObject.SetActive(false);
-                }
-                else if (item.m_ClipType == ClothBodyClipConfig.EClipType.ShaderClip)
-                {
-                    tarSMR.gameObject.SetActive(true);
-                    tarSMR.material.EnableKeyword("_CLIPBODY_ON");
-                    tarSMR.material.SetFloat("_ClipBody", 1);
-                    tarSMR.material.SetTexture("_ClipBodyMaskMap", item.m_ClipMaskMap);
-                }
-                else
-                {
-                    throw new InvalidOperationException("Unknown:" + item.m_ClipType);
-                }
-            }
-        }
-
-        void ClearSkinClip()
-        {
-            ClearSkinClip(m_ClothInfo.m_SMRBody);
-            ClearSkinClip(m_ClothInfo.m_SMRLeg);
-            ClearSkinClip(m_ClothInfo.m_SMRArm);
-        }
-
-        void ClearSkinClip(SkinnedMeshRenderer smr)
-        {
-            smr.gameObject.SetActive(true);
-            smr.material.DisableKeyword("_CLIPBODY_ON");
-            smr.material.SetFloat("_ClipBody", 0);
-        }
-
-        IEnumerator TryClearClip()
-        {
-            yield return null;
-            if (!m_Actor.GetComponentInChildren<ClothBodyClipConfig>())
-            {
-                ClearSkinClip();
-            }
         }
 
         /// <summary>加载衣服gameObject</summary>
@@ -367,7 +164,7 @@ namespace Saber.CharacterController
         {
             // load obj
             GameObject obj = clothInfo.LoadGameObject();
-            obj.name = clothInfo.m_PrefabName;
+            obj.name = clothInfo.PrefabName;
             obj.transform.parent = m_Actor.transform;
             obj.transform.localPosition = Vector3.zero;
             obj.transform.localRotation = Quaternion.identity;
@@ -394,7 +191,7 @@ namespace Saber.CharacterController
             }
 
             // build magica cloth
-            Transform[] allBones = m_ClothInfo.m_RootBone.GetComponentsInChildren<Transform>();
+            Transform[] allBones = m_RootBone.GetComponentsInChildren<Transform>();
             Dictionary<string, Transform> dicAllBones = new();
             foreach (var b in allBones)
             {
@@ -424,7 +221,7 @@ namespace Saber.CharacterController
         private Transform GetOrCreateNewBone(Transform oldBone)
         {
             Transform bone = null;
-            m_ClothInfo.m_RootBone.FindChildRecursive(oldBone.name, ref bone);
+            m_RootBone.FindChildRecursive(oldBone.name, ref bone);
             if (bone)
             {
                 return bone;
@@ -436,7 +233,7 @@ namespace Saber.CharacterController
             Transform actorBoneParent = null;
             while (true)
             {
-                m_ClothInfo.m_RootBone.FindChildRecursive(oldBoneParent.name, ref actorBoneParent);
+                m_RootBone.FindChildRecursive(oldBoneParent.name, ref actorBoneParent);
 
                 if (actorBoneParent)
                 {
@@ -457,7 +254,7 @@ namespace Saber.CharacterController
             oldCurBone.localPosition = localPosition;
             oldCurBone.localRotation = localRot;
             oldCurBone.localScale = localScale;
-            m_ClothInfo.m_RootBone.FindChildRecursive(oldBone.name, ref bone);
+            m_RootBone.FindChildRecursive(oldBone.name, ref bone);
 
             Transform[] extraBones = oldCurBone.GetComponentsInChildren<Transform>();
             m_ExtraBones.AddRange(extraBones);
@@ -483,13 +280,6 @@ namespace Saber.CharacterController
 
         private void OnUndressClothFinished(ClothItemInfo clothInfo)
         {
-            if (clothInfo.m_ClothType == EClothType.Shoes || clothInfo.m_ClothType == EClothType.FullNoHair)
-            {
-                m_LeftFootRot = m_LeftToeRot = m_RightFootRot = m_RightToeRot = Quaternion.identity;
-                ShoesHeight = 0;
-            }
-
-            GameApp.Entry.Unity.StartCoroutine(TryClearClip());
         }
 
         private void UndressCloth(EClothType clothType)
@@ -508,7 +298,7 @@ namespace Saber.CharacterController
 
             m_DressingClothes.Remove(clothInfo);
 
-            Transform t = m_Actor.transform.Find(clothInfo.m_PrefabName);
+            Transform t = m_Actor.transform.Find(clothInfo.PrefabName);
             if (t)
                 GameObject.Destroy(t.gameObject);
 
@@ -533,7 +323,7 @@ namespace Saber.CharacterController
 
         private GameObject GetClothObj(ClothItemInfo clothInfo)
         {
-            Transform t = m_Actor.transform.Find(clothInfo.m_PrefabName);
+            Transform t = m_Actor.transform.Find(clothInfo.PrefabName);
             return t ? t.gameObject : null;
         }
 
@@ -560,41 +350,6 @@ namespace Saber.CharacterController
             }
 
             return false;
-        }
-
-        public void AfterFixedUpdate()
-        {
-            if (!Enable)
-                return;
-            UpdateShoesHeight();
-        }
-
-        /// <summary>更新高跟鞋</summary>
-        private void UpdateShoesHeight()
-        {
-            Transform leftToe = m_Actor.GetNodeTransform(ENodeType.LeftToes);
-            Transform rightToe = m_Actor.GetNodeTransform(ENodeType.RightToes);
-            leftToe.localRotation *= m_LeftToeRot;
-            rightToe.localRotation *= m_RightToeRot;
-
-            if (UpdateFootRotationForHighHeels)
-            {
-                Transform leftFoot = m_Actor.GetNodeTransform(ENodeType.LeftFoot);
-                Transform rightFoot = m_Actor.GetNodeTransform(ENodeType.RightFoot);
-                leftFoot.localRotation *= m_LeftFootRot;
-                rightFoot.localRotation *= m_RightFootRot;
-            }
-        }
-
-        public int[] GetDressingClothes()
-        {
-            int[] ids = new int[m_DressingClothes.Count];
-            for (int i = 0; i < m_DressingClothes.Count; i++)
-            {
-                ids[i] = m_DressingClothes[i].m_ID;
-            }
-
-            return ids;
         }
     }
 }

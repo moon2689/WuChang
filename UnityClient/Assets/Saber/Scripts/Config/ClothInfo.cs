@@ -42,18 +42,19 @@ namespace Saber.Config
         public bool m_IsActive = true;
         public string m_Name;
         public EClothType m_ClothType;
-        public string m_PrefabName;
-        public float m_ShoesHeight;
+        public string m_Classify;
 
+        public string PrefabName => $"{m_Classify}_{m_ClothType}";
+        
         public GameObject LoadGameObject()
         {
-            string res = $"Cloth/Prefab/{m_PrefabName}";
+            string res = $"Actor/Character/Clothes/{m_Classify}/{PrefabName}";
             return GameApp.Entry.Asset.LoadGameObject(res);
         }
 
         public Texture2D LoadIcon()
         {
-            string res = $"Cloth/Icon/{m_PrefabName}";
+            string res = $"Actor/Character/Clothes/{m_Classify}/Icon_{PrefabName}";
             return GameApp.Entry.Asset.LoadTexture(res);
         }
     }
@@ -61,13 +62,10 @@ namespace Saber.Config
     [Serializable]
     public enum EClothType
     {
-        Hair,
-        FullNoHair,
-        TopDown,
-        Shoes,
-        Full,
-        FullNoShoes,
-        Chain,
-        Earrings,
+        Head,
+        Hat,
+        Jacket,
+        Hands,
+        Pants,
     }
 }

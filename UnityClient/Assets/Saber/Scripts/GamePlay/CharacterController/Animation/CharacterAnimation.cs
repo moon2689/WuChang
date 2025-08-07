@@ -54,6 +54,7 @@ namespace Saber.CharacterController
             m_Handler = handler;
             AnimatorObj = actor.GetComponent<Animator>();
             AnimatorObj.updateMode = AnimatorUpdateMode.AnimatePhysics;
+            AnimatorObj.cullingMode = AnimatorCullingMode.AlwaysAnimate;
 
             m_AnimatorOverrideController = new AnimatorOverrideController();
             m_AnimatorOverrideController.runtimeAnimatorController = AnimatorObj.runtimeAnimatorController;

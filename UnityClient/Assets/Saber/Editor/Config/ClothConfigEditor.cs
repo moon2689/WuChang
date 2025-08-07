@@ -33,11 +33,11 @@ public class ClothConfigEditor : EditorWindow
 
         foreach (var c in clothInfo.m_Clothes)
         {
-            if (c.m_PrefabName.Contains(m_Keyword, StringComparison.OrdinalIgnoreCase) ||
+            if (c.PrefabName.Contains(m_Keyword, StringComparison.OrdinalIgnoreCase) ||
                 c.m_Name.Contains(m_Keyword, StringComparison.OrdinalIgnoreCase) ||
                 c.m_ID == tarID)
             {
-                Debug.Log($"{c.m_ID} {c.m_Name} {c.m_PrefabName}");
+                Debug.Log($"{c.m_ID} {c.m_Name} {c.PrefabName}");
             }
         }
     }

@@ -25,10 +25,10 @@ namespace Saber.UI
         enum EDressUpToggleType
         {
             All,
-            Hair,
-            Full,
-            Shoes,
-            Jewelry,
+            Hat,
+            Jacket,
+            Hands,
+            Pants,
         }
 
         private static EDressUpToggleType s_CurType;
@@ -65,10 +65,10 @@ namespace Saber.UI
             return toggleType switch
             {
                 EDressUpToggleType.All => "全部",
-                EDressUpToggleType.Hair => "头发",
-                EDressUpToggleType.Full => "套装",
-                EDressUpToggleType.Shoes => "鞋子",
-                EDressUpToggleType.Jewelry => "首饰",
+                EDressUpToggleType.Hat => "头甲",
+                EDressUpToggleType.Jacket => "胸甲",
+                EDressUpToggleType.Hands => "臂甲",
+                EDressUpToggleType.Pants => "腿甲",
                 _ => throw new InvalidOperationException("Unknown cloth type:" + toggleType),
             };
         }
@@ -109,24 +109,19 @@ namespace Saber.UI
 
         bool IsClothTypeRight(EClothType clothType)
         {
-            if (s_CurType == EDressUpToggleType.All)
-            {
-                return true;
-            }
-
             switch (s_CurType)
             {
-                case EDressUpToggleType.Full:
-                    return clothType == EClothType.Full ||
-                           clothType == EClothType.FullNoHair ||
-                           clothType == EClothType.FullNoShoes ||
-                           clothType == EClothType.TopDown;
-                case EDressUpToggleType.Hair:
-                    return clothType == EClothType.Hair;
-                case EDressUpToggleType.Shoes:
-                    return clothType == EClothType.Shoes;
-                case EDressUpToggleType.Jewelry:
-                    return clothType == EClothType.Chain || clothType == EClothType.Earrings;
+                case EDressUpToggleType.All:
+                    return clothType == EClothType.Hat || clothType == EClothType.Pants ||
+                           clothType == EClothType.Jacket || clothType == EClothType.Hands;
+                case EDressUpToggleType.Hat:
+                    return clothType == EClothType.Hat;
+                case EDressUpToggleType.Pants:
+                    return clothType == EClothType.Pants;
+                case EDressUpToggleType.Jacket:
+                    return clothType == EClothType.Jacket;
+                case EDressUpToggleType.Hands:
+                    return clothType == EClothType.Hands;
                 default:
                     throw new InvalidOperationException("Unknown type:" + s_CurType);
             }

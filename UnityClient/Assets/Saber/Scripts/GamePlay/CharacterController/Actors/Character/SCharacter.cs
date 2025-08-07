@@ -43,7 +43,8 @@ namespace Saber.CharacterController
                 }
 
                 m_MoveSpeedV = value;
-                if (m_MoveSpeedV == EMoveSpeedV.Sprint && (CStats.CurrentStamina <= 0 || WaitStaminaRecoverBeforeSprint))
+                if (m_MoveSpeedV == EMoveSpeedV.Sprint &&
+                    (CStats.CurrentStamina <= 0 || WaitStaminaRecoverBeforeSprint))
                 {
                     m_MoveSpeedV = EMoveSpeedV.Run;
                 }
@@ -75,7 +76,7 @@ namespace Saber.CharacterController
             CMelee = new CharacterMelee(this, base.SkillConfigs);
             CRender = new CharacterRender(this);
             //CSpeech = new CharacterSpeech();
-            //CDressUp = new CharacterDressUp(this,  m_CharacterInfo.m_ClothInfo);
+            CDressUp = new CharacterDressUp(this, m_CharacterInfo.m_ClothInfo);
             //CExpression = new CharacterExpression( m_CharacterInfo.m_ExpressionInfo);
 
             // 设置默认武器
