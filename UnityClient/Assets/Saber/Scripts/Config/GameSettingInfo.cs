@@ -25,7 +25,6 @@ namespace Saber.Config
         public bool OpenWitchTime;
         public float WitchTimeSeconds = 2;
         public float DodgeCostStamina = 20;
-        public bool TiredWhenStaminaZero;
         public float IKBoneForceOnHit = 1;
 
         [Header("Melee")] public AudioClip[] m_SoundSwordHitSword;

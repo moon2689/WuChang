@@ -149,7 +149,7 @@ MonoBehaviour:
     CostStrength: 15
     m_CostPower: 1
     m_CDSeconds: 0
-    m_SkillType: 4
+    m_SkillType: 9
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1

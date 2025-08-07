@@ -89,6 +89,7 @@ namespace Saber.CharacterController
         Skill3,
         Skill4,
         Defense,
+        ChargeAttack,
     }
 
     [Serializable]

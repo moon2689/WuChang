@@ -34,7 +34,6 @@ namespace Saber.CharacterController
             m_CurrentStamina;
 
         private float
-            m_TimerRecoverStrengthDelay,
             m_TimerRecoverSuperArmor,
             m_TimerStunBySuperArmorZero;
 
@@ -159,23 +158,16 @@ namespace Saber.CharacterController
 
         void UpdateStamina(float deltaTime)
         {
-            if (GameApp.Entry.Config.GameSetting.TiredWhenStaminaZero && CurrentStamina <= 0)
-            {
-                if (m_TimerRecoverStrengthDelay > 0)
-                    m_TimerRecoverStrengthDelay -= deltaTime;
-                else
-                    CurrentStamina = MaxStamina;
-            }
-            else if (!Actor.IsDead &&
-                     StaminaRecoverSpeed != EStaminaRecoverSpeed.Stop &&
-                     CurrentStamina < MaxStamina)
+            if (!Actor.IsDead &&
+                StaminaRecoverSpeed != EStaminaRecoverSpeed.Stop &&
+                CurrentStamina < MaxStamina)
             {
                 int speed = StaminaRecoverSpeed switch
                 {
                     EStaminaRecoverSpeed.Stop => 0,
-                    EStaminaRecoverSpeed.Slow => 10,
-                    EStaminaRecoverSpeed.Medium => 30,
-                    EStaminaRecoverSpeed.Fast => 50,
+                    EStaminaRecoverSpeed.Slow => 30,
+                    EStaminaRecoverSpeed.Medium => 50,
+                    EStaminaRecoverSpeed.Fast => 80,
                     _ => 0,
                 };
 
@@ -237,11 +229,6 @@ namespace Saber.CharacterController
         public void CostStamina(float value)
         {
             CurrentStamina -= value;
-
-            if (CurrentStamina <= 0)
-            {
-                m_TimerRecoverStrengthDelay = 3;
-            }
         }
 
         public void CostPower(int value)

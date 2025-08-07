@@ -21,7 +21,11 @@ namespace Saber.AI
 
         public bool TryTrigger(SActor owner)
         {
-            if (m_AheadType == EAheadInputType.Skill)
+            if (m_AheadType == EAheadInputType.None)
+            {
+                return false;
+            }
+            else if (m_AheadType == EAheadInputType.Skill)
             {
                 return owner.TryTriggerSkill(m_Key);
             }

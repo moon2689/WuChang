@@ -215,26 +215,45 @@ namespace Saber.AI
             Actor.IsDraggingMovementAxis = isDragging;
         }
 
+        private bool m_IsTryMoving;
+
         void UpdateMovement()
         {
+            EMoveSpeedV moveSpeedV;
             if (m_StickLength <= 0.1f)
             {
-                Actor.StopMove();
+                moveSpeedV = EMoveSpeedV.None;
             }
             else if (m_Sprint)
             {
-                StartMove(EMoveSpeedV.Sprint, m_Stick);
+                moveSpeedV = EMoveSpeedV.Sprint;
             }
             else if (m_StickLength > 0.5f)
             {
-                StartMove(EMoveSpeedV.Run, m_Stick);
+                moveSpeedV = EMoveSpeedV.Run;
             }
             else if (m_StickLength > 0.1f)
             {
-                StartMove(EMoveSpeedV.Walk, m_Stick);
+                moveSpeedV = EMoveSpeedV.Walk;
             }
             else
             {
+                moveSpeedV = EMoveSpeedV.None;
+            }
+
+            if (moveSpeedV != EMoveSpeedV.None)
+            {
+                if (!m_IsTryMoving)
+                {
+                    ClearAheadInput();
+                }
+
+                m_IsTryMoving = true;
+                Actor.StartMove(moveSpeedV, m_Stick);
+            }
+            else
+            {
+                m_IsTryMoving = false;
                 Actor.StopMove();
             }
         }
@@ -296,7 +315,7 @@ namespace Saber.AI
                 if (Time.time - m_PressDownHeavyAttackTime >= 0.2f)
                 {
                     m_ToCheckChargeAttack = false;
-                    OnTriggerSkill(ESkillType.Skill1);
+                    OnTriggerSkill(ESkillType.ChargeAttack);
                 }
             }
         }

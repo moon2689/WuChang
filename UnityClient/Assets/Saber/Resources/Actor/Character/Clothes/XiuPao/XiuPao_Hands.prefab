@@ -63,6 +63,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: XiuPao_Hands
       objectReference: {fileID: 0}
+    - target: {fileID: 2473196952919995004, guid: 020c7bfa58fc88042b2e3976eb07a454,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0e7810cabe055a24ea1bd260e4825ce9, type: 2}
+    - target: {fileID: 2473196952919995004, guid: 020c7bfa58fc88042b2e3976eb07a454,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: bcc37cf20383c654b823630363d4022f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

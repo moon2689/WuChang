@@ -121,18 +121,17 @@ namespace Saber.AI
 
             if (Actor.CStats.CurrentStamina <= 0)
             {
-                m_AheadInput.Clear();
+                ClearAheadInput();
             }
 
             if (m_AheadInput.TryTrigger(Actor))
             {
-                m_AheadInput.Clear();
+                ClearAheadInput();
             }
         }
 
-        protected void StartMove(EMoveSpeedV speedV, Vector3 axis)
+        protected void ClearAheadInput()
         {
-            Actor.StartMove(speedV, axis);
             m_AheadInput.Clear();
         }
 
@@ -316,7 +315,7 @@ namespace Saber.AI
                 if (dir.magnitude > distanceOffset)
                 {
                     Actor.DesiredLookDir = dir;
-                    StartMove(EMoveSpeedV.Walk, new Vector3(0, 0, 1));
+                    Actor.StartMove(EMoveSpeedV.Walk, new Vector3(0, 0, 1));
                 }
                 else
                 {

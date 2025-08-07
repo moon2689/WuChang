@@ -63,6 +63,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GSR_Pants
       objectReference: {fileID: 0}
+    - target: {fileID: 6594141396843447981, guid: c732136f8cc08504b81e8bcd882a45d6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: bcc37cf20383c654b823630363d4022f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
