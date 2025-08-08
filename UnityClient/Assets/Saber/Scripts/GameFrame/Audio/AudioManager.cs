@@ -104,17 +104,17 @@ namespace Saber
             Play(name, 1, pos, true, onFinished);
         }
 
-        public void PlayBGM(AudioClip clip, float volume, Action<AudioPlayer> onFinished = null)
+        public void PlayBGM(AudioClip clip, float volume, bool loop, Action<AudioPlayer> onFinished = null)
         {
             if (m_curBGMPlayer == null)
                 m_curBGMPlayer = AudioPlayer.Create(transform);
-            m_curBGMPlayer.Play(clip, volume, false, Vector3.zero, false, onFinished);
+            m_curBGMPlayer.Play(clip, volume, loop, Vector3.zero, false, onFinished);
         }
 
-        public void PlayBGM(string name, float volume, Action<AudioPlayer> onFinished = null)
+        public void PlayBGM(string name, float volume, bool loop, Action<AudioPlayer> onFinished = null)
         {
             var asset = GetClip(name);
-            PlayBGM(asset, volume, onFinished);
+            PlayBGM(asset, volume, loop, onFinished);
         }
 
         public void SetBGMVolume(float volume)

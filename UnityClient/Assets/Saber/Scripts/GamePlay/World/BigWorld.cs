@@ -85,7 +85,7 @@ namespace Saber.World
 
         #region Load
 
-        public void Load(ELoadType loadType)
+        public void Load(ELoadType loadType, Action onLoaded)
         {
             if (loadType == ELoadType.NewGame)
             {
@@ -120,10 +120,10 @@ namespace Saber.World
                 throw new InvalidOperationException($"Unknown load type:{loadType}");
             }
 
-            GameApp.Entry.Unity.StartCoroutine(LoadItor(loadType));
+            GameApp.Entry.Unity.StartCoroutine(LoadItor(loadType, onLoaded));
         }
 
-        IEnumerator LoadItor(ELoadType loadType)
+        IEnumerator LoadItor(ELoadType loadType, Action onLoaded)
         {
             m_LoadType = loadType;
 
@@ -191,6 +191,8 @@ namespace Saber.World
                 yield return GameApp.Entry.Game.PlayerAI.PlayActionMoveToTargetPos(targetPos, 0,
                     () => { curPortal.EnableGateCollider(true); });
             }
+
+            onLoaded?.Invoke();
         }
 
         IEnumerator LoadScene()
@@ -529,7 +531,7 @@ namespace Saber.World
             m_PlayerPos = targetStatueInfo.m_Position + tarStatueRot * new Vector3(0, 0.2f, 1.2f);
             m_PlayerRot = Quaternion.Euler(0, targetStatueInfo.m_RotationY + 180, 0);
 
-            return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToLastGodStatue));
+            return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToLastGodStatue, null));
         }
 
         /// <summary>其它角色复原</summary>
@@ -919,7 +921,7 @@ namespace Saber.World
                 () =>
                 {
                     m_CurrentUsingPortalInfo = portal.PortalInfo;
-                    Load(ELoadType.ToNextSceneByPortal);
+                    Load(ELoadType.ToNextSceneByPortal, null);
                 });
         }
 
@@ -1027,7 +1029,7 @@ namespace Saber.World
             m_PlayerPos = targetStatueInfo.m_Position + tarStatueRot * new Vector3(0, 0.2f, 1.2f);
             m_PlayerRot = Quaternion.Euler(0, targetStatueInfo.m_RotationY + 180, 0);
 
-            yield return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToGodStatue));
+            yield return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToGodStatue, null));
         }
 
         public void OnSelectEnemy(int actorID)

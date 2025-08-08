@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using Saber.CharacterController;
 using UnityEngine;
 using UnityEditor;
@@ -10,6 +12,68 @@ using UnityEditor.SceneManagement;
 
 public static class SaberTools
 {
+    static MD5 s_md5;
+
+    static MD5 MD5Obj => s_md5 ??= MD5.Create();
+
+
+    [MenuItem("Saber/Asset/Delete repeat wav")]
+    static void DeleteRepeatWav()
+    {
+        DefaultAsset defaultAsset = Selection.activeObject as DefaultAsset;
+        if (defaultAsset == null)
+        {
+            return;
+        }
+
+        string folderPath = AssetDatabase.GetAssetPath(defaultAsset);
+        string[] wavFiles = Directory.GetFiles(folderPath, "*.wav");
+        Dictionary<string, List<string>> repeatFiles = new();
+        foreach (var wavFile in wavFiles)
+        {
+            byte[] fileBuffer = File.ReadAllBytes(wavFile);
+            string md5Str = ComputeHash(fileBuffer);
+            repeatFiles.TryGetValue(md5Str, out var list);
+            if (list == null)
+            {
+                list = new();
+                repeatFiles[md5Str] = list;
+            }
+
+            list.Add(wavFile);
+        }
+
+        foreach (var pair in repeatFiles)
+        {
+            if (pair.Value.Count > 1)
+            {
+                for (int i = 1; i < pair.Value.Count; i++)
+                {
+                    File.Delete(pair.Value[i]);
+                    Debug.Log("Delete wav:" + pair.Value[i]);
+                }
+            }
+        }
+
+        Debug.Log("DeleteRepeatWav done");
+    }
+
+
+    public static string ComputeHash(byte[] buffer)
+    {
+        if (buffer == null || buffer.Length < 1)
+            return "";
+
+        byte[] hash = MD5Obj.ComputeHash(buffer);
+        StringBuilder sb = new StringBuilder();
+
+        foreach (var b in hash)
+            sb.Append(b.ToString("x2"));
+
+        return sb.ToString();
+    }
+
+
     [MenuItem("Saber/Asset/Fix Wu Chang Material")]
     static void FixWuChangMaterials()
     {

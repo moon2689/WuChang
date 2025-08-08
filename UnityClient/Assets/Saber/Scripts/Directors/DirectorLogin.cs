@@ -25,14 +25,26 @@ namespace Saber.Director
 
         protected override IEnumerator EnterAsync()
         {
+            // 场景
             AsyncOperation h = SceneManager.LoadSceneAsync("Empty", LoadSceneMode.Single);
             yield return h;
-            
+
+            // UI
             var wndLogin = GameApp.Entry.UI.CreateWnd<Wnd_Login>(null, this);
             yield return null;
-            
+
+            // 加载配置
             yield return GameApp.Entry.Unity.StartCoroutine(GameApp.Entry.Config.LoadAsync());
 
+            // 播放音乐
+            AudioClip bgmStart = GameApp.Entry.Config.MusicInfo.m_LoginBGMStart;
+            GameApp.Entry.Game.Audio.PlayBGM(bgmStart, 1, false, audioPlayer =>
+            {
+                AudioClip bgmLoop = GameApp.Entry.Config.MusicInfo.m_LoginBGMLoop;
+                GameApp.Entry.Game.Audio.PlayBGM(bgmLoop, 1, true, null);
+            });
+
+            // 进度
             GameProgressManager.Instance.Read();
             yield return null;
 

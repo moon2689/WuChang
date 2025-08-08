@@ -14,6 +14,7 @@ namespace Saber.Frame
         public SkillInfo SkillInfo { get; private set; }
         public ClothInfo ClothInfo { get; private set; }
         public SkillDecapitateConfig SkillDecapitateConfig { get; private set; }
+        public MusicInfo MusicInfo { get; private set; }
 
 
         public void LoatConfigGameSetting()
@@ -39,6 +40,8 @@ namespace Saber.Frame
             ClothInfo = Resources.Load<ClothInfo>("Config/ClothInfo");
             yield return null;
             SkillDecapitateConfig = Resources.Load<SkillDecapitateConfig>("Config/SkillDecapitate");
+            yield return null;
+            MusicInfo = Resources.Load<MusicInfo>("Config/MusicInfo");
             yield return null;
         }
     }
