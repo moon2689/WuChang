@@ -144,7 +144,7 @@ MonoBehaviour:
       m_DefaultHpRecSpeed: 0
       m_MaxStamina: 100
       m_MaxSuperArmorValue: 0
-      m_MaxPower: 3
+      m_MaxPower: 8
       m_ParriedMaxTimes: 3
     m_PhysicInfo:
       m_Mass: 50
@@ -172,11 +172,6 @@ MonoBehaviour:
         m_ArmBoneType: 24
         m_ArmPos: {x: 0, y: 0, z: 0}
         m_ArmRot: {x: 0, y: 0, z: 0}
-        m_FixLocationWhenDefense: 1
-        m_LeftDefensePos: {x: 0.016, y: -0.068, z: 0.043}
-        m_LeftDefenseRot: {x: 331.037, y: 80.636, z: 272.051}
-        m_RightDefensePos: {x: 0.023, y: -0.067, z: 0.029}
-        m_RightDefenseRot: {x: 333.655, y: 93.559, z: 293.861}
       m_WeaponObj: {fileID: 0}
     m_AIInfo:
       m_WarningRange: 15
@@ -201,7 +196,7 @@ MonoBehaviour:
       m_FootOffsetAdjustment: 0.005
       m_HighHeelsHeight: 0
     m_ExpressionInfo:
-      m_Enable: 1
+      m_Enable: 0
       m_FaceSMRs:
       - {fileID: 0}
       - {fileID: 0}
@@ -213,6 +208,7 @@ MonoBehaviour:
     m_SpeedWalk: 1.6
     m_SpeedRun: 4
     m_SpeedSprint: 7
+    m_SpeedDefenseWalk: 1.2
 --- !u!4 &6153310854026616086 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7155285808582977154, guid: ebb3e0dc355e4654fbb7c0735aee904e,

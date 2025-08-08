@@ -88,7 +88,7 @@ namespace Saber.CharacterController
         Skill2,
         Skill3,
         Skill4,
-        Defense,
+        Skill5,
         ChargeAttack,
     }
 

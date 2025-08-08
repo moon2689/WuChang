@@ -1,0 +1,65 @@
+{
+  "Textures": {
+    "PM_Diffuse": "Project_Plague/Content/Assets/Character/Monster/Boss_Chirentoutuo/Tex/T_TouTuo_Accessory_D.T_TouTuo_Accessory_D",
+    "Albedo": "Project_Plague/Content/Assets/Character/Monster/Boss_Chirentoutuo/Tex/T_TouTuo_Accessory_D.T_TouTuo_Accessory_D",
+    "PM_Normals": "Project_Plague/Content/Assets/Character/Monster/Boss_Chirentoutuo/Tex/T_TouTuo_Accessory_N.T_TouTuo_Accessory_N",
+    "Normal tex": "Project_Plague/Content/Assets/Character/Monster/Boss_Chirentoutuo/Tex/T_TouTuo_Accessory_N.T_TouTuo_Accessory_N",
+    "DissolveTex": "Project_Plague/Content/Assets/FX/Tex/T_TouTuo_UV2_FX.T_TouTuo_UV2_FX",
+    "T_TouTuo_UV2_FX": "Project_Plague/Content/Assets/FX/Tex/T_TouTuo_UV2_FX.T_TouTuo_UV2_FX",
+    "Reflection": "Project_Plague/Content/Assets/Character/Monster/Boss_Chirentoutuo/Tex/T_TouTuo_Accessory_R.T_TouTuo_Accessory_R",
+    "T_TouTuo_Accessory_R": "Project_Plague/Content/Assets/Character/Monster/Boss_Chirentoutuo/Tex/T_TouTuo_Accessory_R.T_TouTuo_Accessory_R"
+  },
+  "Parameters": {
+    "BlendMode": 1,
+    "ShadingModel": 0,
+    "Colors": {
+      "Specular": {
+        "R": 0.0,
+        "G": 1.0,
+        "B": 0.0,
+        "A": 1.0,
+        "Hex": "00FF00"
+      },
+      "Metallic": {
+        "R": 0.0,
+        "G": 1.0,
+        "B": 0.0,
+        "A": 1.0,
+        "Hex": "00FF00"
+      },
+      "Roughnes": {
+        "R": 0.0,
+        "G": 1.0,
+        "B": 0.0,
+        "A": 1.0,
+        "Hex": "00FF00"
+      },
+      "FX_EM": {
+        "R": 100.0,
+        "G": 16.269636,
+        "B": 0.0,
+        "A": 1.0,
+        "Hex": "FFFF00"
+      }
+    },
+    "Scalars": {
+      "DeathDissolve": -0.1,
+      "TAA": 30.0,
+      "RefractionDepthBias": 0.0
+    },
+    "Switches": {},
+    "Properties": {
+      "BasePropertyOverrides": {
+        "TwoSided": true,
+        "BlendMode": "EBlendMode::BLEND_Masked",
+        "OpacityMaskClipValue": 0.3333
+      }
+    },
+    "HasTopDiffuse": true,
+    "HasTopNormals": false,
+    "HasTopSpecularMasks": false,
+    "HasTopEmissive": false,
+    "IsTranslucent": false,
+    "IsNull": false
+  }
+}

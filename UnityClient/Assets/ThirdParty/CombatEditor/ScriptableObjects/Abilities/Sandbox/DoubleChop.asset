@@ -17,8 +17,8 @@ MonoBehaviour:
     TargetObj: {fileID: 1919708242137258, guid: e60d36cff17a1ce4db49ef54f9e72f61,
       type: 3}
     controlType: 0
-    Offset: {x: 0.005219534, y: 0.8486233, z: 0.013070951}
-    Rot: {x: 0.07486714, y: 0.18827172, z: -0.0143954735, w: 0.97915345}
+    Offset: {x: 0.01036936, y: 1.0558263, z: 0.025967311}
+    Rot: {x: 0.03285149, y: 0.18871558, z: -0.0063167033, w: 0.9814619}
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 1
@@ -318,8 +318,8 @@ MonoBehaviour:
     TargetObj: {fileID: 1919708242137258, guid: e60d36cff17a1ce4db49ef54f9e72f61,
       type: 3}
     controlType: 0
-    Offset: {x: 0.001941584, y: 0.81687915, z: 0.0039109457}
-    Rot: {x: 0.03549959, y: 0.22821198, z: -0.008326838, w: 0.9729284}
+    Offset: {x: 0.0028300136, y: 0.92387325, z: 0.0057004737}
+    Rot: {x: 0.009089093, y: 0.22835389, z: -0.0021319413, w: 0.9735334}
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 1

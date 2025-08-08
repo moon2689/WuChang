@@ -63,39 +63,6 @@ namespace Saber.CharacterController
         {
         }
 
-        public void TryFixDefenseLocation(bool toDefense, bool leftSide)
-        {
-            if (!ResetLocation)
-            {
-                return;
-            }
-
-            if (!m_WeaponParentInfo.m_FixLocationWhenDefense)
-            {
-                return;
-            }
-
-            if (m_CoroutineFixDefenseLocation != null)
-            {
-                m_CoroutineFixDefenseLocation.StopCoroutine();
-            }
-
-            Vector3 targetPos;
-            Vector3 targetRot;
-            if (toDefense)
-            {
-                targetPos = leftSide ? m_WeaponParentInfo.m_LeftDefensePos : m_WeaponParentInfo.m_RightDefensePos;
-                targetRot = leftSide ? m_WeaponParentInfo.m_LeftDefenseRot : m_WeaponParentInfo.m_RightDefenseRot;
-            }
-            else
-            {
-                targetPos = m_WeaponParentInfo.m_ArmPos;
-                targetRot = m_WeaponParentInfo.m_ArmRot;
-            }
-
-            m_CoroutineFixDefenseLocation = FixDefenseLocation(targetPos, targetRot).StartCoroutine();
-        }
-
         IEnumerator FixDefenseLocation(Vector3 targetPos, Vector3 targetRot)
         {
             Vector3 curPos = transform.localPosition;

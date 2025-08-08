@@ -16,6 +16,6 @@ namespace Saber.CharacterController
         public float m_SpeedWalk;
         public float m_SpeedRun;
         public float m_SpeedSprint;
-        
+        public float m_SpeedDefenseWalk;
     }
 }

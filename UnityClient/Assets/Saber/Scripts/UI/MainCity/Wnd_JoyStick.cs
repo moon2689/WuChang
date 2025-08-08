@@ -264,17 +264,17 @@ namespace Saber.UI
                 m_btnAttackA.OnSubmit(null);
             }
 
-            if (Input.GetKeyDown(KeyCode.K))
+            if (Input.GetKeyDown(KeyCode.L))
             {
                 m_ButtonHeavyAttack.TriggerEvent(EventTriggerType.PointerDown);
             }
 
-            if (Input.GetKeyUp(KeyCode.K))
+            if (Input.GetKeyUp(KeyCode.L))
             {
                 m_ButtonHeavyAttack.TriggerEvent(EventTriggerType.PointerUp);
             }
 
-            if (Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.I))
             {
                 m_ButtonSkill1.m_Button.OnSubmit(null);
             }
@@ -305,12 +305,12 @@ namespace Saber.UI
                 m_btnRoll.TriggerEvent(EventTriggerType.PointerUp);
             }
 
-            if (Input.GetKeyDown(KeyCode.H))
+            if (Input.GetKeyDown(KeyCode.K))
             {
                 m_ButtonDefense.TriggerEvent(EventTriggerType.PointerDown);
             }
 
-            if (Input.GetKeyUp(KeyCode.H))
+            if (Input.GetKeyUp(KeyCode.K))
             {
                 m_ButtonDefense.TriggerEvent(EventTriggerType.PointerUp);
             }

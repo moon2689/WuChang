@@ -76,14 +76,6 @@ namespace Saber.CharacterController
             }
         }
 
-        public void TryFixDefenseLocation(bool toDefense, bool leftSide = true)
-        {
-            for (int i = 0; i < m_CurWeapons.Length; i++)
-            {
-                m_CurWeapons[i].TryFixDefenseLocation(toDefense, leftSide);
-            }
-        }
-
         public WeaponBase GetWeaponByPos(ENodeType bone)
         {
             return Array.Find(m_CurWeapons, w => w.WeaponBone == bone);

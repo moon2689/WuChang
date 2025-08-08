@@ -111,7 +111,8 @@ namespace Saber.CharacterController
 
             if (layer >= m_Layers.Length)
             {
-                Debug.LogError($"Play anim {anim} failed, error:layer ({layer}) >= m_Layers.Length ({m_Layers.Length})");
+                Debug.LogError(
+                    $"Play anim {anim} failed, error:layer ({layer}) >= m_Layers.Length ({m_Layers.Length})");
                 return;
             }
 
@@ -304,7 +305,9 @@ namespace Saber.CharacterController
         void UpdateSmoothFloat()
         {
             for (int i = 0; i < m_ListSmoothFloat.Count; i++)
+            {
                 m_ListSmoothFloat[i].Update();
+            }
         }
 
         #endregion

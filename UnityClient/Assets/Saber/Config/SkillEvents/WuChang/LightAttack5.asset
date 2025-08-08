@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b781d06c00f873041aca107545370fa8, type: 3}
   m_Name: DynamicTrail
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   m_WeaponBone: 24
+  m_NotTriggerWhenPowerEnough: 0
 --- !u!114 &-7388661633654151685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,7 +130,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 6302318942914092496}
   - EventTime: 0
-    EventRange: {x: 0.3315508, y: 0.45454547}
+    EventRange: {x: 0.4117647, y: 0.45454547}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -137,6 +138,40 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 5679929145430581010}
+  - EventTime: 0.27272728
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 988603490115269034}
+--- !u!114 &988603490115269034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca2229d21ed65194bac74b8298b11290, type: 3}
+  m_Name: Particles
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 1872147318604286, guid: 5bea49531fc500c408823a2e2863106f,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0.030210067, y: 1.0122393, z: -0.014081203}
+    Rot: {x: -0.018383397, y: 0.24020259, z: -0.12363199, w: -0.96264213}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 1
+  TimeType: 1
+  m_HoldTime: 1
+  OnlyTriggerWhenPowerEnough: 0
 --- !u!114 &5679929145430581010
 MonoBehaviour:
   m_ObjectHideFlags: 0

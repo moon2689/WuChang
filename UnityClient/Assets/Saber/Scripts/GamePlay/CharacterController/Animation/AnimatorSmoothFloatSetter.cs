@@ -6,11 +6,11 @@ namespace Saber.CharacterController
     {
         CharacterAnimation m_Parent;
         float m_CurVel;
-        private bool m_Setted;
 
         public EAnimatorParams ID { get; private set; }
         public float Target { get; set; }
         public float CurValue { get; private set; }
+        //public bool Active { get; set; }
 
 
         public AnimatorSmoothFloatSetter(CharacterAnimation parent, EAnimatorParams id)

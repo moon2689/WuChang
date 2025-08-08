@@ -23,9 +23,6 @@ namespace Saber.CharacterController
 
             m_TimerAlign = 0.1f;
 
-            // fix weapon location
-            Actor.CMelee.CWeapon.TryFixDefenseLocation(true);
-
             Actor.CAnim.Play($"DefenseStart");
         }
 
@@ -37,13 +34,6 @@ namespace Saber.CharacterController
                 m_TimerAlign -= Time.deltaTime;
                 Actor.CPhysic.AlignForwardTo(Actor.DesiredLookDir, 1080f);
             }
-        }
-
-        protected override void OnExit()
-        {
-            base.OnExit();
-            // fix weapon location
-            Actor.CMelee.CWeapon.TryFixDefenseLocation(false);
         }
 
         public void EndDefense()

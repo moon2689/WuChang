@@ -4,64 +4,55 @@ using UnityEngine;
 
 namespace Saber.CharacterController
 {
-    public class Defense : DefenseBase
+    public class Defense : ActorStateBase
     {
+        protected enum EState
+        {
+            None,
+            DefenseStart,
+            DefenseLoop,
+            DefenseEnd,
+            DefenseHit,
+            DefenseBroken,
+        }
+
+
         private float m_TimerAlign;
-        private bool m_LeftSide;
         private bool m_AutoExit;
-        private string m_AnimParry;
+        protected EState m_CurState;
+        private SCharacter m_Character;
+
 
         public override bool ApplyRootMotionSetWhenEnter => true;
-
         public override bool CanEnter => Actor.CPhysic.Grounded;
-        public override bool CanExit => m_CurState == EState.DefenseLoop;
-        private string AnimEndStr => m_LeftSide ? "Left" : "Right";
-
+        public override bool CanExit => true;//m_CurState == EState.DefenseLoop;
         public bool ParriedSucceed { get; set; }
+        public SCharacter Character => m_Character ??= (SCharacter)Actor;
 
 
-        #region static
-
-        static string Get3PosString(float dmgHeightRate)
+        public Defense() : base(EStateType.Defense)
         {
-            if (dmgHeightRate < 0.5f)
-            {
-                return "Bottom";
-            }
-            else if (dmgHeightRate < 0.75f)
-            {
-                return "Middle";
-            }
-            else
-            {
-                return "Top";
-            }
         }
 
-        static string Get2PosString(float dmgHeightRate)
+        public bool CanDefense(SActor enemy)
         {
-            if (dmgHeightRate < 0.5f)
+            if (m_CurState == EState.DefenseEnd || m_CurState == EState.DefenseBroken)
             {
-                return "Bottom";
+                return false;
             }
-            else
+
+            bool isFaceToFace = Vector3.Dot(Actor.transform.forward, enemy.transform.forward) < 0;
+            if (!isFaceToFace)
             {
-                return "Top";
+                return false;
             }
+
+            return true;
         }
-
-        static string GetDirString(bool isLeftDir)
-        {
-            return isLeftDir ? "Left" : "Right";
-        }
-
-        #endregion
-
 
         public override void Enter()
         {
             base.Enter();
-            m_LeftSide = false;
             OnEnter();
         }
 
@@ -75,59 +66,29 @@ namespace Saber.CharacterController
         {
             Actor.CAnim.StopMaskLayerAnims();
 
+            Actor.UpdateMovementAxisAnimatorParams = false;
+
             // fix weapon location
-            Actor.CMelee.CWeapon.TryFixDefenseLocation(true, m_LeftSide);
+            //Actor.CMelee.CWeapon.TryFixDefenseLocation(true, m_LeftSide);
 
             if (m_CurState == EState.DefenseEnd)
             {
                 m_CurState = EState.DefenseLoop;
-                Actor.CAnim.Play($"DefenseLoop{AnimEndStr}");
+                Actor.CAnim.Play("DefenseLoop");
             }
             else if (m_CurState == EState.None)
             {
-                Actor.CAnim.Play($"DefenseStart{AnimEndStr}", onFinished: () => m_CurState = EState.DefenseLoop);
+                Actor.CAnim.Play("DefenseStart", onFinished: () => m_CurState = EState.DefenseLoop);
                 m_CurState = EState.DefenseStart;
                 m_TimerAlign = 0.1f;
             }
         }
 
-        public override void PlayParriedSucceedAnim(bool isLeftDir, float dmgHeightRate)
+        public void PlayParriedSucceedAnim(bool isLeftDir, float dmgHeightRate)
         {
-            base.PlayParriedSucceedAnim(isLeftDir, dmgHeightRate);
             m_AutoExit = false;
 
-            if (m_LeftSide)
-            {
-                if (isLeftDir)
-                {
-                    string dirString = GetDirString(isLeftDir);
-                    string posString = Get3PosString(dmgHeightRate);
-                    m_AnimParry = $"Parry{posString}{dirString}";
-                }
-                else
-                {
-                    string posStr = Get2PosString(dmgHeightRate);
-                    m_AnimParry = $"Parry{posStr}Left2Right";
-                    m_LeftSide = false;
-                }
-            }
-            else
-            {
-                if (!isLeftDir)
-                {
-                    string dirString = GetDirString(isLeftDir);
-                    string posString = Get3PosString(dmgHeightRate);
-                    m_AnimParry = $"Parry{posString}{dirString}";
-                }
-                else
-                {
-                    string posStr = Get2PosString(dmgHeightRate);
-                    m_AnimParry = $"Parry{posStr}Right2Left";
-                    m_LeftSide = true;
-                }
-            }
-
-            Actor.CAnim.Play(m_AnimParry, force: true);
+            Actor.CAnim.Play("TanFan", force: true);
             GameApp.Entry.Game.Audio.Play3DSound("Sound/Skill/Parry", base.Actor.transform.position);
         }
 
@@ -140,17 +101,48 @@ namespace Saber.CharacterController
                 Actor.CPhysic.AlignForwardTo(Actor.DesiredLookDir, 1080f);
             }
 
-            if (ParriedSucceed && m_AutoExit && !Actor.CAnim.IsPlayingOrWillPlay(m_AnimParry))
+            if (m_CurState == EState.DefenseLoop)
+            {
+                if (Actor.MovementAxisMagnitude >= 0.1f)
+                {
+                    Actor.CAnim.SetSmoothFloat(EAnimatorParams.Horizontal, Actor.MovementAxis.x);
+                    Actor.CAnim.SetSmoothFloat(EAnimatorParams.Vertical, Actor.MovementAxis.z);
+
+                    // 位移
+                    float speed = GetSpeed2D();
+                    Actor.CPhysic.AdditivePosition += Actor.DesiredMoveDir * speed * base.DeltaTime;
+                    Actor.CPhysic.AlignForwardTo(Actor.DesiredLookDir, 720);
+
+                    // 播放移动动画
+                    Actor.CAnim.Play("DefenseMove");
+                }
+                else
+                {
+                    Actor.CAnim.SetSmoothFloat(EAnimatorParams.Horizontal, 0);
+                    Actor.CAnim.SetSmoothFloat(EAnimatorParams.Vertical, 0);
+                }
+            }
+
+            if (ParriedSucceed && m_AutoExit && !Actor.CAnim.IsPlayingOrWillPlay("TanFan"))
             {
                 Exit();
             }
         }
 
+        float GetSpeed2D()
+        {
+            float curSmoothFloatH = Actor.CAnim.GetCurSmoothFloat(EAnimatorParams.Horizontal);
+            float curSmoothFloatV = Actor.CAnim.GetCurSmoothFloat(EAnimatorParams.Vertical);
+            float curSmoothFloat = Mathf.Sqrt(curSmoothFloatH * curSmoothFloatH + curSmoothFloatV * curSmoothFloatV);
+            // float curSmoothFloat = 2 * GameHelper.GetStickLength(curSmoothFloatH * 0.5f, curSmoothFloatV * 0.5f);
+            float speed = Mathf.Lerp(0, Character.m_CharacterInfo.m_SpeedDefenseWalk, curSmoothFloat);
+            return speed;
+        }
+
         protected override void OnExit()
         {
             base.OnExit();
-            // fix weapon location
-            Actor.CMelee.CWeapon.TryFixDefenseLocation(false, m_LeftSide);
+            Actor.UpdateMovementAxisAnimatorParams = true;
             m_CurState = EState.None;
         }
 
@@ -160,15 +152,17 @@ namespace Saber.CharacterController
             {
                 m_CurState = EState.DefenseEnd;
 
-                if (ParriedSucceed && Actor.CAnim.IsPlayingOrWillPlay(m_AnimParry))
+                if (ParriedSucceed && Actor.CAnim.IsPlayingOrWillPlay("TanFan"))
                 {
                     m_AutoExit = true;
                 }
                 else
                 {
-                    Actor.CAnim.Play($"DefenseEnd{AnimEndStr}", exitTime: 0.9f, onFinished: Exit);
+                    Actor.CAnim.Play($"DefenseEnd", exitTime: 0.9f, onFinished: Exit);
                 }
             }
+
+            Exit();
         }
 
         public void OnHit(DamageInfo dmgInfo)
@@ -179,13 +173,13 @@ namespace Saber.CharacterController
             if (Actor.CStats.CurrentStamina <= 0)
             {
                 m_CurState = EState.DefenseBroken;
-                Actor.CAnim.Play($"DefenseBroken{AnimEndStr}", force: true, onFinished: Exit);
+                Actor.CAnim.Play($"DefenseBroken", force: true, onFinished: Exit);
             }
             else
             {
                 m_CurState = EState.DefenseHit;
                 int randomID = UnityEngine.Random.Range(1, 3);
-                string randomHitAnim = $"DefenseHit{AnimEndStr}{randomID}";
+                string randomHitAnim = $"DefenseHit{randomID}";
                 Actor.CAnim.Play(randomHitAnim, force: true, onFinished: () => m_CurState = EState.DefenseLoop);
             }
 

@@ -182,13 +182,6 @@ namespace Saber.AI
 
         void Wnd_JoyStick.IHandler.OnPressDefense(bool value)
         {
-            /*
-            if (!Actor.ArmedWeapon)
-            {
-                OnToggleWeapon();
-                return;
-            }
-
             m_PressDefense = value;
             if (value)
             {
@@ -198,9 +191,6 @@ namespace Saber.AI
             {
                 Actor.DefenseEnd();
             }
-            */
-            if (value)
-                OnTriggerSkill(ESkillType.Defense);
         }
 
         void Wnd_JoyStick.IHandler.OnUseCamStick(float x, float y)

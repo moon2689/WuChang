@@ -32,12 +32,6 @@ namespace Saber.CharacterController
         public ENodeType m_ArmBoneType;
         public Vector3 m_ArmPos;
         public Vector3 m_ArmRot;
-
-        public bool m_FixLocationWhenDefense;
-        public Vector3 m_LeftDefensePos;
-        public Vector3 m_LeftDefenseRot;
-        public Vector3 m_RightDefensePos;
-        public Vector3 m_RightDefenseRot;
     }
 
     // 武器类型

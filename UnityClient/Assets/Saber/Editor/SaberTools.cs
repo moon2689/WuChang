@@ -10,6 +10,98 @@ using UnityEditor.SceneManagement;
 
 public static class SaberTools
 {
+    [MenuItem("Saber/Asset/Fix Wu Chang Material")]
+    static void FixWuChangMaterials()
+    {
+        foreach (TextAsset json in Selection.objects)
+        {
+            FixWuChMaterial(json);
+        }
+
+        Debug.Log("FixWuChangMaterials all done");
+    }
+
+    static void FixWuChMaterial(TextAsset jsonFile)
+    {
+        string path = AssetDatabase.GetAssetPath(jsonFile);
+        string fileName = Path.GetFileNameWithoutExtension(path);
+        string dirName = Path.GetDirectoryName(Path.GetDirectoryName(path));
+        string matPath = Path.Combine(dirName + "/Materials", fileName + ".mat");
+        Material mat = AssetDatabase.LoadAssetAtPath<Material>(matPath);
+
+        string[] lines = jsonFile.text.Split(new string[] { "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries);
+        string texOldPath = null;
+        foreach (var line in lines)
+        {
+            string[] words = line.Split(new string[] { ":", "\"", ",", " " }, StringSplitOptions.RemoveEmptyEntries);
+            if (words.Length > 1 && words[0] == "PM_Diffuse")
+            {
+                texOldPath = words[1];
+                break;
+            }
+        }
+
+        if (string.IsNullOrEmpty(texOldPath))
+        {
+            Debug.LogError("diffuse is null:" + fileName);
+            return;
+        }
+
+        string folderName = Path.GetFileNameWithoutExtension(Path.GetDirectoryName(texOldPath));
+        string texName = Path.GetFileNameWithoutExtension(texOldPath);
+
+        string texPath = $"{dirName}/{folderName}/{texName}.tga";
+        string normalPath, maskPath;
+        if (texPath.Contains("_D.tga"))
+        {
+            normalPath = texPath.Replace("_D.tga", "_N.tga");
+            maskPath = texPath.Replace("_D.tga", "_R.tga");
+        }
+        else if (texPath.Contains("_Albedo.tga"))
+        {
+            normalPath = texPath.Replace("_Albedo.tga", "_Normal.tga");
+            maskPath = texPath.Replace("_Albedo.tga", "_Reflection.tga");
+        }
+        else
+        {
+            Debug.LogError("Unknown tex path:" + texPath);
+            return;
+        }
+
+        Texture2D diffuse = AssetDatabase.LoadAssetAtPath<Texture2D>(texPath);
+
+        if (diffuse == null)
+        {
+            Debug.LogError("diffuse is null:" + fileName);
+            return;
+        }
+
+        // normal
+        TextureImporter tiNormal = AssetImporter.GetAtPath(normalPath) as TextureImporter;
+        tiNormal.textureType = TextureImporterType.NormalMap;
+        tiNormal.SaveAndReimport();
+        Texture2D texNormal = AssetDatabase.LoadAssetAtPath<Texture2D>(normalPath);
+
+        // mask
+        TextureImporter tiMask = AssetImporter.GetAtPath(maskPath) as TextureImporter;
+        tiMask.sRGBTexture = false;
+        tiMask.SaveAndReimport();
+        Texture2D texMask = AssetDatabase.LoadAssetAtPath<Texture2D>(maskPath);
+
+        mat.shader = Shader.Find("Saber/WuChang/WuChang Common Lit");
+        mat.SetTexture("_BaseMap", diffuse);
+        mat.SetColor("_BaseColor", Color.white);
+        mat.SetTexture("_BumpMap", texNormal);
+        mat.SetTexture("_MaskMROMap", texMask);
+
+        EditorUtility.SetDirty(mat);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+
+        Debug.Log("FixWuChMaterial done:" + mat.name, mat);
+    }
+
+
     [MenuItem("Saber/Asset/Fix FBX Anim Name")]
     static void FixMonsterAnimName()
     {
