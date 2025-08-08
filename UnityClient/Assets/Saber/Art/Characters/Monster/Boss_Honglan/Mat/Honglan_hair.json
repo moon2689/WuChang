@@ -1,0 +1,81 @@
+{
+  "Textures": {
+    "PM_Diffuse": "Project_Plague/Content/Assets/Character/npc/N_NSC/Tex/T_Highres_SNXK_Hair_D.T_Highres_SNXK_Hair_D",
+    "Diffuse": "Project_Plague/Content/Assets/Character/npc/N_NSC/Tex/T_Highres_SNXK_Hair_D.T_Highres_SNXK_Hair_D",
+    "FlowMapTexture": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/Hairstyle/MH_Hairstyle_Flow.MH_Hairstyle_Flow",
+    "MH_Hairstyle_Flow": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/Hairstyle/MH_Hairstyle_Flow.MH_Hairstyle_Flow"
+  },
+  "Parameters": {
+    "BlendMode": 1,
+    "ShadingModel": 0,
+    "Colors": {
+      "DyeColor": {
+        "R": 0.15,
+        "G": 0.15,
+        "B": 0.15,
+        "A": 1.0,
+        "Hex": "6C6C6C"
+      },
+      "RootColor": {
+        "R": 0.063883,
+        "G": 0.068242,
+        "B": 0.078125,
+        "A": 1.0,
+        "Hex": "474A4F"
+      },
+      "Tangent": {
+        "R": 0.0,
+        "G": -1.0,
+        "B": 0.0,
+        "A": 1.0,
+        "Hex": "000000"
+      },
+      "TangentA": {
+        "R": 0.0,
+        "G": 0.0,
+        "B": 16.0,
+        "A": 1.0,
+        "Hex": "0000FF"
+      },
+      "TangentB": {
+        "R": 0.0,
+        "G": 0.0,
+        "B": -16.0,
+        "A": 1.0,
+        "Hex": "000000"
+      },
+      "TipColor": {
+        "R": 0.229167,
+        "G": 0.220687,
+        "B": 0.220687,
+        "A": 1.0,
+        "Hex": "848181"
+      }
+    },
+    "Scalars": {
+      "Brightness": 0.936,
+      "die": 0.85,
+      "EdgeMaskMin": 1.0,
+      "PixelDepthOffset": 0.8,
+      "Roughness": 0.767808,
+      "Scatter": 0.565,
+      "Spec_Boost": 0.356,
+      "RefractionDepthBias": 0.0
+    },
+    "Switches": {},
+    "Properties": {
+      "bHasStaticPermutationResource": true,
+      "BasePropertyOverrides": {
+        "TwoSided": true,
+        "BlendMode": "EBlendMode::BLEND_Masked",
+        "OpacityMaskClipValue": 0.3333
+      }
+    },
+    "HasTopDiffuse": true,
+    "HasTopNormals": false,
+    "HasTopSpecularMasks": false,
+    "HasTopEmissive": false,
+    "IsTranslucent": false,
+    "IsNull": false
+  }
+}
