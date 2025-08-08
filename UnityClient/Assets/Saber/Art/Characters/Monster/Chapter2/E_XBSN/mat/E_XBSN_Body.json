@@ -1,0 +1,53 @@
+{
+  "Textures": {
+    "base bolor": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/BODY/Body_C4.Body_C4",
+    "Body_C4": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/BODY/Body_C4.Body_C4",
+    "PM_Normals": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/BODY/Body_N4.Body_N4",
+    "Normal Tex": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/BODY/Body_N4.Body_N4",
+    "skin_reflection": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/BODY/T_Body_ARM.T_Body_ARM",
+    "PM_SpecularMasks": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/BODY/T_Body_ARM.T_Body_ARM",
+    "T_Body_ARM": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/BODY/T_Body_ARM.T_Body_ARM"
+  },
+  "Parameters": {
+    "BlendMode": 1,
+    "ShadingModel": 5,
+    "Colors": {
+      "Specular": {
+        "R": 0.0,
+        "G": 0.135417,
+        "B": 0.0,
+        "A": 1.0,
+        "Hex": "006700"
+      },
+      "Roughnes": {
+        "R": 0.0,
+        "G": 1.0,
+        "B": 0.0,
+        "A": 1.0,
+        "Hex": "00FF00"
+      }
+    },
+    "Scalars": {
+      "RefractionDepthBias": 0.0
+    },
+    "Switches": {},
+    "Properties": {
+      "bOverrideSubsurfaceProfile": true,
+      "BasePropertyOverrides": {
+        "BlendMode": "EBlendMode::BLEND_Masked",
+        "ShadingModel": "EMaterialShadingModel::MSM_SubsurfaceProfile",
+        "OpacityMaskClipValue": 0.3333
+      },
+      "SubsurfaceProfile": {
+        "ObjectName": "SubsurfaceProfile'SSP_Skin'",
+        "ObjectPath": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Mat/SSP/SSP_Skin.0"
+      }
+    },
+    "HasTopDiffuse": false,
+    "HasTopNormals": false,
+    "HasTopSpecularMasks": false,
+    "HasTopEmissive": false,
+    "IsTranslucent": false,
+    "IsNull": false
+  }
+}

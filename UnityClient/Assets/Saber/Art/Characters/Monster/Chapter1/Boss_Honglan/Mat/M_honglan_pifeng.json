@@ -1,0 +1,32 @@
+{
+  "Textures": {
+    "PM_Diffuse": "Project_Plague/Content/Assets/Character/Monster/Boss_Honglan/Mat_New/Tex1/T_HL_pifeng_D.T_HL_pifeng_D",
+    "Albedo": "Project_Plague/Content/Assets/Character/Monster/Boss_Honglan/Mat_New/Tex1/T_HL_pifeng_D.T_HL_pifeng_D",
+    "PM_Normals": "Project_Plague/Content/Assets/Character/Monster/Boss_Honglan/Mat_New/Tex1/T_HL_pifeng_N.T_HL_pifeng_N",
+    "Normal tex": "Project_Plague/Content/Assets/Character/Monster/Boss_Honglan/Mat_New/Tex1/T_HL_pifeng_N.T_HL_pifeng_N",
+    "Reflection": "Project_Plague/Content/Assets/Character/Monster/Boss_Honglan/Mat_New/Tex1/T_HL_pifeng_R.T_HL_pifeng_R",
+    "T_HL_pifeng_R": "Project_Plague/Content/Assets/Character/Monster/Boss_Honglan/Mat_New/Tex1/T_HL_pifeng_R.T_HL_pifeng_R"
+  },
+  "Parameters": {
+    "BlendMode": 1,
+    "ShadingModel": 0,
+    "Colors": {},
+    "Scalars": {
+      "RefractionDepthBias": 0.0
+    },
+    "Switches": {},
+    "Properties": {
+      "BasePropertyOverrides": {
+        "TwoSided": true,
+        "BlendMode": "EBlendMode::BLEND_Masked",
+        "OpacityMaskClipValue": 0.3333
+      }
+    },
+    "HasTopDiffuse": true,
+    "HasTopNormals": false,
+    "HasTopSpecularMasks": false,
+    "HasTopEmissive": false,
+    "IsTranslucent": false,
+    "IsNull": false
+  }
+}

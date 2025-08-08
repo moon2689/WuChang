@@ -1,0 +1,90 @@
+{
+  "Textures": {
+    "DissolveTex": "Project_Plague/Content/Assets/FX/Tex/T_TouTuo_UV2_FX.T_TouTuo_UV2_FX",
+    "T_TouTuo_UV2_FX": "Project_Plague/Content/Assets/FX/Tex/T_TouTuo_UV2_FX.T_TouTuo_UV2_FX",
+    "Alpha": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/Hairstyle/MH_Hairstyle_Opacity_2.MH_Hairstyle_Opacity_2",
+    "MH_Hairstyle_Opacity_2": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/Hairstyle/MH_Hairstyle_Opacity_2.MH_Hairstyle_Opacity_2",
+    "Depth": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/Hairstyle/MH_Hairstyle_Depth.MH_Hairstyle_Depth",
+    "MH_Hairstyle_Depth": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/Hairstyle/MH_Hairstyle_Depth.MH_Hairstyle_Depth",
+    "PM_Diffuse": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/Hairstyle/MH_Hairstyle_D_2.MH_Hairstyle_D_2",
+    "Diffuse": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/Hairstyle/MH_Hairstyle_D_2.MH_Hairstyle_D_2",
+    "Root": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/Hairstyle/MH_Hairstyle_Roots.MH_Hairstyle_Roots",
+    "MH_Hairstyle_Roots": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/Hairstyle/MH_Hairstyle_Roots.MH_Hairstyle_Roots",
+    "Unique_Hair_Value": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/Hairstyle/MH_Hairstyle_ID.MH_Hairstyle_ID",
+    "MH_Hairstyle_ID": "Project_Plague/Content/Assets/Character/player/player_wuchang_rebined/cloth/Wuchang_Base/Tex/Hairstyle/MH_Hairstyle_ID.MH_Hairstyle_ID"
+  },
+  "Parameters": {
+    "BlendMode": 1,
+    "ShadingModel": 7,
+    "Colors": {
+      "RootColor": {
+        "R": 0.0,
+        "G": 0.0,
+        "B": 0.0,
+        "A": 1.0,
+        "Hex": "000000"
+      },
+      "Tangent": {
+        "R": 0.0,
+        "G": -1.0,
+        "B": 0.0,
+        "A": 1.0,
+        "Hex": "000000"
+      },
+      "TangentA": {
+        "R": 0.0,
+        "G": 0.0,
+        "B": 0.3,
+        "A": 1.0,
+        "Hex": "000095"
+      },
+      "TangentB": {
+        "R": 0.0,
+        "G": 0.0,
+        "B": -0.3,
+        "A": 1.0,
+        "Hex": "000000"
+      },
+      "TipColor": {
+        "R": 0.10980393,
+        "G": 0.07450981,
+        "B": 0.050980397,
+        "A": 1.0,
+        "Hex": "5D4D40"
+      }
+    },
+    "Scalars": {
+      "Brightness": 3.0,
+      "EdgeMaskContrast": 1.0,
+      "EdgeMaskMin": 5.0,
+      "MipBias": -10.0,
+      "Noisetiling": 24.0,
+      "OcclusionAmtRoot": 0.0,
+      "OcclusionAmtRootTip": 0.8,
+      "PixelDepthOffset": 0.4,
+      "RandomHueVariation": 0.2,
+      "RandomValueVariation": 0.2,
+      "Roughness": 0.45,
+      "Scatter": 0.0,
+      "TipPower": 1.0,
+      "RefractionDepthBias": 0.0
+    },
+    "Switches": {},
+    "Properties": {
+      "bHasStaticPermutationResource": true,
+      "BasePropertyOverrides": {
+        "bOverride_TwoSided": true,
+        "TwoSided": true,
+        "BlendMode": "EBlendMode::BLEND_Masked",
+        "ShadingModel": "EMaterialShadingModel::MSM_Hair",
+        "OpacityMaskClipValue": 0.3333
+      }
+    },
+    "HasTopDiffuse": true,
+    "HasTopNormals": false,
+    "HasTopSpecularMasks": false,
+    "HasTopEmissive": false,
+    "IsTranslucent": false,
+    "IsNull": false
+  }
+}

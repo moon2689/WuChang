@@ -1,0 +1,81 @@
+{
+  "Textures": {
+    "Combine Tex": "Project_Plague/Content/Assets/Character/npc/N_NSC/Tex/T_Highres_SNXK_Hair_R.T_Highres_SNXK_Hair_R",
+    "T_Highres_SNXK_Hair_R": "Project_Plague/Content/Assets/Character/npc/N_NSC/Tex/T_Highres_SNXK_Hair_R.T_Highres_SNXK_Hair_R",
+    "PM_Diffuse": "Project_Plague/Content/Assets/Character/npc/N_NSC/Tex/T_Highres_SNXK_Hair_D.T_Highres_SNXK_Hair_D",
+    "Diffuse": "Project_Plague/Content/Assets/Character/npc/N_NSC/Tex/T_Highres_SNXK_Hair_D.T_Highres_SNXK_Hair_D"
+  },
+  "Parameters": {
+    "BlendMode": 1,
+    "ShadingModel": 0,
+    "Colors": {
+      "RootColor": {
+        "R": 0.010417,
+        "G": 0.010417,
+        "B": 0.010417,
+        "A": 1.0,
+        "Hex": "1A1A1A"
+      },
+      "Tangent": {
+        "R": 0.0,
+        "G": -1.0,
+        "B": 0.0,
+        "A": 1.0,
+        "Hex": "000000"
+      },
+      "TangentA": {
+        "R": 0.0,
+        "G": 0.0,
+        "B": 0.0,
+        "A": 1.0,
+        "Hex": "000000"
+      },
+      "TangentB": {
+        "R": 1.0,
+        "G": 1.0,
+        "B": 1.0,
+        "A": 1.0,
+        "Hex": "FFFFFF"
+      },
+      "TipColor": {
+        "R": 0.0,
+        "G": 0.0,
+        "B": 0.0,
+        "A": 1.0,
+        "Hex": "000000"
+      }
+    },
+    "Scalars": {
+      "MipBias": -10.0,
+      "Brightness": 0.8,
+      "die": 1.269142,
+      "EdgeMaskContrast": 1.0,
+      "EdgeMaskMin": 0.0,
+      "Noisetiling": 24.0,
+      "OcclusionAmtRoot": 0.0,
+      "OcclusionAmtRootTip": 0.8,
+      "PixelDepthOffset": 1.0,
+      "RandomHueVariation": 0.0,
+      "RandomValueVariation": 0.0,
+      "Roughness": 0.8,
+      "Scatter": 0.6,
+      "Spec_Boost": 0.0,
+      "TipPower": 1.0,
+      "RefractionDepthBias": 0.0
+    },
+    "Switches": {},
+    "Properties": {
+      "BasePropertyOverrides": {
+        "TwoSided": true,
+        "BlendMode": "EBlendMode::BLEND_Masked",
+        "OpacityMaskClipValue": 0.3333
+      }
+    },
+    "HasTopDiffuse": true,
+    "HasTopNormals": false,
+    "HasTopSpecularMasks": false,
+    "HasTopEmissive": false,
+    "IsTranslucent": false,
+    "IsNull": false
+  }
+}

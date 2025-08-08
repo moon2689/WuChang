@@ -1,0 +1,78 @@
+{
+  "Textures": {
+    "base bolor": "Project_Plague/Content/Assets/Character/Monster/Boss_Chirentoutuo/Tex/T_TouTuo_Body_D.T_TouTuo_Body_D",
+    "PM_Diffuse": "Project_Plague/Content/Assets/Character/Monster/Boss_Chirentoutuo/Tex/T_TouTuo_Body_D.T_TouTuo_Body_D",
+    "T_TouTuo_Body_D": "Project_Plague/Content/Assets/Character/Monster/Boss_Chirentoutuo/Tex/T_TouTuo_Body_D.T_TouTuo_Body_D",
+    "PM_Normals": "Project_Plague/Content/Assets/Character/Monster/Boss_Chirentoutuo/Tex/T_TouTuo_Body_N.T_TouTuo_Body_N",
+    "Normal Tex": "Project_Plague/Content/Assets/Character/Monster/Boss_Chirentoutuo/Tex/T_TouTuo_Body_N.T_TouTuo_Body_N",
+    "DissolveTex": "Project_Plague/Content/Assets/FX/Tex/T_TouTuo_UV2_FX.T_TouTuo_UV2_FX",
+    "T_TouTuo_UV2_FX": "Project_Plague/Content/Assets/FX/Tex/T_TouTuo_UV2_FX.T_TouTuo_UV2_FX",
+    "skin_reflection": "Project_Plague/Content/Assets/Character/Monster/Boss_Chirentoutuo/Tex/T_TouTuo_Body_R.T_TouTuo_Body_R",
+    "T_TouTuo_Body_R": "Project_Plague/Content/Assets/Character/Monster/Boss_Chirentoutuo/Tex/T_TouTuo_Body_R.T_TouTuo_Body_R"
+  },
+  "Parameters": {
+    "BlendMode": 1,
+    "ShadingModel": 5,
+    "Colors": {
+      "BC AO contrast": {
+        "R": 0.2,
+        "G": 1.0,
+        "B": 0.75,
+        "A": 0.0,
+        "Hex": "7CFFE1"
+      },
+      "Skin_color": {
+        "R": 1.0,
+        "G": 1.0,
+        "B": 1.0,
+        "A": 0.0,
+        "Hex": "FFFFFF"
+      },
+      "Specular": {
+        "R": 0.0,
+        "G": 1.0,
+        "B": 0.0,
+        "A": 1.0,
+        "Hex": "00FF00"
+      },
+      "Roughnes": {
+        "R": 0.0,
+        "G": 1.0,
+        "B": 0.0,
+        "A": 1.0,
+        "Hex": "00FF00"
+      },
+      "SSS": {
+        "R": 0.8,
+        "G": 1.0,
+        "B": 0.3,
+        "A": 0.0,
+        "Hex": "E8FF95"
+      }
+    },
+    "Scalars": {
+      "RoughEdge": 0.1,
+      "Distance": 1000.0,
+      "DeathDissolve": -0.03,
+      "RefractionDepthBias": 0.0
+    },
+    "Switches": {},
+    "Properties": {
+      "BasePropertyOverrides": {
+        "BlendMode": "EBlendMode::BLEND_Masked",
+        "ShadingModel": "EMaterialShadingModel::MSM_SubsurfaceProfile",
+        "OpacityMaskClipValue": 0.3333
+      },
+      "SubsurfaceProfile": {
+        "ObjectName": "SubsurfaceProfile'skin_sss'",
+        "ObjectPath": "Project_Plague/Content/Global/Material/Common/skin_sss.0"
+      }
+    },
+    "HasTopDiffuse": false,
+    "HasTopNormals": false,
+    "HasTopSpecularMasks": false,
+    "HasTopEmissive": false,
+    "IsTranslucent": false,
+    "IsNull": false
+  }
+}

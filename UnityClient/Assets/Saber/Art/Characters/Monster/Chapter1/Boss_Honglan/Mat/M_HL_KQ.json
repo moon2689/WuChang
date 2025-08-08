@@ -1,0 +1,84 @@
+{
+  "Textures": {
+    "base bolor": "Project_Plague/Content/Assets/Character/npc/N_YX/TEX/T_Highres_YuXia_KouQiang_D.T_Highres_YuXia_KouQiang_D",
+    "PM_Diffuse": "Project_Plague/Content/Assets/Character/npc/N_YX/TEX/T_Highres_YuXia_KouQiang_D.T_Highres_YuXia_KouQiang_D",
+    "T_Highres_YuXia_KouQiang_D": "Project_Plague/Content/Assets/Character/npc/N_YX/TEX/T_Highres_YuXia_KouQiang_D.T_Highres_YuXia_KouQiang_D",
+    "PM_Normals": "Project_Plague/Content/Assets/Character/npc/N_YX/TEX/T_Highres_YuXia_KouQiang_N.T_Highres_YuXia_KouQiang_N",
+    "Normal Tex": "Project_Plague/Content/Assets/Character/npc/N_YX/TEX/T_Highres_YuXia_KouQiang_N.T_Highres_YuXia_KouQiang_N",
+    "DissolveTex": "Project_Plague/Content/Assets/Character/Monster/Chapter_4/B_NW/tex/T_B_NW_Mask_fx.T_B_NW_Mask_fx",
+    "T_B_NW_Mask_fx": "Project_Plague/Content/Assets/Character/Monster/Chapter_4/B_NW/tex/T_B_NW_Mask_fx.T_B_NW_Mask_fx",
+    "skin_reflection": "Project_Plague/Content/Assets/Character/npc/N_YX/TEX/T_Highres_YuXia_KouQiang_R.T_Highres_YuXia_KouQiang_R",
+    "T_Highres_YuXia_KouQiang_R": "Project_Plague/Content/Assets/Character/npc/N_YX/TEX/T_Highres_YuXia_KouQiang_R.T_Highres_YuXia_KouQiang_R"
+  },
+  "Parameters": {
+    "BlendMode": 1,
+    "ShadingModel": 5,
+    "Colors": {
+      "BC AO contrast": {
+        "R": 0.2,
+        "G": 1.0,
+        "B": 0.75,
+        "A": 0.0,
+        "Hex": "7CFFE1"
+      },
+      "Skin_color": {
+        "R": 1.0,
+        "G": 1.0,
+        "B": 1.0,
+        "A": 0.0,
+        "Hex": "FFFFFF"
+      },
+      "Specular": {
+        "R": 0.0,
+        "G": 1.0,
+        "B": 0.0,
+        "A": 1.0,
+        "Hex": "00FF00"
+      },
+      "Roughnes": {
+        "R": 0.0,
+        "G": 1.0,
+        "B": 0.0,
+        "A": 1.0,
+        "Hex": "00FF00"
+      },
+      "SSS": {
+        "R": 0.383333,
+        "G": 0.479167,
+        "B": 0.479167,
+        "A": 0.0,
+        "Hex": "A7B8B8"
+      },
+      "Normal": {
+        "R": 2.5,
+        "G": 2.0,
+        "B": 70.0,
+        "A": 0.0,
+        "Hex": "FFFFFF"
+      }
+    },
+    "Scalars": {
+      "DeathDissolve": -0.1,
+      "TAA": 10.0,
+      "RefractionDepthBias": 0.0
+    },
+    "Switches": {},
+    "Properties": {
+      "BasePropertyOverrides": {
+        "BlendMode": "EBlendMode::BLEND_Masked",
+        "ShadingModel": "EMaterialShadingModel::MSM_SubsurfaceProfile",
+        "OpacityMaskClipValue": 0.3333
+      },
+      "SubsurfaceProfile": {
+        "ObjectName": "SubsurfaceProfile'skin_sss'",
+        "ObjectPath": "Project_Plague/Content/Global/Material/Common/skin_sss.0"
+      }
+    },
+    "HasTopDiffuse": false,
+    "HasTopNormals": false,
+    "HasTopSpecularMasks": false,
+    "HasTopEmissive": false,
+    "IsTranslucent": false,
+    "IsNull": false
+  }
+}

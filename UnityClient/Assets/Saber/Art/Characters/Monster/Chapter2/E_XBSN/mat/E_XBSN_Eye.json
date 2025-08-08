@@ -1,0 +1,98 @@
+{
+  "Textures": {
+    "IrisColor": "Project_Plague/Content/Global/Material/Common/Eyes/Textures/Example/T_EyeIrisBaseColor_Example_2.T_EyeIrisBaseColor_Example_2",
+    "PM_Diffuse": "Project_Plague/Content/Global/Material/Common/Eyes/Textures/Example/T_EyeScleraBaseColor_Example_2.T_EyeScleraBaseColor_Example_2",
+    "T_EyeIrisBaseColor_Example_2": "Project_Plague/Content/Global/Material/Common/Eyes/Textures/Example/T_EyeIrisBaseColor_Example_2.T_EyeIrisBaseColor_Example_2",
+    "PM_Normals": "Project_Plague/Content/Global/Material/Common/Eyes/Textures/Example/T_Eye_Wet_Normal.T_Eye_Wet_Normal",
+    "NormalMap": "Project_Plague/Content/Global/Material/Common/Eyes/Textures/Example/T_Eye_Wet_Normal.T_Eye_Wet_Normal",
+    "ScleraColor": "Project_Plague/Content/Global/Material/Common/Eyes/Textures/Example/T_EyeScleraBaseColor_Example_2.T_EyeScleraBaseColor_Example_2",
+    "T_EyeScleraBaseColor_Example_2": "Project_Plague/Content/Global/Material/Common/Eyes/Textures/Example/T_EyeScleraBaseColor_Example_2.T_EyeScleraBaseColor_Example_2",
+    "SecondaryEnv": "Project_Plague/Content/common_lib/HDR/2003_Dusk_Blue_tga.2003_Dusk_Blue_tga",
+    "2003_Dusk_Blue_tga": "Project_Plague/Content/common_lib/HDR/2003_Dusk_Blue_tga.2003_Dusk_Blue_tga"
+  },
+  "Parameters": {
+    "BlendMode": 1,
+    "ShadingModel": 9,
+    "Colors": {
+      "Camera Fade": {
+        "R": 0.0,
+        "G": 0.0,
+        "B": 0.0,
+        "A": 0.0,
+        "Hex": "000000"
+      },
+      "CameraPdoFade": {
+        "R": 5000.0,
+        "G": 0.5,
+        "B": 5000.0,
+        "A": 0.0,
+        "Hex": "FFBCFF"
+      },
+      "ScleraTint": {
+        "R": 1.0,
+        "G": 1.0,
+        "B": 1.0,
+        "A": 1.0,
+        "Hex": "FFFFFF"
+      },
+      "IrisHueTint": {
+        "R": 0.421875,
+        "G": 0.317835,
+        "B": 0.235172,
+        "A": 1.0,
+        "Hex": "AE9985"
+      }
+    },
+    "Scalars": {
+      "BrightnessAdjust": 1.054763,
+      "Damage": 0.0,
+      "DepthScale": 0.685438,
+      "FlattenNormal": 0.95,
+      "HitFlashBrightness": 0.2,
+      "IoR": 1.336,
+      "IriExponent": 0.2,
+      "IriMask": 0.03,
+      "Iris Concavity Power": 0.276744,
+      "Iris Concavity Scale": 0.111628,
+      "Iris UV Radius": 0.178,
+      "IrisBrightness": 1.0,
+      "IrisRoughness": 0.1,
+      "LimbusDarkScale": 2.15,
+      "LimbusPow": 8.0,
+      "LimbusUVWidthColor": 0.035,
+      "LimbusUVWidthShading": 0.045,
+      "NormalUVScale": 2.227917,
+      "PupilScale": 0.724,
+      "ScaleByCenter": 1.0,
+      "ScleraBrightness": 0.728847,
+      "ScleraRoughness": 0.1,
+      "SecondaryEnvRotation": 0.0,
+      "ShadowHardness": 0.345133,
+      "ShadowRadius": 0.65,
+      "SpecularityIris": 0.4,
+      "SpecularityScelera": 1.0,
+      "VertexDisplacePower": 1.5,
+      "IrisHueShift": 3.0,
+      "RefractionDepthBias": 0.0
+    },
+    "Switches": {},
+    "Properties": {
+      "BasePropertyOverrides": {
+        "bOverride_ShadingModel": true,
+        "BlendMode": "EBlendMode::BLEND_Masked",
+        "ShadingModel": "EMaterialShadingModel::MSM_Eye",
+        "OpacityMaskClipValue": 0.3333
+      },
+      "SubsurfaceProfile": {
+        "ObjectName": "SubsurfaceProfile'SSP_EyeInner_Profile'",
+        "ObjectPath": "Project_Plague/Content/Global/Material/Common/Eyes/Textures/Example/SSP_EyeInner_Profile.0"
+      }
+    },
+    "HasTopDiffuse": false,
+    "HasTopNormals": true,
+    "HasTopSpecularMasks": false,
+    "HasTopEmissive": false,
+    "IsTranslucent": false,
+    "IsNull": false
+  }
+}
