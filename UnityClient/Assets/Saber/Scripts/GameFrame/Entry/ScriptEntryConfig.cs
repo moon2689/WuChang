@@ -31,18 +31,29 @@ namespace Saber.Frame
                 yield return null;
             }
 
-            ActorInfo = Resources.Load<ActorInfo>("Config/ActorInfo");
-            yield return null;
-            SceneInfo = Resources.Load<SceneInfo>("Config/SceneInfo");
-            yield return null;
-            SkillInfo = Resources.Load<SkillInfo>("Config/SkillInfo");
-            yield return null;
-            ClothInfo = Resources.Load<ClothInfo>("Config/ClothInfo");
-            yield return null;
-            SkillDecapitateConfig = Resources.Load<SkillDecapitateConfig>("Config/SkillDecapitate");
-            yield return null;
-            MusicInfo = Resources.Load<MusicInfo>("Config/MusicInfo");
-            yield return null;
+            ResourceRequest rr = Resources.LoadAsync<ActorInfo>("Config/ActorInfo");
+            yield return rr;
+            ActorInfo = rr.asset as ActorInfo;
+
+            rr = Resources.LoadAsync<SceneInfo>("Config/SceneInfo");
+            yield return rr;
+            SceneInfo = rr.asset as SceneInfo;
+
+            rr = Resources.LoadAsync<SkillInfo>("Config/SkillInfo");
+            yield return rr;
+            SkillInfo = rr.asset as SkillInfo;
+
+            rr = Resources.LoadAsync<ClothInfo>("Config/ClothInfo");
+            yield return rr;
+            ClothInfo = rr.asset as ClothInfo;
+
+            rr = Resources.LoadAsync<SkillDecapitateConfig>("Config/SkillDecapitate");
+            yield return rr;
+            SkillDecapitateConfig = rr.asset as SkillDecapitateConfig;
+
+            rr = Resources.LoadAsync<MusicInfo>("Config/MusicInfo");
+            yield return rr;
+            MusicInfo = rr.asset as MusicInfo;
         }
     }
 }

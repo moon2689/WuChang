@@ -26,6 +26,7 @@ namespace Saber.CharacterController
         public bool m_MoveByRootMotion;
         public float m_SpeedWalk;
         public float m_SpeedRun;
+        public float m_SpeedSprint;
         public EFootstepType m_FootstepType;
         public List<AudioClip> m_FootstepClips;
 

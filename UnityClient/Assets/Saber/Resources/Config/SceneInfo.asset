@@ -38,7 +38,7 @@ MonoBehaviour:
     m_ActiveOtherActors: 1
     m_ShadowDistance: 20
     m_OtherActorBornPoints:
-    - m_Position: {x: 273, y: 183, z: -115}
+    - m_Position: {x: 263, y: 183, z: -155}
       m_RotationY: 0
       m_EnemyID: 2
       m_AI: 1

@@ -34,7 +34,7 @@ namespace Saber.Director
             yield return null;
 
             // 加载配置
-            yield return GameApp.Entry.Unity.StartCoroutine(GameApp.Entry.Config.LoadAsync());
+            yield return GameApp.Entry.Config.LoadAsync().StartCoroutine();
 
             // 播放音乐
             AudioClip bgmStart = GameApp.Entry.Config.MusicInfo.m_LoginBGMStart;
