@@ -66,7 +66,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: 8ca08fb197599884396d0ff7b7d810ee, type: 3}
+  - {fileID: 8300000, guid: a538c0519281dd147a9de2677c0b18a1, type: 3}
   m_Volume: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -207,7 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: 8ca08fb197599884396d0ff7b7d810ee, type: 3}
+  - {fileID: 8300000, guid: a538c0519281dd147a9de2677c0b18a1, type: 3}
   m_Volume: 1
 --- !u!114 &1187914017144936385
 MonoBehaviour:

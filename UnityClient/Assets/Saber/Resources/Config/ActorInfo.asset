@@ -18,3 +18,8 @@ MonoBehaviour:
     m_Name: "\u65E0\u5E38"
     m_ActorType: 0
     m_PrefabName: WuChang
+  - m_IsActive: 1
+    m_ID: 2
+    m_Name: "\u5403\u4EBA\u5934\u9640"
+    m_ActorType: 1
+    m_PrefabName: TouTuo

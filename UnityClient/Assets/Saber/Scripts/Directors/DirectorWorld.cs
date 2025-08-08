@@ -84,7 +84,7 @@ namespace Saber.Director
         void PlayRandomBGM()
         {
             AudioClip clip = GameApp.Entry.Config.MusicInfo.GetRandomExploreMusic();
-            GameApp.Entry.Game.Audio.PlayBGM(clip, 1, false, null);
+            GameApp.Entry.Game.Audio.PlayBGM(clip, 0.3f, false, null);
         }
     }
 }

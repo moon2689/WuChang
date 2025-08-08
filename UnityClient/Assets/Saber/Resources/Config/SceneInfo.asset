@@ -35,9 +35,13 @@ MonoBehaviour:
     m_SceneName: Landscape28
     m_SkyboxType: 0
     m_OpenPostprocess: 1
-    m_ActiveOtherActors: 0
+    m_ActiveOtherActors: 1
     m_ShadowDistance: 20
-    m_OtherActorBornPoints: []
+    m_OtherActorBornPoints:
+    - m_Position: {x: 273, y: 183, z: -115}
+      m_RotationY: 0
+      m_EnemyID: 2
+      m_AI: 1
     m_PortalPoints:
     - m_Active: 0
       m_Position: {x: 233, y: 181.91, z: -145}

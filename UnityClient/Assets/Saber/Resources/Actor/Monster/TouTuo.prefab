@@ -63,8 +63,87 @@ PrefabInstance:
       propertyPath: m_Name
       value: TouTuo
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 3470cd10712eb3148a5c5463906ad250,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 2c5c12ca0d8c8e74ebf72bb92597312b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3470cd10712eb3148a5c5463906ad250,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1328186016311000272}
   m_SourcePrefab: {fileID: 100100000, guid: 3470cd10712eb3148a5c5463906ad250, type: 3}
+--- !u!1 &7299191410830620411 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3470cd10712eb3148a5c5463906ad250,
+    type: 3}
+  m_PrefabInstance: {fileID: 7605038511718730666}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1328186016311000272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7299191410830620411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c8216295ab14f49a5f4b78f3536831d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BaseActorInfo:
+    m_IsPlayer: 0
+    m_StatsInfo:
+      m_MaxHp: 100
+      m_DefaultHpRecSpeed: 0
+      m_MaxStamina: 100
+      m_MaxSuperArmorValue: 0
+      m_MaxPower: 3
+      m_ParriedMaxTimes: 3
+    m_PhysicInfo:
+      m_Mass: 60
+      m_Height: 1.72
+      m_HipHeight: 0.1
+      m_Radius: 0.3
+      m_CapsuleOffsetZ: 0
+      m_GroundOffset: 0
+      m_IsWalkingUpright: 1
+      m_IsBodyHuge: 0
+      m_PhysicMaterialType: 0
+      m_PivotChest: {fileID: 0}
+      m_PivotHip: {fileID: 0}
+      m_ChestHeight: 1
+      m_TurnRotSpeed: 0
+      m_JumpForceVertical: 10
+      m_OpenSlopeMovement: 0
+      m_OpenPlatformMovement: 0
+      m_CanClimb: 0
+    m_SkillConfig: {fileID: 11400000, guid: c0752ecea1cbd4d4cb36ac2a2c88c8c4, type: 2}
+    m_WeaponPrefabs: []
+    m_AIInfo:
+      m_WarningRange: 10
+    m_Nodes:
+    - m_Type: 1
+      m_NodeTrans: {fileID: 7714084900097439172}
+  m_MonsterInfo:
+    m_DefaultAI: 1
+    m_MoveByRootMotion: 0
+    m_SpeedWalk: 0
+    m_SpeedRun: 0
+    m_FootstepType: 0
+    m_FootstepClips: []
+    m_PlaySoundWhenIdle: 0
+    m_IdleSoundClips: []
+    m_CanDodge: 0
+    m_CanDefense: 0
+    m_HitRecType: 0
+--- !u!4 &7714084900097439172 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 182230187338514030, guid: 3470cd10712eb3148a5c5463906ad250,
+    type: 3}
+  m_PrefabInstance: {fileID: 7605038511718730666}
+  m_PrefabAsset: {fileID: 0}
