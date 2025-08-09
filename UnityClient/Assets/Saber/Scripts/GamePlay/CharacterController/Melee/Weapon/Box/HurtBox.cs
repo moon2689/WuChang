@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 
@@ -9,6 +10,7 @@ namespace Saber.CharacterController
     public class HurtBox : MonoBehaviour
     {
         private CapsuleCollider m_Collider;
+
         private DamageInfo m_DamageInfo;
         //private float m_ColliderRadius, m_ColliderHeight;
 
@@ -52,7 +54,7 @@ namespace Saber.CharacterController
 
         public void OnHit(Vector3 force, Vector3 point)
         {
-            Actor.CMelee.CHitReaction.OnHit(this, force, point);
+            Actor.CMelee.IKHitReaction.Hit(m_Collider, force, point);
         }
     }
 }

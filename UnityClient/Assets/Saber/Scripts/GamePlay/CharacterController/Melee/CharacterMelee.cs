@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using RootMotion.FinalIK;
 
 namespace Saber.CharacterController
 {
@@ -15,10 +16,10 @@ namespace Saber.CharacterController
         private float m_TimerClearAttackedDamageInfo;
         private DamageInfo m_AttackedDamageInfo;
         private HurtBox[] m_HurtBoxes;
+        private HitReaction m_IKHitReaction;
 
         public SActor Actor { get; private set; }
         public CharacterWeapon CWeapon { get; private set; }
-        public ActorHitReaction CHitReaction { get; private set; }
 
         public BaseSkill CurSkill { get; private set; }
         public SkillConfig SkillConfig => m_SkillConfig;
@@ -80,13 +81,25 @@ namespace Saber.CharacterController
                 return m_HurtBoxes;
             }
         }
+        
+        public HitReaction IKHitReaction
+        {
+            get
+            {
+                if (m_IKHitReaction == null)
+                {
+                    m_IKHitReaction = Actor.transform.GetComponentInChildren<HitReaction>();
+                }
 
+                return m_IKHitReaction;
+            }
+        }
+        
 
         public CharacterMelee(SActor actor, SkillConfig skillConfig)
         {
             Actor = actor;
             CWeapon = new CharacterWeapon(actor);
-            CHitReaction = new ActorHitReaction(actor);
             //Actor.CPhysic.Event_OnGrounded += OnGrounded;
             m_SkillConfig = skillConfig;
             InitSkills();

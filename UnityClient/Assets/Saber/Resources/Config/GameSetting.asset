@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameSetting
   m_EditorClassIdentifier: 
   DebugFPS: 1
-  DebugFight: 0
+  DebugFight: 1
   OpenCameraLight: 0
   PlayerInputType: 1
   PlayerID: 1
@@ -23,18 +23,12 @@ MonoBehaviour:
   OpenWitchTime: 1
   WitchTimeSeconds: 1.2
   DodgeCostStamina: 20
-  TiredWhenStaminaZero: 0
   IKBoneForceOnHit: 3
   m_SoundSwordHitSword: []
   m_SoundWeaponHitGround:
-  - {fileID: 8300000, guid: db7c9055295f4734b82e3201cf6a60e1, type: 3}
-  - {fileID: 8300000, guid: 5e21818aedbbd144083ec96c75b012cb, type: 3}
-  - {fileID: 8300000, guid: d1a93c9c1064c2e4181eb5b416018a5e, type: 3}
+  - {fileID: 8300000, guid: f4edb7906e601c04d9c7731398fdbe4e, type: 3}
   m_SoundSharpWeaponHitBody:
-  - {fileID: 8300000, guid: 3cc30df2dfdaf294d96f6e7abb21a087, type: 3}
-  - {fileID: 8300000, guid: c2ddacab920567f47ad49e72fac4859b, type: 3}
-  - {fileID: 8300000, guid: 42c9f3bd64a961c4c86b94dc984bb121, type: 3}
-  - {fileID: 8300000, guid: 80dd3196a7948a049992cb9d28b65cb8, type: 3}
+  - {fileID: 8300000, guid: 3c580d84f5f5e3649b6dc09d4c8c2e9e, type: 3}
   m_SoundFistHitBody: []
   m_SoundClawHitBody: []
   m_EffectBlood:

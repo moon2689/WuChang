@@ -104,7 +104,7 @@ namespace Saber.CharacterController
         {
             // 受击动画
             m_CurAnim = GetHitAnim(out var forceToAttackerType);
-            Actor.CAnim.Play(m_CurAnim, force: true);
+            //Actor.CAnim.Play(m_CurAnim, force: true);
 
             // 对齐攻击者方向
             Vector3 directionToAttacker = Damage.Attacker.transform.position - Actor.transform.position;

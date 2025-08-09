@@ -146,22 +146,6 @@ namespace Saber.CharacterController
             UpdateSuperArmor(deltaTime);
             UpdateHp(deltaTime);
             UpdateStamina(deltaTime);
-            UpdatePower(deltaTime);
-        }
-
-        private float m_TimerCheckPower;
-
-        void UpdatePower(float deltaTime)
-        {
-            m_TimerCheckPower -= deltaTime;
-            if (m_TimerCheckPower < 0)
-            {
-                m_TimerCheckPower = 20;
-                if (CurrentPower <= 0)
-                {
-                    CurrentPower = MaxPower;
-                }
-            }
         }
 
         void UpdateHp(float deltaTime)
@@ -250,6 +234,11 @@ namespace Saber.CharacterController
         public void CostPower(int value)
         {
             CurrentPower -= value;
+        }
+
+        public void AddPower(int value)
+        {
+            CurrentPower += value;
         }
 
         public void PlayHealingEffect(float hpValue)
