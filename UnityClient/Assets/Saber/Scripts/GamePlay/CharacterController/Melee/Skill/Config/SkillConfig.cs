@@ -38,6 +38,7 @@ namespace Saber.CharacterController
 
         public float CostStrength = 5;
         public int m_CostPower;
+        public int m_PowerAddWhenHitted;
         public float m_CDSeconds;
         public ESkillType m_SkillType;
         public ETriggerCondition m_TriggerCondition;
@@ -82,7 +83,7 @@ namespace Saber.CharacterController
     {
         LightAttack,
         HeavyAttack,
-        Decapitate,
+        Execute,
         MoveThenAttack,
         Skill1,
         Skill2,

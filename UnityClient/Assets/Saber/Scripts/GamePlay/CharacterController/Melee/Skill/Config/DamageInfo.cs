@@ -67,5 +67,7 @@ namespace Saber.CharacterController
         KnockDownSpin, //打飞并在空中翻转
         Large, //大的攻击
         StrikeDown, //砸趴
+        
+        Backstab, //背刺
     }
 }

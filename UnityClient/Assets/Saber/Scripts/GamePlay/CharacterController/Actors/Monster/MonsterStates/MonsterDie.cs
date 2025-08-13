@@ -28,8 +28,8 @@ namespace Saber.CharacterController
         {
             base.Enter();
             // 如果已经躺在地上，则无需再播放死亡动画
-            if (!Weak.IsLieOnGround(Actor))
-                Actor.CAnim.Play("Death");
+            // if (!Weak.IsLieOnGround(Actor))
+            //     Actor.CAnim.Play("Death");
             Actor.CPhysic.UseGravity = true;
 
             m_State = EState.PlayDieAnim;

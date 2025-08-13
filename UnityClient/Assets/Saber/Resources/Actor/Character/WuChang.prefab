@@ -166,7 +166,7 @@ MonoBehaviour:
       m_CanClimb: 0
     m_SkillConfig: {fileID: 11400000, guid: b550d3f38701e6346a27257ad819b2f9, type: 2}
     m_WeaponPrefabs:
-    - m_WeaponPrefabResPath: Weapon/MiDao_QiYunChuXue
+    - m_WeaponPrefabResPath: Weapon/MiaoDao_QiYunChuXue
       m_WeaponParentInfo:
         m_ArmBone: {fileID: 3538113461144303768}
         m_ArmBoneType: 24

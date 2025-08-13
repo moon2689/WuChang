@@ -33,14 +33,15 @@ namespace CombatEditor
         public override void StartEffect()
         {
             base.StartEffect();
+            /*
             if (TryParry(out var parriedEnemies))
             {
-                var config = GameApp.Entry.Config.SkillDecapitateConfig;
+                var config = GameApp.Entry.Config.SkillCommon;
                 AudioClip sound = config.m_MagicCounterHitSound;
                 GameApp.Entry.Game.Audio.Play3DSound(sound, Actor.transform.position);
                 foreach (var e in parriedEnemies)
                 {
-                    e.BeWeek();
+                    //e.BeWeek();
 
                     GameObject effect = config.m_EffectMagicCounterSuccess;
                     Quaternion rot = Quaternion.identity;
@@ -48,6 +49,7 @@ namespace CombatEditor
                     GameApp.Entry.Game.Effect.CreateEffect(effect, e.transform, pos, rot, 3f);
                 }
             }
+            */
         }
 
         /// <summary>尝试弹反</summary>

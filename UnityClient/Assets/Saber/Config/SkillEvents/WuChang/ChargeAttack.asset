@@ -16,7 +16,7 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_WeaponBone: 24
     m_DamageValue: 5
-    m_DamageLevel: 0
+    m_DamageLevel: 9
     m_ForceWhenGround: {x: 0, y: 0}
     m_ForceWhenAir: {x: 0, y: 0}
     m_OwnerForce: {x: 0, y: 0}

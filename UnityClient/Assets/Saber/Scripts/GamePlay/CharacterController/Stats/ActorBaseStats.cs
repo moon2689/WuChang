@@ -9,7 +9,7 @@ namespace Saber.CharacterController
     /// <summary>存储角色属性值</summary>
     public class ActorBaseStats
     {
-        public enum EStaminaRecoverSpeed
+        public enum EStaminaRecSpeed
         {
             Stop,
             Slow,
@@ -76,7 +76,7 @@ namespace Saber.CharacterController
 
         public int CurrentStaminaInt => Mathf.CeilToInt(CurrentStamina);
 
-        public EStaminaRecoverSpeed StaminaRecoverSpeed { get; set; }
+        public EStaminaRecSpeed StaminaRecSpeed { get; set; }
         public float CurrentSuperArmor { get; set; }
         public bool IsStaminaFull => CurrentStamina == MaxStamina;
 
@@ -138,7 +138,7 @@ namespace Saber.CharacterController
 
         public void ResetPower()
         {
-            CurrentPower = MaxPower;
+            CurrentPower = 0;
         }
 
         public void Update(float deltaTime)
@@ -159,15 +159,15 @@ namespace Saber.CharacterController
         void UpdateStamina(float deltaTime)
         {
             if (!Actor.IsDead &&
-                StaminaRecoverSpeed != EStaminaRecoverSpeed.Stop &&
+                StaminaRecSpeed != EStaminaRecSpeed.Stop &&
                 CurrentStamina < MaxStamina)
             {
-                int speed = StaminaRecoverSpeed switch
+                int speed = StaminaRecSpeed switch
                 {
-                    EStaminaRecoverSpeed.Stop => 0,
-                    EStaminaRecoverSpeed.Slow => 30,
-                    EStaminaRecoverSpeed.Medium => 50,
-                    EStaminaRecoverSpeed.Fast => 80,
+                    EStaminaRecSpeed.Stop => 0,
+                    EStaminaRecSpeed.Slow => 30,
+                    EStaminaRecSpeed.Medium => 50,
+                    EStaminaRecSpeed.Fast => 80,
                     _ => 0,
                 };
 

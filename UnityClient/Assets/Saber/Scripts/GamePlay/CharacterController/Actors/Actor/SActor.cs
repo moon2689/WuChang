@@ -188,7 +188,18 @@ namespace Saber.CharacterController
         }
 
         /// <summary>可被处决</summary>
-        public bool CanBeDecapitate { get; set; }
+        public bool CanBeExecuted
+        {
+            get
+            {
+                if (CurrentStateType == EStateType.GetHit && this.CStateMachine.CurrentState is IHitRecovery hitrec)
+                {
+                    return hitrec.CanBeExecute;
+                }
+
+                return false;
+            }
+        }
 
         /// <summary>角色是否处于潜行中</summary>
         public bool IsInStealth
@@ -467,17 +478,11 @@ namespace Saber.CharacterController
         {
         }
 
-        /// <summary>变得虚弱，可被处决</summary>
-        public bool BeWeek()
-        {
-            return CStateMachine.BeWeek();
-        }
-
 
         /// <summary>被处决</summary>
-        public bool BeExecute(SkillExecute.EExecuteType executeType)
+        public bool BeExecute(SActor executioner)
         {
-            return CStateMachine.BeExecute(executeType);
+            return CStateMachine.BeExecute(executioner);
         }
 
         public virtual void OnGodStatueRest()

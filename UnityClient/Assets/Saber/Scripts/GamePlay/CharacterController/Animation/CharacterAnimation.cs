@@ -16,7 +16,8 @@ namespace Saber.CharacterController
         private string m_CurPlayingClipState;
         private Action m_OnClipFinishedPlay;
         private AnimationClip m_CurPlayingClip;
-        private float m_TimerCartonFrames, m_CartonFrameSpeed;
+        private float m_TimerCartonFrames;
+        private float m_CartonFrameSpeed = 1;
 
         public SActor Actor { get; private set; }
         public Animator AnimatorObj { get; private set; }
@@ -63,7 +64,7 @@ namespace Saber.CharacterController
 
         public void Update()
         {
-            AnimatorObj.speed = Actor.TimeMultiplier;
+            AnimatorObj.speed = Actor.TimeMultiplier * m_CartonFrameSpeed;
 
             // init layers
             if (m_Layers == null && AnimatorObj.layerCount > 0)
@@ -89,7 +90,11 @@ namespace Saber.CharacterController
             UpdateClipPlaying();
 
             if (m_TimerCartonFrames > 0)
-                UpdateCartonFrames();
+            {
+                m_TimerCartonFrames -= Time.deltaTime;
+                if (m_TimerCartonFrames <= 0)
+                    m_CartonFrameSpeed = 1;
+            }
         }
 
 
@@ -388,16 +393,6 @@ namespace Saber.CharacterController
         {
             m_TimerCartonFrames = time;
             m_CartonFrameSpeed = speed;
-            this.AnimatorObj.speed = speed;
-        }
-
-        void UpdateCartonFrames()
-        {
-            m_TimerCartonFrames -= Time.deltaTime;
-            if (m_TimerCartonFrames > 0)
-                this.AnimatorObj.speed = m_CartonFrameSpeed;
-            else
-                this.AnimatorObj.speed = 1;
         }
 
         #endregion

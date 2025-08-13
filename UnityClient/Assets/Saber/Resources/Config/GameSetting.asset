@@ -26,9 +26,9 @@ MonoBehaviour:
   IKBoneForceOnHit: 3
   m_SoundSwordHitSword: []
   m_SoundWeaponHitGround:
-  - {fileID: 8300000, guid: f4edb7906e601c04d9c7731398fdbe4e, type: 3}
+  - {fileID: 8300000, guid: 8db4e869274f0584ab4f9bde3185f7f3, type: 3}
   m_SoundSharpWeaponHitBody:
-  - {fileID: 8300000, guid: 3c580d84f5f5e3649b6dc09d4c8c2e9e, type: 3}
+  - {fileID: 8300000, guid: 7d2a603faffba1f47ba91d83067db132, type: 3}
   m_SoundFistHitBody: []
   m_SoundClawHitBody: []
   m_EffectBlood:

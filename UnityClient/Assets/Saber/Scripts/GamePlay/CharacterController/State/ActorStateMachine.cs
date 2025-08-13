@@ -427,22 +427,12 @@ namespace Saber.CharacterController
             return false;
         }
 
-        /// <summary>变得虚弱，可被处决</summary>
-        public bool BeWeek()
-        {
-            return TryEnterState<Weak>(EStateType.Weak, state => state.WeakType = Weak.EWeakType.Weak);
-        }
-
         /// <summary>被处决</summary>
-        public bool BeExecute(SkillExecute.EExecuteType executeType)
+        public bool BeExecute(SActor executioner)
         {
-            Weak.EWeakType weakType = executeType switch
-            {
-                SkillExecute.EExecuteType.Decapitate => Weak.EWeakType.BeDecapitate,
-                SkillExecute.EExecuteType.BackStab => Weak.EWeakType.BeBackStab,
-                _ => throw new InvalidOperationException($"Unknown execute type:{executeType}"),
-            };
-            return TryEnterState<Weak>(EStateType.Weak, state => state.WeakType = weakType);
+            IHitRecovery hitRec = (IHitRecovery)CurrentState;
+            hitRec.BeExecuted(executioner);
+            return true;
         }
 
         public virtual bool UseItem(UseItem.EItemType itemType)

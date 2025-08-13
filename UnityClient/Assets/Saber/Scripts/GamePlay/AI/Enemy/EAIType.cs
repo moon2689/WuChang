@@ -7,12 +7,13 @@ namespace Saber.AI
     {
         None,
         OnlyIdle,
-        OnlyDefense,
-        MonsterAttack,
-        BossAttack,
-        Follow,
-        RandomMove,
-        SimpleAttack,
+        Stalemate,
+        // OnlyDefense,
+        // MonsterAttack,
+        // BossAttack,
+        // Follow,
+        // RandomMove,
+        // SimpleAttack,
     }
 
     public static class EnemyAITypeHelper
@@ -23,12 +24,13 @@ namespace Saber.AI
             {
                 EAIType.None => null,
                 EAIType.OnlyIdle => new OnlyIdle(),
-                EAIType.OnlyDefense => new FightDefense(),
-                EAIType.MonsterAttack => new MonsterAttack(),
-                EAIType.BossAttack => new BossAttack(),
-                EAIType.Follow => new Follow(),
-                EAIType.RandomMove => new RandomMove(),
-                EAIType.SimpleAttack => new SimpleAttack(),
+                EAIType.Stalemate => new Stalemate(),
+                // EAIType.OnlyDefense => new FightDefense(),
+                // EAIType.MonsterAttack => new MonsterAttack(),
+                // EAIType.BossAttack => new BossAttack(),
+                // EAIType.Follow => new Follow(),
+                // EAIType.RandomMove => new RandomMove(),
+                // EAIType.SimpleAttack => new SimpleAttack(),
                 _ => throw new InvalidOperationException("Unknown ai:" + aiType),
             };
         }

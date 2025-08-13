@@ -16,29 +16,26 @@ namespace Saber.Director
 
         protected override IEnumerator EnterAsync()
         {
-            GameApp.Entry.Config.LoatConfigGameSetting();
+            RootUI.Create();
+            yield return null;
+            
+            // 加载配置
+            yield return GameApp.Entry.Config.LoadAsync().StartCoroutine();
+
+            PlayerCamera.Create();
             yield return null;
 
+            // fps
             if (GameApp.Entry.Config.GameSetting.DebugFPS)
             {
                 GameApp.Entry.Asset.LoadGameObject("Game/AdvancedFPSCounter");
                 yield return null;
             }
 
-            /*
-            if (GameApp.Entry.Config.GameSetting.OpenIngameConsole)
-            {
-                GameApp.Entry.Asset.LoadGameObject("Game/IngameDebugConsole");
-                yield return null;
-            }
-            */
-
-            PlayerCamera.Create();
+            GameSetting.Init();
             yield return null;
 
-            GameSetting.Init();
-
-            RootUI.Create(() => { m_NextDir = new DirectorLogin(); });
+            m_NextDir = new DirectorLogin();
         }
     }
 }

@@ -64,7 +64,17 @@ namespace CombatEditor
             //Set Preview Percentage
             if (Obj.IsActive)
             {
-                var main = InstantiatedObj.GetComponent<ParticleSystem>().main;
+                ParticleSystem ps = InstantiatedObj.GetComponent<ParticleSystem>();
+                if (ps == null)
+                {
+                    ps = InstantiatedObj.GetComponentInChildren<ParticleSystem>();
+                }
+
+                if (ps == null)
+                {
+                    return;
+                }
+                var main = ps.main;
                 main.simulationSpeed = m_ParticleInitSimulateSpeed;
 
                 bool IsInRange = false;

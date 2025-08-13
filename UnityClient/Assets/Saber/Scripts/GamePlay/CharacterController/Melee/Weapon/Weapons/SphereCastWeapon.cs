@@ -17,7 +17,8 @@ namespace Saber.CharacterController
             int layer = EStaticLayers.Collider.GetLayerMask() | EStaticLayers.Default.GetLayerMask();
             int hits = Physics.SphereCastNonAlloc(lastFramePos, RayInterval / 2f, dir,
                 m_RaycastHit, maxDis, layer, queryType);
-            //SDebug.DrawCapsule(lastFramePos, nowFramePos, Color.green, RayInterval / 2f, 10);
+            if (GameApp.Entry.Config.GameSetting.DebugFight)
+                SDebug.DrawCapsule(lastFramePos, nowFramePos, Color.green, RayInterval / 2f, 10);
             return hits;
         }
     }

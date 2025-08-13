@@ -176,6 +176,8 @@ namespace Saber.CharacterController
             {
                 m_ListRayHurtActorTime[index] = Time.time;
             }
+
+            Actor.CurrentSkill.OnDamageDone();
         }
     }
 }

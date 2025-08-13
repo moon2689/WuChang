@@ -41,7 +41,7 @@ namespace Saber.CharacterController
         protected override void Awake()
         {
             base.Awake();
-            CStats.StaminaRecoverSpeed = ActorBaseStats.EStaminaRecoverSpeed.Fast;
+            CStats.StaminaRecSpeed = ActorBaseStats.EStaminaRecSpeed.Fast;
         }
 
         protected override void Start()

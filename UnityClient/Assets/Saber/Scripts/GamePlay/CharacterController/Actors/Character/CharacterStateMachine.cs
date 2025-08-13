@@ -28,7 +28,6 @@ namespace Saber.CharacterController
             base.RegisterState(new SkillState());
             base.RegisterState(new GetHit());
             base.RegisterState(new Defense());
-            base.RegisterState(new Weak());
             base.RegisterState(new UseItem());
             //base.RegisterState(new Glide());
             //base.RegisterState(new Slide());

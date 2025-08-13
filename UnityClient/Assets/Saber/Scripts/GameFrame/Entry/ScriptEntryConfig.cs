@@ -13,47 +13,36 @@ namespace Saber.Frame
         public SceneInfo SceneInfo { get; private set; }
         public SkillInfo SkillInfo { get; private set; }
         public ClothInfo ClothInfo { get; private set; }
-        public SkillDecapitateConfig SkillDecapitateConfig { get; private set; }
+        public SkillCommonConfig SkillCommon { get; private set; }
         public MusicInfo MusicInfo { get; private set; }
 
 
-        public void LoatConfigGameSetting()
-        {
-            GameSetting = Resources.Load<GameSettingInfo>("Config/GameSetting");
-        }
-
         public IEnumerator LoadAsync()
         {
-            if (GameSetting == null)
+            Dictionary<string, ResourceRequest> dic = new();
+            dic["GameSetting"] = Resources.LoadAsync<GameSettingInfo>("Config/GameSetting");
+            dic["ActorInfo"] = Resources.LoadAsync<ActorInfo>("Config/ActorInfo");
+            dic["SceneInfo"] = Resources.LoadAsync<SceneInfo>("Config/SceneInfo");
+            dic["SkillInfo"] = Resources.LoadAsync<SkillInfo>("Config/SkillInfo");
+            dic["ClothInfo"] = Resources.LoadAsync<ClothInfo>("Config/ClothInfo");
+            dic["SkillCommon"] = Resources.LoadAsync<SkillCommonConfig>("Config/SkillCommon");
+            dic["MusicInfo"] = Resources.LoadAsync<MusicInfo>("Config/MusicInfo");
+
+            foreach (var pair in dic)
             {
-                GameSetting = Resources.Load<GameSettingInfo>("Config/GameSetting");
-                GameSetting.PreloadEffects();
-                yield return null;
+                while (!pair.Value.isDone)
+                {
+                    yield return null;
+                }
             }
 
-            ResourceRequest rr = Resources.LoadAsync<ActorInfo>("Config/ActorInfo");
-            yield return rr;
-            ActorInfo = rr.asset as ActorInfo;
-
-            rr = Resources.LoadAsync<SceneInfo>("Config/SceneInfo");
-            yield return rr;
-            SceneInfo = rr.asset as SceneInfo;
-
-            rr = Resources.LoadAsync<SkillInfo>("Config/SkillInfo");
-            yield return rr;
-            SkillInfo = rr.asset as SkillInfo;
-
-            rr = Resources.LoadAsync<ClothInfo>("Config/ClothInfo");
-            yield return rr;
-            ClothInfo = rr.asset as ClothInfo;
-
-            rr = Resources.LoadAsync<SkillDecapitateConfig>("Config/SkillDecapitate");
-            yield return rr;
-            SkillDecapitateConfig = rr.asset as SkillDecapitateConfig;
-
-            rr = Resources.LoadAsync<MusicInfo>("Config/MusicInfo");
-            yield return rr;
-            MusicInfo = rr.asset as MusicInfo;
+            GameSetting = dic["GameSetting"].asset as GameSettingInfo;
+            ActorInfo = dic["ActorInfo"].asset as ActorInfo;
+            SceneInfo = dic["SceneInfo"].asset as SceneInfo;
+            SkillInfo = dic["SkillInfo"].asset as SkillInfo;
+            ClothInfo = dic["ClothInfo"].asset as ClothInfo;
+            SkillCommon = dic["SkillCommon"].asset as SkillCommonConfig;
+            MusicInfo = dic["MusicInfo"].asset as MusicInfo;
         }
     }
 }

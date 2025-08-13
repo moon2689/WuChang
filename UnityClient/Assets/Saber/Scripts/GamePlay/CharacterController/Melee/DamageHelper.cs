@@ -116,7 +116,7 @@ namespace Saber.CharacterController
             // 扣血
             if (curDmgInfo.DamageValue > 0)
                 enemy.CStats.TakeDamage(curDmgInfo.DamageValue);
-            
+
             PlayDamageEffect(actor, hurtBox, curDmgInfo);
 
             // 声音
@@ -129,8 +129,14 @@ namespace Saber.CharacterController
             //     return;
             // }
 
-            // 受击反馈
-            enemy.OnHit(curDmgInfo);
+            bool isBlockBroken = enemy.CurrentStateType == EStateType.GetHit &&
+                                 enemy.CStateMachine.CurrentState is IHitRecovery hitRec &&
+                                 hitRec.HurtType == EHitRecHurtType.BlockBroken;
+            if (!isBlockBroken)
+            {
+                // 受击反馈
+                enemy.OnHit(curDmgInfo);
+            }
 
             // 骨骼受击抖动
             float force = GameApp.Entry.Config.GameSetting.IKBoneForceOnHit;
@@ -149,17 +155,8 @@ namespace Saber.CharacterController
         static void FreezeFrame(SActor actor, HurtBox hurtBox)
         {
             SActor enemy = hurtBox.Actor;
-            float speed, time;
-            if (hurtBox.PhysicMaterialType == EPhysicMaterialType.BodyStone)
-            {
-                speed = 0;
-                time = 0.1f;
-            }
-            else
-            {
-                speed = 0.2f;
-                time = 0.1f;
-            }
+            float speed = 0.1f;
+            float time = 0.1f;
 
             enemy.CAnim.CartonFrames(time, speed);
             actor.CAnim.CartonFrames(time, speed);
@@ -314,9 +311,6 @@ namespace Saber.CharacterController
                     Debug.LogError("Play sound, unknown weapon:" + actor.CurrentWeaponStyle);
                 }
             }
-
-            Debug.Log($"PlayHitSound,weaponType:{weaponType} {sound.name}", sound);
-
 
             if (sound != null)
             {

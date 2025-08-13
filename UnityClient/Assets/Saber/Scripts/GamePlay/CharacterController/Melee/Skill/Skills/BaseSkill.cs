@@ -14,6 +14,7 @@ namespace Saber.CharacterController
         private Vector2? m_Speed;
         private bool m_AnimParamToGounedTriggered;
         private bool m_InComboTime;
+        private bool m_PowerAdded;
 
 
         public event Action OnSkillTrigger;
@@ -154,6 +155,7 @@ namespace Saber.CharacterController
             m_LastTriggerTime = Time.time;
             m_Speed = null;
             m_AnimParamToGounedTriggered = false;
+            m_PowerAdded = false;
 
             IsPowerEnough = Actor.CStats.CurrentPower >= SkillConfig.m_CostPower;
             if (IsPowerEnough)
@@ -284,6 +286,15 @@ namespace Saber.CharacterController
 
         public virtual void OnTriggerRangeEvent(AnimRangeTimeEvent eventObj, bool enter)
         {
+        }
+
+        public void OnDamageDone()
+        {
+            if (!m_PowerAdded && SkillConfig.m_PowerAddWhenHitted > 0)
+            {
+                m_PowerAdded = true;
+                Actor.CStats.AddPower(SkillConfig.m_PowerAddWhenHitted);
+            }
         }
     }
 }

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be02be86731742bd8f01e1df487acf5a, type: 3}
+  m_Name: SkillCommon
+  m_EditorClassIdentifier: 
+  ExecuteMaxDistance: 0.6
+  ExecuteMaxAngle: 80
+  ExecuteStartSound: {fileID: 8300000, guid: 8ff72a9fb9a2db5428dc0fb25769fb2a, type: 3}
+  ExecuteDamages:
+  - m_DamageTime: 0.14
+    m_Damage: 20
+    m_Sound: {fileID: 8300000, guid: 00e19d5a9c0e5cb41b2b13f9a06a086a, type: 3}
+    m_Blood: {fileID: 4646771079366974247, guid: a5cf4edb2161630408d26d695b8c9e16,
+      type: 3}
+  - m_DamageTime: 0.36
+    m_Damage: 20
+    m_Sound: {fileID: 8300000, guid: 9ca32d6b7191bd64389dd1d0fd21edef, type: 3}
+    m_Blood: {fileID: 4145178057774557432, guid: 05d2a7971178a984ab668ee05274cd3e,
+      type: 3}
+  - m_DamageTime: 0.55
+    m_Damage: 20
+    m_Sound: {fileID: 8300000, guid: 00e19d5a9c0e5cb41b2b13f9a06a086a, type: 3}
+    m_Blood: {fileID: 8129476537154334463, guid: f278962be0ad1614b9b5784fab88b9ae,
+      type: 3}
+  ExecuteSkillCanExitTime: 0.8

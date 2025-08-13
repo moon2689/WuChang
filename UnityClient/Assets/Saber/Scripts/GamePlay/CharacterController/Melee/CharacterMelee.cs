@@ -81,7 +81,7 @@ namespace Saber.CharacterController
                 return m_HurtBoxes;
             }
         }
-        
+
         public HitReaction IKHitReaction
         {
             get
@@ -94,7 +94,7 @@ namespace Saber.CharacterController
                 return m_IKHitReaction;
             }
         }
-        
+
 
         public CharacterMelee(SActor actor, SkillConfig skillConfig)
         {
@@ -112,7 +112,7 @@ namespace Saber.CharacterController
             foreach (var item in m_SkillConfig.m_SkillItems)
             {
                 BaseSkill skillObj;
-                if (item.m_SkillType == ESkillType.Decapitate)
+                if (item.m_SkillType == ESkillType.Execute)
                 {
                     skillObj = m_SkillExecute = new SkillExecute(Actor, item);
                 }
@@ -181,6 +181,12 @@ namespace Saber.CharacterController
 
         public bool TryTriggerSkill(ESkillType type)
         {
+            // 当前技能正在触发中，并且未到连招时间和退出时间，则不可重新触发技能
+            if (CurSkill != null && CurSkill.IsTriggering && !CurSkill.InComboTime && !CurSkill.CanExit)
+            {
+                return false;
+            }
+
             // 状态机不可转换
             if (!Actor.CStateMachine.CanSwitchTo(EStateType.Skill))
             {
@@ -188,17 +194,18 @@ namespace Saber.CharacterController
             }
 
             // 尝试处决
-            if (type == ESkillType.LightAttack && TryExecute())
+            if (type == ESkillType.LightAttack && m_SkillExecute != null)
             {
-                return true;
+                SActor target = m_SkillExecute.GetCanBeExecutedEnemy();
+                if (target != null)
+                {
+                    m_SkillExecute.Target = target;
+                    ForceTriggerSkill(m_SkillExecute);
+                    return true;
+                }
             }
 
-            // 当前技能正在触发中，并且未到连招时间，则不可重新触发技能
-            if (CurSkill != null && CurSkill.IsTriggering && !CurSkill.InComboTime)
-            {
-                return false;
-            }
-
+            // 尝试连招
             bool canCombo = CurSkill != null && CurSkill.IsTriggering && CurSkill.InComboTime;
             if (canCombo)
             {
@@ -214,53 +221,17 @@ namespace Saber.CharacterController
             }
 
             // 当前没有任何技能释放，则触发起手技能
-            if (CurSkill == null || !CurSkill.IsTriggering)
+            foreach (var skillItem in SkillConfig.m_SkillItems)
             {
-                foreach (var skillItem in SkillConfig.m_SkillItems)
+                BaseSkill skill = m_DicSkills[skillItem.m_ID];
+                if (skillItem.m_FirstSkillOfCombo &&
+                    skillItem.m_SkillType == type &&
+                    skill.CanEnter &&
+                    CanSwitchToSpecialSkill(skillItem))
                 {
-                    BaseSkill skill = m_DicSkills[skillItem.m_ID];
-                    if (skillItem.m_FirstSkillOfCombo &&
-                        skillItem.m_SkillType == type &&
-                        skill.CanEnter &&
-                        CanSwitchToSpecialSkill(skillItem))
-                    {
-                        ForceTriggerSkill(skill);
-                        return true;
-                    }
+                    ForceTriggerSkill(skill);
+                    return true;
                 }
-            }
-
-            return false;
-        }
-
-        bool TryExecute()
-        {
-            if (m_SkillExecute == null)
-            {
-                return false;
-            }
-
-            if (m_SkillExecute.IsTriggering)
-            {
-                return false;
-            }
-
-            SActor target = m_SkillExecute.GetDecapitateTarget();
-            if (target != null)
-            {
-                m_SkillExecute.Target = target;
-                m_SkillExecute.ExecuteType = SkillExecute.EExecuteType.Decapitate;
-                ForceTriggerSkill(m_SkillExecute);
-                return true;
-            }
-
-            target = m_SkillExecute.GetCanBackStabTarget();
-            if (target != null)
-            {
-                m_SkillExecute.Target = target;
-                m_SkillExecute.ExecuteType = SkillExecute.EExecuteType.BackStab;
-                ForceTriggerSkill(m_SkillExecute);
-                return true;
             }
 
             return false;

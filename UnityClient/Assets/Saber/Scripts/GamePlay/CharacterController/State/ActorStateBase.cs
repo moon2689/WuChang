@@ -15,8 +15,7 @@ namespace Saber.CharacterController
         public EStateType StateType { private set; get; }
         public float DeltaTime => Actor.DeltaTime;
 
-        protected virtual ActorBaseStats.EStaminaRecoverSpeed StaminaRecoverSpeed =>
-            ActorBaseStats.EStaminaRecoverSpeed.Stop;
+        protected virtual ActorBaseStats.EStaminaRecSpeed StaminaRecSpeed => ActorBaseStats.EStaminaRecSpeed.Stop;
 
 
         public ActorStateBase(EStateType type)
@@ -40,7 +39,7 @@ namespace Saber.CharacterController
         {
             IsTriggering = true;
             Actor.CPhysic.ApplyRootMotion = ApplyRootMotionSetWhenEnter;
-            Actor.CStats.StaminaRecoverSpeed = StaminaRecoverSpeed;
+            Actor.CStats.StaminaRecSpeed = StaminaRecSpeed;
 
             // if (Actor is SCharacter)
             //     UnityEngine.Debug.Log("Enter:" + StateType);

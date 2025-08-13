@@ -136,7 +136,9 @@ public class SkillConfigEditor : EditorBase
         {
             item.m_CDSeconds = EditorGUILayout.FloatField("冷却时间（秒）:", item.m_CDSeconds);
         }
+
         item.m_CostPower = EditorGUILayout.IntField("消耗能量:", item.m_CostPower);
+        item.m_PowerAddWhenHitted = EditorGUILayout.IntField("击中时增加能量:", item.m_PowerAddWhenHitted);
 
         // 动画
         GUILayout.BeginHorizontal();

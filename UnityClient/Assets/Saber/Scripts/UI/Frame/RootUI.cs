@@ -11,6 +11,8 @@ namespace Saber.UI
     {
         static RootUI s_Instance;
 
+        [SerializeField] private Image m_ImageBackground;
+
         public List<WndBase> m_Wnds;
         Camera m_UICamera;
         Canvas m_CanvasObj;
@@ -30,18 +32,13 @@ namespace Saber.UI
             CanvasScalerObj.referenceResolution.y / Screen.height);
 
 
-        public static void Create(Action onCreated)
+        public static void Create()
         {
-            if (s_Instance != null)
+            if (s_Instance == null)
             {
-                onCreated?.Invoke();
-                return;
+                GameObject prefab = Resources.Load<GameObject>("Game/Canvas");
+                GameObject.Instantiate(prefab);
             }
-
-            GameObject prefab = Resources.Load<GameObject>("Game/Canvas");
-            GameObject obj = GameObject.Instantiate(prefab);
-            obj.AddComponent<RootUI>();
-            onCreated?.Invoke();
         }
 
         public static void RegisterWnd(WndBase wnd)
@@ -127,6 +124,11 @@ namespace Saber.UI
             {
                 wnd.Destroy();
             }
+        }
+
+        public void HideBackground()
+        {
+            m_ImageBackground.gameObject.SetActive(false);
         }
     }
 }

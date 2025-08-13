@@ -12,8 +12,8 @@ namespace Saber.CharacterController
         //private bool m_IsFalling;
         private SCharacter Character;
 
-        protected override ActorBaseStats.EStaminaRecoverSpeed StaminaRecoverSpeed =>
-            ActorBaseStats.EStaminaRecoverSpeed.Fast;
+        protected override ActorBaseStats.EStaminaRecSpeed StaminaRecSpeed =>
+            ActorBaseStats.EStaminaRecSpeed.Fast;
 
 
         public Idle() : base(EStateType.Idle)

@@ -11,26 +11,14 @@ namespace Saber.CharacterController
     /// <summary>处决</summary>
     public class SkillExecute : BaseSkill
     {
-        public enum EExecuteType
-        {
-            Decapitate, //处决
-            BackStab, //背刺
-        }
-
         private string m_Anim;
-        private bool m_AlignDirection;
-        private bool m_DecapitateEnemy;
-        private bool m_DecapitateEnemyFinshed;
-        private GameObject m_EquipExecutionObj;
-        private List<Material> m_DissolveMaterials;
-        private Coroutine m_CoroutineDissolve;
-        private bool m_EquipExecutionShowing;
+        private int m_CurDmgIndex;
+        private bool m_IsFromBack;
 
 
-        SkillDecapitateConfig Config => GameApp.Entry.Config.SkillDecapitateConfig;
+        SkillCommonConfig Config => GameApp.Entry.Config.SkillCommon;
 
         public SActor Target { get; set; }
-        public EExecuteType ExecuteType { get; set; }
         public override bool IsQuiet => true;
 
 
@@ -41,136 +29,79 @@ namespace Saber.CharacterController
         /// <summary>是否可以处决，包括斩首和背刺</summary>
         public static bool CanExecute(SActor owner, SActor enemy)
         {
-            return enemy.CanBeDecapitate && CanBeDecapitate(owner, enemy) || CanBackStab(owner, enemy);
+            return enemy.CanBeExecuted && CanDoExecute(owner, enemy);
         }
 
         /// <summary>是否可以斩首</summary>
-        static bool CanBeDecapitate(SActor owner, SActor enemy)
+        private static bool CanDoExecute(SActor owner, SActor enemy)
         {
-            if (enemy == null || enemy == owner || enemy.IsDead || enemy.Camp == owner.Camp ||
-                !enemy.CanBeDecapitate)
+            if (enemy == null || enemy == owner || enemy.IsDead || enemy.Camp == owner.Camp || !enemy.CanBeExecuted)
             {
                 return false;
             }
 
             // 一定距离内可处决
-            float maxDis = GameApp.Entry.Config.SkillDecapitateConfig.DecapitateMaxDistance;
+            float maxDis = GameApp.Entry.Config.SkillCommon.ExecuteMaxDistance;
             Vector3 dirToEnemy = enemy.transform.position - owner.transform.position;
-            if (dirToEnemy.magnitude > maxDis)
+            float curDis = dirToEnemy.magnitude - owner.CPhysic.Radius - enemy.CPhysic.Radius;
+            if (curDis > maxDis)
             {
                 return false;
             }
 
-            // 面对面才可处决
-            if (Vector3.Dot(enemy.transform.forward, dirToEnemy) >= 0)
+            bool isFromBack = Vector3.Dot(enemy.transform.forward, dirToEnemy) > 0;
+            if (isFromBack)
             {
-                return false;
-            }
-
-            if (Vector3.Dot(enemy.transform.forward, owner.transform.forward) >= 0)
-            {
-                return false;
-            }
-
-            // 一定角度内才可处决
-            float minAngle = 180 - GameApp.Entry.Config.SkillDecapitateConfig.DecapitateMaxAngle;
-            float angle = Vector3.Angle(enemy.transform.forward, dirToEnemy);
-            if (angle < minAngle)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>获取可以背刺的目标</summary>
-        public SActor GetCanBackStabTarget()
-        {
-            if (CanBackStab(Actor, Actor.AI.LockingEnemy))
-            {
-                return Actor.AI.LockingEnemy;
-            }
-
-            Collider[] colliders = new Collider[10];
-            float radius = GameApp.Entry.Config.SkillDecapitateConfig.DecapitateMaxDistance;
-            int layerMask = EStaticLayers.Actor.GetLayerMask();
-            int count = Physics.OverlapSphereNonAlloc(Actor.transform.position, radius, colliders, layerMask);
-            for (int i = 0; i < count; i++)
-            {
-                var enemy = colliders[i].GetComponent<SActor>();
-                if (CanBackStab(Actor, enemy))
+                // 面对背
+                if (Vector3.Dot(enemy.transform.forward, owner.transform.forward) <= 0)
                 {
-                    return enemy;
+                    return false;
+                }
+
+                // 一定角度内才可背刺
+                float maxAngle = GameApp.Entry.Config.SkillCommon.ExecuteMaxAngle;
+                float angle = Vector3.Angle(enemy.transform.forward, dirToEnemy);
+                if (angle > maxAngle)
+                {
+                    return false;
                 }
             }
-
-            return null;
-        }
-
-        /// <summary>是否可以背刺</summary>
-        static bool CanBackStab(SActor owner, SActor enemy)
-        {
-            if (enemy == null || enemy == owner || enemy.IsDead || enemy.Camp == owner.Camp)
+            else
             {
-                return false;
-            }
+                // 面对面
+                if (Vector3.Dot(enemy.transform.forward, owner.transform.forward) >= 0)
+                {
+                    return false;
+                }
 
-            if (!owner.IsInStealth)
-            {
-                return false;
-            }
-
-            if (enemy.AI.LockingEnemy != null)
-            {
-                return false;
-            }
-
-            // 一定距离内可背刺
-            float maxDis = GameApp.Entry.Config.SkillDecapitateConfig.DecapitateMaxDistance;
-            Vector3 dirToEnemy = enemy.transform.position - owner.transform.position;
-            if (dirToEnemy.magnitude > maxDis)
-            {
-                return false;
-            }
-
-            // 背对时才可背刺
-            if (Vector3.Dot(enemy.transform.forward, dirToEnemy) <= 0)
-            {
-                return false;
-            }
-
-            if (Vector3.Dot(enemy.transform.forward, owner.transform.forward) <= 0)
-            {
-                return false;
-            }
-
-            // 一定角度内才可背刺
-            float maxAngle = GameApp.Entry.Config.SkillDecapitateConfig.DecapitateMaxAngle;
-            float angle = Vector3.Angle(enemy.transform.forward, dirToEnemy);
-            if (angle > maxAngle)
-            {
-                return false;
+                // 一定角度内才可处决
+                float minAngle = 180 - GameApp.Entry.Config.SkillCommon.ExecuteMaxAngle;
+                float angle = Vector3.Angle(enemy.transform.forward, dirToEnemy);
+                if (angle < minAngle)
+                {
+                    return false;
+                }
             }
 
             return true;
         }
 
         /// <summary>获取可以斩首的对象</summary>
-        public SActor GetDecapitateTarget()
+        public SActor GetCanBeExecutedEnemy()
         {
-            if (CanBeDecapitate(Actor, Actor.AI.LockingEnemy))
+            if (CanDoExecute(Actor, Actor.AI.LockingEnemy))
             {
                 return Actor.AI.LockingEnemy;
             }
 
             Collider[] colliders = new Collider[10];
-            float radius = GameApp.Entry.Config.SkillDecapitateConfig.DecapitateMaxDistance;
+            float radius = GameApp.Entry.Config.SkillCommon.ExecuteMaxDistance;
             int layerMask = EStaticLayers.Actor.GetLayerMask();
             int count = Physics.OverlapSphereNonAlloc(Actor.transform.position, radius, colliders, layerMask);
             for (int i = 0; i < count; i++)
             {
                 var enemy = colliders[i].GetComponent<SActor>();
-                if (CanBeDecapitate(Actor, enemy))
+                if (CanDoExecute(Actor, enemy))
                 {
                     return enemy;
                 }
@@ -182,203 +113,80 @@ namespace Saber.CharacterController
         public override void Enter()
         {
             base.Enter();
-            m_Anim = Target.CPhysic.Height > Actor.CPhysic.Height * 1.5f ? "Decapitate" : "Decapitate_low";
+            m_Anim = "ExecuteForward";
             base.PlayAnimOnEnter(m_Anim, m_Anim);
 
-            // 播放处决音效
-            GameApp.Entry.Game.Audio.Play3DSound(Config.m_MagicCounterSuccessSound, Actor.transform.position);
+            Target.BeExecute(Actor);
 
-            // 显示处决武器
-            ShowEquipExecution();
+            foreach (var dmg in Config.ExecuteDamages)
+            {
+                dmg.IsDmgDone = false;
+            }
 
-            m_DecapitateEnemy = false;
-            m_DecapitateEnemyFinshed = false;
-            m_AlignDirection = true;
+            m_CurDmgIndex = 0;
+
+            Vector3 dirToEnemy = Target.transform.position - Actor.transform.position;
+            m_IsFromBack = Vector3.Dot(Target.transform.forward, dirToEnemy) > 0;
+
+
+            GameApp.Entry.Game.Audio.Play3DSound(Config.ExecuteStartSound, Actor.transform.position);
         }
 
         public override void OnStay()
         {
             base.OnStay();
 
-            float curTime = Actor.CAnim.GetAnimNormalizedTime(m_Anim);
-
-            // 敌人播放处决动画
-            if (!m_DecapitateEnemy)
+            if (m_CurDmgIndex < Config.ExecuteDamages.Length)
             {
-                if (curTime >= Config.m_DecapitateEnemyTime)
+                var dmgItem = Config.ExecuteDamages[m_CurDmgIndex];
+                Vector3 dirToEnemy = Target.transform.position - base.Actor.transform.position;
+
+                if (dmgItem.IsDmgDone)
                 {
-                    m_DecapitateEnemy = true;
-                    StartDecapitate();
+                    ++m_CurDmgIndex;
                 }
-            }
-
-            // 敌人处决结束
-            if (!m_DecapitateEnemyFinshed)
-            {
-                if (curTime >= Config.m_DecapitateEnemyFinishTime)
+                else
                 {
-                    m_DecapitateEnemyFinshed = true;
-                    EndDecapitate();
-                }
-            }
+                    float curTime = Actor.CAnim.GetAnimNormalizedTime(m_Anim);
+                    if (curTime >= dmgItem.m_DamageTime)
+                    {
+                        dmgItem.IsDmgDone = true;
+                        Target.CStats.TakeDamage(dmgItem.m_Damage);
 
-            // 对准敌人方向
-            if (m_AlignDirection)
-            {
-                AlignDirection();
+                        GameApp.Entry.Game.Audio.Play3DSound(dmgItem.m_Sound, Actor.transform.position);
 
-                if (curTime >= Config.m_AlignDirectionEndTime)
-                {
-                    m_AlignDirection = false;
-                }
-            }
+                        Vector3 pos = Target.transform.position;
+                        pos.y = Actor.CMelee.CWeapon.CurWeapons[0].transform.position.y;
+                        Quaternion rot = Quaternion.LookRotation(-dirToEnemy);
+                        GameApp.Entry.Game.Effect.CreateEffect(dmgItem.m_Blood, null, pos, rot, 10);
 
-            // 溶解处决武器
-            if (m_EquipExecutionShowing)
-            {
-                if (curTime >= Config.m_EquipExecutionDisappearTime)
-                {
-                    m_EquipExecutionShowing = false;
-                    HideEquipExecution();
-                }
-            }
-        }
+                        Actor.CStats.StaminaRecSpeed = ActorBaseStats.EStaminaRecSpeed.Fast;
 
-        /// <summary>开始处决，敌人播放处决动画，流血，声音，扣血</summary>
-        void StartDecapitate()
-        {
-            Target.BeExecute(ExecuteType);
-
-            ShowBlood(Config.m_BloodStartDecapitate);
-            GameApp.Entry.Game.Audio.Play3DSound(Config.m_EquipExeInsertBodySound, Actor.transform.position);
-            Target.CStats.TakeDamage(50);
-        }
-
-        /// <summary>处决结束，敌人被推远，流血，声音</summary>
-        void EndDecapitate()
-        {
-            Vector3 dir = Target.transform.position - Actor.transform.position;
-            Target.CPhysic.Force_Add(dir, 10, 0, false);
-
-            ShowBlood(Config.m_BloodFinishDecapitate);
-            GameApp.Entry.Game.Audio.Play3DSound(Config.m_EquipExeLeaveBodySound, Actor.transform.position);
-        }
-
-        void ShowBlood(GameObject bloodPrefab)
-        {
-            Vector3 pos = Target.transform.position;
-            pos.y = m_EquipExecutionObj.transform.position.y;
-            Quaternion rot = Quaternion.LookRotation(Actor.transform.position - Target.transform.position);
-            GameApp.Entry.Game.Effect.CreateEffect(bloodPrefab, null, pos, rot, Config.BloodPlayTime);
-        }
-
-        /// <summary>对齐方向</summary>
-        void AlignDirection()
-        {
-            Vector3 dir = Target.transform.position - base.Actor.transform.position;
-            Actor.CPhysic.AlignForwardTo(dir, 1080f);
-
-            Vector3 targetForward = ExecuteType switch
-            {
-                EExecuteType.Decapitate => -dir,
-                EExecuteType.BackStab => dir,
-                _ => throw new InvalidOperationException($"Unknown execute type:{ExecuteType}"),
-            };
-            Target.CPhysic.AlignForwardTo(targetForward, 1080f);
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
-            if (m_EquipExecutionShowing)
-            {
-                HideEquipExecution();
-            }
-        }
-
-        #region EquipExecution
-
-        void ShowEquipExecution()
-        {
-            m_EquipExecutionShowing = true;
-
-            if (!m_EquipExecutionObj)
-            {
-                Transform parent = Actor.GetNodeTransform(Config.m_EquipExecutionParentBone);
-                m_EquipExecutionObj = GameObject.Instantiate(Config.m_EquipExecution);
-                m_EquipExecutionObj.transform.SetParent(parent);
-            }
-
-            m_EquipExecutionObj.transform.localPosition = Config.m_EquipExecutionLocalPosition;
-            m_EquipExecutionObj.transform.localRotation = Quaternion.Euler(Config.m_EquipExecutionLocalRotation);
-            m_EquipExecutionObj.SetActive(true);
-
-            // 溶解
-            if (m_DissolveMaterials == null)
-                m_DissolveMaterials = GetDissolveMaterials();
-            foreach (var m in m_DissolveMaterials)
-                m.DisableKeyword("_DISSOLVE_ON");
-            if (m_CoroutineDissolve != null)
-            {
-                m_CoroutineDissolve.StopCoroutine();
-                m_CoroutineDissolve = null;
-            }
-        }
-
-        List<Material> GetDissolveMaterials()
-        {
-            List<Material> list = new();
-            Renderer[] renderers = m_EquipExecutionObj.transform.GetComponentsInChildren<Renderer>();
-            foreach (var r in renderers)
-            {
-                foreach (var m in r.materials)
-                {
-                    if (m.HasProperty("_Dissolve"))
-                        list.Add(m);
-                }
-            }
-
-            return list;
-        }
-
-        void HideEquipExecution()
-        {
-            m_EquipExecutionShowing = false;
-            if (m_CoroutineDissolve != null)
-            {
-                m_CoroutineDissolve.StopCoroutine();
-            }
-
-            m_CoroutineDissolve = DissolveItor().StartCoroutine();
-        }
-
-        // 溶解
-        IEnumerator DissolveItor()
-        {
-            float weight = 0;
-            while (true)
-            {
-                weight += Time.deltaTime * 1.2f;
-
-                foreach (var m in m_DissolveMaterials)
-                {
-                    m.EnableKeyword("_DISSOLVE_ON");
-                    m.SetFloat("_Dissolve", 1);
-                    m.SetFloat("_DissolveWeight", weight);
+                        /*
+                        if (m_CurDmgIndex == Config.ExecuteDamages.Length - 1)
+                        {
+                            Target.CPhysic.Force_Add(dirToEnemy, Config.ExecuteLastHitForce, 1, true);
+                        }
+                        */
+                    }
                 }
 
-                if (weight >= 1)
+                // 对准方向
+                Actor.CPhysic.AlignForwardTo(dirToEnemy, 1080f);
+
+                if (Config.ExecuteDamages[0].IsDmgDone)
                 {
-                    m_EquipExecutionObj.SetActive(false);
-                    break;
+                    Target.CPhysic.AlignForwardTo(m_IsFromBack ? dirToEnemy : -dirToEnemy, 1080f);
                 }
-
-                yield return null;
             }
-
-            m_CoroutineDissolve = null;
+            else if (!base.CanExit)
+            {
+                float curTime = Actor.CAnim.GetAnimNormalizedTime(m_Anim);
+                if (curTime >= Config.ExecuteSkillCanExitTime)
+                {
+                    base.CanExit = true;
+                }
+            }
         }
-
-        #endregion
     }
 }

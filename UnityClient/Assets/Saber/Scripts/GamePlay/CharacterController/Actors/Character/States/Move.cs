@@ -19,16 +19,16 @@ namespace Saber.CharacterController
             }
         }
 
-        protected override ActorBaseStats.EStaminaRecoverSpeed StaminaRecoverSpeed
+        protected override ActorBaseStats.EStaminaRecSpeed StaminaRecSpeed
         {
             get
             {
                 return Actor.MoveSpeedV switch
                 {
-                    EMoveSpeedV.Sprint => ActorBaseStats.EStaminaRecoverSpeed.Stop,
-                    EMoveSpeedV.Run => ActorBaseStats.EStaminaRecoverSpeed.Fast,
-                    EMoveSpeedV.Walk => ActorBaseStats.EStaminaRecoverSpeed.Fast,
-                    _ => ActorBaseStats.EStaminaRecoverSpeed.Stop,
+                    EMoveSpeedV.Sprint => ActorBaseStats.EStaminaRecSpeed.Stop,
+                    EMoveSpeedV.Run => ActorBaseStats.EStaminaRecSpeed.Fast,
+                    EMoveSpeedV.Walk => ActorBaseStats.EStaminaRecSpeed.Fast,
+                    _ => ActorBaseStats.EStaminaRecSpeed.Stop,
                 };
             }
         }
@@ -180,7 +180,7 @@ namespace Saber.CharacterController
                 UpdateMoveLock(); //当锁定敌人，并且未冲刺时，玩家始终面朝向敌人
             }
 
-            Actor.CStats.StaminaRecoverSpeed = StaminaRecoverSpeed;
+            Actor.CStats.StaminaRecSpeed = StaminaRecSpeed;
         }
 
 

@@ -18,6 +18,7 @@ namespace Saber.CharacterController
         RecoverHP,
         PlayExpression,
         DodgeToSprint,
+        ExecuteDamage,
     }
 
     [Serializable]
@@ -25,7 +26,7 @@ namespace Saber.CharacterController
     {
         CanTriggerSkill,
         InChargeTime,
-        CanBeDecapitate, //可被处决
+        CanBeExecute, //可被处决
         AlignDirection,
         CancelGravity,
         

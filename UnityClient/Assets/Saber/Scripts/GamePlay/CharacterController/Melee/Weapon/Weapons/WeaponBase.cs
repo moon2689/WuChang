@@ -17,7 +17,6 @@ namespace Saber.CharacterController
         private WeaponParentInfo m_WeaponParentInfo;
         private DamageInfo m_CurDmgInfo = new();
         private WeaponDamageSetting m_WeaponDamageSetting;
-        private Coroutine m_CoroutineFixDefenseLocation;
 
         public SActor Actor { get; private set; }
         public EWeaponType WeaponType => m_WeaponType;
@@ -61,31 +60,6 @@ namespace Saber.CharacterController
 
         protected virtual void LateUpdate()
         {
-        }
-
-        IEnumerator FixDefenseLocation(Vector3 targetPos, Vector3 targetRot)
-        {
-            Vector3 curPos = transform.localPosition;
-            Quaternion curRot = transform.localRotation;
-            Quaternion tarRot = Quaternion.Euler(targetRot);
-
-            float timer = 0;
-            float maxTime = 0.3f;
-            while (timer < maxTime)
-            {
-                timer += Time.deltaTime;
-                float weight = timer / maxTime;
-                Vector3 lerpPos = Vector3.Lerp(curPos, targetPos, weight);
-                Quaternion lerpRot = Quaternion.Lerp(curRot, tarRot, weight);
-                transform.localPosition = lerpPos;
-                transform.localRotation = lerpRot;
-                yield return null;
-            }
-
-            transform.localPosition = targetPos;
-            transform.localRotation = tarRot;
-
-            m_CoroutineFixDefenseLocation = null;
         }
 
         public void ShowTrail()

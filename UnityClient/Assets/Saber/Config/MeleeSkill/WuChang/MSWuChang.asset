@@ -20,6 +20,7 @@ MonoBehaviour:
       m_EventData: {fileID: 11400000, guid: 21b6efb740c967b408e60b0d1419bfcf, type: 2}
     CostStrength: 10
     m_CostPower: 0
+    m_PowerAddWhenHitted: 0
     m_CDSeconds: 0
     m_SkillType: 0
     m_TriggerCondition: 0
@@ -36,6 +37,7 @@ MonoBehaviour:
       m_EventData: {fileID: 11400000, guid: 7d421da6e57e0fe4499d02def8a8d36b, type: 2}
     CostStrength: 10
     m_CostPower: 0
+    m_PowerAddWhenHitted: 1
     m_CDSeconds: 0
     m_SkillType: 0
     m_TriggerCondition: 0
@@ -52,6 +54,7 @@ MonoBehaviour:
       m_EventData: {fileID: 11400000, guid: c32564bda27c12b4e9414ea275460241, type: 2}
     CostStrength: 10
     m_CostPower: 0
+    m_PowerAddWhenHitted: 0
     m_CDSeconds: 0
     m_SkillType: 0
     m_TriggerCondition: 0
@@ -68,6 +71,7 @@ MonoBehaviour:
       m_EventData: {fileID: 11400000, guid: f34581d4edb1cfb40b9fccf737f944c8, type: 2}
     CostStrength: 10
     m_CostPower: 0
+    m_PowerAddWhenHitted: 0
     m_CDSeconds: 0
     m_SkillType: 0
     m_TriggerCondition: 0
@@ -84,12 +88,13 @@ MonoBehaviour:
       m_EventData: {fileID: 11400000, guid: c84de50a01c826a4badbefb822e93e3f, type: 2}
     CostStrength: 10
     m_CostPower: 0
+    m_PowerAddWhenHitted: 2
     m_CDSeconds: 0
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
-    m_ChainSkillIDs: 090000000a0000000c000000
+    m_ChainSkillIDs: 03000000090000000a0000000c000000
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -100,6 +105,7 @@ MonoBehaviour:
       m_EventData: {fileID: 11400000, guid: f649358d820478646b00c9d072cca9ea, type: 2}
     CostStrength: 10
     m_CostPower: 0
+    m_PowerAddWhenHitted: 0
     m_CDSeconds: 0
     m_SkillType: 0
     m_TriggerCondition: 2
@@ -116,6 +122,7 @@ MonoBehaviour:
       m_EventData: {fileID: 11400000, guid: 1e750ea72d4ad4942b18dfc74759b125, type: 2}
     CostStrength: 10
     m_CostPower: 0
+    m_PowerAddWhenHitted: 0
     m_CDSeconds: 0
     m_SkillType: 0
     m_TriggerCondition: 3
@@ -132,6 +139,7 @@ MonoBehaviour:
       m_EventData: {fileID: 11400000, guid: f143ae5855760874eb7499c702326f41, type: 2}
     CostStrength: 10
     m_CostPower: 0
+    m_PowerAddWhenHitted: 0
     m_CDSeconds: 0
     m_SkillType: 0
     m_TriggerCondition: 4
@@ -148,6 +156,7 @@ MonoBehaviour:
       m_EventData: {fileID: 11400000, guid: 45e3bb3cea5dd0248b0d833ef1fd8c40, type: 2}
     CostStrength: 15
     m_CostPower: 1
+    m_PowerAddWhenHitted: 0
     m_CDSeconds: 0
     m_SkillType: 9
     m_TriggerCondition: 0
@@ -164,6 +173,7 @@ MonoBehaviour:
       m_EventData: {fileID: 11400000, guid: 3c42489d62b488743bdd7fe23ed63b33, type: 2}
     CostStrength: 15
     m_CostPower: 0
+    m_PowerAddWhenHitted: 0
     m_CDSeconds: 0
     m_SkillType: 1
     m_TriggerCondition: 0
@@ -180,6 +190,7 @@ MonoBehaviour:
       m_EventData: {fileID: 11400000, guid: 1ebe61dfe1d1f74439547d6c96c82dff, type: 2}
     CostStrength: 10
     m_CostPower: 0
+    m_PowerAddWhenHitted: 0
     m_CDSeconds: 0
     m_SkillType: 0
     m_TriggerCondition: 0
@@ -196,6 +207,7 @@ MonoBehaviour:
       m_EventData: {fileID: 11400000, guid: 4b7853feca07eba40b7d1494f9d574df, type: 2}
     CostStrength: 0
     m_CostPower: 2
+    m_PowerAddWhenHitted: 0
     m_CDSeconds: 0
     m_SkillType: 4
     m_TriggerCondition: 0
@@ -212,12 +224,28 @@ MonoBehaviour:
       m_EventData: {fileID: 11400000, guid: df9e12259360e0a43a58ffdb6fe6ca33, type: 2}
     CostStrength: 5
     m_CostPower: 1
+    m_PowerAddWhenHitted: 0
     m_CDSeconds: 0
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
     m_ChainSkillIDs: 05000000
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+  - m_ID: 14
+    m_AnimStates: []
+    CostStrength: 0
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 2
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkillIDs: 
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2

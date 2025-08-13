@@ -42,7 +42,7 @@ namespace Saber.CharacterController
         Boxing, //拳脚
         Claw, //爪
 
-        Sword = 100, //剑
+        Sword, //剑
 
         // GreatSword, //大剑
         // Axe, //斧

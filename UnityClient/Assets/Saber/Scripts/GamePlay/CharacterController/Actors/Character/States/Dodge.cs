@@ -10,6 +10,7 @@ namespace Saber.CharacterController
         private float m_TimerAlign;
         private bool m_CanTriggerSkill;
         private GameHelper.EDir4 m_Dir;
+        private Vector3 m_ForwardDir;
 
         public override bool ApplyRootMotionSetWhenEnter => true;
         public override bool CanExit => m_CanExit;
@@ -42,14 +43,43 @@ namespace Saber.CharacterController
             Actor.CStats.CostStamina(GameApp.Entry.Config.GameSetting.DodgeCostStamina);
             Actor.CPhysic.EnableSlopeMovement = false;
 
-            m_Dir = GameHelper.EDir4.Back;
-
             if (DodgeAxis != Vector3.zero)
             {
                 if (Actor.AI.LockingEnemy != null)
-                    m_Dir = DodgeAxis.Calc4Dir(new Vector3(0, 0, 1), out _);
+                {
+                    float angle = Vector3.SignedAngle(new Vector3(0, 0, 1), DodgeAxis, Vector3.up);
+                    Vector3 moveDir = Quaternion.AngleAxis(angle, Vector3.up) * Actor.DesiredLookDir;
+                    if ((angle >= 0 && angle <= 45f) || (angle <= 0 && angle >= -45f))
+                    {
+                        m_Dir = GameHelper.EDir4.Front;
+                        m_ForwardDir = moveDir;
+                    }
+                    else if (angle > 45 && angle < 135)
+                    {
+                        m_Dir = GameHelper.EDir4.Right;
+                        m_ForwardDir = Quaternion.AngleAxis(-90, Vector3.up) * moveDir;
+                    }
+                    else if (angle >= 135 || angle <= -135)
+                    {
+                        m_Dir = GameHelper.EDir4.Back;
+                        m_ForwardDir = -moveDir;
+                    }
+                    else
+                    {
+                        m_Dir = GameHelper.EDir4.Left;
+                        m_ForwardDir = Quaternion.AngleAxis(90, Vector3.up) * moveDir;
+                    }
+                }
                 else
+                {
                     m_Dir = GameHelper.EDir4.Front;
+                    m_ForwardDir = Actor.DesiredMoveDir;
+                }
+            }
+            else
+            {
+                m_Dir = GameHelper.EDir4.Back;
+                m_ForwardDir = Actor.DesiredLookDir;
             }
 
             m_DodgeAnim = $"Dodge{m_Dir}";
@@ -64,11 +94,8 @@ namespace Saber.CharacterController
             base.OnStay();
             if (m_TimerAlign > 0)
             {
-                Vector3 forwardDir = Actor.AI.LockingEnemy != null || DodgeAxis == Vector3.zero
-                    ? Actor.DesiredLookDir
-                    : Actor.DesiredMoveDir;
                 m_TimerAlign -= Time.deltaTime;
-                Actor.CPhysic.AlignForwardTo(forwardDir, 1080f);
+                Actor.CPhysic.AlignForwardTo(m_ForwardDir, 1080f);
             }
 
             if (!Actor.CAnim.IsPlayingOrWillPlay(m_DodgeAnim, 0.95f))
@@ -121,7 +148,7 @@ namespace Saber.CharacterController
                 return false;
             }
 
-           if (skill.m_TriggerCondition == ETriggerCondition.InDodgeForward)
+            if (skill.m_TriggerCondition == ETriggerCondition.InDodgeForward)
             {
                 return m_Dir == GameHelper.EDir4.Front;
             }

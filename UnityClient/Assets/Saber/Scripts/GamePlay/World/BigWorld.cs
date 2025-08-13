@@ -147,6 +147,9 @@ namespace Saber.World
             {
                 m_WndMainCity = GameApp.Entry.UI.CreateWnd<Wnd_MainCity>(null, this);
             }
+            
+            // effects
+            GameApp.Entry.Config.GameSetting.PreloadEffects();
 
             m_WndLoading.Percent = 100;
             /*
