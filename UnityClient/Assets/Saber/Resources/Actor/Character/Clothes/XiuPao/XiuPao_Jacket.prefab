@@ -4917,7 +4917,7 @@ MonoBehaviour:
     stablizationTimeAfterReset: 0.1
     blendWeight: 1
     damping:
-      value: 0.39
+      value: 0.8
       useCurve: 0
       curve:
         serializedVersion: 2

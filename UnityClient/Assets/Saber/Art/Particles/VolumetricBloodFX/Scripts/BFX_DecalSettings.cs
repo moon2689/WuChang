@@ -1,5 +1,4 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,14 +11,11 @@ public class BFX_DecalSettings : MonoBehaviour
     public Transform parent;
     public float TimeHeightMax = 3.1f;
     public float TimeHeightMin = -0.1f;
-    [Space]
-    public Vector3 TimeScaleMax = Vector3.one;
+    [Space] public Vector3 TimeScaleMax = Vector3.one;
     public Vector3 TimeScaleMin = Vector3.one;
-    [Space]
-    public Vector3 TimeOffsetMax = Vector3.zero;
+    [Space] public Vector3 TimeOffsetMax = Vector3.zero;
     public Vector3 TimeOffsetMin = Vector3.zero;
-    [Space]
-    public AnimationCurve TimeByHeight = AnimationCurve.Linear(0, 0, 1, 1);
+    [Space] public AnimationCurve TimeByHeight = AnimationCurve.Linear(0, 0, 1, 1);
 
     private Vector3 startOffset;
     private Vector3 startScale;
@@ -31,34 +27,36 @@ public class BFX_DecalSettings : MonoBehaviour
     Vector3 averageRay;
     bool isPositionInitialized;
     private Vector3 initializedPosition;
-    private DecalProjector decal;
+    private DecalProjector m_Decal;
 
     private void Awake()
     {
-        decal = GetComponent<DecalProjector>();
+        m_Decal = GetComponent<DecalProjector>();
         startOffset = transform.localPosition;
         startScale = transform.localScale;
         t = transform;
         tParent = parent.transform;
         shaderProperies = GetComponent<BFX_ShaderProperies>();
         shaderProperies.OnAnimationFinished += ShaderCurve_OnAnimationFinished;
+
+        m_Decal.renderingLayerMask = ERenderingLayers.Default.GetLayerMask();
     }
 
     private void ShaderCurve_OnAnimationFinished()
     {
-        decal.enabled = false;
+        m_Decal.enabled = false;
     }
 
     private void Update()
     {
         if (!isPositionInitialized) InitializePosition();
-        if (shaderProperies.enabled && initializedPosition.x < float.PositiveInfinity) transform.position = initializedPosition;
+        if (shaderProperies.enabled && initializedPosition.x < float.PositiveInfinity)
+            transform.position = initializedPosition;
     }
 
     void InitializePosition()
     {
-
-        decal.enabled = false;
+        m_Decal.enabled = false;
 
         var currentHeight = parent.position.y;
         float ground = currentHeight;
@@ -81,11 +79,11 @@ public class BFX_DecalSettings : MonoBehaviour
 
         if (currentHeight - ground >= scaledTimeHeightMax || currentHeight - ground <= scaledTimeHeightMin)
         {
-            decal.enabled = false;
+            m_Decal.enabled = false;
         }
         else
         {
-            decal.enabled = true;
+            m_Decal.enabled = true;
         }
 
         float diff = (tParent.position.y - ground) / scaledTimeHeightMax;
@@ -94,7 +92,7 @@ public class BFX_DecalSettings : MonoBehaviour
         var scaleMul = Vector3.Lerp(TimeScaleMin, TimeScaleMax, diff);
         scaleMul.x *= currentScale.x;
         scaleMul.z *= currentScale.z;
-        decal.size = new Vector3(scaleMul.x * startScale.x, scaleMul.z * startScale.z, startScale.y);
+        m_Decal.size = new Vector3(scaleMul.x * startScale.x, scaleMul.z * startScale.z, startScale.y);
 
         var lastOffset = Vector3.Lerp(TimeOffsetMin, TimeOffsetMax, diff);
         t.localPosition = startOffset + lastOffset;
@@ -110,9 +108,9 @@ public class BFX_DecalSettings : MonoBehaviour
         {
             t.localRotation = Quaternion.Euler(120, -90, 90);
 
-            var decalSize = decal.size;
+            var decalSize = m_Decal.size;
             decalSize.z = 5;
-            decal.size = decalSize;
+            m_Decal.size = decalSize;
         }
 
         //if (BloodSettings.ClampDecalSideSurface) Shader.EnableKeyword("CLAMP_SIDE_SURFACE");

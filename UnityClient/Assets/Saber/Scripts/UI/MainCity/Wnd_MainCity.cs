@@ -20,7 +20,6 @@ namespace Saber.UI
         [SerializeField] private GameObject m_IconLockDecapitate;
 
         private IHandler m_Handler;
-        private float m_TimerCheckExecute;
 
 
         protected override bool PauseGame => false;
@@ -54,21 +53,7 @@ namespace Saber.UI
                     out Vector2 localPoint);
                 m_IconLock.anchoredPosition = localPoint;
 
-                if (m_TimerCheckExecute >= 0)
-                {
-                    m_TimerCheckExecute -= Time.deltaTime;
-
-                    if (m_TimerCheckExecute < 0)
-                    {
-                        m_TimerCheckExecute = 0.2f;
-                        bool canDecapitate = SkillExecute.CanExecute(player, lockEnemy);
-                        m_IconLockDecapitate.SetActive(canDecapitate);
-                    }
-                }
-            }
-            else
-            {
-                m_TimerCheckExecute = 0;
+                m_IconLockDecapitate.SetActive(lockEnemy.IsBlockBrokenWaitExecute);
             }
         }
     }

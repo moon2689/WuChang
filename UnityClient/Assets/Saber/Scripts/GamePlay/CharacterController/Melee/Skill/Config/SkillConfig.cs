@@ -50,6 +50,7 @@ namespace Saber.CharacterController
         public RangedFloat m_AIPramAttackDistance;
 
         public float m_AttackTriggerDistance;
+        [FormerlySerializedAs("m_RenXing")] public EResilience resilience = EResilience.Level1;
 
         public bool IsAirSkill => m_TriggerCondition == ETriggerCondition.InAir;
 
@@ -98,5 +99,14 @@ namespace Saber.CharacterController
     {
         ClearDay,
         RecoverHP,
+    }
+
+    public enum EResilience
+    {
+        Level0,
+        Level1,
+        Level2,
+        Level3,
+        Level4,
     }
 }

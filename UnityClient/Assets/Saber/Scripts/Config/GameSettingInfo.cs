@@ -26,6 +26,8 @@ namespace Saber.Config
         public float WitchTimeSeconds = 2;
         public float DodgeCostStamina = 20;
         public float IKBoneForceOnHit = 1;
+        public float RecoverUnbalanceValueDelaySeconds = 4;
+        public float RecoverUnbalanceSpeed = 10;
 
         [Header("Melee")] public AudioClip[] m_SoundSwordHitSword;
         public AudioClip[] m_SoundWeaponHitGround;

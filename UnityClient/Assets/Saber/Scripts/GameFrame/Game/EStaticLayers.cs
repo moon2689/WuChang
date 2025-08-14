@@ -12,6 +12,12 @@ public enum EStaticLayers
     Collider = 7,
 }
 
+public enum ERenderingLayers
+{
+    Default = 0,
+    Actor = 1,
+}
+
 public static class StaticLayersHelper
 {
     public static int GetLayer(this EStaticLayers layer)
@@ -22,5 +28,16 @@ public static class StaticLayersHelper
     public static LayerMask GetLayerMask(this EStaticLayers layer)
     {
         return 1 << layer.GetLayer();
+    }
+
+    public static int GetLayer(this ERenderingLayers layer)
+    {
+        return (int)layer;
+    }
+
+    public static uint GetLayerMask(this ERenderingLayers layer)
+    {
+        int m = 1 << layer.GetLayer();
+        return (uint)m;
     }
 }

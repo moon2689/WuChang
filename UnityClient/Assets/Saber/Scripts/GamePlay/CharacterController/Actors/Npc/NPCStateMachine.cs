@@ -15,7 +15,7 @@ namespace Saber.CharacterController
         {
             RegisterState(new NPCIdle());
             RegisterState(new NPCMove());
-            RegisterState(new HumanObstruct());
+            //RegisterState(new HumanObstruct());
             RegisterState(new Die());
         }
     }

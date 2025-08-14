@@ -26,12 +26,6 @@ namespace Saber.CharacterController
         {
         }
 
-        /// <summary>是否可以处决，包括斩首和背刺</summary>
-        public static bool CanExecute(SActor owner, SActor enemy)
-        {
-            return enemy.CanBeExecuted && CanDoExecute(owner, enemy);
-        }
-
         /// <summary>是否可以斩首</summary>
         private static bool CanDoExecute(SActor owner, SActor enemy)
         {
@@ -127,8 +121,7 @@ namespace Saber.CharacterController
 
             Vector3 dirToEnemy = Target.transform.position - Actor.transform.position;
             m_IsFromBack = Vector3.Dot(Target.transform.forward, dirToEnemy) > 0;
-
-
+            
             GameApp.Entry.Game.Audio.Play3DSound(Config.ExecuteStartSound, Actor.transform.position);
         }
 

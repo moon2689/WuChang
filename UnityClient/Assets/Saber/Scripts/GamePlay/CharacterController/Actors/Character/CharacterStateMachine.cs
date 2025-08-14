@@ -257,12 +257,7 @@ namespace Saber.CharacterController
                     Actor.CStateMachine.ParriedSuccssSkills.Clear();
                     foreach (var e in parriedEnemies)
                     {
-                        ++e.CStats.ParredTimesSum;
-                        if (e.CStats.ParredTimesSum >= e.StatsInfo.m_ParriedMaxTimes)
-                        {
-                            e.OnParried();
-                            e.CStats.ParredTimesSum = 0;
-                        }
+                        e.OnParried();
 
                         Actor.CStateMachine.ParriedSuccssSkills.Add(e.CurrentSkill);
                     }

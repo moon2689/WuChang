@@ -418,6 +418,18 @@ public static class GameHelper
                 c.SetLayerRecursive(layer);
         }
     }
+    
+    public static void SetRenderingLayerRecursive(this GameObject obj, ERenderingLayers layer)
+    {
+        if (obj)
+        {
+            Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+            foreach (var r in renderers)
+            {
+                r.renderingLayerMask = layer.GetLayerMask();
+            }
+        }
+    }
 
     public static GameObject InstantiateAsChild(this GameObject prefab, Transform parent)
     {

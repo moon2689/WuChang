@@ -1,7 +1,10 @@
 using System;
 using System.Buffers;
 using Saber.Frame;
+using Saber.UI;
+using Unity.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace Saber.CharacterController
 {
@@ -15,92 +18,55 @@ namespace Saber.CharacterController
             GetUpAfterExecuted,
         }
 
+        enum EHitRecHurtType
+        {
+            Stun,
+            BlockBroken,
+        }
+
 
         private string m_CurAnim;
-        private float m_AngleFromAttacker;
         private EHitRecHurtType m_HurtType;
         private EState m_State;
         private bool m_IsExecuteFromBack;
+        private bool m_CanExecuteTimePassed;
 
         public DamageInfo Damage { get; set; }
         public override bool CanExit => false;
-        public EHitRecHurtType HurtType => m_HurtType;
+        EHitRecHurtType HurtType => m_HurtType;
         public bool CanBeExecute { get; private set; }
+
+        public bool IsBlockBrokenWaitExecute => m_State == EState.BlockBroken && !m_CanExecuteTimePassed;
+        public bool IsBlockBrokenHurtType => m_HurtType == EHitRecHurtType.BlockBroken;
 
 
         public MonsterGetHit() : base(EStateType.GetHit)
         {
         }
 
-        string Get4DirString()
-        {
-            if (m_AngleFromAttacker > -45 && m_AngleFromAttacker <= 45)
-                return "B";
-            else if (m_AngleFromAttacker > 45 && m_AngleFromAttacker <= 135)
-                return "R";
-            else if (m_AngleFromAttacker > -135 && m_AngleFromAttacker <= -45)
-                return "L";
-            else
-                return "F";
-        }
-
-        string Get2DirString()
-        {
-            bool isBack = m_AngleFromAttacker > -90 && m_AngleFromAttacker <= 90;
-            //  faceType = isBack ? EFaceToAttackerType.FaceToBack : EFaceToAttackerType.FaceToFace;
-            return isBack ? "Backward" : "Forward";
-        }
-
         string GetHitAnim(out EHitRecHurtType hurtType)
         {
-            m_AngleFromAttacker = Vector3.SignedAngle(Damage.DamageDirection, Actor.transform.forward, Vector3.up);
-            bool forceLarge = Damage.DamageConfig.m_ForceWhenGround.x >= 5;
-            // faceType = EFaceToAttackerType.None;
-            hurtType = EHitRecHurtType.Stun;
-            switch (Damage.DamageConfig.m_DamageLevel)
+            if (Damage.DamageConfig.m_HitRecover == EHitRecover.Backstab &&
+                Vector3.Dot(Actor.transform.forward, Damage.Attacker.transform.forward) > 0 ||
+                Actor.CStats.CurrentUnbalanceValue <= 0)
             {
-                case DamageLevel.HitLight:
-                    string dirStr = Get4DirString();
-                    return $"Stun{dirStr}";
-
-                case DamageLevel.HitHeavy:
-                    dirStr = Get4DirString();
-                    if (forceLarge)
-                    {
-                        return $"GetHit{dirStr}HeavyFar";
-                    }
-                    else
-                    {
-                        return $"GetHit{dirStr}Heavy";
-                    }
-
-                case DamageLevel.HitDown:
-                    dirStr = Get2DirString();
-                    return $"GetHitDownBy{dirStr}";
-
-                case DamageLevel.HitFly:
-                    dirStr = Get2DirString();
-                    return $"GetHitFlyBy{dirStr}";
-
-                case DamageLevel.Backstab:
-                    if (Vector3.Dot(Actor.transform.forward, Damage.Attacker.transform.forward) > 0)
-                    {
-                        hurtType = EHitRecHurtType.BlockBroken;
-                        return "BlockBroken";
-                    }
-                    else
-                    {
-                        dirStr = Get4DirString();
-                        return $"Stun{dirStr}";
-                    }
-
-
-                default:
-                    Debug.LogError($"Unknown hit level:{Damage.DamageConfig.m_DamageLevel}");
-                    break;
+                hurtType = EHitRecHurtType.BlockBroken;
+                return "BlockBroken";
             }
 
-            return null;
+            // stun
+            hurtType = EHitRecHurtType.Stun;
+            float angleFromAttacker = Vector3.SignedAngle(Damage.DamageDirection, Actor.transform.forward, Vector3.up);
+            string dirStr;
+            if (angleFromAttacker > -45 && angleFromAttacker <= 45)
+                dirStr = "B";
+            else if (angleFromAttacker > 45 && angleFromAttacker <= 135)
+                dirStr = "R";
+            else if (angleFromAttacker > -135 && angleFromAttacker <= -45)
+                dirStr = "L";
+            else
+                dirStr = "F";
+            return $"Stun{dirStr}";
         }
 
         public override void Enter()
@@ -122,6 +88,7 @@ namespace Saber.CharacterController
             Actor.CAnim.Play(m_CurAnim, force: true);
 
             CanBeExecute = false;
+            m_CanExecuteTimePassed = false;
 
             m_State = m_HurtType switch
             {
@@ -129,19 +96,11 @@ namespace Saber.CharacterController
                 EHitRecHurtType.BlockBroken => EState.BlockBroken,
                 _ => throw new InvalidOperationException($"Unknown hurt type:{m_HurtType}"),
             };
-            /*
-            // 对齐攻击者方向
-            Vector3 directionToAttacker = Damage.Attacker.transform.position - Actor.transform.position;
-            directionToAttacker.y = 0;
-            if (forceToAttackerType == EFaceToAttackerType.FaceToFace)
+
+            if (m_HurtType == EHitRecHurtType.BlockBroken)
             {
-                Actor.transform.rotation = Quaternion.LookRotation(directionToAttacker);
+                Actor.CStats.DefaultUnbalanceValue();
             }
-            else if (forceToAttackerType == EFaceToAttackerType.FaceToBack)
-            {
-                Actor.transform.rotation = Quaternion.LookRotation(-directionToAttacker);
-            }
-            */
         }
 
         public override void OnStay()
@@ -176,9 +135,10 @@ namespace Saber.CharacterController
             base.OnTriggerRangeEvent(eventObj, enter);
             if (eventObj.EventType == EAnimRangeEvent.CanBeExecute)
             {
-                if (HurtType == EHitRecHurtType.BlockBroken)
+                CanBeExecute = enter;
+                if (!enter)
                 {
-                    CanBeExecute = enter;
+                    m_CanExecuteTimePassed = true;
                 }
             }
         }
@@ -202,6 +162,8 @@ namespace Saber.CharacterController
             m_State = EState.GetUpAfterExecuted;
             m_CurAnim = m_IsExecuteFromBack ? "ExecutedBackUp" : "ExecutedFrontUp";
             Actor.CAnim.Play(m_CurAnim, force: true);
+
+            Actor.CStats.DefaultUnbalanceValue();
         }
 
         void DieAfterExecuted()
@@ -214,14 +176,9 @@ namespace Saber.CharacterController
 
     public interface IHitRecovery
     {
-        EHitRecHurtType HurtType { get; }
         bool CanBeExecute { get; }
         void BeExecuted(SActor executioner);
-    }
-
-    public enum EHitRecHurtType
-    {
-        Stun,
-        BlockBroken,
+        bool IsBlockBrokenWaitExecute { get; }
+        bool IsBlockBrokenHurtType { get; }
     }
 }

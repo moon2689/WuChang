@@ -85,7 +85,7 @@ namespace Saber.CharacterController
             {
                 return false;
             }
-            
+
             MonsterIdle idle = Actor.CStateMachine.GetState<MonsterIdle>(EStateType.Idle);
             return idle.IsPlayingAction(name);
         }
@@ -105,22 +105,12 @@ namespace Saber.CharacterController
 
         public override bool OnHit(DamageInfo dmgInfo)
         {
-            bool playHitRect = CurrentStateType == EStateType.GetHit ||
-                               Actor.StatsInfo.m_MaxSuperArmorValue <= 0 ||
-                               Actor.CStats.CurrentSuperArmor <= 0;
-
-            if (playHitRect)
-            {
-                return TryEnterState<MonsterGetHit>(EStateType.GetHit, state => state.Damage = dmgInfo);
-            }
-            else
-            {
-                return false;
-            }
+            return TryEnterState<MonsterGetHit>(EStateType.GetHit, state => state.Damage = dmgInfo);
         }
 
         public override void OnParried()
         {
+            /*
             TryEnterState<MonsterObstruct>(EStateType.GetHit, state =>
             {
                 state.Damage = new DamageInfo()
@@ -128,6 +118,7 @@ namespace Saber.CharacterController
                     ObstructType = EObstructType.Parried,
                 };
             });
+            */
         }
 
         public override bool Dodge(Vector3 axis)

@@ -1966,9 +1966,10 @@ MonoBehaviour:
       m_MaxHp: 300
       m_DefaultHpRecSpeed: 0
       m_MaxStamina: 100
-      m_MaxSuperArmorValue: 0
       m_MaxPower: 3
       m_ParriedMaxTimes: 3
+      m_Resilience: 1
+      m_UnbalanceValue: 100
     m_PhysicInfo:
       m_Mass: 90
       m_Height: 2.5

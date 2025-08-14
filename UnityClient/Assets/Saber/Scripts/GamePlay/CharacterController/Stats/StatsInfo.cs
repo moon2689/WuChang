@@ -9,11 +9,8 @@ namespace Saber.CharacterController
         public int m_MaxHp = 100;
         public float m_DefaultHpRecSpeed;
         public int m_MaxStamina = 100;
-
-        public int m_MaxSuperArmorValue;
-
-        //public int m_MaxBlockValue = 100;
         public int m_MaxPower = 3;
-        public int m_ParriedMaxTimes = 3;
+        public EResilience m_Resilience = EResilience.Level0;
+        public int m_UnbalanceValue = 100;
     }
 }

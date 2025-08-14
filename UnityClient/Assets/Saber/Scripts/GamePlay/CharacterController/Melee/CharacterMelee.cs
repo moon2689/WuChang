@@ -181,7 +181,7 @@ namespace Saber.CharacterController
 
         public bool TryTriggerSkill(ESkillType type)
         {
-            // 当前技能正在触发中，并且未到连招时间和退出时间，则不可重新触发技能
+            // 当前技能正在触发中，并且未到连招时间或退出时间，则不可重新触发技能
             if (CurSkill != null && CurSkill.IsTriggering && !CurSkill.InComboTime && !CurSkill.CanExit)
             {
                 return false;

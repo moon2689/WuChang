@@ -170,6 +170,7 @@ namespace Saber.CharacterController
             obj.transform.localRotation = Quaternion.identity;
             obj.transform.localScale = Vector3.one;
             obj.SetLayerRecursive(EStaticLayers.Actor);
+            obj.SetRenderingLayerRecursive(ERenderingLayers.Actor);
 
             // init magica cloth
             var mcClothList = obj.GetComponentsInChildren<MagicaCloth>();

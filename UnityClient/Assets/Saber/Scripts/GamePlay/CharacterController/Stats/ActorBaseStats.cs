@@ -30,16 +30,13 @@ namespace Saber.CharacterController
 
         private IHandler m_Handler;
 
-        private float m_CurrentHp,
-            m_CurrentStamina;
-
-        private float
-            m_TimerRecoverSuperArmor,
-            m_TimerStunBySuperArmorZero;
-
+        private float m_CurrentHp;
+        private float m_CurrentStamina;
         private EffectObject m_HealingEffect;
         private int m_HPPotionCount;
         public int m_CurrentPower;
+        private float m_CurrentUnbalanceValue;
+        private float m_TimerRecoverUnbalanceValue;
 
 
         SActor Actor { get; set; }
@@ -77,7 +74,6 @@ namespace Saber.CharacterController
         public int CurrentStaminaInt => Mathf.CeilToInt(CurrentStamina);
 
         public EStaminaRecSpeed StaminaRecSpeed { get; set; }
-        public float CurrentSuperArmor { get; set; }
         public bool IsStaminaFull => CurrentStamina == MaxStamina;
 
         public int HPPotionCount
@@ -112,7 +108,12 @@ namespace Saber.CharacterController
         public float CurrentHPRatio { get; private set; }
         public float CurrentStaminaRatio { get; private set; }
         public int MaxPower => Actor.StatsInfo.m_MaxPower;
-        public int ParredTimesSum { get; set; }
+
+        public float CurrentUnbalanceValue
+        {
+            get => m_CurrentUnbalanceValue;
+            set { m_CurrentUnbalanceValue = Mathf.Clamp(value, 0, Actor.StatsInfo.m_UnbalanceValue); }
+        }
 
 
         public ActorBaseStats(SActor actor)
@@ -126,41 +127,51 @@ namespace Saber.CharacterController
         {
             CurrentHp = MaxHp;
             CurrentStamina = MaxStamina;
-            CurrentSuperArmor = Actor.StatsInfo.m_MaxSuperArmorValue;
-            ResetHPPointCount();
-            ResetPower();
+            DefaultHPPointCount();
+            ClearPower();
+            DefaultUnbalanceValue();
         }
 
-        public void ResetHPPointCount()
+        public void DefaultUnbalanceValue()
+        {
+            CurrentUnbalanceValue = Actor.StatsInfo.m_UnbalanceValue;
+        }
+
+        public void DefaultHPPointCount()
         {
             HPPotionCount = k_MaxHPCount;
         }
 
-        public void ResetPower()
+        public void ClearPower()
         {
             CurrentPower = 0;
         }
 
         public void Update(float deltaTime)
         {
-            UpdateSuperArmor(deltaTime);
-            UpdateHp(deltaTime);
-            UpdateStamina(deltaTime);
-        }
+            if (Actor.IsDead)
+            {
+                return;
+            }
 
-        void UpdateHp(float deltaTime)
-        {
-            if (!Actor.IsDead && CurrentHp < MaxHp && Actor.StatsInfo.m_DefaultHpRecSpeed > 0)
+            // 失衡值恢复
+            if (m_TimerRecoverUnbalanceValue > 0)
+            {
+                m_TimerRecoverUnbalanceValue -= deltaTime;
+            }
+            else if (CurrentUnbalanceValue < Actor.StatsInfo.m_UnbalanceValue)
+            {
+                CurrentUnbalanceValue += deltaTime * GameApp.Entry.Config.GameSetting.RecoverUnbalanceSpeed;
+            }
+
+            // 恢复生命值
+            if (CurrentHp < MaxHp && Actor.StatsInfo.m_DefaultHpRecSpeed > 0)
             {
                 CurrentHp += Actor.StatsInfo.m_DefaultHpRecSpeed * deltaTime;
             }
-        }
 
-        void UpdateStamina(float deltaTime)
-        {
-            if (!Actor.IsDead &&
-                StaminaRecSpeed != EStaminaRecSpeed.Stop &&
-                CurrentStamina < MaxStamina)
+            // 恢复体力
+            if (StaminaRecSpeed != EStaminaRecSpeed.Stop && CurrentStamina < MaxStamina)
             {
                 int speed = StaminaRecSpeed switch
                 {
@@ -175,32 +186,6 @@ namespace Saber.CharacterController
             }
         }
 
-        private void UpdateSuperArmor(float deltaTime)
-        {
-            if (CurrentSuperArmor <= 0)
-            {
-                if (m_TimerStunBySuperArmorZero > 0)
-                {
-                    m_TimerStunBySuperArmorZero -= deltaTime;
-                }
-                else
-                {
-                    Actor.IsStun = false;
-                    CurrentSuperArmor = Actor.StatsInfo.m_MaxSuperArmorValue;
-                }
-            }
-            else if (CurrentSuperArmor < Actor.StatsInfo.m_MaxSuperArmorValue)
-            {
-                if (m_TimerRecoverSuperArmor > 0)
-                {
-                    m_TimerRecoverSuperArmor -= deltaTime;
-                }
-                else
-                {
-                    CurrentSuperArmor = Actor.StatsInfo.m_MaxSuperArmorValue;
-                }
-            }
-        }
 
         public void TakeDamage(float damage)
         {
@@ -212,18 +197,8 @@ namespace Saber.CharacterController
             CurrentHp -= damage;
             m_Handler.OnDamaged(damage);
 
-            if (CurrentSuperArmor > 0)
-            {
-                m_TimerRecoverSuperArmor = 10;
-                CurrentSuperArmor -= damage;
-                if (CurrentSuperArmor <= 0)
-                {
-                    CurrentSuperArmor = 0;
-                    m_TimerStunBySuperArmorZero = 3;
-                    m_TimerRecoverSuperArmor = 30;
-                    Actor.IsStun = true;
-                }
-            }
+            CurrentUnbalanceValue -= damage;
+            m_TimerRecoverUnbalanceValue = GameApp.Entry.Config.GameSetting.RecoverUnbalanceValueDelaySeconds;
         }
 
         public void CostStamina(float value)

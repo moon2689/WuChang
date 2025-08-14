@@ -26,5 +26,4 @@ namespace Saber.CharacterController
 
         public bool IsDmgDone { get; set; }
     }
-    
 }

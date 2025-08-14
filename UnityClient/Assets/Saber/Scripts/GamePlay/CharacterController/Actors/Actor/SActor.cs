@@ -200,6 +200,20 @@ namespace Saber.CharacterController
                 return false;
             }
         }
+        
+        /// <summary>可被处决</summary>
+        public bool IsBlockBrokenWaitExecute
+        {
+            get
+            {
+                if (CurrentStateType == EStateType.GetHit && this.CStateMachine.CurrentState is IHitRecovery hitrec)
+                {
+                    return hitrec.IsBlockBrokenWaitExecute;
+                }
+
+                return false;
+            }
+        }
 
         /// <summary>角色是否处于潜行中</summary>
         public bool IsInStealth
@@ -224,6 +238,8 @@ namespace Saber.CharacterController
                 return false;
             }
         }
+        
+        public EResilience CurrentResilience { get; set; }
 
 
         public static SActor Create(int id, Vector3 pos, Quaternion rot, BaseAI ai, EActorCamp camp)
@@ -268,6 +284,7 @@ namespace Saber.CharacterController
         protected virtual void Awake()
         {
             gameObject.SetLayerRecursive(EStaticLayers.Actor);
+            gameObject.SetRenderingLayerRecursive(ERenderingLayers.Actor);
 
             CBuff = new();
             CAnim = new CharacterAnimation(this, this);
@@ -275,6 +292,13 @@ namespace Saber.CharacterController
             CStats = new ActorBaseStats(this);
             CMelee = new CharacterMelee(this, m_BaseActorInfo.m_SkillConfig);
             CMelee.SetWeapon(m_BaseActorInfo.m_WeaponPrefabs);
+            
+            DefaultResilience();
+        }
+
+        public void DefaultResilience()
+        {
+            CurrentResilience = m_BaseActorInfo.m_StatsInfo.m_Resilience;
         }
 
         protected virtual void Start()
@@ -488,8 +512,8 @@ namespace Saber.CharacterController
         public virtual void OnGodStatueRest()
         {
             CStats.PlayHealingEffect(CStats.MaxHp);
-            CStats.ResetHPPointCount();
-            CStats.ResetPower();
+            CStats.DefaultHPPointCount();
+            CStats.ClearPower();
         }
 
         #endregion

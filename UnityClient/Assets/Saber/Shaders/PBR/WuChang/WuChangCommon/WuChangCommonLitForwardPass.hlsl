@@ -154,10 +154,13 @@ Varyings LitPassVertex(Attributes input)
 half4 LitPassFragment(Varyings input) : SV_Target0
 {
     UNITY_SETUP_INSTANCE_ID(input);
-    UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
+    //UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
 
     SurfaceData surfaceData = InitializeStandardLitSurfaceData(input.uv);
     InputData inputData = InitializeInputData(input, surfaceData.normalTS);
+    #ifdef _DBUFFER
+    ApplyDecalToSurfaceData(input.positionCS, surfaceData, inputData);
+    #endif
     half4 color = UniversalFragmentPBR(inputData, surfaceData);
     color.rgb = MixFog(color.rgb, inputData.fogCoord);
     return color;

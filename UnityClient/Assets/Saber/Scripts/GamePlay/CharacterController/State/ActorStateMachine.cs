@@ -291,6 +291,7 @@ namespace Saber.CharacterController
             */
         }
 
+        /*
         void ToTired()
         {
             if (CurrentStateType == EStateType.GetHit)
@@ -322,6 +323,7 @@ namespace Saber.CharacterController
                 };
             });
         }
+        */
 
         private bool Die()
         {

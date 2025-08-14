@@ -22,6 +22,8 @@ namespace Saber.CharacterController
             Actor.CAnim.StopMaskLayerAnims();
             Actor.CPhysic.EnableSlopeMovement = false;
 
+            Actor.CurrentResilience = CurSkill.SkillConfig.resilience;
+
             if (CurSkill.SkillConfig.m_TriggerCondition == ETriggerCondition.InAir)
             {
                 Actor.CPhysic.EnablePlatformMovement = false;
@@ -45,6 +47,7 @@ namespace Saber.CharacterController
             CurSkill.Exit();
             Actor.CPhysic.EnableSlopeMovement = true;
             Actor.CPhysic.EnablePlatformMovement = true;
+            Actor.DefaultResilience();
         }
 
         public override void OnAnimEnter(int nameHash, int layer)

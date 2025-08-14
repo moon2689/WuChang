@@ -94,7 +94,6 @@ namespace Saber.CharacterController
             curDmgInfo.DamageDirection = waveDir;
             */
             curDmgInfo.DamageConfig = damageSetting;
-            curDmgInfo.ObstructType = EObstructType.Normal;
             curDmgInfo.DamageValue =
                 UnityEngine.Random.Range(damageSetting.m_DamageValue * 0.8f, damageSetting.m_DamageValue * 1.2f);
             curDmgInfo.DamagingWeaponType = weapon.WeaponType;
@@ -129,13 +128,25 @@ namespace Saber.CharacterController
             //     return;
             // }
 
-            bool isBlockBroken = enemy.CurrentStateType == EStateType.GetHit &&
-                                 enemy.CStateMachine.CurrentState is IHitRecovery hitRec &&
-                                 hitRec.HurtType == EHitRecHurtType.BlockBroken;
-            if (!isBlockBroken)
+            // 失衡
+            if (enemy.CurrentResilience <= 0)
             {
-                // 受击反馈
                 enemy.OnHit(curDmgInfo);
+            }
+            else
+            {
+                // 硬直
+                if ((int)damageSetting.m_ImpactForce > (int)enemy.CurrentResilience)
+                {
+                    bool isBlockBroken = enemy.CurrentStateType == EStateType.GetHit &&
+                                         enemy.CStateMachine.CurrentState is IHitRecovery hitRec &&
+                                         hitRec.IsBlockBrokenHurtType;
+                    if (!isBlockBroken)
+                    {
+                        // 受击反馈
+                        enemy.OnHit(curDmgInfo);
+                    }
+                }
             }
 
             // 骨骼受击抖动

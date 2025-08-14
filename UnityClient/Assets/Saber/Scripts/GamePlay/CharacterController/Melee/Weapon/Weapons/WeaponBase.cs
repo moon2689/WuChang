@@ -26,6 +26,12 @@ namespace Saber.CharacterController
 
         public ENodeType WeaponBone => m_WeaponParentInfo.m_ArmBoneType;
 
+
+        private void Awake()
+        {
+            gameObject.SetRenderingLayerRecursive(ERenderingLayers.Actor);
+        }
+
         public void Init(SActor actor, WeaponParentInfo weaponParentInfo)
         {
             Actor = actor;
