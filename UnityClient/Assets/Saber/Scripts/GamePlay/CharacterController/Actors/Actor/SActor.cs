@@ -200,7 +200,7 @@ namespace Saber.CharacterController
                 return false;
             }
         }
-        
+
         /// <summary>可被处决</summary>
         public bool IsBlockBrokenWaitExecute
         {
@@ -238,7 +238,7 @@ namespace Saber.CharacterController
                 return false;
             }
         }
-        
+
         public EResilience CurrentResilience { get; set; }
 
 
@@ -292,7 +292,7 @@ namespace Saber.CharacterController
             CStats = new ActorBaseStats(this);
             CMelee = new CharacterMelee(this, m_BaseActorInfo.m_SkillConfig);
             CMelee.SetWeapon(m_BaseActorInfo.m_WeaponPrefabs);
-            
+
             DefaultResilience();
         }
 
@@ -537,7 +537,7 @@ namespace Saber.CharacterController
         {
             if (curHp <= 0)
             {
-                if (GameApp.Entry.Config.GameSetting.DebugFight)
+                if (GameApp.Entry.Config.TestGame.DebugFight)
                 {
                     GameApp.Entry.Unity.DoDelayAction(3, CStats.Reset);
                 }

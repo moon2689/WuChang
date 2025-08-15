@@ -22,7 +22,7 @@ namespace Saber.CharacterController
             Actor.CAnim.StopMaskLayerAnims();
             Actor.CPhysic.EnableSlopeMovement = false;
 
-            Actor.CurrentResilience = CurSkill.SkillConfig.resilience;
+            Actor.CurrentResilience = CurSkill.SkillConfig.m_Resilience;
 
             if (CurSkill.SkillConfig.m_TriggerCondition == ETriggerCondition.InAir)
             {

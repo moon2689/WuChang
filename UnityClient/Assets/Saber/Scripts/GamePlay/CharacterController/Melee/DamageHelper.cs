@@ -54,11 +54,6 @@ namespace Saber.CharacterController
                 return false;
             }
 
-            if (hurtBox.Actor.Invincible)
-            {
-                return false;
-            }
-
             TryHitEnemy(actor, hurtBox, damageSetting, curDmgInfo);
             return true;
         }
@@ -69,7 +64,19 @@ namespace Saber.CharacterController
 
             //Debug.Log($"Do damage,hurt:{hurtBox.name}, pos:{position}, dir:{direction}", hurtBox);
             SActor enemy = hurtBox.Actor;
-            if (enemy.IsDead || enemy.Invincible)
+            if (enemy.IsDead)
+            {
+                return;
+            }
+
+            if (enemy.Invincible && enemy.CurrentStateType == EStateType.Dodge &&
+                enemy.CStateMachine.CurrentState is Dodge dodeg)
+            {
+                dodeg.OnPerfectDodge();
+                return;
+            }
+
+            if (enemy.Invincible)
             {
                 return;
             }
@@ -94,8 +101,7 @@ namespace Saber.CharacterController
             curDmgInfo.DamageDirection = waveDir;
             */
             curDmgInfo.DamageConfig = damageSetting;
-            curDmgInfo.DamageValue =
-                UnityEngine.Random.Range(damageSetting.m_DamageValue * 0.8f, damageSetting.m_DamageValue * 1.2f);
+            curDmgInfo.DamageValue = damageSetting.m_DamageValue * UnityEngine.Random.Range(0.8f, 1.2f);
             curDmgInfo.DamagingWeaponType = weapon.WeaponType;
             curDmgInfo.m_HurtBox = hurtBox;
             curDmgInfo.Time = Time.time;

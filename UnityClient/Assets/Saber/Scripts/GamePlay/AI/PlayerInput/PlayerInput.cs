@@ -87,6 +87,11 @@ namespace Saber.AI
                     LockingEnemy = null;
                 }
             }
+
+            if (to == EStateType.GetHit)
+            {
+                ClearAheadInput();
+            }
         }
 
         protected void OnTriggerSkill(ESkillType key)

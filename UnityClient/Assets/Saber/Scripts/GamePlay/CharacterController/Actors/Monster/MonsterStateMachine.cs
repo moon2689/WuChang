@@ -18,7 +18,7 @@ namespace Saber.CharacterController
         {
             base.RegisterState(new MonsterIdle());
             base.RegisterState(new SkillState());
-            base.RegisterState(new MonsterGetHit());
+            base.RegisterState(new GetHit());
             base.RegisterState(new MonsterDie());
 
             if (Monster.m_MonsterInfo.m_MoveByRootMotion)
@@ -105,7 +105,7 @@ namespace Saber.CharacterController
 
         public override bool OnHit(DamageInfo dmgInfo)
         {
-            return TryEnterState<MonsterGetHit>(EStateType.GetHit, state => state.Damage = dmgInfo);
+            return TryEnterState<GetHit>(EStateType.GetHit, state => state.Damage = dmgInfo);
         }
 
         public override void OnParried()

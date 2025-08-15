@@ -180,22 +180,12 @@ namespace Saber.CharacterController
 
         public override bool Dodge(Vector3 axis)
         {
-            /*
-            if (CurrentStateType == EStateType.Jump)
-            {
-                Jump jump = GetState<Jump>(EStateType.Jump);
-                return jump.Dodge();
-            }
-            */
-
             return TryEnterState<Dodge>(EStateType.Dodge, state =>
             {
                 bool perfectDodge = TryPerfectDodge();
                 if (perfectDodge)
                 {
-                    m_Character.CRender.ShowCharacterShadowEffect();
-                    Actor.Invincible = true;
-                    GameApp.Entry.Game.Audio.Play3DSound("Sound/Skill/PerfectDodge", Actor.transform.position);
+                    state.OnPerfectDodge();
                 }
 
                 state.DodgeAxis = axis;

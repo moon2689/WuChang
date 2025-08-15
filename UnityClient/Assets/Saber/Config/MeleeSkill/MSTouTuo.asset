@@ -1,0 +1,340 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c21540f300c0c4eaa3632fff526654, type: 3}
+  m_Name: MSTouTuo
+  m_EditorClassIdentifier: 
+  m_WeaponStyle: 0
+  m_SkillItems:
+  - m_ID: 1
+    m_AnimStates:
+    - m_Name: toutuo_atk01
+      m_EventData: {fileID: 11400000, guid: 9f32668fb58c25348b74572d1e8affb5, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2
+  - m_ID: 2
+    m_AnimStates:
+    - m_Name: toutuo_atk02
+      m_EventData: {fileID: 11400000, guid: fa8415e43eb5c4b4c92f96ee20af4513, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2
+  - m_ID: 3
+    m_AnimStates:
+    - m_Name: toutuo_atk03
+      m_EventData: {fileID: 11400000, guid: cee2ab16265c9734aaa4b9c00b1a48d8, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2
+  - m_ID: 4
+    m_AnimStates:
+    - m_Name: toutuo_atk04_02
+      m_EventData: {fileID: 11400000, guid: 4c5cb23f19ea2b546b8d4ea971e6c781, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2
+  - m_ID: 5
+    m_AnimStates:
+    - m_Name: toutuo_atk04_03
+      m_EventData: {fileID: 11400000, guid: c0f7dbd4901120542b03fd44d2252e78, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2
+  - m_ID: 6
+    m_AnimStates:
+    - m_Name: toutuo_atk_05
+      m_EventData: {fileID: 11400000, guid: e27e04afedfc8524fa43d93c6232518b, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2
+  - m_ID: 8
+    m_AnimStates:
+    - m_Name: atk06_400
+      m_EventData: {fileID: 11400000, guid: 6d921c8c464246e439678b4827b7e522, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2
+  - m_ID: 9
+    m_AnimStates:
+    - m_Name: atk06_600
+      m_EventData: {fileID: 11400000, guid: 7f3539b656d474646809c208d138c172, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2
+  - m_ID: 10
+    m_AnimStates:
+    - m_Name: atk06_800
+      m_EventData: {fileID: 11400000, guid: 7bb1e3d7ecec77141a9f58db521c75cd, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2
+  - m_ID: 11
+    m_AnimStates:
+    - m_Name: toutuo_atk_07
+      m_EventData: {fileID: 11400000, guid: 9fad0fc081a9d8c4bbf35948c409b58c, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 0c000000
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2
+  - m_ID: 12
+    m_AnimStates:
+    - m_Name: toutuo_atk_07b
+      m_EventData: {fileID: 11400000, guid: c3d09313d2d7093408010cc6d6a3fa1a, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2
+  - m_ID: 13
+    m_AnimStates:
+    - m_Name: toutuo_atk_08
+      m_EventData: {fileID: 11400000, guid: d970ff827e23b8d48a839563bb63d487, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2
+  - m_ID: 14
+    m_AnimStates:
+    - m_Name: toutuo_atk_09
+      m_EventData: {fileID: 11400000, guid: 1e789aca985afc142b8cf41638124dc6, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2
+  - m_ID: 15
+    m_AnimStates:
+    - m_Name: toutuo_atk_10a
+      m_EventData: {fileID: 11400000, guid: 818ba81e92435bb4d87f173e2dd71c48, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 10000000
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2
+  - m_ID: 16
+    m_AnimStates:
+    - m_Name: toutuo_atk10b
+      m_EventData: {fileID: 11400000, guid: 52214d791801e8446b778a9de8893332, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 11000000
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2
+  - m_ID: 17
+    m_AnimStates:
+    - m_Name: toutuo_atk10c
+      m_EventData: {fileID: 11400000, guid: c1d0fd83bb569c146a4ba2024ee3b63d, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 12000000
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2
+  - m_ID: 18
+    m_AnimStates:
+    - m_Name: toutuo_atk10d
+      m_EventData: {fileID: 11400000, guid: a4b0d960732890c43942c425c4d2b16c, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2
+  - m_ID: 19
+    m_AnimStates:
+    - m_Name: toutuo_atk11
+      m_EventData: {fileID: 11400000, guid: 974f31288d007e54b9126a2a143a7415, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkillIDs: 
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 2

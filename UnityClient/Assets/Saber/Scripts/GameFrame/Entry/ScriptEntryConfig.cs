@@ -9,6 +9,7 @@ namespace Saber.Frame
     public class ScriptEntryConfig
     {
         public GameSettingInfo GameSetting { get; private set; }
+        public TestGameInfo TestGame { get; private set; }
         public ActorInfo ActorInfo { get; private set; }
         public SceneInfo SceneInfo { get; private set; }
         public ClothInfo ClothInfo { get; private set; }
@@ -20,6 +21,7 @@ namespace Saber.Frame
         {
             Dictionary<string, ResourceRequest> dic = new();
             dic["GameSetting"] = Resources.LoadAsync<GameSettingInfo>("Config/GameSetting");
+            dic["TestGame"] = Resources.LoadAsync<TestGameInfo>("Config/TestGame");
             dic["ActorInfo"] = Resources.LoadAsync<ActorInfo>("Config/ActorInfo");
             dic["SceneInfo"] = Resources.LoadAsync<SceneInfo>("Config/SceneInfo");
             dic["ClothInfo"] = Resources.LoadAsync<ClothInfo>("Config/ClothInfo");
@@ -35,6 +37,7 @@ namespace Saber.Frame
             }
 
             GameSetting = dic["GameSetting"].asset as GameSettingInfo;
+            TestGame = dic["TestGame"].asset as TestGameInfo;
             ActorInfo = dic["ActorInfo"].asset as ActorInfo;
             SceneInfo = dic["SceneInfo"].asset as SceneInfo;
             ClothInfo = dic["ClothInfo"].asset as ClothInfo;

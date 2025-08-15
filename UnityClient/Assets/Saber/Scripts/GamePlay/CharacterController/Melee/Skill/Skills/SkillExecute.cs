@@ -43,6 +43,7 @@ namespace Saber.CharacterController
                 return false;
             }
 
+            /*
             bool isFromBack = Vector3.Dot(enemy.transform.forward, dirToEnemy) > 0;
             if (isFromBack)
             {
@@ -76,6 +77,7 @@ namespace Saber.CharacterController
                     return false;
                 }
             }
+            */
 
             return true;
         }

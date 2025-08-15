@@ -87,7 +87,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 1749672933610569061}
   - EventTime: 0
-    EventRange: {x: 0.25945947, y: 0.3189189}
+    EventRange: {x: 0.23783784, y: 0.3189189}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -137,13 +137,9 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_WeaponBone: 24
     m_DamageValue: 5
-    m_DamageLevel: 0
+    m_ImpactForce: 1
+    m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
-    m_ForceWhenAir: {x: 0, y: 0}
-    m_OwnerForce: {x: 0, y: 0}
-    m_AlignEnemyPosWhenAirAttack: 0
-    m_AlignEnemyOffsetWhenAirAttack: {x: 1, y: 0}
-    m_AlignEnemyPosSecondsWhenAirAttack: 0.3
 --- !u!114 &4737838085621791811
 MonoBehaviour:
   m_ObjectHideFlags: 0

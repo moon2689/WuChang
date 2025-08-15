@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5774087864932402066
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2589568819527637625}
+  - component: {fileID: 6111725810499064613}
+  m_Layer: 0
+  m_Name: TouTuo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2589568819527637625
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5774087864932402066}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6111725810499064613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5774087864932402066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49002ae783b04ba4ba0926f0608ad401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectedAbility: {fileID: 0}
+  CombatDatas:
+  - IsFolded: 1
+    Label: atk1-6
+    CombatObjs:
+    - {fileID: 11400000, guid: 9f32668fb58c25348b74572d1e8affb5, type: 2}
+    - {fileID: 11400000, guid: fa8415e43eb5c4b4c92f96ee20af4513, type: 2}
+    - {fileID: 11400000, guid: cee2ab16265c9734aaa4b9c00b1a48d8, type: 2}
+    - {fileID: 11400000, guid: 4c5cb23f19ea2b546b8d4ea971e6c781, type: 2}
+    - {fileID: 11400000, guid: c0f7dbd4901120542b03fd44d2252e78, type: 2}
+    - {fileID: 11400000, guid: e27e04afedfc8524fa43d93c6232518b, type: 2}
+    - {fileID: 11400000, guid: 7f3539b656d474646809c208d138c172, type: 2}
+    - {fileID: 11400000, guid: 6d921c8c464246e439678b4827b7e522, type: 2}
+    - {fileID: 11400000, guid: 7bb1e3d7ecec77141a9f58db521c75cd, type: 2}
+  - IsFolded: 0
+    Label: atk7-13
+    CombatObjs:
+    - {fileID: 11400000, guid: 9fad0fc081a9d8c4bbf35948c409b58c, type: 2}
+    - {fileID: 11400000, guid: c3d09313d2d7093408010cc6d6a3fa1a, type: 2}
+    - {fileID: 11400000, guid: d970ff827e23b8d48a839563bb63d487, type: 2}
+    - {fileID: 11400000, guid: 1e789aca985afc142b8cf41638124dc6, type: 2}
+    - {fileID: 11400000, guid: 818ba81e92435bb4d87f173e2dd71c48, type: 2}
+    - {fileID: 11400000, guid: 52214d791801e8446b778a9de8893332, type: 2}
+    - {fileID: 11400000, guid: c1d0fd83bb569c146a4ba2024ee3b63d, type: 2}
+    - {fileID: 11400000, guid: a4b0d960732890c43942c425c4d2b16c, type: 2}
+    - {fileID: 11400000, guid: 974f31288d007e54b9126a2a143a7415, type: 2}
+  clip: {fileID: 0}

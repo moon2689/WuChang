@@ -35,7 +35,7 @@ public static class WuChangTools
         Transform root = go.transform.GetChild(0).GetChild(0);
         string[] hurtBoxBones = new string[]
         {
-            "Spine1_M",
+            "Root_M",
             "Chest_M",
             "Head_M",
 
@@ -106,6 +106,7 @@ public static class WuChangTools
     {
         GameObject hurtBoxObj = new GameObject();
         CapsuleCollider c = hurtBoxObj.AddComponent<CapsuleCollider>();
+        c.direction = 0;
 
         HurtBox hurtBox = hurtBoxObj.AddComponent<HurtBox>();
         hurtBox.transform.SetParent(bone);
@@ -117,13 +118,13 @@ public static class WuChangTools
 
         string boneName = bone.name;
 
-        if (boneName == "Spine1_M")
+        if (boneName == "Root_M")
         {
             Transform boneEnd = dicAllBones["Chest_M"];
             Vector3 disV3 = bone.transform.position - boneEnd.position;
             float dis = disV3.magnitude;
-            c.radius = dis;
-            c.height = dis * 2;
+            c.radius = dis * 0.7f;
+            c.height = c.radius * 2;
             c.center = new Vector3(0, 0, 0);
 
             SetHitReaction(hitReaction, c, "Hips");
@@ -158,7 +159,6 @@ public static class WuChangTools
             c.radius = dis * 0.2f;
             c.height = dis;
             c.center = new Vector3(c.height / 2f, 0, 0);
-            c.direction = 0;
 
             SetHitReaction(hitReaction, c, "L Thigh");
         }
@@ -170,7 +170,6 @@ public static class WuChangTools
             c.radius = dis * 0.15f;
             c.height = dis;
             c.center = new Vector3(c.height / 2f, 0, 0);
-            c.direction = 0;
 
             SetHitReaction(hitReaction, c, "L Calf");
         }
@@ -182,7 +181,6 @@ public static class WuChangTools
             c.radius = dis * 0.2f;
             c.height = dis;
             c.center = new Vector3(-c.height / 2f, 0, 0);
-            c.direction = 0;
 
             SetHitReaction(hitReaction, c, "R Thigh");
         }
@@ -194,7 +192,6 @@ public static class WuChangTools
             c.radius = dis * 0.15f;
             c.height = dis;
             c.center = new Vector3(-c.height / 2f, 0, 0);
-            c.direction = 0;
 
             SetHitReaction(hitReaction, c, "R Calf");
         }
@@ -206,7 +203,6 @@ public static class WuChangTools
             c.radius = dis * 0.25f;
             c.height = dis;
             c.center = new Vector3(c.height / 2f, 0, 0);
-            c.direction = 0;
 
             SetHitReaction(hitReaction, c, "L Upper Arm");
         }
@@ -218,7 +214,6 @@ public static class WuChangTools
             c.radius = dis * 0.25f;
             c.height = dis * 1.2f;
             c.center = new Vector3(c.height / 2f, 0, 0);
-            c.direction = 0;
 
             SetHitReaction(hitReaction, c, "L Forearm");
         }
@@ -230,7 +225,6 @@ public static class WuChangTools
             c.radius = dis * 0.25f;
             c.height = dis;
             c.center = new Vector3(-c.height / 2f, 0, 0);
-            c.direction = 0;
 
             SetHitReaction(hitReaction, c, "R Upper Arm");
         }
@@ -242,7 +236,6 @@ public static class WuChangTools
             c.radius = dis * 0.25f;
             c.height = dis * 1.2f;
             c.center = new Vector3(-c.height / 2f, 0, 0);
-            c.direction = 0;
 
             SetHitReaction(hitReaction, c, "R Forearm");
         }

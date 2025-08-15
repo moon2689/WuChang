@@ -12,18 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72feb60178654ec5b616fbfbe42d3f84, type: 3}
   m_Name: GameSetting
   m_EditorClassIdentifier: 
-  DebugFPS: 1
-  DebugFight: 1
   OpenCameraLight: 0
   PlayerInputType: 1
   PlayerID: 1
   StartSceneID: 2
   m_BornPos: {x: 253, y: 182, z: -140}
   m_BornRotY: -177
-  OpenWitchTime: 1
   WitchTimeSeconds: 1.2
   DodgeCostStamina: 20
   IKBoneForceOnHit: 3
+  RecoverUnbalanceValueDelaySeconds: 4
+  RecoverUnbalanceSpeed: 10
+  PerfectDodgeShaEffCount: 3
+  PerfectDodgeShaInterval: 0.2
+  PerfectDodgeShaHoldTime: 0.5
   m_SoundSwordHitSword: []
   m_SoundWeaponHitGround:
   - {fileID: 8300000, guid: 8db4e869274f0584ab4f9bde3185f7f3, type: 3}

@@ -10,7 +10,6 @@ namespace Saber.CharacterController
     public class SkillCommonConfig : ScriptableObject
     {
         [Header("处决")] public float ExecuteMaxDistance = 3;
-        public float ExecuteMaxAngle = 80;
         public AudioClip ExecuteStartSound;
         public ExecuteDamage[] ExecuteDamages;
         public float ExecuteSkillCanExitTime = 0.8f;

@@ -12,9 +12,7 @@ namespace Saber.Config
             PC,
             Phone,
         }
-
-        public bool DebugFPS;
-        public bool DebugFight;
+        
         public bool OpenCameraLight;
 
         public EPlayerInputType PlayerInputType;
@@ -22,13 +20,15 @@ namespace Saber.Config
         public int StartSceneID = 1;
         public Vector3 m_BornPos;
         public float m_BornRotY;
-        public bool OpenWitchTime;
         public float WitchTimeSeconds = 2;
         public float DodgeCostStamina = 20;
         public float IKBoneForceOnHit = 1;
         public float RecoverUnbalanceValueDelaySeconds = 4;
         public float RecoverUnbalanceSpeed = 10;
-
+        public int PerfectDodgeShaEffCount = 6;
+        public float PerfectDodgeShaInterval = 0.1f;
+        public float PerfectDodgeShaHoldTime = 0.3f;
+        
         [Header("Melee")] public AudioClip[] m_SoundSwordHitSword;
         public AudioClip[] m_SoundWeaponHitGround;
         public AudioClip[] m_SoundSharpWeaponHitBody;

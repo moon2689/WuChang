@@ -78,13 +78,13 @@ namespace Saber.CharacterController
                     OnRaycast(m_RaycastHit[j], dir);
                 }
 
-                if (GameApp.Entry.Config.GameSetting.DebugFight)
+                if (GameApp.Entry.Config.TestGame.DebugFight)
                 {
                     Debug.DrawRay(lastFramePos, dir, Color.green, 3);
                 }
             }
 
-            if (GameApp.Entry.Config.GameSetting.DebugFight)
+            if (GameApp.Entry.Config.TestGame.DebugFight)
             {
                 Debug.DrawLine(m_PosStart.position, m_PosEnd.position, Color.green, 3);
             }
@@ -126,7 +126,7 @@ namespace Saber.CharacterController
             {
                 base.DoDamage(hit.point, dir, hb);
                 OnDamageDone(target);
-                if (GameApp.Entry.Config.GameSetting.DebugFight)
+                if (GameApp.Entry.Config.TestGame.DebugFight)
                 {
                     SDebug.DrawWireSphere(hit.point, 0.1f, Color.red, 3);
                 }

@@ -19,7 +19,6 @@ namespace Saber.CharacterController
         private SCharacter m_Character;
         private Shader m_ShaderShadow; //透明边缘泛光Shader
         private List<Material> m_ShadowMaterials = new();
-        private Coroutine m_CoroutineShowShadowEffect;
         private bool m_IsInWater;
         private GameObject[] m_FlyTrailEffects;
         private GameObject m_WaterWaveParticle;
@@ -65,17 +64,26 @@ namespace Saber.CharacterController
 
         #region 残影
 
-        public void ShowCharacterShadowEffect()
+        public void ShowOneChaShadow(float holdTime)
         {
-            if (m_CoroutineShowShadowEffect != null)
-            {
-                m_CoroutineShowShadowEffect.StopCoroutine();
-            }
-
-            m_CoroutineShowShadowEffect = ShowCharacterShadowEffectItor().StartCoroutine();
+            ShowChaShadowItor(holdTime).StartCoroutine();
         }
 
-        IEnumerator ShowCharacterShadowEffectItor()
+        public void ShowManyChaShadow(int count, float interval, float holdTime)
+        {
+            ShowManyChaShadowItor(count, interval, holdTime).StartCoroutine();
+        }
+
+        IEnumerator ShowManyChaShadowItor(int count, float interval, float holdTime)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                ShowOneChaShadow(holdTime);
+                yield return new WaitForSeconds(interval);
+            }
+        }
+
+        IEnumerator ShowChaShadowItor(float holdSeconds)
         {
             if (m_ShaderShadow == null)
             {
@@ -132,22 +140,30 @@ namespace Saber.CharacterController
 
             //残影消隐插值
             float timer = 0;
-            float duration = 1f;
-            while (timer <= duration)
+            float duration = holdSeconds;
+            while (true)
             {
                 timer += Time.deltaTime;
                 float weight = Mathf.Clamp01(timer / duration);
+                if (weight > 1)
+                {
+                    weight = 1;
+                }
+
                 Color newColor = new Color(0, 1, 1, 1 - weight);
                 for (int i = 0; i < m_ShadowMaterials.Count; i++)
                     m_ShadowMaterials[i].color = newColor;
 
                 yield return null;
+
+                if (weight == 1)
+                {
+                    break;
+                }
             }
 
             //销毁残影
             GameObject.Destroy(shadowGO);
-
-            m_CoroutineShowShadowEffect = null;
         }
 
         #endregion

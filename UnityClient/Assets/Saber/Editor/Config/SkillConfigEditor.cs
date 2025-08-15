@@ -139,6 +139,7 @@ public class SkillConfigEditor : EditorBase
 
         item.m_CostPower = EditorGUILayout.IntField("消耗能量:", item.m_CostPower);
         item.m_PowerAddWhenHitted = EditorGUILayout.IntField("击中时增加能量:", item.m_PowerAddWhenHitted);
+        item.m_Resilience = (EResilience)EditorGUILayout.EnumPopup("韧性:", item.m_Resilience);
 
         // 动画
         GUILayout.BeginHorizontal();
