@@ -46,6 +46,13 @@ namespace Saber.CharacterController
 
         string GetHitAnim(out EHitRecHurtType hurtType)
         {
+            hurtType = EHitRecHurtType.Stun;
+            
+            if (Damage.DamageConfig.m_HitRecover == EHitRecover.StunTanDao)
+            {
+                return "StunTanDao";
+            }
+            
             if (Damage.DamageConfig.m_HitRecover == EHitRecover.Backstab &&
                 Vector3.Dot(Actor.transform.forward, Damage.Attacker.transform.forward) > 0 ||
                 Actor.CStats.CurrentUnbalanceValue <= 0)
@@ -55,7 +62,6 @@ namespace Saber.CharacterController
             }
 
             // stun
-            hurtType = EHitRecHurtType.Stun;
             //float angleFromAttacker = Vector3.SignedAngle(Damage.DamageDirection, Actor.transform.forward, Vector3.up);
             float angleFromAttacker = Vector3.SignedAngle(Damage.Attacker.transform.forward, Actor.transform.forward, Vector3.up);
             string dirStr;

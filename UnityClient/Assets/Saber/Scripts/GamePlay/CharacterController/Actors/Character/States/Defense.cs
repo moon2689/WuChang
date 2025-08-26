@@ -1,10 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
 using Saber.Frame;
 using UnityEngine;
 
 namespace Saber.CharacterController
 {
-    public class Defense : ActorStateBase
+    public class Defense : ActorStateBase, ISkillCanTrigger
     {
         protected enum EState
         {
@@ -13,20 +14,22 @@ namespace Saber.CharacterController
             DefenseLoop,
             DefenseEnd,
             DefenseHit,
-            DefenseBroken,
+            TanDao,
         }
 
-
         private float m_TimerAlign;
-        private bool m_AutoExit;
         protected EState m_CurState;
         private SCharacter m_Character;
+        private float m_TimerCanTanFan;
+        private List<SActor> m_ParriedEnemies = new();
+        private bool m_AutoExitOnAnimFinished;
+        private bool m_CanExit;
+        private bool m_CanTriggerSkill;
 
 
         public override bool ApplyRootMotionSetWhenEnter => true;
         public override bool CanEnter => Actor.CPhysic.Grounded;
-        public override bool CanExit => true;//m_CurState == EState.DefenseLoop;
-        public bool ParriedSucceed { get; set; }
+        public override bool CanExit => m_CanExit;
         public SCharacter Character => m_Character ??= (SCharacter)Actor;
 
 
@@ -36,7 +39,7 @@ namespace Saber.CharacterController
 
         public bool CanDefense(SActor enemy)
         {
-            if (m_CurState == EState.DefenseEnd || m_CurState == EState.DefenseBroken)
+            if (m_CurState == EState.DefenseEnd)
             {
                 return false;
             }
@@ -53,6 +56,11 @@ namespace Saber.CharacterController
         public override void Enter()
         {
             base.Enter();
+
+            Actor.CAnim.StopMaskLayerAnims();
+
+            Actor.UpdateMovementAxisAnimatorParams = false;
+
             OnEnter();
         }
 
@@ -64,44 +72,155 @@ namespace Saber.CharacterController
 
         void OnEnter()
         {
-            Actor.CAnim.StopMaskLayerAnims();
+            m_CanTriggerSkill = false;
 
-            Actor.UpdateMovementAxisAnimatorParams = false;
-
-            // fix weapon location
-            //Actor.CMelee.CWeapon.TryFixDefenseLocation(true, m_LeftSide);
-
-            if (m_CurState == EState.DefenseEnd)
+            if (m_CurState == EState.None)
             {
-                m_CurState = EState.DefenseLoop;
-                Actor.CAnim.Play("DefenseLoop");
-            }
-            else if (m_CurState == EState.None)
-            {
-                Actor.CAnim.Play("DefenseStart", onFinished: () => m_CurState = EState.DefenseLoop);
+                Actor.CAnim.Play("DefenseStart");
                 m_CurState = EState.DefenseStart;
                 m_TimerAlign = 0.1f;
+                m_TimerCanTanFan = GameApp.Entry.Config.SkillCommon.CanTanFanSecondsFromDefenseStart;
+                m_CanExit = false;
+            }
+            else if (m_CurState == EState.DefenseStart)
+            {
+            }
+            else if (m_CurState == EState.DefenseLoop)
+            {
+            }
+            else if (m_CurState == EState.DefenseEnd)
+            {
+                if (!Actor.CAnim.IsPlayingOrWillPlay("DefenseEnd", 0.25f))
+                {
+                    m_CurState = EState.DefenseLoop;
+                    Actor.CAnim.Play("DouDao");
+                    m_TimerCanTanFan = GameApp.Entry.Config.SkillCommon.CanTanFanSecondsFromDefenseStart;
+                    m_CanExit = false;
+                }
+            }
+            else if (m_CurState == EState.DefenseHit)
+            {
+            }
+            else if (m_CurState == EState.TanDao)
+            {
+                if (!Actor.CAnim.IsPlayingOrWillPlay("TanFan", 0.3f))
+                    m_TimerCanTanFan = GameApp.Entry.Config.SkillCommon.CanTanFanSecondsFromDefenseStart;
+            }
+            else
+            {
+                Debug.LogError($"Unknown state:{m_CurState}");
             }
         }
 
-        public void PlayParriedSucceedAnim(bool isLeftDir, float dmgHeightRate)
+        /// <summary>尝试弹反</summary>
+        bool TryParry(out List<SActor> parriedEnemies)
         {
-            m_AutoExit = false;
+            m_ParriedEnemies.Clear();
+            Collider[] colliders = new Collider[10];
+            float radius = 10f;
+            int count = Physics.OverlapSphereNonAlloc(Actor.transform.position, radius, colliders,
+                EStaticLayers.Actor.GetLayerMask());
+            for (int i = 0; i < count; i++)
+            {
+                Collider tar = colliders[i];
+                var enemy = tar.GetComponent<SActor>();
+                if (enemy == null || enemy == Actor || enemy.IsDead || enemy.Camp == Actor.Camp)
+                    continue;
 
-            Actor.CAnim.Play("TanFan", force: true);
-            GameApp.Entry.Game.Audio.Play3DSound("Sound/Skill/Parry", base.Actor.transform.position);
+                Vector3 dirToEnemy = enemy.transform.position - Actor.transform.position;
+                if (Vector3.Dot(dirToEnemy, Actor.transform.forward) <= 0)
+                    continue;
+
+                bool parriedSucceed = enemy.CurrentStateType == EStateType.Skill &&
+                                      enemy.CurrentSkill != null &&
+                                      enemy.CurrentSkill.InTanDaoTime &&
+                                      enemy.CurrentSkill.InTanDaoRange(Actor);
+
+                if (parriedSucceed)
+                {
+                    m_ParriedEnemies.Add(enemy);
+                }
+            }
+
+            parriedEnemies = m_ParriedEnemies;
+            return m_ParriedEnemies.Count > 0;
+        }
+
+        void CheckTanFan()
+        {
+            bool parriedSucceed = TryParry(out List<SActor> parriedEnemies);
+            //Debug.Log($"TryParry:{parriedSucceed}  {parriedEnemies.Count}");
+            if (parriedSucceed)
+            {
+                Actor.CStateMachine.ParriedSuccssSkills.Clear();
+                foreach (var e in parriedEnemies)
+                {
+                    e.OnParried();
+                    Actor.CStateMachine.ParriedSuccssSkills.Add(e.CurrentSkill);
+                }
+
+                Actor.CAnim.Play("TanFan", force: true);
+
+                m_CurState = EState.TanDao;
+                m_TimerCanTanFan = 0;
+            }
         }
 
         public override void OnStay()
         {
             base.OnStay();
+
             if (m_TimerAlign > 0)
             {
-                m_TimerAlign -= Time.deltaTime;
+                m_TimerAlign -= base.DeltaTime;
                 Actor.CPhysic.AlignForwardTo(Actor.DesiredLookDir, 1080f);
             }
 
-            if (m_CurState == EState.DefenseLoop)
+            if (m_TimerCanTanFan > 0)
+            {
+                m_TimerCanTanFan -= base.DeltaTime;
+                CheckTanFan();
+            }
+
+            if (m_CurState == EState.TanDao)
+            {
+                if (!Actor.CAnim.IsPlayingOrWillPlay("TanFan"))
+                {
+                    Exit();
+                }
+            }
+            else if (m_CurState == EState.DefenseHit)
+            {
+                if (!Actor.CAnim.IsPlayingOrWillPlay("DefenseHit"))
+                {
+                    if (m_AutoExitOnAnimFinished)
+                    {
+                        Actor.CAnim.Play("Idle");
+                        Exit();
+                    }
+                    else
+                    {
+                        m_CurState = EState.DefenseLoop;
+                    }
+                }
+            }
+            else if (m_CurState == EState.DefenseStart)
+            {
+                if (!Actor.CAnim.IsPlayingOrWillPlay("DefenseStart"))
+                {
+                    if (m_AutoExitOnAnimFinished)
+                    {
+                        Actor.CAnim.Play("DefenseEnd");
+                        m_CurState = EState.DefenseEnd;
+                        m_CanExit = true;
+                    }
+                    else
+                    {
+                        m_CurState = EState.DefenseLoop;
+                    }
+                }
+            }
+            else if (m_CurState == EState.DefenseLoop)
             {
                 if (Actor.MovementAxisMagnitude >= 0.1f)
                 {
@@ -122,10 +241,12 @@ namespace Saber.CharacterController
                     Actor.CAnim.SetSmoothFloat(EAnimatorParams.Vertical, 0);
                 }
             }
-
-            if (ParriedSucceed && m_AutoExit && !Actor.CAnim.IsPlayingOrWillPlay("TanFan"))
+            else if (m_CurState == EState.DefenseEnd)
             {
-                Exit();
+                if (!Actor.CAnim.IsPlayingOrWillPlay("DefenseEnd"))
+                {
+                    Exit();
+                }
             }
         }
 
@@ -144,55 +265,83 @@ namespace Saber.CharacterController
             base.OnExit();
             Actor.UpdateMovementAxisAnimatorParams = true;
             m_CurState = EState.None;
+            m_AutoExitOnAnimFinished = false;
         }
 
-        public void EndDefense()
+        public void TryEndDefense()
         {
-            if (m_CurState != EState.DefenseEnd)
+            if (m_CurState == EState.None)
             {
-                m_CurState = EState.DefenseEnd;
-
-                if (ParriedSucceed && Actor.CAnim.IsPlayingOrWillPlay("TanFan"))
-                {
-                    m_AutoExit = true;
-                }
-                else
-                {
-                    Actor.CAnim.Play($"DefenseEnd", exitTime: 0.9f, onFinished: Exit);
-                }
             }
-
-            Exit();
+            else if (m_CurState == EState.DefenseStart)
+            {
+                m_AutoExitOnAnimFinished = true;
+            }
+            else if (m_CurState == EState.DefenseLoop)
+            {
+                Actor.CAnim.Play("DefenseEnd");
+                m_CurState = EState.DefenseEnd;
+                m_CanExit = true;
+            }
+            else if (m_CurState == EState.DefenseEnd)
+            {
+            }
+            else if (m_CurState == EState.DefenseHit)
+            {
+                m_AutoExitOnAnimFinished = true;
+            }
+            else if (m_CurState == EState.TanDao)
+            {
+                m_AutoExitOnAnimFinished = true;
+            }
+            else
+            {
+                Debug.LogError($"Unknown state:{m_CurState}");
+            }
         }
 
         public void OnHit(DamageInfo dmgInfo)
         {
-            Actor.CStats.CostStamina(20);
+            m_CurState = EState.DefenseHit;
+
             Actor.CStats.TakeDamage(dmgInfo.DamageValue * 0.3f);
-
-            if (Actor.CStats.CurrentStamina <= 0)
-            {
-                m_CurState = EState.DefenseBroken;
-                Actor.CAnim.Play($"DefenseBroken", force: true, onFinished: Exit);
-            }
-            else
-            {
-                m_CurState = EState.DefenseHit;
-                int randomID = UnityEngine.Random.Range(1, 3);
-                string randomHitAnim = $"DefenseHit{randomID}";
-                Actor.CAnim.Play(randomHitAnim, force: true, onFinished: () => m_CurState = EState.DefenseLoop);
-            }
-
-            // face to attacher
-            Vector3 dir = dmgInfo.Attacker.transform.position - Actor.transform.position;
-            dir.y = 0;
-            Actor.transform.rotation = Quaternion.LookRotation(dir);
+            Actor.CAnim.Play("DefenseHit", force: true);
 
             // force
             if (dmgInfo.DamageConfig.m_ForceWhenGround.x > 0)
             {
+                Vector3 dir = dmgInfo.Attacker.transform.position - Actor.transform.position;
+                dir.y = 0;
                 Actor.CPhysic.Force_Add(-dir, dmgInfo.DamageConfig.m_ForceWhenGround.x, 1, false);
             }
+        }
+
+        public override void OnTriggerAnimEvent(AnimPointTimeEvent eventObj)
+        {
+            base.OnTriggerAnimEvent(eventObj);
+            if (eventObj.EventType == EAnimTriggerEvent.AnimCanExit)
+            {
+                if (m_CurState == EState.TanDao)
+                {
+                    Exit();
+                }
+            }
+        }
+
+        public override void OnTriggerRangeEvent(AnimRangeTimeEvent eventObj, bool enter)
+        {
+            base.OnTriggerRangeEvent(eventObj, enter);
+            if (eventObj.EventType == EAnimRangeEvent.CanTriggerSkill)
+            {
+                m_CanTriggerSkill = enter;
+            }
+        }
+
+        public bool CanTriggerSkill(SkillItem skill)
+        {
+            return m_CurState == EState.TanDao &&
+                   skill.m_TriggerCondition == ETriggerCondition.AfterTanFanSucceed &&
+                   m_CanTriggerSkill;
         }
     }
 }

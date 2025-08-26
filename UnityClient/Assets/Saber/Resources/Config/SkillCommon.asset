@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: SkillCommon
   m_EditorClassIdentifier: 
   ExecuteMaxDistance: 0.6
-  ExecuteMaxAngle: 80
   ExecuteStartSound: {fileID: 8300000, guid: 8ff72a9fb9a2db5428dc0fb25769fb2a, type: 3}
   ExecuteDamages:
   - m_DamageTime: 0.14
@@ -32,3 +31,4 @@ MonoBehaviour:
     m_Blood: {fileID: 8129476537154334463, guid: f278962be0ad1614b9b5784fab88b9ae,
       type: 3}
   ExecuteSkillCanExitTime: 0.8
+  CanTanFanSecondsFromDefenseStart: 0.5

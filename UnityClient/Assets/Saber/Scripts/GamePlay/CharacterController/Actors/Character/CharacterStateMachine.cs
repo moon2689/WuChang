@@ -9,7 +9,6 @@ namespace Saber.CharacterController
     public class CharacterStateMachine : ActorStateMachine
     {
         private SCharacter m_Character;
-        private List<SActor> m_ParriedEnemies = new();
 
 
         public CharacterStateMachine(SCharacter actor) : base(actor)
@@ -182,6 +181,7 @@ namespace Saber.CharacterController
         {
             return TryEnterState<Dodge>(EStateType.Dodge, state =>
             {
+                Actor.Invincible = true;
                 bool perfectDodge = TryPerfectDodge();
                 if (perfectDodge)
                 {
@@ -237,73 +237,15 @@ namespace Saber.CharacterController
 
         public override bool DefenseStart()
         {
-            //return TryEnterState(EStateType.Defense);
-            return TryEnterState<Defense>(EStateType.Defense, state =>
-            {
-                bool parriedSucceed = TryParry(out List<SActor> parriedEnemies);
-                //Debug.Log($"TryParry:{parriedSucceed}  {parriedEnemies.Count}");
-                if (parriedSucceed)
-                {
-                    Actor.CStateMachine.ParriedSuccssSkills.Clear();
-                    foreach (var e in parriedEnemies)
-                    {
-                        e.OnParried();
-
-                        Actor.CStateMachine.ParriedSuccssSkills.Add(e.CurrentSkill);
-                    }
-                }
-
-                state.ParriedSucceed = parriedSucceed;
-            });
-        }
-
-        /// <summary>尝试弹反</summary>
-        bool TryParry(out List<SActor> parriedEnemies)
-        {
-            m_ParriedEnemies.Clear();
-            Collider[] colliders = new Collider[10];
-            float radius = 10f;
-            int count = Physics.OverlapSphereNonAlloc(Actor.transform.position, radius, colliders,
-                EStaticLayers.Actor.GetLayerMask());
-            for (int i = 0; i < count; i++)
-            {
-                Collider tar = colliders[i];
-                var enemy = tar.GetComponent<SActor>();
-                if (enemy == null || enemy == Actor || enemy.IsDead || enemy.Camp == Actor.Camp)
-                    continue;
-
-                Vector3 dirToEnemy = enemy.transform.position - Actor.transform.position;
-                if (Vector3.Dot(dirToEnemy, Actor.transform.forward) <= 0)
-                    continue;
-
-                bool parriedSucceed = enemy.CurrentStateType == EStateType.Skill &&
-                                      enemy.CurrentSkill != null &&
-                                      enemy.CurrentSkill.InPerfectDodgeTime &&
-                                      enemy.CurrentSkill.InPerfectDodgeRange(Actor);
-
-                if (parriedSucceed)
-                {
-                    m_ParriedEnemies.Add(enemy);
-                }
-            }
-
-            parriedEnemies = m_ParriedEnemies;
-            return m_ParriedEnemies.Count > 0;
+            return TryEnterState(EStateType.Defense);
+            // return TryEnterState<Defense>(EStateType.Defense, null);
         }
 
         public override bool DefenseEnd()
         {
             if (CurrentStateType == EStateType.Defense)
             {
-                if (CurrentState.CanExit)
-                {
-                    ((Defense)CurrentState).EndDefense();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                ((Defense)CurrentState).TryEndDefense();
             }
 
             return true;

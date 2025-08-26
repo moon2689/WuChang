@@ -190,7 +190,7 @@ namespace Saber.CharacterController
                 return false;
             }
 
-            DefenseBase defenseObj = (DefenseBase)enemy.CStateMachine.CurrentState;
+            Defense defenseObj = (Defense)enemy.CStateMachine.CurrentState;
             if (!defenseObj.CanDefense(actor))
             {
                 return false;
@@ -204,20 +204,22 @@ namespace Saber.CharacterController
             actor.m_AnimSpeedExecutor.AddSpeedModifiers(0, 0.12f);
 
             // 是否成功弹反
+            /*
             if (enemy.CStateMachine.ParriedSuccssSkills.Count > 0 &&
                 actor.CurrentSkill != null &&
                 enemy.CStateMachine.ParriedSuccssSkills.Contains(actor.CurrentSkill))
             {
                 enemy.CStateMachine.ParriedSuccssSkills.Clear();
 
-                bool isLeftDir = Vector3.Dot(curDmgInfo.DamageDirection, actor.transform.right) < 0;
-                float dmgHeight = curDmgInfo.DamagePosition.y - enemy.transform.position.y;
-                float dmgHeightRate = dmgHeight / enemy.CPhysic.Height;
+                //bool isLeftDir = Vector3.Dot(curDmgInfo.DamageDirection, actor.transform.right) < 0;
+                //float dmgHeight = curDmgInfo.DamagePosition.y - enemy.transform.position.y;
+                //float dmgHeightRate = dmgHeight / enemy.CPhysic.Height;
                 // SDebug.DrawArrow(actor.transform.position, curDmgInfo.DamageDirection, Color.yellow, 1);
                 // SDebug.DrawArrow(actor.transform.position, actor.transform.right, Color.green, 1);
-                defenseObj.PlayParriedSucceedAnim(isLeftDir, dmgHeightRate);
+                //defenseObj.PlayParriedSucceedAnim(isLeftDir, dmgHeightRate);
                 return true;
             }
+            */
 
             enemy.DefenseHit(curDmgInfo);
             return true;
@@ -307,7 +309,7 @@ namespace Saber.CharacterController
             AudioClip sound = null;
             if (block)
             {
-                sound = GameApp.Entry.Config.GameSetting.GetRandomSound_SwordHitSword();
+               // sound = GameApp.Entry.Config.GameSetting.GetRandomSound_SwordHitSword();
             }
             else
             {

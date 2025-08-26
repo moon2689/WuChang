@@ -264,3 +264,21 @@ MonoBehaviour:
       maxValue: 2
     m_AttackTriggerDistance: 0
     m_Resilience: 1
+  - m_ID: 15
+    m_AnimStates:
+    - m_Name: TanFanCounterAttack
+      m_EventData: {fileID: 11400000, guid: 4227e619cbfdcfb44a1af50803038e51, type: 2}
+    CostStrength: 10
+    m_CostPower: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 5
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkillIDs: 05000000
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_AttackTriggerDistance: 0
+    m_Resilience: 1

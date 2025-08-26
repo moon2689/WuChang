@@ -15,7 +15,9 @@ namespace Saber.CharacterController
 
 
         public override bool InPerfectDodgeTime => PerfectDodgeData != null;
+        public override bool InTanDaoTime => TanDaoData != null;
         public AbilityEventObj_PerfectDodge PerfectDodgeData { get; set; }
+        public AbilityEventObj_TanDao TanDaoData { get; set; }
 
 
         public SkillCommon(SActor actor, SkillItem skillConfig) : base(actor, skillConfig)
@@ -194,6 +196,27 @@ namespace Saber.CharacterController
             Transform node = Actor.GetNodeTransform(PerfectDodgeData.ObjData.TargetNode);
             Vector3 pos = node.position + node.rotation * PerfectDodgeData.ObjData.Offset + PerfectDodgeData.ColliderOffset;
             float radius = PerfectDodgeData.Radius;
+            int layerMask = EStaticLayers.Actor.GetLayerMask();
+            Collider[] colliders = Physics.OverlapSphere(pos, radius, layerMask, QueryTriggerInteraction.Ignore);
+
+            SDebug.DrawWireSphere(pos, Color.green, radius, 3f);
+
+            foreach (var col in colliders)
+            {
+                if (col.gameObject == target.gameObject)
+                    return true;
+            }
+
+            return false;
+        }
+        
+        /// <summary>在完美闪避范围内</summary>
+        public override bool InTanDaoRange(SActor target)
+        {
+            // TODO 这里只处理了球形
+            Transform node = Actor.GetNodeTransform(TanDaoData.ObjData.TargetNode);
+            Vector3 pos = node.position + node.rotation * TanDaoData.ObjData.Offset + TanDaoData.ColliderOffset;
+            float radius = TanDaoData.Radius;
             int layerMask = EStaticLayers.Actor.GetLayerMask();
             Collider[] colliders = Physics.OverlapSphere(pos, radius, layerMask, QueryTriggerInteraction.Ignore);
 

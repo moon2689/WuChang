@@ -265,7 +265,6 @@ namespace Saber.CharacterController
 
         public List<BaseSkill> ParriedSuccssSkills { get; set; } = new();
 
-
         public bool StartMove()
         {
             if (CurrentStateType != EStateType.Move)

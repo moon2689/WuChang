@@ -10,8 +10,6 @@ namespace Saber
     {
         // ********************* Settings ********************
 
-        #region Settings
-
         //Total time for shaking in seconds
         /// <summary>
         /// The duration which the camera will shake for
@@ -33,11 +31,9 @@ namespace Saber
         /// </summary>
         public bool m_Shake;
 
-        #endregion
 
         // ********************* Variables ********************
 
-        #region Variables
 
         /// <summary>
         /// Camera component on object
@@ -82,12 +78,9 @@ namespace Saber
         /// </summary>
         private float m_NextFoV;
 
-        #endregion
-
 
         // ********************* Private Methods ********************
 
-        #region Private Methods
 
         /// <summary>
         /// Will shake the object this component is attached too
@@ -127,12 +120,8 @@ namespace Saber
             m_LastFoV = m_NextFoV = 0f;
         }
 
-        #endregion
-
 
         // ********************* Public Methods ********************
-
-        #region Public Methods
 
         /// <summary>
         /// Will initiate the camera shake
@@ -171,12 +160,8 @@ namespace Saber
             Shake(Duration, Amount, Speed);
         }
 
-        #endregion
-
 
         // ********************* Game ********************
-
-        #region Game
 
         void Awake()
         {
@@ -232,7 +217,5 @@ namespace Saber
                 }
             }
         }
-
-        #endregion
     }
 }

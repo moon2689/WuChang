@@ -72,9 +72,9 @@ namespace Saber.AI
                 if (Actor.CurrentStateType == EStateType.Defense)
                     Actor.DefenseEnd();
             }
-
+            
             UpdateMovement();
-
+                
             UpdateHeavyAttack();
         }
 

@@ -110,15 +110,16 @@ namespace Saber.CharacterController
 
         public override void OnParried()
         {
-            /*
-            TryEnterState<MonsterObstruct>(EStateType.GetHit, state =>
+            TryEnterState<GetHit>(EStateType.GetHit, state =>
             {
                 state.Damage = new DamageInfo()
                 {
-                    ObstructType = EObstructType.Parried,
+                    DamageConfig = new()
+                    {
+                        m_HitRecover = EHitRecover.StunTanDao,
+                    },
                 };
             });
-            */
         }
 
         public override bool Dodge(Vector3 axis)

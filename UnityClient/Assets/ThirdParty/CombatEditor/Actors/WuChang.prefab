@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SelectedAbility: {fileID: 0}
   CombatDatas:
-  - IsFolded: 1
+  - IsFolded: 0
     Label: Attack
     CombatObjs:
     - {fileID: 11400000, guid: 21b6efb740c967b408e60b0d1419bfcf, type: 2}
@@ -65,4 +65,5 @@ MonoBehaviour:
     CombatObjs:
     - {fileID: 11400000, guid: 4b7853feca07eba40b7d1494f9d574df, type: 2}
     - {fileID: 11400000, guid: df9e12259360e0a43a58ffdb6fe6ca33, type: 2}
+    - {fileID: 11400000, guid: 4227e619cbfdcfb44a1af50803038e51, type: 2}
   clip: {fileID: 0}

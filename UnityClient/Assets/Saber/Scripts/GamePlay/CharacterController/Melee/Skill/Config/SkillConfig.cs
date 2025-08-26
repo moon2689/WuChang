@@ -77,6 +77,7 @@ namespace Saber.CharacterController
         InDodgeForward,
         InDodgeNotForward,
         InSprint,
+        AfterTanFanSucceed,
     }
 
     [Serializable]

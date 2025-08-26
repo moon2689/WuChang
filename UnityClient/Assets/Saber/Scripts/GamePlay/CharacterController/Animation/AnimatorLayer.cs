@@ -104,7 +104,7 @@ namespace Saber.CharacterController
                 Debug.LogError($"No anim {anim} in animator {m_Animator.name}, layer {this.m_Layer}", m_Animator);
             }
 #endif
-
+            
             //Debug.Log($"Play anim:{anim}, hash:{anim.GetAnimatorHash()}, layer:{m_Layer}, blendTime:{blendTime}, exitTime:{exitTime}");
             if (force || !IsReallyPlaying(anim))
             {

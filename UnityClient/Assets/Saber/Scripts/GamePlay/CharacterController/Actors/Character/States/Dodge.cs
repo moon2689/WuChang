@@ -12,7 +12,7 @@ namespace Saber.CharacterController
         private GameHelper.EDir4 m_Dir;
         private Vector3 m_ForwardDir;
         private SCharacter m_Character;
-        private bool m_PerfectDodged = false;
+        private bool m_PerfectDodged;
 
         public override bool ApplyRootMotionSetWhenEnter => true;
         public override bool CanExit => m_CanExit;
@@ -43,7 +43,6 @@ namespace Saber.CharacterController
             var setting = GameApp.Entry.Config.GameSetting;
             Character.CRender.ShowManyChaShadow(setting.PerfectDodgeShaEffCount,
                 setting.PerfectDodgeShaInterval, setting.PerfectDodgeShaHoldTime);
-            Actor.Invincible = true;
             GameApp.Entry.Game.Audio.Play3DSound("Sound/Skill/PerfectDodge", Actor.transform.position);
 
             Actor.CStats.AddPower(1);
@@ -63,6 +62,7 @@ namespace Saber.CharacterController
 
             Actor.CStats.CostStamina(GameApp.Entry.Config.GameSetting.DodgeCostStamina);
             Actor.CPhysic.EnableSlopeMovement = false;
+            Actor.Invincible = true;
 
             if (DodgeAxis != Vector3.zero)
             {

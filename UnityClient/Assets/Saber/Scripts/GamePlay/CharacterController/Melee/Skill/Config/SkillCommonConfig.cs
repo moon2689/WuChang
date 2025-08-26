@@ -13,6 +13,8 @@ namespace Saber.CharacterController
         public AudioClip ExecuteStartSound;
         public ExecuteDamage[] ExecuteDamages;
         public float ExecuteSkillCanExitTime = 0.8f;
+
+        [Header("弹反")] public float CanTanFanSecondsFromDefenseStart = 2f;
     }
 
     [Serializable]

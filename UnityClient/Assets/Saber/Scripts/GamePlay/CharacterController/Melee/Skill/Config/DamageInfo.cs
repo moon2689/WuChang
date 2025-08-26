@@ -35,6 +35,7 @@ namespace Saber.CharacterController
         Backstab,
         Uppercut,
         StrikeDown,
+        StunTanDao,
     }
     
 
