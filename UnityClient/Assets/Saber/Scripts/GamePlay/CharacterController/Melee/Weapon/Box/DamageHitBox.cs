@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using CombatEditor;
 using Saber.Frame;
 using UnityEngine;
@@ -7,9 +8,11 @@ namespace Saber.CharacterController
 {
     public class DamageHitBox : HitBox
     {
-        private EmptyWeapon m_CurWeapon;
-        private DamageInfo m_CurDmgInfo;
+        //private EmptyWeapon m_CurWeapon;
+        private DamageInfo m_CurDmgInfo = new();
+        private List<SActor> m_HurtedActors = new();
 
+        /*
         EmptyWeapon CurWeapon
         {
             get
@@ -24,9 +27,11 @@ namespace Saber.CharacterController
                 return m_CurWeapon;
             }
         }
+        */
 
         private void OnTriggerEnter(Collider other)
         {
+            /*
             if (CurWeapon)
             {
                 HurtBox hb = other.GetComponent<HurtBox>();
@@ -34,12 +39,22 @@ namespace Saber.CharacterController
                     CurWeapon.DoDamage(CurWeapon.CurWeaponPosition, CurWeapon.WeaponWaveDirection, hb);
             }
             else
+            */
+
+            HurtBox hurtBox = other.GetComponent<HurtBox>();
+            if (hurtBox != null && !m_HurtedActors.Contains(hurtBox.Actor))
             {
-                if (m_CurDmgInfo == null)
-                    m_CurDmgInfo = new();
-                DamageHelper.TryHit(other, this.Actor, base.m_EventObj.EventObj.m_WeaponDamageSetting, m_CurDmgInfo);
+                m_HurtedActors.Add(hurtBox.Actor);
+                var dmgSetting = base.m_EventObj.EventObj.m_WeaponDamageSetting;
+                DamageHelper.TryHit(other, this.Actor, dmgSetting, m_CurDmgInfo);
                 //Debug.LogError($"No EmptyWeapon in bone:{base.m_EventObj.EventObj.m_WeaponDamageSetting.m_WeaponBone}");
             }
+        }
+
+        public override void Hide()
+        {
+            base.Hide();
+            m_HurtedActors.Clear();
         }
     }
 }

@@ -44,6 +44,50 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 4589896171778382163}
+  - EventTime: 0
+    EventRange: {x: 0.24938272, y: 0.34567901}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 6819280195651674835}
+  - EventTime: 0.34320986
+    EventRange: {x: 0.34074074, y: 0.34567901}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 2752157608424226442}
+--- !u!114 &2752157608424226442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 636e08a368debe04987b09e239810343, type: 3}
+  m_Name: TanDao
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: 2902985be43994742a7534bd5c1ebd16,
+      type: 3}
+    controlType: 0
+    Offset: {x: -0.0012058318, y: 0.59669787, z: 1.8974382}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 1
+  ColliderOffset: {x: 0, y: 0, z: -0.044694424}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 1.90536
+  Height: 1
 --- !u!114 &4589896171778382163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,3 +150,29 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: b70687f0c77c7b545b491b5cf3e492e5, type: 3}
   m_Volume: 1
+--- !u!114 &6819280195651674835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e82fd648527146e59cbfa2687416bd83, type: 3}
+  m_Name: PerfectDodge
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: 2902985be43994742a7534bd5c1ebd16,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 0.9772221, z: 1.6808683}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 1
+  ColliderOffset: {x: 0, y: 0, z: -0.044694424}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 1.90536
+  Height: 1

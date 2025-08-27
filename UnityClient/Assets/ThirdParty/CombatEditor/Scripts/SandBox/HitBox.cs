@@ -12,11 +12,16 @@ namespace Saber.CharacterController
         protected AbilityEventEffect_CreateHitBox m_EventObj;
 
         public SActor Actor => m_EventObj.Actor;
-        
+
 
         public void Init(AbilityEventEffect_CreateHitBox eventObj)
         {
             m_EventObj = eventObj;
+        }
+
+        public virtual void Hide()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

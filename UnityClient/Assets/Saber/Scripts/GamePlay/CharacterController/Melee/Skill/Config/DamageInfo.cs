@@ -15,8 +15,6 @@ namespace Saber.CharacterController
         public EWeaponType DamagingWeaponType;
         public WeaponDamageSetting DamageConfig;
         public HurtBox m_HurtBox;
-
-        public float Time { get; set; }
     }
 
     [Serializable]

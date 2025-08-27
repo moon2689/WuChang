@@ -1,5 +1,31 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4669464048207555610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e82fd648527146e59cbfa2687416bd83, type: 3}
+  m_Name: PerfectDodge
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: 2902985be43994742a7534bd5c1ebd16,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 1.5052149, z: 2.0348473}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 1
+  ColliderOffset: {x: 0, y: 0, z: 0.08105326}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 2.1109076
+  Height: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18,15 +44,90 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0, y: 0.49758455}
+    EventRange: {x: 0, y: 0.33816424}
     EventMultiRange:
     - 0.2
     - 0.4
     - 0.6
     - 0.8
     Previewable: 0
-    Obj: {fileID: 2676822780032492089}
---- !u!114 &2676822780032492089
+    Obj: {fileID: 8931191666339661323}
+  - EventTime: 0.36714977
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 4679667291333086255}
+  - EventTime: 0
+    EventRange: {x: 0.4009662, y: 0.4299517}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 7786111140810805050}
+  - EventTime: 0
+    EventRange: {x: 0.31400967, y: 0.4009662}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -4669464048207555610}
+--- !u!114 &4679667291333086255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFX
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: ac4a8fa84b0558a49b5e1273e71d8937, type: 3}
+  m_Volume: 1
+--- !u!114 &7786111140810805050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
+  m_Name: CreateHitBox
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
+      type: 3}
+    controlType: 0
+    Offset: {x: -1.2703363, y: 0.7538897, z: -0.31918773}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 1
+  ColliderOffset: {x: -0.056289554, y: 0, z: 0}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 1.6410688
+  Height: 1
+  m_WeaponDamageSetting:
+    m_WeaponBone: 24
+    m_DamageValue: 5
+    m_ImpactForce: 1
+    m_HitRecover: 0
+    m_ForceWhenGround: {x: 0, y: 0}
+--- !u!114 &8931191666339661323
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39,4 +140,4 @@ MonoBehaviour:
   m_Name: AlignToEnemy
   m_EditorClassIdentifier: 
   IsActive: 1
-  m_RotateSpeed: 360
+  m_RotateSpeed: 1080

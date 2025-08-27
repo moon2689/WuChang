@@ -31,6 +31,7 @@ namespace Saber.CharacterController
         public override bool CanEnter => Actor.CPhysic.Grounded;
         public override bool CanExit => m_CanExit;
         public SCharacter Character => m_Character ??= (SCharacter)Actor;
+        public bool InTanFanTime => m_TimerCanTanFan > 0;
 
 
         public Defense() : base(EStateType.Defense)
@@ -112,55 +113,12 @@ namespace Saber.CharacterController
             }
         }
 
-        /// <summary>尝试弹反</summary>
-        bool TryParry(out List<SActor> parriedEnemies)
+        public void OnTanFanSucceed(SActor enemy)
         {
-            m_ParriedEnemies.Clear();
-            Collider[] colliders = new Collider[10];
-            float radius = 10f;
-            int count = Physics.OverlapSphereNonAlloc(Actor.transform.position, radius, colliders,
-                EStaticLayers.Actor.GetLayerMask());
-            for (int i = 0; i < count; i++)
+            if (m_CurState != EState.TanDao)
             {
-                Collider tar = colliders[i];
-                var enemy = tar.GetComponent<SActor>();
-                if (enemy == null || enemy == Actor || enemy.IsDead || enemy.Camp == Actor.Camp)
-                    continue;
-
-                Vector3 dirToEnemy = enemy.transform.position - Actor.transform.position;
-                if (Vector3.Dot(dirToEnemy, Actor.transform.forward) <= 0)
-                    continue;
-
-                bool parriedSucceed = enemy.CurrentStateType == EStateType.Skill &&
-                                      enemy.CurrentSkill != null &&
-                                      enemy.CurrentSkill.InTanDaoTime &&
-                                      enemy.CurrentSkill.InTanDaoRange(Actor);
-
-                if (parriedSucceed)
-                {
-                    m_ParriedEnemies.Add(enemy);
-                }
-            }
-
-            parriedEnemies = m_ParriedEnemies;
-            return m_ParriedEnemies.Count > 0;
-        }
-
-        void CheckTanFan()
-        {
-            bool parriedSucceed = TryParry(out List<SActor> parriedEnemies);
-            //Debug.Log($"TryParry:{parriedSucceed}  {parriedEnemies.Count}");
-            if (parriedSucceed)
-            {
-                Actor.CStateMachine.ParriedSuccssSkills.Clear();
-                foreach (var e in parriedEnemies)
-                {
-                    e.OnParried();
-                    Actor.CStateMachine.ParriedSuccssSkills.Add(e.CurrentSkill);
-                }
-
+                Actor.CStateMachine.ParriedSuccssSkills.Add(enemy.CurrentSkill);
                 Actor.CAnim.Play("TanFan", force: true);
-
                 m_CurState = EState.TanDao;
                 m_TimerCanTanFan = 0;
             }
@@ -179,7 +137,7 @@ namespace Saber.CharacterController
             if (m_TimerCanTanFan > 0)
             {
                 m_TimerCanTanFan -= base.DeltaTime;
-                CheckTanFan();
+                //CheckTanFan();
             }
 
             if (m_CurState == EState.TanDao)
@@ -266,6 +224,7 @@ namespace Saber.CharacterController
             Actor.UpdateMovementAxisAnimatorParams = true;
             m_CurState = EState.None;
             m_AutoExitOnAnimFinished = false;
+            Actor.CStateMachine.ParriedSuccssSkills.Clear();
         }
 
         public void TryEndDefense()

@@ -28,7 +28,7 @@ namespace Saber.Director
             // fps
             if (GameApp.Entry.Config.TestGame.DebugFPS)
             {
-                GameApp.Entry.Asset.LoadGameObject("Game/AdvancedFPSCounter");
+                FPSCounter.Create();
                 yield return null;
             }
 

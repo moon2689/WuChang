@@ -16,7 +16,7 @@ namespace Saber.CharacterController
 
         private WeaponParentInfo m_WeaponParentInfo;
         private DamageInfo m_CurDmgInfo = new();
-        private WeaponDamageSetting m_WeaponDamageSetting;
+        protected WeaponDamageSetting m_WeaponDamageSetting;
 
         public SActor Actor { get; private set; }
         public EWeaponType WeaponType => m_WeaponType;

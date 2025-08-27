@@ -74,7 +74,7 @@ namespace Saber.CharacterController
         public int CurrentStaminaInt => Mathf.CeilToInt(CurrentStamina);
 
         public EStaminaRecSpeed StaminaRecSpeed { get; set; }
-        public bool IsStaminaFull => CurrentStamina == MaxStamina;
+        public bool EnableStamina { get; set; } = true;
 
         public int HPPotionCount
         {
@@ -171,7 +171,7 @@ namespace Saber.CharacterController
             }
 
             // 恢复体力
-            if (StaminaRecSpeed != EStaminaRecSpeed.Stop && CurrentStamina < MaxStamina)
+            if (EnableStamina && StaminaRecSpeed != EStaminaRecSpeed.Stop && CurrentStamina < MaxStamina)
             {
                 int speed = StaminaRecSpeed switch
                 {
@@ -203,7 +203,8 @@ namespace Saber.CharacterController
 
         public void CostStamina(float value)
         {
-            CurrentStamina -= value;
+            if (EnableStamina)
+                CurrentStamina -= value;
         }
 
         public void CostPower(int value)

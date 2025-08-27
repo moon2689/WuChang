@@ -13,13 +13,29 @@ namespace Saber.AI
             Dodge,
         }
 
+        private SActor m_Actor;
         private EAheadInputType m_AheadType;
         private ESkillType m_Key;
         private Vector3 m_DodgeAxis;
 
         public bool IsEnabled => m_AheadType != EAheadInputType.None;
 
-        public bool TryTrigger(SActor owner)
+        bool CanAheadInput
+        {
+            get
+            {
+                var s = m_Actor.CurrentStateType;
+                return s == EStateType.Idle || s == EStateType.Move || s == EStateType.Defense ||
+                       s == EStateType.Dodge || s == EStateType.Skill || s == EStateType.UseItem;
+            }
+        }
+
+        public AheadInputData(SActor actor)
+        {
+            m_Actor = actor;
+        }
+
+        public bool TryTrigger()
         {
             if (m_AheadType == EAheadInputType.None)
             {
@@ -27,11 +43,11 @@ namespace Saber.AI
             }
             else if (m_AheadType == EAheadInputType.Skill)
             {
-                return owner.TryTriggerSkill(m_Key);
+                return m_Actor.TryTriggerSkill(m_Key);
             }
             else if (m_AheadType == EAheadInputType.Dodge)
             {
-                return owner.Dodge(m_DodgeAxis);
+                return m_Actor.Dodge(m_DodgeAxis);
             }
             else
             {
@@ -43,16 +59,22 @@ namespace Saber.AI
 
         public void SetData_Skill(ESkillType key)
         {
-            //Debug.Log("SetData_Skill:" + key);
-            m_AheadType = EAheadInputType.Skill;
-            m_Key = key;
+            if (CanAheadInput)
+            {
+                //Debug.Log("SetData_Skill:" + key);
+                m_AheadType = EAheadInputType.Skill;
+                m_Key = key;
+            }
         }
 
         public void SetData_Dodge(Vector3 axis)
         {
-            //Debug.Log("SetData_Dodge:" + axis);
-            m_AheadType = EAheadInputType.Dodge;
-            m_DodgeAxis = axis;
+            if (CanAheadInput)
+            {
+                //Debug.Log("SetData_Dodge:" + axis);
+                m_AheadType = EAheadInputType.Dodge;
+                m_DodgeAxis = axis;
+            }
         }
 
         public void Clear()

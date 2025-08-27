@@ -13,6 +13,12 @@ namespace Saber
         public int FPSInt => Mathf.FloorToInt(m_FPS);
 
 
+        public static void Create()
+        {
+            GameObject go = new(nameof(FPSCounter));
+            go.AddComponent<FPSCounter>();
+        }
+
         void Awake()
         {
             m_LabelStyle = new()

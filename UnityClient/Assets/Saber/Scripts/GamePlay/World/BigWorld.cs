@@ -78,8 +78,6 @@ namespace Saber.World
 
         public BigWorld()
         {
-            GameObject effectWitchTimeBoom = GameApp.Entry.Asset.LoadGameObject("Particles/WitchTimeBoom");
-            m_EffectWitchTimeBoom = effectWitchTimeBoom.GetComponent<EffectObject>();
         }
 
 
@@ -147,7 +145,7 @@ namespace Saber.World
             {
                 m_WndMainCity = GameApp.Entry.UI.CreateWnd<Wnd_MainCity>(null, this);
             }
-            
+
             // effects
             GameApp.Entry.Config.GameSetting.PreloadEffects();
 
@@ -792,6 +790,12 @@ namespace Saber.World
                 {
                     m_DicModifierWitchTimes[pair.Value] = pair.Value.m_AnimSpeedExecutor.AddAnimSpeedModifier(0.2f);
                 }
+            }
+
+            if (m_EffectWitchTimeBoom == null)
+            {
+                GameObject effectWitchTimeBoom = GameApp.Entry.Asset.LoadGameObject("Particles/WitchTimeBoom");
+                m_EffectWitchTimeBoom = effectWitchTimeBoom.GetComponent<EffectObject>();
             }
 
             m_EffectWitchTimeBoom.Show(m_Player.transform.position + new Vector3(0, m_Player.CPhysic.CenterHeight));

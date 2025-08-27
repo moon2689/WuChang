@@ -127,7 +127,7 @@ namespace Saber.CharacterController
         }
 
         public virtual bool InPerfectDodgeTime => false;
-        public virtual bool InTanDaoTime => false;
+        //public virtual bool InTanDaoTime => false;
 
         /// <summary>是否安静，不破除潜行状态</summary>
         public virtual bool IsQuiet => false;
@@ -278,11 +278,6 @@ namespace Saber.CharacterController
 
         /// <summary>在完美闪避范围内</summary>
         public virtual bool InPerfectDodgeRange(SActor target)
-        {
-            return false;
-        }
-
-        public virtual bool InTanDaoRange(SActor target)
         {
             return false;
         }

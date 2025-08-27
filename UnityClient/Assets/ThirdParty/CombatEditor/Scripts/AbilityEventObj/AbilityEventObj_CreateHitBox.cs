@@ -96,11 +96,7 @@ namespace Saber.CharacterController
 
         protected override void EndEffect()
         {
-            if (CurrentHitBox != null)
-            {
-                //GameObject.Destroy(CurrentHitBox.gameObject);
-                CurrentHitBox.gameObject.SetActive(false);
-            }
+            CurrentHitBox?.Hide();
 
             base.EndEffect();
             

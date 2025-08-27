@@ -821,6 +821,11 @@ PrefabInstance:
       propertyPath: effectorHitPoints.Array.data[10].collider
       value: 
       objectReference: {fileID: 1069364104237538679}
+    - target: {fileID: 4655281136557992613, guid: a6da2066569f19e46a1cc1f98a03871e,
+        type: 3}
+      propertyPath: boneHitPoints.Array.data[0].boneLinks.Array.data[0].bone
+      value: 
+      objectReference: {fileID: 9092198076156099710}
     - target: {fileID: 5883253797890074744, guid: a6da2066569f19e46a1cc1f98a03871e,
         type: 3}
       propertyPath: m_LocalPosition.x

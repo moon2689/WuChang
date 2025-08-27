@@ -43,7 +43,7 @@ namespace Saber.AI
         #endregion
 
 
-        private AheadInputData m_AheadInput = new();
+        private AheadInputData m_AheadInput;
         private bool m_PlayingAction;
         private float m_TimerCheckLockEnemy;
         private float m_DistanceToLockEnemy;
@@ -71,6 +71,8 @@ namespace Saber.AI
 
             Actor.CStateMachine.Event_OnStateChange += OnStateChange;
             Actor.Event_OnDead += OnPlayerDead;
+
+            m_AheadInput = new(Actor);
         }
 
         private void OnPlayerDead(SActor obj)
@@ -135,7 +137,7 @@ namespace Saber.AI
                 ClearAheadInput();
             }
 
-            if (m_AheadInput.TryTrigger(Actor))
+            if (m_AheadInput.TryTrigger())
             {
                 ClearAheadInput();
             }

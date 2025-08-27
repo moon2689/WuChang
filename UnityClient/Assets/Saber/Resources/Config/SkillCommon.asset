@@ -31,4 +31,4 @@ MonoBehaviour:
     m_Blood: {fileID: 8129476537154334463, guid: f278962be0ad1614b9b5784fab88b9ae,
       type: 3}
   ExecuteSkillCanExitTime: 0.8
-  CanTanFanSecondsFromDefenseStart: 0.5
+  CanTanFanSecondsFromDefenseStart: 0.2

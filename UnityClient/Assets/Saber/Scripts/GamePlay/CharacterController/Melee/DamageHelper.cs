@@ -33,7 +33,7 @@ namespace Saber.CharacterController
             return dmgPos;
         }
         */
-
+        
         public static bool TryHit(Collider other, SActor actor,
             WeaponDamageSetting damageSetting, DamageInfo curDmgInfo)
         {
@@ -54,11 +54,10 @@ namespace Saber.CharacterController
                 return false;
             }
 
-            TryHitEnemy(actor, hurtBox, damageSetting, curDmgInfo);
-            return true;
+            return TryHitEnemy(actor, hurtBox, damageSetting, curDmgInfo);
         }
 
-        static void TryHitEnemy(SActor actor, HurtBox hurtBox, WeaponDamageSetting damageSetting, DamageInfo curDmgInfo)
+        static bool TryHitEnemy(SActor actor, HurtBox hurtBox, WeaponDamageSetting damageSetting, DamageInfo curDmgInfo)
         {
             //WeaponDamageSetting damageSetting = base.m_EventObj.EventObj.m_WeaponDamageSetting;
 
@@ -66,24 +65,19 @@ namespace Saber.CharacterController
             SActor enemy = hurtBox.Actor;
             if (enemy.IsDead)
             {
-                return;
+                return false;
             }
 
             if (enemy.Invincible && enemy.CurrentStateType == EStateType.Dodge &&
                 enemy.CStateMachine.CurrentState is Dodge dodeg)
             {
                 dodeg.OnPerfectDodge();
-                return;
+                return true;
             }
 
             if (enemy.Invincible)
             {
-                return;
-            }
-
-            if (enemy.CMelee.AttackedDamageInfo != null && Time.time - enemy.CMelee.AttackedDamageInfo.Time < 0.2f)
-            {
-                return;
+                return false;
             }
 
             //Debug.Log($"Do damage,hurt:{hurtBox.name}, actor:{actor}", hurtBox);
@@ -104,7 +98,7 @@ namespace Saber.CharacterController
             curDmgInfo.DamageValue = damageSetting.m_DamageValue * UnityEngine.Random.Range(0.8f, 1.2f);
             curDmgInfo.DamagingWeaponType = weapon.WeaponType;
             curDmgInfo.m_HurtBox = hurtBox;
-            curDmgInfo.Time = Time.time;
+            //curDmgInfo.Time = Time.time;
 
             // SDebug.DrawWireSphere(curDmgInfo.DmgPos, Color.red, 0.2f, 10);
             // SDebug.DrawArrow(curDmgInfo.DmgPos, curDmgInfo.DmgDir * 3, Color.red, 10);
@@ -113,7 +107,7 @@ namespace Saber.CharacterController
 
             // 尝试格挡
             if (TryDefense(actor, hurtBox, curDmgInfo))
-                return;
+                return true;
 
             // 卡帧 Freeze Frame.
             FreezeFrame(actor, hurtBox);
@@ -166,6 +160,8 @@ namespace Saber.CharacterController
                 dir.y = 0;
                 enemy.CPhysic.Force_Add(-dir, curDmgInfo.DamageConfig.m_ForceWhenGround.x, 0, false);
             }
+
+            return true;
         }
 
         // 卡帧
@@ -309,7 +305,7 @@ namespace Saber.CharacterController
             AudioClip sound = null;
             if (block)
             {
-               // sound = GameApp.Entry.Config.GameSetting.GetRandomSound_SwordHitSword();
+                // sound = GameApp.Entry.Config.GameSetting.GetRandomSound_SwordHitSword();
             }
             else
             {

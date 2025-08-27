@@ -45,7 +45,33 @@ MonoBehaviour:
   m_Name: AlignToEnemy
   m_EditorClassIdentifier: 
   IsActive: 1
-  m_RotateSpeed: 360
+  m_RotateSpeed: 1080
+--- !u!114 &-5388176379663999569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 636e08a368debe04987b09e239810343, type: 3}
+  m_Name: TanDao
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: 2902985be43994742a7534bd5c1ebd16,
+      type: 3}
+    controlType: 0
+    Offset: {x: -0.00007212907, y: 0.8762342, z: 1.5869292}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 1
+  ColliderOffset: {x: 0, y: 0, z: 0.008365512}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 1.8198113
+  Height: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +90,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0, y: 0.084337346}
+    EventRange: {x: 0, y: 0.37048194}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -100,7 +126,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 717578042539710525}
   - EventTime: 0
-    EventRange: {x: 0.67168677, y: 0.686747}
+    EventRange: {x: 0.67771083, y: 0.686747}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -108,6 +134,73 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -7520908954871964161}
+  - EventTime: 0
+    EventRange: {x: 0.37048194, y: 0.6415663}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 503062038605494280}
+  - EventTime: 0
+    EventRange: {x: 0.62650603, y: 0.67771083}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 271184215691174644}
+  - EventTime: 0.67469877
+    EventRange: {x: 0.67168677, y: 0.67771083}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -5388176379663999569}
+--- !u!114 &271184215691174644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e82fd648527146e59cbfa2687416bd83, type: 3}
+  m_Name: PerfectDodge
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: 2902985be43994742a7534bd5c1ebd16,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 0.9818818, z: 1.6730684}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 1
+  ColliderOffset: {x: 0, y: 0, z: 0.008365512}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 1.8198113
+  Height: 1
+--- !u!114 &503062038605494280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f29d956cd14f76ae2ff6fbffccde20, type: 3}
+  m_Name: AlignToEnemy
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_RotateSpeed: 360
 --- !u!114 &717578042539710525
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,18 +8,15 @@ namespace Saber.CharacterController
 {
     public class RayWeapon : WeaponBase
     {
-        const float k_RayDamageTimeInterval = 0.3f; // 同一个技能内，每一个角色每隔0.3s受一次伤害
-
         [SerializeField] float m_RayMinDistanceInterval = 0.5f;
 
         // 射线检测伤害
         Vector3[] m_LastFrameRayPoint;
         protected RaycastHit[] m_RaycastHit = new RaycastHit[20];
         List<SActor> m_ListRayHurtedActors = new();
-        List<float> m_ListRayHurtActorTime = new();
         private bool m_EnableRayDamage;
         private float m_ShowHitGroundEffectTime;
-        
+
         protected float RayInterval { get; private set; }
 
 
@@ -29,7 +26,6 @@ namespace Saber.CharacterController
             m_EnableRayDamage = enable;
 
             m_ListRayHurtedActors.Clear();
-            m_ListRayHurtActorTime.Clear();
 
             if (enable)
             {
@@ -122,7 +118,8 @@ namespace Saber.CharacterController
                 return false;
 
             SActor target = hb.Actor;
-            if (CanDoDamage(target))
+            bool canDoDmg = target != null && target != Actor && !m_ListRayHurtedActors.Contains(target);
+            if (canDoDmg)
             {
                 base.DoDamage(hit.point, dir, hb);
                 OnDamageDone(target);
@@ -152,31 +149,9 @@ namespace Saber.CharacterController
             GameApp.Entry.Game.Audio.Play3DSound(sound, hitPos);
         }
 
-
-        bool CanDoDamage(SActor target)
-        {
-            if (target != null && target != Actor)
-            {
-                int index = m_ListRayHurtedActors.FindIndex(a => a == target);
-                return index < 0 || Time.time > m_ListRayHurtActorTime[index] + k_RayDamageTimeInterval;
-            }
-
-            return false;
-        }
-
         void OnDamageDone(SActor target)
         {
-            int index = m_ListRayHurtedActors.FindIndex(a => a == target);
-            if (index < 0)
-            {
-                m_ListRayHurtedActors.Add(target);
-                m_ListRayHurtActorTime.Add(Time.time);
-            }
-            else
-            {
-                m_ListRayHurtActorTime[index] = Time.time;
-            }
-
+            m_ListRayHurtedActors.Add(target);
             Actor.CurrentSkill.OnDamageDone();
         }
     }

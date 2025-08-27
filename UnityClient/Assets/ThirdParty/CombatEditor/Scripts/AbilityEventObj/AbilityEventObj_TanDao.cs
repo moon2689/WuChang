@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Saber;
+using Saber.CharacterController;
 using UnityEngine;
 
 //Replace the "TanDao" with the event you want to create
@@ -18,7 +20,7 @@ namespace CombatEditor
         //Write the data you need here.
         public override EventTimeType GetEventTimeType()
         {
-            return EventTimeType.EventRange;
+            return EventTimeType.EventTime;
         }
 
         public override AbilityEventEffect Initialize()
@@ -38,24 +40,50 @@ namespace CombatEditor
     //Write you logic here
     public partial class AbilityEventEffect_TanDao : AbilityEventEffect
     {
+        /// <summary>尝试弹反</summary>
+        bool WhetherBeParried(out Defense defenseState)
+        {
+            // TODO 这里只处理了球形
+            Transform node = Actor.GetNodeTransform(EventObj.ObjData.TargetNode);
+            Vector3 pos = node.position + node.rotation * EventObj.ObjData.Offset + EventObj.ColliderOffset;
+            float radius = EventObj.Radius;
+            int layerMask = EStaticLayers.Actor.GetLayerMask();
+            Collider[] colliders = Physics.OverlapSphere(pos, radius, layerMask, QueryTriggerInteraction.Ignore);
+
+            SDebug.DrawWireSphere(pos, Color.green, radius, 3f);
+
+            foreach (var col in colliders)
+            {
+                var enemy = col.GetComponent<SActor>();
+                if (enemy != null && enemy != Actor && !enemy.IsDead && enemy.Camp != Actor.Camp &&
+                    enemy.CurrentStateType == EStateType.Defense)
+                {
+                    defenseState = (Defense)enemy.CStateMachine.CurrentState;
+                    if (!defenseState.InTanFanTime)
+                    {
+                        continue;
+                    }
+
+                    Vector3 dirToMe = Actor.transform.position - enemy.transform.position;
+                    if (Vector3.Dot(dirToMe, enemy.transform.forward) > 0)
+                        return true;
+                }
+            }
+
+            defenseState = null;
+            return false;
+        }
+
         public override void StartEffect()
         {
             base.StartEffect();
-            base.CurrentSkill.TanDaoData = EventObj;
-            
-            /*
-            // debug
-            Transform node = base.Actor.GetNodeTranform(EventObj.ObjData.TargetNode);
-            Vector3 pos = node.position + node.rotation * EventObj.ObjData.Offset + EventObj.ColliderOffset;
-            float radius = EventObj.Radius;
-            SDebug.DrawWireSphere(pos, Color.red, radius, 3f);
-            */
-        }
 
-        protected override void EndEffect()
-        {
-            base.EndEffect();
-            base.CurrentSkill.TanDaoData = null;
+            bool beParried = WhetherBeParried(out var defenseState);
+            if (beParried)
+            {
+                Actor.OnParried();
+                defenseState.OnTanFanSucceed(Actor);
+            }
         }
     }
 

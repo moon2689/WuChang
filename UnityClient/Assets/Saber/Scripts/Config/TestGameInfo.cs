@@ -12,7 +12,7 @@ namespace Saber.Config
         public bool DebugFPS;
         public bool DebugFight;
 
-        public int TestingSkillID;
+        public int[] TestingSkillID;
         public int TriggerSkillInterval = 6;
     }
 }

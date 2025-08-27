@@ -79,7 +79,7 @@ MonoBehaviour:
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
-    m_FirstSkillOfCombo: 0
+    m_FirstSkillOfCombo: 1
     m_ChainSkillIDs: 
     m_AIPramAttackDistance:
       minValue: 0.5
@@ -97,7 +97,7 @@ MonoBehaviour:
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
-    m_FirstSkillOfCombo: 0
+    m_FirstSkillOfCombo: 1
     m_ChainSkillIDs: 
     m_AIPramAttackDistance:
       minValue: 0.5
@@ -115,7 +115,7 @@ MonoBehaviour:
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
-    m_FirstSkillOfCombo: 0
+    m_FirstSkillOfCombo: 1
     m_ChainSkillIDs: 
     m_AIPramAttackDistance:
       minValue: 0.5
@@ -133,7 +133,7 @@ MonoBehaviour:
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
-    m_FirstSkillOfCombo: 0
+    m_FirstSkillOfCombo: 1
     m_ChainSkillIDs: 
     m_AIPramAttackDistance:
       minValue: 0.5
@@ -151,7 +151,7 @@ MonoBehaviour:
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
-    m_FirstSkillOfCombo: 0
+    m_FirstSkillOfCombo: 1
     m_ChainSkillIDs: 
     m_AIPramAttackDistance:
       minValue: 0.5
@@ -169,7 +169,7 @@ MonoBehaviour:
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
-    m_FirstSkillOfCombo: 0
+    m_FirstSkillOfCombo: 1
     m_ChainSkillIDs: 
     m_AIPramAttackDistance:
       minValue: 0.5
