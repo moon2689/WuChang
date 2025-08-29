@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7931595816993816095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb9d103b2e74362b49578d9f2b35094, type: 3}
+  m_Name: ComboTime
+  m_EditorClassIdentifier: 
+  IsActive: 1
 --- !u!114 &-6974220687102563831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,6 +126,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 4994669248576957424}
+  - EventTime: 0
+    EventRange: {x: 0.88640594, y: 0.89757913}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -7931595816993816095}
 --- !u!114 &3916167865440424638
 MonoBehaviour:
   m_ObjectHideFlags: 0

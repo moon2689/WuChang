@@ -394,17 +394,6 @@ namespace Saber.AI
             SwitchCoroutine(SearchEnemy());
         }
 
-        protected override void OnSearchEnemy()
-        {
-            base.OnSearchEnemy();
-
-            string bornAction = "Eating";
-            if (!Actor.CStateMachine.IsPlayingActionWhenIdle(bornAction))
-            {
-                Actor.CStateMachine.PlayActionWhenIdle(bornAction, null);
-            }
-        }
-
         void ToStalemate()
         {
             SwitchCoroutine(StalemateItor());
@@ -412,36 +401,6 @@ namespace Saber.AI
 
         protected override void OnFoundEnemy(EFoundEnemyType foundType)
         {
-            SwitchCoroutine(OnFoundEnemyItor(foundType));
-        }
-
-        IEnumerator OnFoundEnemyItor(EFoundEnemyType foundType)
-        {
-            Actor.StopMove();
-            while (Actor.CurrentStateType != EStateType.Idle)
-            {
-                yield return null;
-            }
-
-            bool wait;
-            if (foundType == EFoundEnemyType.NotInStealth)
-            {
-                wait = true;
-                Actor.CStateMachine.PlayActionWhenIdle("FoundEnemyInBack", () => wait = false);
-
-                while (wait)
-                {
-                    yield return null;
-                }
-            }
-
-            wait = true;
-            Actor.CStateMachine.PlayAction_TurnDirection(LockingEnemy.transform.position, () => wait = false);
-            while (wait)
-            {
-                yield return null;
-            }
-
             ToStalemate();
         }
 
@@ -629,7 +588,12 @@ namespace Saber.AI
             bool triggered = false;
             while (true)
             {
-                if (!triggered)
+                if (LockingEnemy.IsDead)
+                {
+                    ToStalemate();
+                    yield break;
+                }
+                else if (!triggered)
                 {
                     if (Actor.TryTriggerSkill(m_CurrentSkill))
                     {

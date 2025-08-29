@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Saber.Frame;
 using Saber.UI;
 using Saber.World;
@@ -13,8 +14,6 @@ namespace Saber.AI
         private float? m_oldTouchDis;
         private bool m_Sprint;
         private bool m_PressDefense;
-        private Portal m_CurrentStayingPortal;
-        private GodStatue m_CurrentStayingGodStatue;
         private Vector3 m_Stick;
         private float m_StickLength;
         private bool m_ToCheckChargeAttack;
@@ -72,9 +71,9 @@ namespace Saber.AI
                 if (Actor.CurrentStateType == EStateType.Defense)
                     Actor.DefenseEnd();
             }
-            
+
             UpdateMovement();
-                
+
             UpdateHeavyAttack();
         }
 
@@ -135,17 +134,17 @@ namespace Saber.AI
             s_WndJoyStick.HideButtonInteract();
         }
 
-        public override void OnPlayerEnterGodStatue(GodStatue godStatue)
+        public override void OnPlayerEnterGodStatue(Idol idol)
         {
-            m_CurrentStayingGodStatue = godStatue;
+            m_CurrentStayingIdol = idol;
 
-            ESceneInteractType interactType = godStatue.IsFired ? ESceneInteractType.Rest : ESceneInteractType.Worship;
+            ESceneInteractType interactType = idol.IsFired ? ESceneInteractType.Rest : ESceneInteractType.ActiveIdol;
             s_WndJoyStick.ShowButtonInteract(interactType);
         }
 
-        public override void OnPlayerExitGodStatue(GodStatue godStatue)
+        public override void OnPlayerExitGodStatue(Idol idol)
         {
-            m_CurrentStayingGodStatue = null;
+            m_CurrentStayingIdol = null;
             s_WndJoyStick.HideButtonInteract();
         }
 
@@ -161,18 +160,18 @@ namespace Saber.AI
                 if (m_CurrentStayingPortal)
                     m_CurrentStayingPortal.Transmit();
             }
-            else if (interactType == ESceneInteractType.Worship)
+            else if (interactType == ESceneInteractType.ActiveIdol)
             {
-                if (m_CurrentStayingGodStatue)
+                if (m_CurrentStayingIdol)
                 {
-                    m_CurrentStayingGodStatue.Worship();
+                    m_CurrentStayingIdol.Active();
                     s_WndJoyStick.ShowButtonInteract(ESceneInteractType.Rest);
                 }
             }
             else if (interactType == ESceneInteractType.Rest)
             {
-                if (m_CurrentStayingGodStatue)
-                    m_CurrentStayingGodStatue.Rest();
+                if (m_CurrentStayingIdol)
+                    m_CurrentStayingIdol.Rest();
             }
             else
             {
@@ -274,7 +273,7 @@ namespace Saber.AI
 
         void Wnd_JoyStick.IHandler.OnClickDrinkMedicine()
         {
-            Actor.UseItem(UseItem.EItemType.HpMedicine);
+            Actor.DrinkPotion();
         }
 
         void Wnd_JoyStick.IHandler.OnClickSkill(ESkillType type)
@@ -321,6 +320,19 @@ namespace Saber.AI
                 s_WndJoyStick.Destroy();
                 s_WndJoyStick = null;
             }
+        }
+
+        protected override void OnPlayerRest()
+        {
+            base.OnPlayerRest();
+            s_WndJoyStick.ActiveSticks = false;
+        }
+
+        protected override void OnClickWndRestQuit()
+        {
+            base.OnClickWndRestQuit();
+
+            s_WndJoyStick.ActiveSticks = true;
         }
     }
 }

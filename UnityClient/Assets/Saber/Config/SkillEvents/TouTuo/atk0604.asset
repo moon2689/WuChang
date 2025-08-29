@@ -113,6 +113,28 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 4859642320919406690}
+  - EventTime: 0
+    EventRange: {x: 0.88640594, y: 0.89944136}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 68510712903251944}
+--- !u!114 &68510712903251944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb9d103b2e74362b49578d9f2b35094, type: 3}
+  m_Name: ComboTime
+  m_EditorClassIdentifier: 
+  IsActive: 1
 --- !u!114 &4157788760675551969
 MonoBehaviour:
   m_ObjectHideFlags: 0

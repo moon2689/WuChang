@@ -6,10 +6,11 @@ using Saber.Frame;
 using Saber.World;
 using UnityEngine;
 using Saber.CharacterController;
+using Saber.UI;
 
 namespace Saber.AI
 {
-    public abstract class PlayerInput : BaseAI
+    public abstract class PlayerInput : BaseAI, Wnd_Rest.IHandler
     {
         #region 单例
 
@@ -47,7 +48,8 @@ namespace Saber.AI
         private bool m_PlayingAction;
         private float m_TimerCheckLockEnemy;
         private float m_DistanceToLockEnemy;
-
+        protected Portal m_CurrentStayingPortal;
+        protected Idol m_CurrentStayingIdol;
 
         protected PlayerCamera PlayerCameraObj => GameApp.Entry.Game.PlayerCamera;
 
@@ -55,8 +57,8 @@ namespace Saber.AI
         public abstract bool Active { set; }
         public abstract void OnPlayerExitPortal(Portal portal);
         public abstract void OnPlayerEnterPortal(Portal portal);
-        public abstract void OnPlayerEnterGodStatue(GodStatue godStatue);
-        public abstract void OnPlayerExitGodStatue(GodStatue godStatue);
+        public abstract void OnPlayerEnterGodStatue(Idol idol);
+        public abstract void OnPlayerExitGodStatue(Idol idol);
 
 
         public override void Init(SActor actor)
@@ -347,18 +349,27 @@ namespace Saber.AI
             onReached?.Invoke();
         }
 
-        public void WorshipGodStatue(GodStatue godStatue, Action onWorshiped)
+        public Coroutine ActiveIdol(Idol idol, Action onWorshiped)
         {
-            GameApp.Entry.Unity.StartCoroutine(WorshipGodStatueItor(godStatue, onWorshiped));
+            return GameApp.Entry.Unity.StartCoroutine(ActiveIdolItor(idol, onWorshiped));
         }
 
-        IEnumerator WorshipGodStatueItor(GodStatue godStatue, Action onWorshiped)
+        IEnumerator ActiveIdolItor(Idol idol, Action onWorshiped)
         {
             m_PlayingAction = true;
 
+            Actor.CMelee.CWeapon.ToggleWeapon(false);
+
+            bool wait = true;
+            Actor.CStateMachine.SetPosAndForward(idol.RestPos, -idol.transform.forward, 0.2f, () => wait = false);
+            while (wait)
+            {
+                yield return null;
+            }
+
             while (true)
             {
-                Vector3 dirToStatue = godStatue.transform.position - Actor.transform.position;
+                Vector3 dirToStatue = idol.transform.position - Actor.transform.position;
                 if (Actor.CPhysic.AlignForwardTo(dirToStatue, 720))
                     break;
 
@@ -367,9 +378,76 @@ namespace Saber.AI
 
             yield return null;
 
-            Actor.CStateMachine.PlayAction_BranchRepair(onWorshiped);
+            Actor.CStateMachine.PlayAction_IdolActive(() =>
+            {
+                Actor.CMelee.CWeapon.ToggleWeapon(true);
+                onWorshiped?.Invoke();
+            });
+
 
             m_PlayingAction = false;
         }
+
+        public Coroutine PlayerRestBeforeIdol(Idol idol)
+        {
+            return PlayerRestBeforeIdolItor(idol).StartCoroutine();
+        }
+
+        IEnumerator PlayerRestBeforeIdolItor(Idol idol)
+        {
+            bool wait = true;
+            Actor.CStateMachine.SetPosAndForward(idol.RestPos, -idol.transform.forward, 0.2f, () => wait = false);
+            while (wait)
+            {
+                yield return null;
+            }
+
+            Actor.CStateMachine.PlayAction_IdolRest();
+            Actor.CMelee.CWeapon.ToggleWeapon(false);
+
+            GameProgressManager.Instance.OnGodStatueRest(idol.SceneID, idol.StatueIndex);
+            GameApp.Entry.UI.CreateWnd<Wnd_Rest>(null, this);
+
+            OnPlayerRest();
+
+            yield return new WaitForSeconds(1);
+
+            Actor.OnGodStatueRest();
+
+            yield return null;
+
+            GameApp.Entry.Game.World.RecorverOtherActors();
+        }
+
+        protected virtual void OnPlayerRest()
+        {
+        }
+
+        #region Wnd_Rest.IHandler
+
+        void Wnd_Rest.IHandler.OnClickQuit()
+        {
+            OnClickWndRestQuit();
+        }
+
+        protected virtual void OnClickWndRestQuit()
+        {
+            GameApp.Entry.Game.PlayerAI.Active = true;
+            GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(m_CurrentStayingIdol);
+
+            Actor.CStateMachine.PlayAction_IdolRestEnd(() => { Actor.CMelee.CWeapon.ToggleWeapon(true); });
+        }
+
+        void Wnd_Rest.IHandler.OnClickTransmit(int sceneID, int statueIndex)
+        {
+            GameApp.Entry.Game.World.Transmit(sceneID, statueIndex);
+        }
+
+        void Wnd_Rest.IHandler.CreateEnemy(int actorID)
+        {
+            GameApp.Entry.Game.World.CreateEnemy(actorID);
+        }
+
+        #endregion
     }
 }

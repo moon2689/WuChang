@@ -92,7 +92,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0.08421053, y: 0.45473683}
+    EventRange: {x: 0.002105263, y: 0.45473683}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -136,6 +136,28 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -5205977692672861084}
+  - EventTime: 0
+    EventRange: {x: 0.84842104, y: 0.86105263}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 380764706270634749}
+--- !u!114 &380764706270634749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb9d103b2e74362b49578d9f2b35094, type: 3}
+  m_Name: ComboTime
+  m_EditorClassIdentifier: 
+  IsActive: 1
 --- !u!114 &442115382629819993
 MonoBehaviour:
   m_ObjectHideFlags: 0

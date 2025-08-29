@@ -41,7 +41,7 @@ MonoBehaviour:
     - m_Position: {x: 246.79459, y: 183, z: -148.36963}
       m_RotationY: 30
       m_EnemyID: 2
-      m_AI: 3
+      m_AI: 4
     m_PortalPoints:
     - m_Active: 0
       m_Position: {x: 233, y: 181.91, z: -145}
@@ -50,5 +50,5 @@ MonoBehaviour:
       m_TargetPortalIndex: 0
     m_GodStatuePoint:
     - m_Name: 1
-      m_Position: {x: 253, y: 181.91, z: -145}
-      m_RotationY: 0
+      m_Position: {x: 242.94, y: 181.91, z: -122.31}
+      m_RotationY: -21

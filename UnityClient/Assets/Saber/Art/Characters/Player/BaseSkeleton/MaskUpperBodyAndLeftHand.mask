@@ -1,0 +1,479 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MaskUpperBodyAndLeftHand
+  m_Mask: 00000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/cam_joint
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/cam_target
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/ik_foot_root
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/ik_foot_root/ik_foot_l
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/ik_foot_root/ik_foot_r
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/ik_hand_root
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/ik_hand_root/ik_hand_gun
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/ik_hand_root/ik_hand_gun/ik_hand_l
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/ik_hand_root/ik_hand_gun/ik_hand_r
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/HipPart1_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/HipPart1_L/SDtui2_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/HipPart1_L/SDtui_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/Knee_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/Knee_L/Ankle_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/Knee_L/Ankle_L/SFoot1_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/Knee_L/Ankle_L/SFoot2_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/Knee_L/Ankle_L/SFoot3_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/Knee_L/Ankle_L/SFoot4_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/Knee_L/Ankle_L/Toes_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/Knee_L/Ankle_L/Toes_L/ToesEnd_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/Knee_L/KneePart1_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/Knee_L/SKnee1_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/Knee_L/SKnee2_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/SHip1_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/SHip2_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/SHip3_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/SHip4_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/SHip4_L/SHip4Target_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/SHip5_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/SHip5_L/SHip5Target_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/SHip6_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_L/SHip6_L/SHip6Target_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/HipPart1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/HipPart1_R/SDtui2_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/HipPart1_R/SDtui_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/Knee_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/Knee_R/Ankle_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/Knee_R/Ankle_R/SFoot1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/Knee_R/Ankle_R/SFoot2_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/Knee_R/Ankle_R/SFoot3_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/Knee_R/Ankle_R/SFoot4_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/Knee_R/Ankle_R/Toes_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/Knee_R/Ankle_R/Toes_R/ToesEnd_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/Knee_R/KneePart1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/Knee_R/SKnee1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/Knee_R/SKnee2_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/SHip1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/SHip2_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/SHip3_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/SHip4_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/SHip4_R/SHip4Target_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/SHip5_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/SHip5_R/SHip5Target_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/SHip6_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/SHip6_R/SHip6Target_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Breast_jnt_L01
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Breast_jnt_L01/Breast_jnt_L02
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Breast_jnt_R01
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Breast_jnt_R01/Breast_jnt_R02
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Eye_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Eye_L/EyeEnd_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Eye_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Eye_R/EyeEnd_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Down_Tooth_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Jaw_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Jaw_SkinJNT/Left_Lip_Dn1_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Jaw_SkinJNT/Mid_Lip_Dn_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Jaw_SkinJNT/Right_Lip_Dn1_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_Brow1_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_Brow2_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_Brow3_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_Brow4_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_Cheek0_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_Cheek1_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_Cheek2_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_Cheek3_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_Cheek4_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_CheekRaiser1_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_CheekRaiser2_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_CheekRaiser3_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_CheekRaiser4_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_CornerInLid_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_CornerOutLid_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_DnLid1_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_DnLid2_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_DnLid3_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_Ear_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_Eye_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_Lip_Dn2_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_Lip_Up1_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_Lip_Up2_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_Nose_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_UpLid1_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_UpLid2_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Left_UpLid3_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Mid_Brow_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Mid_Lip_Up_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Nose_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_Brow1_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_Brow2_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_Brow3_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_Brow4_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_Cheek0_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_Cheek1_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_Cheek2_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_Cheek3_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_Cheek4_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_CheekRaiser1_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_CheekRaiser2_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_CheekRaiser3_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_CheekRaiser4_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_CornerInLid_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_CornerOutLid_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_DnLid1_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_DnLid2_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_DnLid3_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_Ear_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_Eye_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_Lip_Dn2_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_Lip_Up1_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_Lip_Up2_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_Nose_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_UpLid1_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_UpLid2_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Right_UpLid3_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Tongue1_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Tongue1_SkinJNT/Tongue2_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Tongue1_SkinJNT/Tongue2_SkinJNT/Tongue3_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Tongue1_SkinJNT/Tongue2_SkinJNT/Tongue3_SkinJNT/Tongue4_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Tongue1_SkinJNT/Tongue2_SkinJNT/Tongue3_SkinJNT/Tongue4_SkinJNT/Tongue5_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Tongue1_SkinJNT/Tongue2_SkinJNT/Tongue3_SkinJNT/Tongue4_SkinJNT/Tongue5_SkinJNT/Tongue6_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Facial_Master_SkinJNT/Up_Tooth_SkinJNT
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/HeadEnd_M
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Jaw_M
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Neck_M/Head_M/Jaw_M/JawEnd_M
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/ElbowPart1_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/ElbowPart2_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/SElbow1_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/SElbow2_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/SElbow3_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/SElbow4_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/IndexFinger1_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/IndexFinger1_L/IndexFinger2_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/IndexFinger1_L/IndexFinger2_L/IndexFinger3_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/IndexFinger1_L/IndexFinger2_L/IndexFinger3_L/IndexFinger4_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/MiddleFinger1_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/MiddleFinger1_L/MiddleFinger2_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/MiddleFinger1_L/MiddleFinger2_L/MiddleFinger3_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/MiddleFinger1_L/MiddleFinger2_L/MiddleFinger3_L/MiddleFinger4_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/PinkyFinger1_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/PinkyFinger1_L/PinkyFinger2_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/PinkyFinger1_L/PinkyFinger2_L/PinkyFinger3_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/PinkyFinger1_L/PinkyFinger2_L/PinkyFinger3_L/PinkyFinger4_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/RingFinger1_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/RingFinger1_L/RingFinger2_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/RingFinger1_L/RingFinger2_L/RingFinger3_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/RingFinger1_L/RingFinger2_L/RingFinger3_L/RingFinger4_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/SWrist1_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/SWrist2_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/ThumbFinger1_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/ThumbFinger1_L/ThumbFinger2_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/ThumbFinger1_L/ThumbFinger2_L/ThumbFinger3_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/ThumbFinger1_L/ThumbFinger2_L/ThumbFinger3_L/ThumbFinger4_L
+    m_Weight: 1
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/Elbow_L/Wrist_L/Weapon_Hand_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/ShoulderPart1_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/ShoulderPart2_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/ShoulderPart2_L/SDabi1_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/ShoulderPart2_L/SDabi2_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/SShoulder1_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/SShoulder2_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/SShoulder3_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/Shoulder_L/SShoulder4_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_L/SScapula1_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/ElbowPart1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/ElbowPart2_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/SElbow1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/SElbow2_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/SElbow3_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/SElbow4_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/IndexFinger1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/IndexFinger1_R/IndexFinger2_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/IndexFinger1_R/IndexFinger2_R/IndexFinger3_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/IndexFinger1_R/IndexFinger2_R/IndexFinger3_R/IndexFinger4_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/MiddleFinger1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/MiddleFinger1_R/MiddleFinger2_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/MiddleFinger1_R/MiddleFinger2_R/MiddleFinger3_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/MiddleFinger1_R/MiddleFinger2_R/MiddleFinger3_R/MiddleFinger4_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/PinkyFinger1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/PinkyFinger1_R/PinkyFinger2_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/PinkyFinger1_R/PinkyFinger2_R/PinkyFinger3_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/PinkyFinger1_R/PinkyFinger2_R/PinkyFinger3_R/PinkyFinger4_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/RingFinger1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/RingFinger1_R/RingFinger2_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/RingFinger1_R/RingFinger2_R/RingFinger3_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/RingFinger1_R/RingFinger2_R/RingFinger3_R/RingFinger4_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/SWrist1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/SWrist2_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/ThumbFinger1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/ThumbFinger1_R/ThumbFinger2_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/ThumbFinger1_R/ThumbFinger2_R/ThumbFinger3_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/ThumbFinger1_R/ThumbFinger2_R/ThumbFinger3_R/ThumbFinger4_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/Elbow_R/Wrist_R/Weapon_Hand_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/ShoulderPart1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/ShoulderPart2_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/ShoulderPart2_R/SDabi1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/ShoulderPart2_R/SDabi2_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/SShoulder1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/SShoulder2_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/SShoulder3_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/Shoulder_R/SShoulder4_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Scapula_R/SScapula1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/SChest1_L
+    m_Weight: 0
+  - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/SChest1_R
+    m_Weight: 0
+  - m_Path: wuchang_empty.mo
+    m_Weight: 0

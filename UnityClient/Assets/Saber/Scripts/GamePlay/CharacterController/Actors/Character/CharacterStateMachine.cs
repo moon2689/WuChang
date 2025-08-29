@@ -27,7 +27,6 @@ namespace Saber.CharacterController
             base.RegisterState(new SkillState());
             base.RegisterState(new GetHit());
             base.RegisterState(new Defense());
-            base.RegisterState(new UseItem());
             //base.RegisterState(new Glide());
             //base.RegisterState(new Slide());
             //base.RegisterState(new Climb());
@@ -251,36 +250,36 @@ namespace Saber.CharacterController
             return true;
         }
 
-        public override bool PlayAction_BranchRepair(Action onPlayed)
+        public override bool PlayAction_IdolActive(Action onPlayed)
         {
             if (CurrentStateType == EStateType.Idle)
             {
                 Idle idle = GetState<Idle>(EStateType.Idle);
-                idle.BranchRepair(onPlayed);
+                idle.IdolActive(onPlayed);
                 return true;
             }
 
             return false;
         }
 
-        public override bool PlayAction_BranchRest()
+        public override bool PlayAction_IdolRest()
         {
             if (CurrentStateType == EStateType.Idle)
             {
                 Idle idle = GetState<Idle>(EStateType.Idle);
-                idle.BranchRest();
+                idle.IdolRest();
                 return true;
             }
 
             return false;
         }
 
-        public override bool PlayAction_BranchRestEnd()
+        public override bool PlayAction_IdolRestEnd(Action onPlayFinish)
         {
             if (CurrentStateType == EStateType.Idle)
             {
                 Idle idle = GetState<Idle>(EStateType.Idle);
-                idle.BranchRestEnd();
+                idle.IdolRestEnd(onPlayFinish);
                 return true;
             }
 
@@ -316,9 +315,13 @@ namespace Saber.CharacterController
             return TryEnterState<GetHit>(EStateType.GetHit, state => state.Damage = dmgInfo);
         }
 
-        public override bool UseItem(UseItem.EItemType itemType)
+        public override void SetPosAndForward(Vector3 tarPos, Vector3 forward, float time, Action onFinished)
         {
-            return TryEnterState<UseItem>(EStateType.UseItem, state => state.ItemType = itemType);
+            if (CurrentStateType == EStateType.Idle)
+            {
+                Idle idle = GetState<Idle>(EStateType.Idle);
+                idle.SetPosAndForward(tarPos, forward, time, onFinished);
+            }
         }
     }
 }

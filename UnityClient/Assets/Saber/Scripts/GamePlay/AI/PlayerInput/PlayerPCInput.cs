@@ -33,12 +33,12 @@ namespace Saber.AI
             throw new System.NotImplementedException();
         }
 
-        public override void OnPlayerEnterGodStatue(GodStatue godStatue)
+        public override void OnPlayerEnterGodStatue(Idol idol)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void OnPlayerExitGodStatue(GodStatue godStatue)
+        public override void OnPlayerExitGodStatue(Idol idol)
         {
             throw new System.NotImplementedException();
         }

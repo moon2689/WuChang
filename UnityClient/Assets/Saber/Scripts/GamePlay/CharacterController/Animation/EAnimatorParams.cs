@@ -19,7 +19,6 @@ namespace Saber.CharacterController
         Vertical,
 
         // bool
-        Die,
 
         // anim name ----->
     }

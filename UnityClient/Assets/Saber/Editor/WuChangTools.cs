@@ -360,7 +360,7 @@ public static class WuChangTools
 
         if (diffuse == null)
         {
-            Debug.LogError("diffuse is null:" + fileName);
+            Debug.LogError($"diffuse is null:{fileName},texPath:{texPath}");
             return;
         }
 

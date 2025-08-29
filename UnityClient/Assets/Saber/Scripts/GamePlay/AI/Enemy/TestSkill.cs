@@ -13,7 +13,8 @@ namespace Saber.AI
     {
         private TestSkillGUI m_TestSkillGUI;
         private int m_SkillIndex;
-        private SkillItem m_CurSkill;
+        private List<SkillItem> m_CurSkill = new();
+        private int m_ComboSkillIndex;
 
         protected override void OnStart()
         {
@@ -54,12 +55,36 @@ namespace Saber.AI
             }
 
             int skillID = skillIDs[m_SkillIndex];
-            m_CurSkill = Actor.CMelee.SkillConfig.GetSkillItemByID(skillID);
-
-            var animState = m_CurSkill.m_AnimStates.FirstOrDefault();
-            if (animState != null)
+            SkillItem firstSkill = Actor.CMelee.SkillConfig.GetSkillItemByID(skillID);
+            m_CurSkill.Clear();
+            m_ComboSkillIndex = 0;
+            if (firstSkill.m_FirstSkillOfCombo)
             {
-                m_TestSkillGUI.SetMsg($"{skillID} {animState.m_Name}");
+                m_CurSkill.Add(firstSkill);
+                AddComboSkills(firstSkill);
+            }
+
+            if (m_CurSkill.Count > 0)
+            {
+                var animState = m_CurSkill[0].m_AnimStates.FirstOrDefault();
+                if (animState != null)
+                    m_TestSkillGUI.SetMsg($"{skillID} {animState.m_Name}");
+                else
+                    m_TestSkillGUI.SetMsg(null);
+            }
+            else
+            {
+                m_TestSkillGUI.SetMsg(null);
+            }
+        }
+
+        void AddComboSkills(SkillItem skillItem)
+        {
+            if (skillItem.m_ChainSkillIDs.Length > 0)
+            {
+                SkillItem chainSkill = Actor.CMelee.SkillConfig.GetSkillItemByID(skillItem.m_ChainSkillIDs[0]);
+                m_CurSkill.Add(chainSkill);
+                AddComboSkills(chainSkill);
             }
         }
 
@@ -72,15 +97,24 @@ namespace Saber.AI
         {
             while (true)
             {
-                bool succeed = Actor.TryTriggerSkill(m_CurSkill);
+                bool succeed = Actor.TryTriggerSkill(m_CurSkill[m_ComboSkillIndex]);
                 if (succeed)
                 {
-                    yield return new WaitForSeconds(GameApp.Entry.Config.TestGame.TriggerSkillInterval);
+                    ++m_ComboSkillIndex;
+                    if (m_ComboSkillIndex >= m_CurSkill.Count)
+                    {
+                        m_ComboSkillIndex = 0;
+                    }
                 }
                 else
                 {
-                    yield return null;
+                    if (Actor.CurrentStateType != EStateType.Skill)
+                    {
+                        m_ComboSkillIndex = 0;
+                    }
                 }
+
+                yield return null;
             }
         }
     }

@@ -210,12 +210,6 @@ MonoBehaviour:
   m_TiltMax: 75
   m_TiltMin: 45
   m_MovementAxis: {x: 0, y: 0}
-  m_LockTargetDeadRect:
-    serializedVersion: 2
-    x: 0.3
-    y: 0.2
-    width: 0.5
-    height: 0.6
   m_ClipMoveTime: 0.05
   m_ReturnTime: 0.4
   m_SphereCastRadius: 0.15

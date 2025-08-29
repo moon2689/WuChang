@@ -132,11 +132,7 @@ namespace Saber.CharacterController
         public bool IsDead
         {
             get => m_IsDead;
-            set
-            {
-                m_IsDead = value;
-                CAnim.SetBool(EAnimatorParams.Die, value);
-            }
+            set => m_IsDead = value;
         }
 
         //public SkillAnimEvent CurActivingSkillAnimState { get; set; }
@@ -153,7 +149,6 @@ namespace Saber.CharacterController
 
         public EStateType CurrentStateType => CStateMachine.CurrentStateType;
         public bool UpdateMovementAxisAnimatorParams { get; set; } = true;
-        public bool WaitStaminaRecoverBeforeSprint { get; set; }
         public WeaponBase[] CurrentWeapons => CMelee.CWeapon.CurWeapons;
 
         public EWeaponStyle CurrentWeaponStyle => CMelee.CurWeaponStyle;
@@ -407,6 +402,8 @@ namespace Saber.CharacterController
             CStateMachine.ForceEnterState(EStateType.Idle);
 
             AI?.Init(this);
+
+            CMelee.CWeapon.ToggleWeapon(true);
         }
 
         #region States
@@ -498,7 +495,7 @@ namespace Saber.CharacterController
         {
         }
 
-        public virtual void UseItem(UseItem.EItemType itemType)
+        public virtual void DrinkPotion()
         {
         }
 
@@ -522,11 +519,20 @@ namespace Saber.CharacterController
         #region PlayerCamera.ITarget
 
         Vector3 PlayerCamera.ITarget.Position => transform.position;
+
+        Vector3 PlayerCamera.ITarget.LockPosition
+        {
+            get
+            {
+                Transform lockUINode = GetNodeTransform(ENodeType.LockUIPos);
+                return lockUINode ? lockUINode.position : transform.position;
+            }
+        }
+
         Quaternion PlayerCamera.ITarget.Rotation => transform.rotation;
         float PlayerCamera.ITarget.Height => CPhysic.Height;
 
-        bool PlayerCamera.ITarget.IsMoving =>
-            CurrentStateType == EStateType.Move || CurrentStateType == EStateType.Dodge;
+        bool PlayerCamera.ITarget.IsMoving => CurrentStateType == EStateType.Move || CurrentStateType == EStateType.Dodge;
 
         #endregion
 
@@ -574,69 +580,5 @@ namespace Saber.CharacterController
                 }
             }
         }
-
-        #region 动画事件
-
-        public void FootL()
-        {
-            OnTriggerAnimClipEvent(EAnimClipEventType.FootL);
-        }
-
-        public void FootR()
-        {
-            OnTriggerAnimClipEvent(EAnimClipEventType.FootR);
-        }
-
-        public void ActionFootL()
-        {
-            OnTriggerAnimClipEvent(EAnimClipEventType.ActionFootL);
-        }
-
-        public void ActionFootR()
-        {
-            OnTriggerAnimClipEvent(EAnimClipEventType.ActionFootR);
-        }
-
-        public void RushStopLeft()
-        {
-            OnTriggerAnimClipEvent(EAnimClipEventType.RushStopLeft);
-        }
-
-        public void RollEvent()
-        {
-            OnTriggerAnimClipEvent(EAnimClipEventType.RollEvent);
-        }
-
-        public void PlayAudio()
-        {
-            OnTriggerAnimClipEvent(EAnimClipEventType.PlayAudio);
-        }
-
-        public void Foot1()
-        {
-            OnTriggerAnimClipEvent(EAnimClipEventType.Foot1);
-        }
-
-        public void Foot2()
-        {
-            OnTriggerAnimClipEvent(EAnimClipEventType.Foot2);
-        }
-
-        public void Foot3()
-        {
-            OnTriggerAnimClipEvent(EAnimClipEventType.Foot3);
-        }
-
-        public void Foot4()
-        {
-            OnTriggerAnimClipEvent(EAnimClipEventType.Foot4);
-        }
-
-        void OnTriggerAnimClipEvent(EAnimClipEventType clipEventType)
-        {
-            //Debug.Log($"OnTriggerAnimClipEvent:{clipEventType}");
-        }
-
-        #endregion
     }
 }

@@ -15,7 +15,7 @@ namespace Saber.CharacterController
 
 
         /// <summary>能力</summary>
-        public CharacterModes CModes { get; private set; }
+        public CharacterAbility CAbility { get; private set; }
 
         public CharacterRender CRender { get; private set; }
         // public CharacterSpeech CSpeech { get; private set; }
@@ -29,6 +29,8 @@ namespace Saber.CharacterController
         // public override bool IsSpeeching => CSpeech.IsSpeeching;
 
 
+        public EMoveSpeedV MaxMoveSpeedV { get; set; } = EMoveSpeedV.Sprint;
+
         public override EMoveSpeedV MoveSpeedV
         {
             get => m_MoveSpeedV;
@@ -36,15 +38,8 @@ namespace Saber.CharacterController
             {
                 EMoveSpeedV oldSpeed = MoveSpeedV;
 
-                // 若体力为0，则等待体力恢复一定值再冲刺，否则抖动
-                if (WaitStaminaRecoverBeforeSprint && CStats.CurrentStamina >= 30)
-                {
-                    WaitStaminaRecoverBeforeSprint = false;
-                }
-
                 m_MoveSpeedV = value;
-                if (m_MoveSpeedV == EMoveSpeedV.Sprint &&
-                    (CStats.CurrentStamina <= 0 || WaitStaminaRecoverBeforeSprint))
+                if (m_MoveSpeedV == EMoveSpeedV.Sprint && CStats.CurrentStamina <= 0)
                 {
                     m_MoveSpeedV = EMoveSpeedV.Run;
                 }
@@ -54,6 +49,11 @@ namespace Saber.CharacterController
                     (m_MoveSpeedV == EMoveSpeedV.Sprint || m_MoveSpeedV == EMoveSpeedV.Run))
                 {
                     m_MoveSpeedV = EMoveSpeedV.Walk;
+                }
+
+                if (m_MoveSpeedV > MaxMoveSpeedV)
+                {
+                    m_MoveSpeedV = MaxMoveSpeedV;
                 }
 
                 if (m_MoveSpeedV != oldSpeed)
@@ -72,7 +72,7 @@ namespace Saber.CharacterController
             CAnim = new CharacterAnimation(this, this);
             //CIK = new CharacterIK(this, CAnim.AnimatorObj, m_CharacterInfo.m_IKInfo);
             m_CStates = new CharacterStateMachine(this);
-            CModes = new CharacterModes(this);
+            CAbility = new CharacterAbility(this);
             CMelee = new CharacterMelee(this, base.SkillConfigs);
             CRender = new CharacterRender(this);
             //CSpeech = new CharacterSpeech();
@@ -103,7 +103,7 @@ namespace Saber.CharacterController
             CPhysic.ResetMotionValues();
 
             CStateMachine.Update();
-            CModes.Update();
+            CAbility.Update();
             CAnim.Update();
 
             CPhysic.Update();
@@ -194,7 +194,7 @@ namespace Saber.CharacterController
         {
             //Debug.Log($"OnTriggerAnimEvent {eventItem.m_AnimEvent}");
             base.OnTriggerAnimEvent(eventObj);
-            CModes.CurMode?.OnTriggerAnimEvent(eventObj);
+            CAbility.CurAbility?.OnTriggerAnimEvent(eventObj);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -219,13 +219,13 @@ namespace Saber.CharacterController
         public override void OnAnimEnter(int nameHash, int layer)
         {
             base.OnAnimEnter(nameHash, layer);
-            CModes.CurMode?.OnAnimEnter(nameHash, layer);
+            CAbility.CurAbility?.OnAnimEnter(nameHash, layer);
         }
 
         public override void OnAnimExit(int nameHash, int layer)
         {
             base.OnAnimExit(nameHash, layer);
-            CModes.CurMode?.OnAnimExit(nameHash, layer);
+            CAbility.CurAbility?.OnAnimExit(nameHash, layer);
         }
 
         public override void Speech()
@@ -233,10 +233,10 @@ namespace Saber.CharacterController
             // CSpeech.RandomSpeech();
         }
 
-        public override void UseItem(UseItem.EItemType itemType)
+        public override void DrinkPotion()
         {
-            base.UseItem(itemType);
-            CStateMachine.UseItem(itemType);
+            base.DrinkPotion();
+            CAbility.DrinkMedicine();
         }
 
         protected override void OnDestroy()

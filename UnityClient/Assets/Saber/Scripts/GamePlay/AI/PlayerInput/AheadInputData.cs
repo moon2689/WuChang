@@ -26,7 +26,7 @@ namespace Saber.AI
             {
                 var s = m_Actor.CurrentStateType;
                 return s == EStateType.Idle || s == EStateType.Move || s == EStateType.Defense ||
-                       s == EStateType.Dodge || s == EStateType.Skill || s == EStateType.UseItem;
+                       s == EStateType.Dodge || s == EStateType.Skill;
             }
         }
 

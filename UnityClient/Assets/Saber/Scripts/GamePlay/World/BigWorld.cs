@@ -19,8 +19,7 @@ namespace Saber.World
         , Wnd_SelectWeapon.IHandler
         , Wnd_DressUp.IHandler
         , Portal.IHandler
-        , GodStatue.IHandler
-        , Wnd_Rest.IHandler
+        , Idol.IHandler
     {
         public enum ELoadType
         {
@@ -46,13 +45,13 @@ namespace Saber.World
         private PortalPoint m_CurrentUsingPortalInfo;
         private Vector3 m_PlayerPos;
         private Quaternion m_PlayerRot;
-        private GodStatue m_CurrentStayingGodStatue;
+        private Idol m_CurrentStayingIdol;
         private Dictionary<OtherActorBornPoint, SActor> m_DicOtherActors = new();
         private PortalPoint m_TransmittingPortal;
         private Coroutine m_CoroutineWitchTime;
         private Dictionary<SActor, CharacterAnimSpeedModifier> m_DicModifierWitchTimes = new();
         private EffectObject m_EffectWitchTimeBoom;
-        private Dictionary<GodStatuePoint, GodStatue> m_DicGodStatues = new();
+        private Dictionary<GodStatuePoint, Idol> m_DicGodStatues = new();
 
 
         public SActor Player => m_Player;
@@ -110,7 +109,7 @@ namespace Saber.World
                 int statueIndex = GameProgressManager.Instance.LastStayingStatueIndex;
                 var targetStatueInfo = m_SceneInfo.m_GodStatuePoint[statueIndex];
                 Quaternion tarStatueRot = Quaternion.Euler(0, targetStatueInfo.m_RotationY, 0);
-                m_PlayerPos = targetStatueInfo.m_Position + tarStatueRot * new Vector3(0, 0.2f, 1.2f);
+                m_PlayerPos = targetStatueInfo.m_Position + tarStatueRot * new Vector3(0, 0.2f, 1.5f);
                 m_PlayerRot = Quaternion.Euler(0, targetStatueInfo.m_RotationY + 180, 0);
             }
             else
@@ -270,9 +269,9 @@ namespace Saber.World
                     m_WndLoading.Percent = 60 + 10 * (i + 1) / m_SceneInfo.m_GodStatuePoint.Length;
                     GameObject godStatueObj = GameApp.Entry.Asset.LoadGameObject("SceneProp/GodStatue");
                     godStatueObj.name = i.ToString();
-                    GodStatue godStatue = godStatueObj.GetComponent<GodStatue>();
-                    godStatue.Init(m_SceneInfo.m_ID, i, statueInfo, parentStatue.transform, this);
-                    m_DicGodStatues.Add(statueInfo, godStatue);
+                    Idol idol = godStatueObj.GetComponent<Idol>();
+                    idol.Init(m_SceneInfo.m_ID, i, statueInfo, parentStatue.transform, this);
+                    m_DicGodStatues.Add(statueInfo, idol);
                 }
             }
 
@@ -521,7 +520,7 @@ namespace Saber.World
         {
             int sceneID = GameProgressManager.Instance.LastStayingSceneID;
             m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
-            if (m_SceneInfo.m_GodStatuePoint == null || m_SceneInfo.m_GodStatuePoint.Length < 1)
+            if (m_SceneInfo == null || m_SceneInfo.m_GodStatuePoint == null || m_SceneInfo.m_GodStatuePoint.Length <= 0)
             {
                 return null;
             }
@@ -529,16 +528,16 @@ namespace Saber.World
             int statueIndex = GameProgressManager.Instance.LastStayingStatueIndex;
             var targetStatueInfo = m_SceneInfo.m_GodStatuePoint[statueIndex];
             Quaternion tarStatueRot = Quaternion.Euler(0, targetStatueInfo.m_RotationY, 0);
-            m_PlayerPos = targetStatueInfo.m_Position + tarStatueRot * new Vector3(0, 0.2f, 1.2f);
+            m_PlayerPos = targetStatueInfo.m_Position + tarStatueRot * new Vector3(0, 0.2f, 1.5f);
             m_PlayerRot = Quaternion.Euler(0, targetStatueInfo.m_RotationY + 180, 0);
 
             return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToLastGodStatue, null));
         }
 
         /// <summary>其它角色复原</summary>
-        void RecorverOtherActors()
+        public void RecorverOtherActors()
         {
-            if (!m_SceneInfo.m_ActiveOtherActors)
+            if (m_SceneInfo == null || !m_SceneInfo.m_ActiveOtherActors)
             {
                 return;
             }
@@ -937,75 +936,40 @@ namespace Saber.World
 
         #region GodStatue.IHandler
 
-        void GodStatue.IHandler.OnPlayerEnter(GodStatue godStatue)
+        void Idol.IHandler.OnPlayerEnter(Idol idol)
         {
-            m_CurrentStayingGodStatue = godStatue;
-            GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(godStatue);
+            m_CurrentStayingIdol = idol;
+            GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(idol);
         }
 
-        public void OnPlayerExit(GodStatue godStatue)
+        public void OnPlayerExit(Idol idol)
         {
-            m_CurrentStayingGodStatue = null;
-            GameApp.Entry.Game.PlayerAI.OnPlayerExitGodStatue(godStatue);
+            m_CurrentStayingIdol = null;
+            GameApp.Entry.Game.PlayerAI.OnPlayerExitGodStatue(idol);
         }
 
-        void GodStatue.IHandler.OnPlayerWorship(GodStatue godStatue)
+        void Idol.IHandler.OnPlayerWorship(Idol idol)
         {
             //GameApp.Entry.Game.PlayerCamera.LookAtTarget(godStatue.transform.rotation.eulerAngles.y + 150);
 
-            GameApp.Entry.Game.PlayerAI.WorshipGodStatue(godStatue, () =>
+            GameApp.Entry.Game.PlayerAI.ActiveIdol(idol, () =>
             {
-                GameProgressManager.Instance.OnGodStatueFire(godStatue.SceneID, godStatue.StatueIndex);
-                godStatue.RefreshFire();
+                GameProgressManager.Instance.OnGodStatueFire(idol.SceneID, idol.StatueIndex);
+                idol.RefreshFire();
             });
         }
 
-        Coroutine GodStatue.IHandler.OnPlayerRest(GodStatue godStatue)
+        Coroutine Idol.IHandler.OnPlayerRest(Idol idol)
         {
-            return OnPlayerResetItor(godStatue).StartCoroutine();
-        }
-
-        IEnumerator OnPlayerResetItor(GodStatue godStatue)
-        {
-            while (true)
-            {
-                Vector3 dirToStatue = godStatue.transform.position - m_Player.transform.position;
-                if (m_Player.CPhysic.AlignForwardTo(dirToStatue, 720))
-                    break;
-
-                yield return null;
-            }
-
-            m_Player.CStateMachine.PlayAction_BranchRest();
-
-            GameApp.Entry.Game.PlayerAI.Active = false;
-            GameApp.Entry.Game.PlayerAI.OnPlayerExitGodStatue(godStatue);
-            GameProgressManager.Instance.OnGodStatueRest(godStatue.SceneID, godStatue.StatueIndex);
-            GameApp.Entry.UI.CreateWnd<Wnd_Rest>(null, this);
-
-            yield return new WaitForSeconds(1);
-
-            m_Player.OnGodStatueRest();
-
-            yield return null;
-
-            RecorverOtherActors();
+            return GameApp.Entry.Game.PlayerAI.PlayerRestBeforeIdol(idol);
         }
 
         #endregion
 
 
-        #region Wnd_Rest.IHandler
+        #region Wnd_Rest
 
-        void Wnd_Rest.IHandler.OnClickQuit()
-        {
-            GameApp.Entry.Game.PlayerAI.Active = true;
-            GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(m_CurrentStayingGodStatue);
-
-            m_Player.CStateMachine.PlayAction_BranchRestEnd();
-        }
-
-        void Wnd_Rest.IHandler.OnClickTransmit(int sceneID, int statueIndex)
+        public void Transmit(int sceneID, int statueIndex)
         {
             TransmitItor(sceneID, statueIndex).StartCoroutine();
         }
@@ -1014,15 +978,15 @@ namespace Saber.World
         {
             GameApp.Entry.Game.PlayerAI.Active = true;
 
-            if (m_CurrentStayingGodStatue != null &&
-                sceneID == m_CurrentStayingGodStatue.SceneID &&
-                statueIndex == m_CurrentStayingGodStatue.StatueIndex)
+            if (m_CurrentStayingIdol != null &&
+                sceneID == m_CurrentStayingIdol.SceneID &&
+                statueIndex == m_CurrentStayingIdol.StatueIndex)
             {
-                GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(m_CurrentStayingGodStatue);
+                GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(m_CurrentStayingIdol);
                 yield break;
             }
 
-            OnPlayerExit(m_CurrentStayingGodStatue);
+            OnPlayerExit(m_CurrentStayingIdol);
 
             GameProgressManager.Instance.OnGodStatueRest(sceneID, statueIndex);
 
@@ -1033,13 +997,13 @@ namespace Saber.World
             m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
             var targetStatueInfo = m_SceneInfo.m_GodStatuePoint[statueIndex];
             Quaternion tarStatueRot = Quaternion.Euler(0, targetStatueInfo.m_RotationY, 0);
-            m_PlayerPos = targetStatueInfo.m_Position + tarStatueRot * new Vector3(0, 0.2f, 1.2f);
+            m_PlayerPos = targetStatueInfo.m_Position + tarStatueRot * new Vector3(0, 0.2f, 1.5f);
             m_PlayerRot = Quaternion.Euler(0, targetStatueInfo.m_RotationY + 180, 0);
 
             yield return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToGodStatue, null));
         }
 
-        public void OnSelectEnemy(int actorID)
+        public void CreateEnemy(int actorID)
         {
             DestroyOtherActors();
             var bornPoint = m_SceneInfo.m_OtherActorBornPoints[0];

@@ -13,9 +13,20 @@ namespace Saber.CharacterController
         {
             get
             {
-                return Actor.CPhysic.Grounded &&
+                bool canEnter = Actor.CPhysic.Grounded &&
                        Actor.MoveSpeedV != EMoveSpeedV.None &&
                        Actor.MovementAxisMagnitude > 0;
+                if (!canEnter)
+                {
+                    return false;
+                }
+
+                if (Actor.MoveSpeedV == EMoveSpeedV.Sprint)
+                {
+                    return Actor.CStats.CurrentStamina > 10;
+                }
+
+                return true;
             }
         }
 
@@ -198,10 +209,12 @@ namespace Saber.CharacterController
             {
                 // 若体力为0，则等待体力恢复一定值再冲刺，否则抖动
                 Actor.CStats.CostStamina(10 * base.DeltaTime);
+                /*
                 if (Actor.CStats.CurrentStamina <= 0)
                 {
                     Actor.WaitStaminaRecoverBeforeSprint = true;
                 }
+                */
             }
 
             // 位移

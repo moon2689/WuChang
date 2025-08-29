@@ -1,5 +1,3 @@
-
-
 namespace Saber.CharacterController
 {
     public class Die : ActorStateBase
@@ -15,8 +13,9 @@ namespace Saber.CharacterController
         public override void Enter()
         {
             base.Enter();
-            Actor.CAnim.PlayClip("Animation/Die/Die1", null);
+            Actor.CAnim.Play("Die");
             Actor.CPhysic.UseGravity = true;
+            Actor.CMelee.CWeapon.ToggleWeapon(false);
         }
     }
 }

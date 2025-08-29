@@ -67,6 +67,7 @@ namespace Saber.UI
         [SerializeField] private GameObject m_parentButtons;
         [SerializeField] private Text m_TextBtnInteract;
         [SerializeField] private Text m_MedicineCount;
+        [SerializeField] private GameObject m_Sticks;
 
         private IHandler m_Handler;
         private ESceneInteractType m_InteractType;
@@ -87,6 +88,11 @@ namespace Saber.UI
         }
 
         protected override bool PauseGame => false;
+
+        public bool ActiveSticks
+        {
+            set { m_Sticks.SetActive(value); }
+        }
 
 
         protected override void OnAwake()
@@ -187,7 +193,7 @@ namespace Saber.UI
             m_TextBtnInteract.text = m_InteractType switch
             {
                 ESceneInteractType.Portal => "进入",
-                ESceneInteractType.Worship => "膜拜",
+                ESceneInteractType.ActiveIdol => "膜拜",
                 ESceneInteractType.Rest => "祈福",
                 _ => throw new InvalidOperationException($"Unknown EInteractType:{m_InteractType}"),
             };

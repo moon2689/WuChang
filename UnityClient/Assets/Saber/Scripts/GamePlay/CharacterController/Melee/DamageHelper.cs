@@ -33,7 +33,7 @@ namespace Saber.CharacterController
             return dmgPos;
         }
         */
-        
+
         public static bool TryHit(Collider other, SActor actor,
             WeaponDamageSetting damageSetting, DamageInfo curDmgInfo)
         {
@@ -305,7 +305,7 @@ namespace Saber.CharacterController
             AudioClip sound = null;
             if (block)
             {
-                // sound = GameApp.Entry.Config.GameSetting.GetRandomSound_SwordHitSword();
+                sound = GameApp.Entry.Config.GameSetting.GetRandomSound_SwordHitSword();
             }
             else
             {

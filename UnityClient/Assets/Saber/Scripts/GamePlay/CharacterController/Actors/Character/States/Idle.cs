@@ -7,13 +7,16 @@ namespace Saber.CharacterController
 {
     public class Idle : ActorStateBase
     {
-        public override bool ApplyRootMotionSetWhenEnter => true;
-
-        //private bool m_IsFalling;
         private SCharacter Character;
 
-        protected override ActorBaseStats.EStaminaRecSpeed StaminaRecSpeed =>
-            ActorBaseStats.EStaminaRecSpeed.Fast;
+        private bool m_IsSettingPosAndForward;
+        private Vector3 m_ToSetForward;
+        private float m_ToSetPosTime;
+        private Vector3 m_ToSetPosSpeed;
+        private Action m_SetPosAndForwardFinishedEvent;
+
+        public override bool ApplyRootMotionSetWhenEnter => true;
+        protected override ActorBaseStats.EStaminaRecSpeed StaminaRecSpeed => ActorBaseStats.EStaminaRecSpeed.Fast;
 
 
         public Idle() : base(EStateType.Idle)
@@ -26,58 +29,80 @@ namespace Saber.CharacterController
             Character = base.Actor as SCharacter;
         }
 
-        /*
-        public override void Enter()
-        {
-            base.Enter();
-
-            m_IsFalling = Character.CAnim.IsName("FallArmed", 0) || Character.CAnim.IsName("FallUnarmed", 0);
-        }
-
         public override void OnStay()
         {
             base.OnStay();
-            
-            if (StateMachine.Fall())
-                return;
-            
-            if (m_IsFalling && Character.CPhysic.Grounded)
+
+            if (m_IsSettingPosAndForward)
+                SetPosAndForward();
+        }
+
+        void SetPosAndForward()
+        {
+            if (m_ToSetPosTime > 0)
             {
-                Character.CAnim.Play("LandSoft" + AnimEndStringByArmed);
-                m_IsFalling = false;
+                Actor.CPhysic.AdditivePosition += m_ToSetPosSpeed * base.DeltaTime;
+                m_ToSetPosTime -= DeltaTime;
+            }
+
+            if (Actor.CPhysic.AlignForwardTo(m_ToSetForward, 720))
+            {
+                if (m_ToSetPosTime <= 0)
+                {
+                    m_IsSettingPosAndForward = false;
+                    m_SetPosAndForwardFinishedEvent?.Invoke();
+                }
             }
         }
 
-        public void PlayTalkingGesture()
+        public void SetPosAndForward(Vector3 tarPos, Vector3 forward, float time, Action onFinished)
         {
-            int ranIndex = UnityEngine.Random.Range(1, 5);
-            Character.CAnim.Play("TalkingGesture" + ranIndex);
-        }
-        */
+            m_IsSettingPosAndForward = true;
+            m_ToSetForward = forward;
+            m_ToSetPosTime = time;
+            m_SetPosAndForwardFinishedEvent = onFinished;
 
-        public void BranchRepair(Action onPlayed)
-        {
-            Character.CAnim.Play("BranchRepair", exitTime: 0.6f, onFinished: onPlayed);
-        }
-
-        public void BranchRest()
-        {
-            Character.CAnim.Play("BranchRest");
+            Vector3 dis = tarPos - Actor.transform.position;
+            dis.y = 0;
+            m_ToSetPosSpeed = dis.normalized * dis.magnitude / time;
         }
 
-        public void BranchRestEnd()
+        public void IdolActive(Action onPlayFinish)
         {
-            Character.CAnim.Play("BranchRestEnd");
+            Character.CAnim.Play("IdolActive", onFinished: onPlayFinish);
+        }
+
+        public void IdolRest()
+        {
+            Character.CAnim.Play("IdolRest");
+        }
+
+        public void IdolRestEnd(Action onPlayFinish)
+        {
+            Character.CAnim.Play("IdolRestEnd", onFinished: onPlayFinish);
         }
 
         public void BranchTeleport()
         {
-            Character.CAnim.Play("BranchTeleport");
+            Character.CAnim.Play("IdolRest");
         }
 
         public void GoHome()
         {
-            Character.CAnim.Play("GoHome");
+            Character.CAnim.Play("IdolRest");
+        }
+
+        public override void OnTriggerAnimEvent(AnimPointTimeEvent eventObj)
+        {
+            base.OnTriggerAnimEvent(eventObj);
+            if (eventObj.EventType == EAnimTriggerEvent.ShowWeapon)
+            {
+                Character.CMelee.CWeapon.ToggleWeapon(true);
+            }
+            else if (eventObj.EventType == EAnimTriggerEvent.HideWeapon)
+            {
+                Character.CMelee.CWeapon.ToggleWeapon(false);
+            }
         }
     }
 }

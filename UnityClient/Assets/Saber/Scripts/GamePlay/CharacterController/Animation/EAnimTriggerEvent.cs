@@ -19,6 +19,8 @@ namespace Saber.CharacterController
         PlayExpression,
         DodgeToSprint,
         ExecuteDamage,
+        ShowWeapon,
+        HideWeapon,
     }
 
     [Serializable]
@@ -34,21 +36,5 @@ namespace Saber.CharacterController
         Kinematic,
         
         CreateObject,
-    }
-    
-    // 绑定在动画clip上的事件
-    public enum EAnimClipEventType
-    {
-        FootL,
-        FootR,
-        Foot1,
-        Foot2,
-        Foot3,
-        Foot4,
-        ActionFootL,
-        ActionFootR,
-        RushStopLeft,
-        RollEvent,
-        PlayAudio,
     }
 }

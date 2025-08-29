@@ -75,8 +75,7 @@ namespace Saber.Director
                 yield return new WaitForSeconds(60);
                 if (!GameApp.Entry.Game.Audio.IsBGMPlaying)
                 {
-                    if (UnityEngine.Random.Range(0, 100) > 50)
-                        PlayRandomBGM();
+                    PlayRandomBGM();
                 }
             }
         }

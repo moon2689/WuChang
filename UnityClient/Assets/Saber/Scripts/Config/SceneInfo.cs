@@ -84,6 +84,6 @@ namespace Saber.Config
         public Vector3 m_Position;
         public float m_RotationY;
 
-        public GodStatue GodStatueObject { get; set; }
+        public Idol IdolObject { get; set; }
     }
 }

@@ -3,7 +3,7 @@ namespace Saber.World
     public enum ESceneInteractType
     {
         Portal,
-        Worship,
+        ActiveIdol,
         Rest,
     }
 }

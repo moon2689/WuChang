@@ -22,13 +22,13 @@ namespace DuloGames.UI
             foreach (Resolution res in resolutions)
             {
                 // Add new resolution option
-                this.m_SelectField.AddOption(res.width + "x" + res.height + " @ " + res.refreshRate + "Hz");
+                this.m_SelectField.AddOption(res.width + "x" + res.height + " @ " + res.refreshRateRatio+ "Hz");
             }
 
             Resolution currentResolution = Screen.currentResolution;
 
             // Set the current resolution as selected
-            this.m_SelectField.SelectOption(currentResolution.width + "x" + currentResolution.height + " @ " + currentResolution.refreshRate + "Hz");
+            this.m_SelectField.SelectOption(currentResolution.width + "x" + currentResolution.height + " @ " + currentResolution.refreshRateRatio + "Hz");
         }
 
         protected void OnEnable()
@@ -54,7 +54,7 @@ namespace DuloGames.UI
             if (res.Equals(Screen.currentResolution))
                 return;
 
-            Screen.SetResolution(res.width, res.height, true, res.refreshRate);
+            Screen.SetResolution(res.width, res.height, true);
         }
     }
 }

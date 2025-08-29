@@ -15,9 +15,17 @@ namespace Saber
         public interface ITarget
         {
             Vector3 Position { get; }
+            Vector3 LockPosition { get; }
             Quaternion Rotation { get; }
             float Height { get; }
             bool IsMoving { get; }
+        }
+
+        enum ELookAtLockTargetType
+        {
+            None,
+            Slow,
+            Fast,
         }
 
         // comparer for check distances in ray cast hits
@@ -50,7 +58,6 @@ namespace Saber
         [SerializeField] float m_TiltMin = 45f; // The minimum value of the x axis rotation of the pivot.
 
         [SerializeField] Vector2 m_MovementAxis;
-        [SerializeField] Rect m_LockTargetDeadRect = new(0.3f, 0.2f, 0.5f, 0.6f);
 
         private float m_LookAngle; // The rig's y axis rotation.
         private float m_TiltAngle; // The pivot's x axis rotation.
@@ -67,6 +74,7 @@ namespace Saber
 
         // private Vector3 m_LockTargetViewportPoint;
         private bool m_IsInputingMovementAxis;
+        private ELookAtLockTargetType m_LookAtLockTargetType;
 
 
         [Header("Wall Stop")]
@@ -278,7 +286,7 @@ namespace Saber
                 return;
             }
 
-            if (m_LockTarget != null)
+            if (LockTarget != null)
             {
                 HandleLockTarget(Time.fixedDeltaTime);
             }
@@ -290,116 +298,121 @@ namespace Saber
             m_IsInputingMovementAxis = false;
         }
 
+        void CalcViewPoint(out bool outScreen, out bool outCenterRect)
+        {
+            Vector3 lockPos = LockTarget.LockPosition;
+            Vector3 viewPoint = Cam.WorldToViewportPoint(lockPos);
+            outScreen = viewPoint.x < 0.1f || viewPoint.x > 0.9f || viewPoint.y < 0.1f || viewPoint.y > 0.9f;
+            outCenterRect = viewPoint.x < 0.4f || viewPoint.x > 0.7f || viewPoint.y < 0.4f || viewPoint.y > 0.8f;
+        }
+
+        void CheckWhetherLookAtTarget(Vector3 dirToLockTarget)
+        {
+            if (m_IsInputingMovementAxis || MovementAxis != Vector2.zero)
+            {
+                m_LookAtLockTargetType = ELookAtLockTargetType.None;
+                return;
+            }
+
+            if (m_TimerLockTarget > 0)
+                m_TimerLockTarget -= Time.deltaTime;
+            else
+                m_LookAtLockTargetType = ELookAtLockTargetType.None;
+
+            if (m_LookAtLockTargetType == ELookAtLockTargetType.None)
+            {
+                // 是否在移动
+                if (Target.IsMoving)
+                {
+                    m_LookAtLockTargetType = ELookAtLockTargetType.Fast;
+                }
+
+                // 是否在背面
+                if (m_LookAtLockTargetType == ELookAtLockTargetType.None)
+                {
+                    if (Vector3.Dot(dirToLockTarget, CamT.forward) < 0)
+                    {
+                        m_LookAtLockTargetType = ELookAtLockTargetType.Fast;
+                    }
+                }
+
+                // 是否超出屏幕
+                if (m_LookAtLockTargetType == ELookAtLockTargetType.None)
+                {
+                    CalcViewPoint(out bool outScreen, out bool outCenterRect);
+                    if (outScreen)
+                        m_LookAtLockTargetType = ELookAtLockTargetType.Fast;
+                    else if (outCenterRect)
+                        m_LookAtLockTargetType = ELookAtLockTargetType.Slow;
+                }
+
+                if (m_LookAtLockTargetType != ELookAtLockTargetType.None)
+                    m_TimerLockTarget = 1.5f;
+            }
+            else if (m_LookAtLockTargetType == ELookAtLockTargetType.Slow)
+            {
+                // 是否超出屏幕
+                CalcViewPoint(out bool outScreen, out bool _);
+                if (outScreen)
+                {
+                    m_LookAtLockTargetType = ELookAtLockTargetType.Fast;
+                    m_TimerLockTarget = 1.5f;
+                }
+            }
+
+            //Debug.Log($"ViewPoint:{viewPoint}  {m_LookAtLockTargetType}");
+        }
+
         private void HandleLockTarget(float deltaTime)
         {
             if (Time.timeScale < float.Epsilon)
                 return;
 
-            Vector3 lockDir = m_LockTarget.Position - Target.Position;
-            Vector3 lockDirRight = Vector3.Cross(lockDir, Vector3.down).normalized;
+            Vector3 dirToLockTarget = LockTarget.Position - Target.Position;
+            Vector3 lockDirRight = Vector3.Cross(dirToLockTarget, Vector3.down).normalized;
             Vector3 tarPos = Target.Position + lockDirRight * 0.5f; //摄像机位置偏向于主角右边
-
             transform.position = Vector3.Lerp(transform.position, tarPos, deltaTime * m_MoveSpeed);
 
+            // 锁定目标时，仍可手动调整摄像机方向
             if (m_IsInputingMovementAxis || MovementAxis != Vector2.zero)
             {
                 float speed = m_TurnSmoothing * deltaTime * 10;
                 transform.localRotation *= Quaternion.Euler(0f, MovementAxis.x * speed, 0f);
                 Pivot.localRotation *= Quaternion.Euler(-MovementAxis.y * speed, 0, 0f);
-                m_TimerLockTarget = 0;
                 return;
             }
 
             // whether look at target
-            if (m_TimerLockTarget > 0)
-                m_TimerLockTarget -= Time.deltaTime;
-            bool lookAtTarget = m_TimerLockTarget > 0;
-            if (!lookAtTarget)
+            CheckWhetherLookAtTarget(dirToLockTarget);
+
+            if (m_LookAtLockTargetType != ELookAtLockTargetType.None)
             {
-                if (Target.IsMoving)
-                {
-                    lookAtTarget = true;
-                }
-
-                if (!lookAtTarget)
-                {
-                    // SDebug.Draw_Arrow(LockTarget.transform.position + Vector3.up, Vector3.down, Color.green);
-                    //Debug.Log($"{LockTarget.transform.position} -> {viewportPoint}");
-                    Vector3 lockPos = m_LockTarget.Position + Vector3.up * m_LockTarget.Height * 0.6f;
-                    Vector3 ViewPoint = Cam.WorldToViewportPoint(lockPos);
-                    bool inScreen = ViewPoint.x > m_LockTargetDeadRect.xMin &&
-                                    ViewPoint.x < m_LockTargetDeadRect.xMax &&
-                                    ViewPoint.y > m_LockTargetDeadRect.yMin &&
-                                    ViewPoint.y < m_LockTargetDeadRect.yMax;
-                    if (!inScreen)
-                        lookAtTarget = true;
-                    /*
-                    else if (viewportPoint.x > 0.35f && viewportPoint.x < 0.46f)
-                        lookAtTarget = true;
-                    */
-                }
-
-                if (!lookAtTarget)
-                {
-                    Vector3 disToLockTarget = m_LockTarget.Position - Target.Position;
-                    Vector3 camForward = CamT.forward;
-                    if (Vector3.Dot(disToLockTarget, camForward) < 0)
-                    {
-                        lookAtTarget = true;
-                    }
-                }
-
-                if (lookAtTarget)
-                    m_TimerLockTarget = 1.5f;
-            }
-
-            if (lookAtTarget)
-            {
-                Vector3 newLockDir = m_LockTarget.Position - (Target.Position + lockDirRight * 0.5f);
+                Vector3 newLockDir = LockTarget.LockPosition - (Target.Position + Vector3.up * Target.Height + lockDirRight * 0.5f);
 
                 // 垂直方向
                 Vector3 projectDir = Vector3.ProjectOnPlane(newLockDir, transform.right);
                 float angle = Vector3.SignedAngle(transform.forward, projectDir, transform.right);
                 angle += 10f;
-                /*
-                float heightRate = m_LockTarget.Height / Target.Height;
-                Debug.Log($"{heightRate}  {angle}");
-                if (heightRate > 2f)
-                {
-                   angle -= 10f;
-                }
-                else if (heightRate > 1.2f)
-                {
-                    angle += 10f;
-                }
-                else if (heightRate < 0.5f)
-                {
-                    angle += 20f;
-                }
-                else
-                {
-                    angle += 10f;
-                }*/
+
+                float speed = m_LookAtLockTargetType == ELookAtLockTargetType.Fast ? 1 : 0.1f;
+                speed *= m_TurnSmoothing * deltaTime;
 
                 if (Mathf.Abs(angle) < 90)
                 {
                     m_PivotTargetRot = Quaternion.Euler(angle, m_PivotEulers.y, m_PivotEulers.z);
-                    Pivot.localRotation = Quaternion.Slerp(Pivot.localRotation, m_PivotTargetRot,
-                        m_TurnSmoothing * deltaTime);
+                    Pivot.localRotation = Quaternion.Slerp(Pivot.localRotation, m_PivotTargetRot, speed);
                 }
 
-                // 水平方向
-                // 摄像机目标点在锁定敌人左边
+                // 水平方向,摄像机目标点在锁定敌人左边
                 m_TransformTargetRot = Quaternion.LookRotation(new Vector3(newLockDir.x, 0, newLockDir.z));
-                transform.localRotation = Quaternion.Slerp(transform.localRotation, m_TransformTargetRot,
-                    m_TurnSmoothing * deltaTime);
+                transform.localRotation = Quaternion.Slerp(transform.localRotation, m_TransformTargetRot, speed);
             }
         }
 
         /*
         private void OnGUI()
         {
-            if (m_LockTargetCirclePoint && m_LockTarget != null)
+            if (m_LockTargetCirclePoint && LockTarget != null)
             {
                 float x = Screen.width * m_LockTargetViewportPoint.x;
                 float y = Screen.height * (1 - m_LockTargetViewportPoint.y);

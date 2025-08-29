@@ -101,5 +101,13 @@ namespace Saber.CharacterController
             if (w != null)
                 w.HideTrail();
         }
+
+        public void ToggleWeapon(bool show)
+        {
+            for (int i = 0; i < m_CurWeapons.Length; i++)
+            {
+                m_CurWeapons[i].gameObject.SetActive(show);
+            }
+        }
     }
 }

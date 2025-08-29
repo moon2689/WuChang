@@ -77,7 +77,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5504936955085181904}
-  - component: {fileID: 3097432371117999406}
+  - component: {fileID: 2468409911873757604}
   m_Layer: 0
   m_Name: YueYaChan
   m_TagString: Untagged
@@ -103,7 +103,7 @@ Transform:
   - {fileID: 5452846328833726978}
   m_Father: {fileID: 6353741421630070912}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3097432371117999406
+--- !u!114 &2468409911873757604
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,14 +112,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 325599469695131859}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eafa772c641b1b48965a5a78cac7f1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 078f86e5c1fc484f80e9eb585c1d684e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_WeaponType: 3
   m_WeaponTrails: []
   m_PosStart: {fileID: 2745496709788906179}
   m_PosEnd: {fileID: 5452846328833726978}
-  m_RayMinDistanceInterval: 0.5
 --- !u!1 &1303012939102062605
 GameObject:
   m_ObjectHideFlags: 0
@@ -2083,7 +2082,7 @@ MonoBehaviour:
         m_ArmBoneType: 24
         m_ArmPos: {x: 0, y: 0, z: 0}
         m_ArmRot: {x: 0, y: 0, z: 0}
-      m_WeaponObj: {fileID: 3097432371117999406}
+      m_WeaponObj: {fileID: 0}
     m_AIInfo:
       m_WarningRange: 10
     m_Nodes:

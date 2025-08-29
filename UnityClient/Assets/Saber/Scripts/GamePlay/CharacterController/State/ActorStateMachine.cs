@@ -375,17 +375,17 @@ namespace Saber.CharacterController
             Actor.CPhysic.UseGravity = true;
         }
 
-        public virtual bool PlayAction_BranchRepair(Action onPlayed)
+        public virtual bool PlayAction_IdolActive(Action onPlayed)
         {
             return false;
         }
 
-        public virtual bool PlayAction_BranchRest()
+        public virtual bool PlayAction_IdolRest()
         {
             return false;
         }
 
-        public virtual bool PlayAction_BranchRestEnd()
+        public virtual bool PlayAction_IdolRestEnd(Action onPlayFinish)
         {
             return false;
         }
@@ -436,9 +436,8 @@ namespace Saber.CharacterController
             return true;
         }
 
-        public virtual bool UseItem(UseItem.EItemType itemType)
+        public virtual void SetPosAndForward(Vector3 tarPos, Vector3 forward, float time, Action onFinished)
         {
-            return false;
         }
     }
 }

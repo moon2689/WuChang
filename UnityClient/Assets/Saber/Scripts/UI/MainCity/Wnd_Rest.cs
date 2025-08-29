@@ -16,7 +16,7 @@ namespace Saber.UI
         {
             void OnClickQuit();
             void OnClickTransmit(int sceneID, int statueIndex);
-            void OnSelectEnemy(int actorID);
+            void CreateEnemy(int actorID);
         }
 
         [SerializeField] private Button m_BtnQuit;
@@ -92,7 +92,7 @@ namespace Saber.UI
                 item.GetComponentInChildren<Text>().text = actorItemInfo.m_Name;
                 item.GetComponentInChildren<Button>().onClick.AddListener(() =>
                 {
-                    m_Handler.OnSelectEnemy(actorItemInfo.m_ID);
+                    m_Handler.CreateEnemy(actorItemInfo.m_ID);
                     GameApp.Entry.Game.Audio.PlayCommonClick();
                     GameApp.Entry.UI.ShowTips("创建怪物成功！", 1);
                 });

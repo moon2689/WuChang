@@ -48,5 +48,10 @@ namespace Saber.Frame
             var w = CreateWnd<Wnd_Tips>();
             w.ShowText(msg, textTime);
         }
+
+        public T GetWnd<T>() where T : WndBase, new()
+        {
+            return RootUI.Instance.GetShowingWnd<T>();
+        }
     }
 }

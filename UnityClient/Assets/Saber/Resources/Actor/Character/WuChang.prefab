@@ -1162,7 +1162,7 @@ MonoBehaviour:
   m_BaseActorInfo:
     m_IsPlayer: 0
     m_StatsInfo:
-      m_MaxHp: 100
+      m_MaxHp: 20
       m_DefaultHpRecSpeed: 0
       m_MaxStamina: 100
       m_MaxPower: 8
@@ -1202,6 +1202,8 @@ MonoBehaviour:
       m_NodeTrans: {fileID: 6721398770134152805}
     - m_Type: 24
       m_NodeTrans: {fileID: 6153310854026616086}
+    - m_Type: 23
+      m_NodeTrans: {fileID: 4128014584909223765}
   m_CharacterInfo:
     m_ClothInfo:
       m_Enable: 1

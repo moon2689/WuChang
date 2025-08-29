@@ -26,7 +26,8 @@ MonoBehaviour:
   PerfectDodgeShaEffCount: 3
   PerfectDodgeShaInterval: 0.2
   PerfectDodgeShaHoldTime: 0.5
-  m_SoundSwordHitSword: []
+  m_SoundSwordHitSword:
+  - {fileID: 8300000, guid: 0033e1e4b1d3e0d43aa3c336b531f70b, type: 3}
   m_SoundWeaponHitGround:
   - {fileID: 8300000, guid: 8db4e869274f0584ab4f9bde3185f7f3, type: 3}
   m_SoundSharpWeaponHitBody:

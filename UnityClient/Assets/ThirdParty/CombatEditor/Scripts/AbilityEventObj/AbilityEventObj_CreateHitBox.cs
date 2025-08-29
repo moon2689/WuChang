@@ -90,8 +90,6 @@ namespace Saber.CharacterController
                 capsuleCollider2D.offset = new Vector2(EventObj.ColliderOffset.z, EventObj.ColliderOffset.y);
                 capsuleCollider2D.size = new Vector2(EventObj.ColliderSize.z, EventObj.ColliderSize.y);
             }
-            
-            base.Actor.CMelee.ToggleDamage(EventObj.m_WeaponDamageSetting, true);
         }
 
         protected override void EndEffect()
@@ -99,8 +97,6 @@ namespace Saber.CharacterController
             CurrentHitBox?.Hide();
 
             base.EndEffect();
-            
-            base.Actor.CMelee.ToggleDamage(EventObj.m_WeaponDamageSetting, false);
         }
     }
 

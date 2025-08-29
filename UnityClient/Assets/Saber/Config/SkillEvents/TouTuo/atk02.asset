@@ -90,7 +90,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0, y: 0.37048194}
+    EventRange: {x: 0, y: 0.67469877}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -135,15 +135,6 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -7520908954871964161}
   - EventTime: 0
-    EventRange: {x: 0.37048194, y: 0.6415663}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 503062038605494280}
-  - EventTime: 0
     EventRange: {x: 0.62650603, y: 0.67771083}
     EventMultiRange:
     - 0.2
@@ -161,6 +152,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -5388176379663999569}
+  - EventTime: 0
+    EventRange: {x: 0.939759, y: 0.9608434}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 4115118813677850285}
 --- !u!114 &271184215691174644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,20 +187,6 @@ MonoBehaviour:
   ColliderSize: {x: 1, y: 1, z: 1}
   Radius: 1.8198113
   Height: 1
---- !u!114 &503062038605494280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7f29d956cd14f76ae2ff6fbffccde20, type: 3}
-  m_Name: AlignToEnemy
-  m_EditorClassIdentifier: 
-  IsActive: 1
-  m_RotateSpeed: 360
 --- !u!114 &717578042539710525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +219,19 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 88f1375209f525643883f78558b3a70e, type: 3}
   m_Volume: 1
+--- !u!114 &4115118813677850285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb9d103b2e74362b49578d9f2b35094, type: 3}
+  m_Name: ComboTime
+  m_EditorClassIdentifier: 
+  IsActive: 1
 --- !u!114 &5016968370361538703
 MonoBehaviour:
   m_ObjectHideFlags: 0
