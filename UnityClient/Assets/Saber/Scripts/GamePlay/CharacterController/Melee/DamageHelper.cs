@@ -128,26 +128,26 @@ namespace Saber.CharacterController
             //     return;
             // }
 
-            // 失衡
-            if (enemy.CurrentResilience <= 0)
+            // 打击恢复
+            bool toHitRec = (int)damageSetting.m_ImpactForce > (int)enemy.CurrentResilience;
+            if (!toHitRec)
             {
-                enemy.OnHit(curDmgInfo);
+                toHitRec = GetHit.ToBlockBroken(curDmgInfo, enemy); //是否破防
             }
-            else
+
+            if (toHitRec)
             {
-                // 硬直
-                if ((int)damageSetting.m_ImpactForce > (int)enemy.CurrentResilience)
+                // 是否正在破防中
+                bool isBlockBrokening = enemy.CurrentStateType == EStateType.GetHit &&
+                                        enemy.CStateMachine.CurrentState is IHitRecovery hitRec &&
+                                        hitRec.IsBlockBrokenHurtType;
+                if (!isBlockBrokening)
                 {
-                    bool isBlockBroken = enemy.CurrentStateType == EStateType.GetHit &&
-                                         enemy.CStateMachine.CurrentState is IHitRecovery hitRec &&
-                                         hitRec.IsBlockBrokenHurtType;
-                    if (!isBlockBroken)
-                    {
-                        // 受击反馈
-                        enemy.OnHit(curDmgInfo);
-                    }
+                    // 受击反馈
+                    enemy.OnHit(curDmgInfo);
                 }
             }
+
 
             // 骨骼受击抖动
             float force = GameApp.Entry.Config.GameSetting.IKBoneForceOnHit;

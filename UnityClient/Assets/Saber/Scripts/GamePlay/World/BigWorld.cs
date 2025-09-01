@@ -29,6 +29,10 @@ namespace Saber.World
             ToNextSceneByPortal,
             ToGodStatue,
         }
+        
+        
+        public Action OnSetLockingEnemyEvent;
+        
 
         private SActor m_Player;
 
@@ -451,7 +455,6 @@ namespace Saber.World
 
                 m_Player = SActor.Create(id, m_PlayerPos, m_PlayerRot, ai, EActorCamp.Player);
                 m_Player.name += "(Player)";
-                m_Player.IsPlayer = true;
                 m_Player.Event_OnDead += OnPlayerDead;
 
                 GameObject.DontDestroyOnLoad(m_Player.gameObject);
@@ -469,6 +472,8 @@ namespace Saber.World
 
                 yield return null;
                 */
+
+                ai.OnSetLockingEnemy = OnSetLockingEnemy;
 
                 for (int i = 0; i < 10; i++)
                 {
@@ -495,6 +500,11 @@ namespace Saber.World
             GameApp.Entry.Unity.StartCoroutine(RebirthPlayerItor());
         }
 
+        void OnSetLockingEnemy()
+        {
+            OnSetLockingEnemyEvent?.Invoke();
+        }
+
         #endregion
 
 
@@ -503,7 +513,7 @@ namespace Saber.World
         /// <summary>死亡后重生，回到上次存档点</summary>
         IEnumerator RebirthPlayerItor()
         {
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(8);
 
             m_Player.Rebirth();
             yield return null;
@@ -608,9 +618,17 @@ namespace Saber.World
 
         IEnumerator GoHome()
         {
-            if (m_Player.CStateMachine.PlayAction_GoHome())
+            bool wait = true;
+            if (m_Player.CStateMachine.PlayAction_GoHome(() => wait = false))
             {
-                yield return new WaitForSeconds(3);
+                m_Player.CMelee.CWeapon.ToggleWeapon(false);
+                while (wait)
+                {
+                    yield return null;
+                }
+
+                m_Player.CMelee.CWeapon.ToggleWeapon(true);
+
                 yield return BackToLastGodStatue();
             }
             else
@@ -990,9 +1008,12 @@ namespace Saber.World
 
             GameProgressManager.Instance.OnGodStatueRest(sceneID, statueIndex);
 
-            m_Player.CStateMachine.PlayAction_BranchTeleport();
-
-            yield return new WaitForSeconds(2);
+            bool wait = true;
+            m_Player.CStateMachine.PlayAction_BranchTeleport(() => wait = false);
+            while (wait)
+            {
+                yield return null;
+            }
 
             m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
             var targetStatueInfo = m_SceneInfo.m_GodStatuePoint[statueIndex];

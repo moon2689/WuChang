@@ -153,6 +153,11 @@ namespace Saber.CharacterController
                 return false;
             }
 
+            if (Actor.CAbility != null && Actor.CAbility.CurAbility != null && !Actor.CAbility.CurAbility.CanSwitchTo(to))
+            {
+                return false;
+            }
+
             if (CurrentState == null || !CurrentState.IsTriggering)
             {
                 return true;
@@ -380,7 +385,7 @@ namespace Saber.CharacterController
             return false;
         }
 
-        public virtual bool PlayAction_IdolRest()
+        public virtual bool PlayAction_IdolRest(Action onPlayFinish)
         {
             return false;
         }
@@ -390,12 +395,12 @@ namespace Saber.CharacterController
             return false;
         }
 
-        public virtual bool PlayAction_BranchTeleport()
+        public virtual bool PlayAction_BranchTeleport(Action onPlayFinish)
         {
             return false;
         }
 
-        public virtual bool PlayAction_GoHome()
+        public virtual bool PlayAction_GoHome(Action onPlayFinish)
         {
             return false;
         }

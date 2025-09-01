@@ -48,13 +48,13 @@ namespace Saber.Config
         
         public GameObject LoadGameObject()
         {
-            string res = $"Actor/Character/Clothes/{m_Classify}/{PrefabName}";
+            string res = $"Actor/Player/Clothes/{m_Classify}/{PrefabName}";
             return GameApp.Entry.Asset.LoadGameObject(res);
         }
 
         public Texture2D LoadIcon()
         {
-            string res = $"Actor/Character/Clothes/{m_Classify}/Icon_{PrefabName}";
+            string res = $"Actor/Player/Clothes/{m_Classify}/Icon_{PrefabName}";
             return GameApp.Entry.Asset.LoadTexture(res);
         }
     }

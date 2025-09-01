@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5883253797890074744}
   - component: {fileID: 4655281136557992613}
   m_Layer: 0
-  m_Name: Hit Reaction
+  m_Name: HitReaction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

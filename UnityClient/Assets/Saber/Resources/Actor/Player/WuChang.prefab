@@ -1160,7 +1160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BaseActorInfo:
-    m_IsPlayer: 0
+    m_ActorType: 3
     m_StatsInfo:
       m_MaxHp: 20
       m_DefaultHpRecSpeed: 0

@@ -321,7 +321,7 @@ namespace Saber.UI
                 m_ButtonDefense.TriggerEvent(EventTriggerType.PointerUp);
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.H))
             {
                 if (m_ButtonDrinkMedicine.gameObject.activeSelf)
                     m_ButtonDrinkMedicine.OnSubmit(null);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Saber.CharacterController;
@@ -7,8 +8,26 @@ namespace Saber.AI
 {
     public abstract class BaseAI
     {
+        public Action OnSetLockingEnemy;
+
+
+        private SActor m_LockingEnemy;
+
         public SActor Actor { get; private set; }
-        public SActor LockingEnemy { get; protected set; }
+
+        public SActor LockingEnemy
+        {
+            get => m_LockingEnemy;
+            protected set
+            {
+                if (m_LockingEnemy != value)
+                {
+                    m_LockingEnemy = value;
+                    OnSetLockingEnemy?.Invoke();
+                }
+            }
+        }
+
 
         public virtual void Init(SActor actor)
         {

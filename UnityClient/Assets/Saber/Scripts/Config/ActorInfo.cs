@@ -35,9 +35,9 @@ namespace Saber.Config
     [Serializable]
     public enum EActorType
     {
-        Character,
         Monster,
+        Boss,
         NPC,
-        Spirit,
+        Player,
     }
 }

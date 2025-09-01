@@ -11,7 +11,6 @@ namespace Saber.CharacterController
     [Serializable]
     public class BaseActorInfo
     {
-        public bool m_IsPlayer;
         public StatsInfo m_StatsInfo;
         public PhysicInfo m_PhysicInfo;
         public SkillConfig m_SkillConfig;

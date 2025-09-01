@@ -84,7 +84,7 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_WeaponBone: 24
     m_DamageValue: 5
-    m_ImpactForce: 1
+    m_ImpactForce: 2
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
 --- !u!114 &11400000
@@ -176,6 +176,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -1283097458895215090}
+  - EventTime: 0.008219178
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 6704305838054549669}
 --- !u!114 &1112680314797684732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,3 +257,19 @@ MonoBehaviour:
   ColliderSize: {x: 1, y: 1, z: 1}
   Radius: 1.8198113
   Height: 1
+--- !u!114 &6704305838054549669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFX2
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: a7e7ebdf14df62645aa484791ed06601, type: 3}
+  m_Volume: 1

@@ -1,6 +1,7 @@
 using System;
 using Saber.Frame;
 using System.Collections;
+using Saber.Config;
 using Saber.World;
 using UnityEngine;
 
@@ -31,6 +32,21 @@ namespace Saber.Director
         {
             base.Enter();
             GameApp.Entry.Game.World.Load(m_LoadType, StartBGM);
+            GameApp.Entry.Game.World.OnSetLockingEnemyEvent = OnSetLockingEnemy;
+        }
+
+        private void OnSetLockingEnemy()
+        {
+            var lockEnemy = GameApp.Entry.Game.PlayerAI.LockingEnemy;
+            if (lockEnemy != null && lockEnemy.BaseInfo.m_ActorType == EActorType.Boss)
+            {
+                AudioClip clip = GameApp.Entry.Config.MusicInfo.m_BattleCommon;
+                GameApp.Entry.Game.Audio.PlayBGM(clip, 0.5f, true, null);
+            }
+            else
+            {
+                GameApp.Entry.Game.Audio.StopBGM();
+            }
         }
 
         void StartBGM()
@@ -73,7 +89,9 @@ namespace Saber.Director
             while (true)
             {
                 yield return new WaitForSeconds(60);
-                if (!GameApp.Entry.Game.Audio.IsBGMPlaying)
+                if (!GameApp.Entry.Game.Audio.IsBGMPlaying && (
+                        GameApp.Entry.Game.PlayerAI.LockingEnemy == null ||
+                        GameApp.Entry.Game.PlayerAI.LockingEnemy.BaseInfo.m_ActorType != EActorType.Boss))
                 {
                     PlayRandomBGM();
                 }

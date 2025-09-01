@@ -40,6 +40,14 @@ namespace Saber.CharacterController
         public override bool ApplyRootMotionSetWhenEnter => true;
 
 
+        public static bool ToBlockBroken(DamageInfo dmg, SActor hurtedActor)
+        {
+            return dmg.DamageConfig.m_HitRecover == EHitRecover.Backstab &&
+                   Vector3.Dot(hurtedActor.transform.forward, dmg.Attacker.transform.forward) > 0 ||
+                   hurtedActor.CStats.CurrentUnbalanceValue <= 0;
+        }
+
+
         public GetHit() : base(EStateType.GetHit)
         {
         }
@@ -47,15 +55,13 @@ namespace Saber.CharacterController
         string GetHitAnim(out EHitRecHurtType hurtType)
         {
             hurtType = EHitRecHurtType.Stun;
-            
+
             if (Damage.DamageConfig.m_HitRecover == EHitRecover.StunTanDao)
             {
                 return "StunTanDao";
             }
-            
-            if (Damage.DamageConfig.m_HitRecover == EHitRecover.Backstab &&
-                Vector3.Dot(Actor.transform.forward, Damage.Attacker.transform.forward) > 0 ||
-                Actor.CStats.CurrentUnbalanceValue <= 0)
+
+            if (ToBlockBroken(Damage, Actor))
             {
                 hurtType = EHitRecHurtType.BlockBroken;
                 return "BlockBroken";

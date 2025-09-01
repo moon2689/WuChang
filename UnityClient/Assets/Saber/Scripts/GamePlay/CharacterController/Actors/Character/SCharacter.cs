@@ -12,10 +12,7 @@ namespace Saber.CharacterController
         public event Action<EMoveSpeedV, EMoveSpeedV> EventOnMoveSpeedVChange;
 
         private CharacterStateMachine m_CStates;
-
-
-        /// <summary>能力</summary>
-        public CharacterAbility CAbility { get; private set; }
+        
 
         public CharacterRender CRender { get; private set; }
         // public CharacterSpeech CSpeech { get; private set; }

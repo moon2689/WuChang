@@ -72,9 +72,9 @@ namespace Saber.CharacterController
             Character.CAnim.Play("IdolActive", onFinished: onPlayFinish);
         }
 
-        public void IdolRest()
+        public void IdolRest(Action onPlayFinish)
         {
-            Character.CAnim.Play("IdolRest");
+            Character.CAnim.Play("IdolRest", onFinished: onPlayFinish);
         }
 
         public void IdolRestEnd(Action onPlayFinish)
@@ -82,14 +82,14 @@ namespace Saber.CharacterController
             Character.CAnim.Play("IdolRestEnd", onFinished: onPlayFinish);
         }
 
-        public void BranchTeleport()
+        public void BranchTeleport(Action onPlayFinish)
         {
-            Character.CAnim.Play("IdolRest");
+            Character.CAnim.Play("IdolRest", onFinished: onPlayFinish);
         }
 
-        public void GoHome()
+        public void GoHome(Action onPlayFinish)
         {
-            Character.CAnim.Play("IdolRest");
+            Character.CAnim.Play("IdolRest", onFinished: onPlayFinish);
         }
 
         public override void OnTriggerAnimEvent(AnimPointTimeEvent eventObj)

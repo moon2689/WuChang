@@ -21,14 +21,15 @@ MonoBehaviour:
     m_Blood: {fileID: 4646771079366974247, guid: a5cf4edb2161630408d26d695b8c9e16,
       type: 3}
   - m_DamageTime: 0.36
-    m_Damage: 20
+    m_Damage: 10
     m_Sound: {fileID: 8300000, guid: 9ca32d6b7191bd64389dd1d0fd21edef, type: 3}
     m_Blood: {fileID: 4145178057774557432, guid: 05d2a7971178a984ab668ee05274cd3e,
       type: 3}
   - m_DamageTime: 0.55
-    m_Damage: 20
+    m_Damage: 15
     m_Sound: {fileID: 8300000, guid: 00e19d5a9c0e5cb41b2b13f9a06a086a, type: 3}
     m_Blood: {fileID: 8129476537154334463, guid: f278962be0ad1614b9b5784fab88b9ae,
       type: 3}
   ExecuteSkillCanExitTime: 0.8
+  BackStabPower: 3
   CanTanFanSecondsFromDefenseStart: 0.2

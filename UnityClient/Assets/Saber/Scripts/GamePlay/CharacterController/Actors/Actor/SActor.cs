@@ -49,6 +49,8 @@ namespace Saber.CharacterController
 
         public ActorBuffManager CBuff { get; protected set; }
 
+        /// <summary>能力</summary>
+        public CharacterAbility CAbility { get; protected set; }
 
         /// <summary> The current value of the Delta time the animal is using (Fixed or not)</summary>
         public float DeltaTime { get; protected set; }
@@ -143,8 +145,7 @@ namespace Saber.CharacterController
 
         public bool IsPlayer
         {
-            get => m_BaseActorInfo.m_IsPlayer;
-            set => m_BaseActorInfo.m_IsPlayer = value;
+            get => BaseInfo.m_ActorType == EActorType.Player;
         }
 
         public EStateType CurrentStateType => CStateMachine.CurrentStateType;

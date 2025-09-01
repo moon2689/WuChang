@@ -52,6 +52,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   m_QuickAnimSpeed: 5
+--- !u!114 &-3422441798065318331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4321efb720844eebda3a90b5dd0b8d5, type: 3}
+  m_Name: WeaponDamage2
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_WeaponDamageSetting:
+    m_WeaponBone: 24
+    m_DamageValue: 5
+    m_ImpactForce: 2
+    m_HitRecover: 0
+    m_ForceWhenGround: {x: 0, y: 0}
 --- !u!114 &-3243925066545868809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,7 +177,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -5421006323758693610}
   - EventTime: 0
-    EventRange: {x: 0.372, y: 0.56}
+    EventRange: {x: 0.372, y: 0.436}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -193,6 +212,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 8101979912186525173}
+  - EventTime: 0
+    EventRange: {x: 0.476, y: 0.576}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -3422441798065318331}
 --- !u!114 &713653125189028397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,13 +322,9 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_WeaponBone: 24
     m_DamageValue: 5
-    m_DamageLevel: 0
+    m_ImpactForce: 2
+    m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
-    m_ForceWhenAir: {x: 0, y: 0}
-    m_OwnerForce: {x: 0, y: 0}
-    m_AlignEnemyPosWhenAirAttack: 0
-    m_AlignEnemyOffsetWhenAirAttack: {x: 1, y: 0}
-    m_AlignEnemyPosSecondsWhenAirAttack: 0.3
 --- !u!114 &8101979912186525173
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
-
 using UnityEngine;
 
 namespace Saber.CharacterController
@@ -18,6 +16,12 @@ namespace Saber.CharacterController
 
         public EStateType CurStateType => Actor.CurrentStateType;
         public Action OnFinisehd { get; set; }
+
+
+        public virtual bool CanSwitchTo(EStateType to)
+        {
+            return to == EStateType.Idle || to == EStateType.Move || to == EStateType.GetHit || to == EStateType.Die || to == EStateType.Fall;
+        }
 
 
         public AbilityBase(EAbilityType abilityType)

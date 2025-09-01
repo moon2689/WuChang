@@ -112,7 +112,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -4119200502989753380}
-    m_Position: {x: 430, y: -240, z: 0}
+    m_Position: {x: 440, y: -240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2312753877572437866}
     m_Position: {x: 440, y: -150, z: 0}
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RangeTime:
-    minValue: 0.4
+    minValue: 0.36
     maxValue: 0.6
   m_EventType: 2
 --- !u!1107 &-4587337107835530546
@@ -423,7 +423,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Death
+  m_Name: Die
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

@@ -22,9 +22,8 @@ namespace Saber.UI
         [SerializeField] private Button m_BtnQuit;
         [SerializeField] private Button m_BtnTransmit;
         [SerializeField] private Button m_BtnSelectEnemy;
-
+        [SerializeField] private GameObject m_Root;
         [SerializeField] private GameObject m_TempTextItem;
-
         [SerializeField] private GameObject m_RootStatues;
         [SerializeField] private GameObject m_RootEnemyNames;
 
@@ -33,6 +32,11 @@ namespace Saber.UI
 
 
         protected override bool PauseGame => false;
+
+        public bool ActiveRoot
+        {
+            set => m_Root.SetActive(value);
+        }
 
         protected override void OnAwake()
         {

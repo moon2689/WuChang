@@ -262,12 +262,12 @@ namespace Saber.CharacterController
             return false;
         }
 
-        public override bool PlayAction_IdolRest()
+        public override bool PlayAction_IdolRest(Action onPlayFinish)
         {
             if (CurrentStateType == EStateType.Idle)
             {
                 Idle idle = GetState<Idle>(EStateType.Idle);
-                idle.IdolRest();
+                idle.IdolRest(onPlayFinish);
                 return true;
             }
 
@@ -286,24 +286,24 @@ namespace Saber.CharacterController
             return false;
         }
 
-        public override bool PlayAction_BranchTeleport()
+        public override bool PlayAction_BranchTeleport(Action onPlayFinish)
         {
             if (CurrentStateType == EStateType.Idle)
             {
                 Idle idle = GetState<Idle>(EStateType.Idle);
-                idle.BranchTeleport();
+                idle.BranchTeleport(onPlayFinish);
                 return true;
             }
 
             return false;
         }
 
-        public override bool PlayAction_GoHome()
+        public override bool PlayAction_GoHome(Action onPlayFinish)
         {
             if (CurrentStateType == EStateType.Idle)
             {
                 Idle idle = GetState<Idle>(EStateType.Idle);
-                idle.GoHome();
+                idle.GoHome(onPlayFinish);
                 return true;
             }
 

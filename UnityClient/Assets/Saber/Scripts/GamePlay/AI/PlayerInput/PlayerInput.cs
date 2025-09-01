@@ -395,6 +395,18 @@ namespace Saber.AI
 
         IEnumerator PlayerRestBeforeIdolItor(Idol idol)
         {
+            if (Actor.CurrentStateType != EStateType.Idle)
+            {
+                yield break;
+            }
+
+            GameProgressManager.Instance.OnGodStatueRest(idol.SceneID, idol.StatueIndex);
+
+            OnPlayerRest();
+
+            Wnd_Rest wndRest = GameApp.Entry.UI.CreateWnd<Wnd_Rest>(null, this);
+            wndRest.ActiveRoot = false;
+
             bool wait = true;
             Actor.CStateMachine.SetPosAndForward(idol.RestPos, -idol.transform.forward, 0.2f, () => wait = false);
             while (wait)
@@ -402,15 +414,16 @@ namespace Saber.AI
                 yield return null;
             }
 
-            Actor.CStateMachine.PlayAction_IdolRest();
             Actor.CMelee.CWeapon.ToggleWeapon(false);
+            wait = true;
+            Actor.CStateMachine.PlayAction_IdolRest(() => wait = false);
+            while (wait)
+            {
+                yield return null;
+            }
 
-            GameProgressManager.Instance.OnGodStatueRest(idol.SceneID, idol.StatueIndex);
-            GameApp.Entry.UI.CreateWnd<Wnd_Rest>(null, this);
-
-            OnPlayerRest();
-
-            yield return new WaitForSeconds(1);
+            wndRest.ActiveRoot = true;
+            yield return null;
 
             Actor.OnGodStatueRest();
 
