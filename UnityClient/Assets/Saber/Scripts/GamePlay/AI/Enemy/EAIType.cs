@@ -18,6 +18,13 @@ namespace Saber.AI
         // SimpleAttack,
     }
 
+    [Serializable]
+    public enum EAITriggerSkillCondition
+    {
+        None,
+        HPHalf,
+    }
+
     public static class EnemyAITypeHelper
     {
         public static EnemyAIBase CreateEnemyAI(this EAIType aiType)

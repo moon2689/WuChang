@@ -961,7 +961,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: KnonckOff
+      name: KnockOff
       takeName: wuchang_empty.ao|KnonckOff
       internalID: 7930085609325663947
       firstFrame: 0

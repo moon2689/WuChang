@@ -237,6 +237,22 @@ namespace Saber.CharacterController
 
         public EResilience CurrentResilience { get; set; }
 
+        public bool IsInSpecialStun
+        {
+            get
+            {
+                if (CurrentStateType == EStateType.GetHit)
+                {
+                    var getHit = CStateMachine.CurrentState as GetHit;
+                    return getHit != null &&
+                           (getHit.HitRecHurtType == GetHit.EHitRecHurtType.SpecialStun ||
+                            getHit.HitRecHurtType == GetHit.EHitRecHurtType.BlockBroken);
+                }
+
+                return false;
+            }
+        }
+
 
         public static SActor Create(int id, Vector3 pos, Quaternion rot, BaseAI ai, EActorCamp camp)
         {

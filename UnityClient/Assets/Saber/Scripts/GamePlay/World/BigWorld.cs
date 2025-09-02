@@ -29,10 +29,10 @@ namespace Saber.World
             ToNextSceneByPortal,
             ToGodStatue,
         }
-        
-        
+
+
         public Action OnSetLockingEnemyEvent;
-        
+
 
         private SActor m_Player;
 
@@ -270,7 +270,7 @@ namespace Saber.World
                 for (int i = 0; i < m_SceneInfo.m_GodStatuePoint.Length; i++)
                 {
                     var statueInfo = m_SceneInfo.m_GodStatuePoint[i];
-                    m_WndLoading.Percent = 60 + 10 * (i + 1) / m_SceneInfo.m_GodStatuePoint.Length;
+                    m_WndLoading.Percent = 60 + 5 * (i + 1) / m_SceneInfo.m_GodStatuePoint.Length;
                     GameObject godStatueObj = GameApp.Entry.Asset.LoadGameObject("SceneProp/GodStatue");
                     godStatueObj.name = i.ToString();
                     Idol idol = godStatueObj.GetComponent<Idol>();
@@ -281,7 +281,7 @@ namespace Saber.World
 
             GameSetting.URPAsset.shadowDistance = m_SceneInfo.m_ShadowDistance;
 
-            m_WndLoading.Percent = 70;
+            m_WndLoading.Percent = 65;
         }
 
         void OnSceneLoaded()
@@ -421,7 +421,8 @@ namespace Saber.World
                 bornPoint.FixedBornPos = bornPoint.m_Position + Vector3.up * 10;
             }
 
-            var ai = bornPoint.m_AI.CreateEnemyAI();
+            EAIType aiType = GameApp.Entry.Config.TestGame.TestSkill ? EAIType.TestSkill : bornPoint.m_AI;
+            EnemyAIBase ai = aiType.CreateEnemyAI();
             var camp = EActorCamp.Monster;
             var actor = SActor.Create(enemyID, bornPoint.FixedBornPos, bornPoint.BornRot, ai, camp);
             actor.Event_OnDead += OnOtherActorDead;
@@ -477,7 +478,7 @@ namespace Saber.World
 
                 for (int i = 0; i < 10; i++)
                 {
-                    m_WndLoading.Percent = 61 + i;
+                    m_WndLoading.Percent = 65 + i;
                     yield return null;
                 }
             }

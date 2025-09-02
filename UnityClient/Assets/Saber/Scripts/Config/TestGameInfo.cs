@@ -11,6 +11,7 @@ namespace Saber.Config
     {
         public bool DebugFPS;
         public bool DebugFight;
+        public bool TestSkill;
         public int[] TestingSkillID;
     }
 }

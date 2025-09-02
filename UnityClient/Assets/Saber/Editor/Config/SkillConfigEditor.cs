@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using CombatEditor;
+using Saber.AI;
 using Saber.CharacterController;
 using UnityEditor;
 using UnityEngine;
@@ -9,6 +10,8 @@ using UnityEngine;
 public class SkillConfigEditor : EditorBase
 {
     private List<bool> m_ListSelectedSkills;
+    private SkillConfig m_SkillConfig;
+    private bool m_IsPlayer;
 
     protected override string TitleString => "技能配置";
 
@@ -49,31 +52,32 @@ public class SkillConfigEditor : EditorBase
 
     protected override void DrawGUI()
     {
-        SkillConfig config = (SkillConfig)base.target;
-        config.m_WeaponStyle = (EWeaponStyle)EditorGUILayout.EnumPopup("武器类型：", config.m_WeaponStyle);
+        m_SkillConfig = (SkillConfig)base.target;
+        m_IsPlayer = m_SkillConfig.name.Contains("WuChang");
+        m_SkillConfig.m_WeaponStyle = (EWeaponStyle)EditorGUILayout.EnumPopup("武器类型：", m_SkillConfig.m_WeaponStyle);
 
         if (m_ListSelectedSkills == null)
         {
             m_ListSelectedSkills = new List<bool>();
-            for (int i = 0; i < config.m_SkillItems.Length; i++)
+            for (int i = 0; i < m_SkillConfig.m_SkillItems.Length; i++)
             {
                 m_ListSelectedSkills.Add(false);
             }
         }
-        else if (m_ListSelectedSkills.Count < config.m_SkillItems.Length)
+        else if (m_ListSelectedSkills.Count < m_SkillConfig.m_SkillItems.Length)
         {
-            for (int i = m_ListSelectedSkills.Count; i < config.m_SkillItems.Length; i++)
+            for (int i = m_ListSelectedSkills.Count; i < m_SkillConfig.m_SkillItems.Length; i++)
                 m_ListSelectedSkills.Add(true);
         }
 
-        for (int i = 0; i < config.m_SkillItems.Length; i++)
+        for (int i = 0; i < m_SkillConfig.m_SkillItems.Length; i++)
         {
-            SkillItem item = config.m_SkillItems[i];
+            SkillItem item = m_SkillConfig.m_SkillItems[i];
 
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("=", GUILayout.Width(20)))
             {
-                PaneOptions<SkillItem>(config.m_SkillItems, item, newArray => config.m_SkillItems = newArray);
+                PaneOptions<SkillItem>(m_SkillConfig.m_SkillItems, item, newArray => m_SkillConfig.m_SkillItems = newArray);
             }
 
             GUILayout.Space(10);
@@ -93,7 +97,7 @@ public class SkillConfigEditor : EditorBase
         {
             SkillItem skillItem = new SkillItem()
             {
-                m_ID = config.m_SkillItems.Length + 1,
+                m_ID = m_SkillConfig.m_SkillItems.Length + 1,
                 m_AnimStates = new SkillAnimStateMachine[1],
                 CostStrength = 5,
                 m_SkillType = ESkillType.LightAttack,
@@ -108,27 +112,26 @@ public class SkillConfigEditor : EditorBase
                 m_Name = "",
                 m_EventData = null,
             };
-            config.m_SkillItems = AddElement(config.m_SkillItems, skillItem);
+            m_SkillConfig.m_SkillItems = AddElement(m_SkillConfig.m_SkillItems, skillItem);
         }
 
-        EditorUtility.SetDirty(config);
+        EditorUtility.SetDirty(m_SkillConfig);
     }
 
     void DrawSkillItem(SkillItem item)
     {
         item.m_ID = EditorGUILayout.IntField("ID：", item.m_ID);
-        item.CostStrength = EditorGUILayout.FloatField("消耗体力:", item.CostStrength);
 
-        item.m_SkillType = (ESkillType)EditorGUILayout.EnumPopup("输入键：", item.m_SkillType);
+        if (m_IsPlayer)
+        {
+            item.CostStrength = EditorGUILayout.FloatField("消耗体力:", item.CostStrength);
+            item.m_SkillType = (ESkillType)EditorGUILayout.EnumPopup("输入键：", item.m_SkillType);
+        }
+
         item.m_TriggerCondition = (ETriggerCondition)EditorGUILayout.EnumPopup("触发条件:", item.m_TriggerCondition);
         if (item.m_TriggerCondition == ETriggerCondition.InAir)
         {
             item.UseGravityWhenInAir = EditorGUILayout.Toggle("空中开启重力：", item.UseGravityWhenInAir);
-        }
-
-        if (item.m_SkillType == ESkillType.MoveThenAttack)
-        {
-            item.m_AttackTriggerDistance = EditorGUILayout.FloatField("触发攻击的距离:", item.m_AttackTriggerDistance);
         }
 
         item.m_FirstSkillOfCombo = EditorGUILayout.Toggle("起手技能:", item.m_FirstSkillOfCombo);
@@ -137,8 +140,12 @@ public class SkillConfigEditor : EditorBase
             item.m_CDSeconds = EditorGUILayout.FloatField("冷却时间（秒）:", item.m_CDSeconds);
         }
 
-        item.m_CostPower = EditorGUILayout.IntField("消耗能量:", item.m_CostPower);
-        item.m_PowerAddWhenHitted = EditorGUILayout.IntField("击中时增加能量:", item.m_PowerAddWhenHitted);
+        if (m_IsPlayer)
+        {
+            item.m_CostPower = EditorGUILayout.IntField("消耗能量:", item.m_CostPower);
+            item.m_PowerAddWhenHitted = EditorGUILayout.IntField("击中时增加能量:", item.m_PowerAddWhenHitted);
+        }
+
         item.m_Resilience = (EResilience)EditorGUILayout.EnumPopup("韧性:", item.m_Resilience);
 
         // 动画
@@ -155,7 +162,6 @@ public class SkillConfigEditor : EditorBase
         }
 
         GUILayout.EndHorizontal();
-
 
         GUILayout.BeginVertical(m_SubGroupStyle);
         for (int i = 0; i < item.m_AnimStates.Length; i++)
@@ -175,7 +181,7 @@ public class SkillConfigEditor : EditorBase
                 typeof(AbilityScriptableObject), false);
         }
 
-        GUILayout.EndHorizontal();
+        GUILayout.EndVertical();
 
         // 连招
         GUILayout.BeginHorizontal();
@@ -187,32 +193,45 @@ public class SkillConfigEditor : EditorBase
 
         GUILayout.EndHorizontal();
 
-        GUILayout.BeginVertical(m_SubGroupStyle);
-        for (int i = 0; i < item.m_ChainSkillIDs.Length; i++)
+        if (item.m_ChainSkillIDs.Length > 0)
         {
-            GUILayout.BeginHorizontal();
-            GUILayout.Space(80);
-            if (GUILayout.Button("-", GUILayout.Width(20)))
+            GUILayout.BeginVertical(m_SubGroupStyle);
+            for (int i = 0; i < item.m_ChainSkillIDs.Length; i++)
             {
-                item.m_ChainSkillIDs = RemoveElementByIndex(item.m_ChainSkillIDs, i);
-                continue;
+                GUILayout.BeginHorizontal();
+                GUILayout.Space(80);
+                if (GUILayout.Button("-", GUILayout.Width(20)))
+                {
+                    item.m_ChainSkillIDs = RemoveElementByIndex(item.m_ChainSkillIDs, i);
+                    continue;
+                }
+
+                GUILayout.Label($"{i}:", GUILayout.Width(30));
+                item.m_ChainSkillIDs[i] = EditorGUILayout.IntField(item.m_ChainSkillIDs[i], GUILayout.Width(100));
+                GUILayout.EndHorizontal();
             }
 
-            GUILayout.Label($"{i}:", GUILayout.Width(30));
-            item.m_ChainSkillIDs[i] = EditorGUILayout.IntField(item.m_ChainSkillIDs[i], GUILayout.Width(100));
-            GUILayout.EndHorizontal();
+            GUILayout.EndVertical();
         }
 
-        GUILayout.EndHorizontal();
+        // AI
+        if (!m_IsPlayer)
+        {
+            GUILayout.Label("AI:");
 
-        //
-        GUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("AI攻击范围：", GUILayout.Width(100));
-        item.m_AIPramAttackDistance.minValue =
-            EditorGUILayout.FloatField(item.m_AIPramAttackDistance.minValue, GUILayout.Width(100));
-        EditorGUILayout.LabelField("-->", GUILayout.Width(30));
-        item.m_AIPramAttackDistance.maxValue =
-            EditorGUILayout.FloatField(item.m_AIPramAttackDistance.maxValue, GUILayout.Width(100));
-        GUILayout.EndHorizontal();
+            GUILayout.BeginVertical(m_SubGroupStyle);
+            GUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("攻击范围：", GUILayout.Width(100));
+            item.m_AIPramAttackDistance.minValue = EditorGUILayout.FloatField(item.m_AIPramAttackDistance.minValue, GUILayout.Width(60));
+            EditorGUILayout.LabelField("->", GUILayout.Width(20));
+            item.m_AIPramAttackDistance.maxValue = EditorGUILayout.FloatField(item.m_AIPramAttackDistance.maxValue, GUILayout.Width(60));
+            GUILayout.EndHorizontal();
+
+            item.m_GroupID = EditorGUILayout.IntField("组：", item.m_GroupID);
+
+            item.m_AITriggerCondition = (EAITriggerSkillCondition)EditorGUILayout.EnumPopup("触发条件:", item.m_AITriggerCondition);
+
+            GUILayout.EndVertical();
+        }
     }
 }

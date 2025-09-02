@@ -27,11 +27,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkillIDs: 02000000090000000a0000000c000000
+    m_Resilience: 1
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 2
-    m_AttackTriggerDistance: 0
-    m_Resilience: 1
+    m_GroupID: 0
+    m_AITriggerCondition: 0
   - m_ID: 2
     m_AnimStates:
     - m_Name: LightAttack2
@@ -45,11 +46,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
     m_ChainSkillIDs: 03000000090000000a0000000c000000
+    m_Resilience: 1
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
-    m_AttackTriggerDistance: 0
-    m_Resilience: 1
+    m_GroupID: 0
+    m_AITriggerCondition: 0
   - m_ID: 3
     m_AnimStates:
     - m_Name: LightAttack3
@@ -63,11 +65,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
     m_ChainSkillIDs: 04000000090000000a0000000c000000
+    m_Resilience: 1
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
-    m_AttackTriggerDistance: 0
-    m_Resilience: 1
+    m_GroupID: 0
+    m_AITriggerCondition: 0
   - m_ID: 4
     m_AnimStates:
     - m_Name: LightAttack4
@@ -81,11 +84,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
     m_ChainSkillIDs: 05000000090000000a0000000c000000
+    m_Resilience: 1
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
-    m_AttackTriggerDistance: 0
-    m_Resilience: 1
+    m_GroupID: 0
+    m_AITriggerCondition: 0
   - m_ID: 5
     m_AnimStates:
     - m_Name: LightAttack5
@@ -99,11 +103,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
     m_ChainSkillIDs: 03000000090000000a0000000c000000
+    m_Resilience: 1
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
-    m_AttackTriggerDistance: 0
-    m_Resilience: 1
+    m_GroupID: 0
+    m_AITriggerCondition: 0
   - m_ID: 6
     m_AnimStates:
     - m_Name: StepFrontAttack
@@ -117,11 +122,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkillIDs: 02000000090000000a0000000c000000
+    m_Resilience: 1
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
-    m_AttackTriggerDistance: 0
-    m_Resilience: 1
+    m_GroupID: 0
+    m_AITriggerCondition: 0
   - m_ID: 7
     m_AnimStates:
     - m_Name: StepAttack
@@ -135,11 +141,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkillIDs: 02000000090000000a0000000c000000
+    m_Resilience: 1
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
-    m_AttackTriggerDistance: 0
-    m_Resilience: 1
+    m_GroupID: 0
+    m_AITriggerCondition: 0
   - m_ID: 8
     m_AnimStates:
     - m_Name: DashAttack
@@ -153,11 +160,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkillIDs: 02000000090000000a0000000c000000
+    m_Resilience: 1
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
-    m_AttackTriggerDistance: 0
-    m_Resilience: 1
+    m_GroupID: 0
+    m_AITriggerCondition: 0
   - m_ID: 9
     m_AnimStates:
     - m_Name: ChargeAttack
@@ -171,11 +179,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkillIDs: 01000000
+    m_Resilience: 1
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
-    m_AttackTriggerDistance: 0
-    m_Resilience: 1
+    m_GroupID: 0
+    m_AITriggerCondition: 0
   - m_ID: 10
     m_AnimStates:
     - m_Name: HeavyAttack
@@ -189,11 +198,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkillIDs: 03000000
+    m_Resilience: 1
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
-    m_AttackTriggerDistance: 0
-    m_Resilience: 1
+    m_GroupID: 0
+    m_AITriggerCondition: 0
   - m_ID: 11
     m_AnimStates:
     - m_Name: LightAttack3_2
@@ -207,11 +217,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
     m_ChainSkillIDs: 04000000090000000a0000000c000000
+    m_Resilience: 1
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
-    m_AttackTriggerDistance: 0
-    m_Resilience: 1
+    m_GroupID: 0
+    m_AITriggerCondition: 0
   - m_ID: 12
     m_AnimStates:
     - m_Name: DoubleChop
@@ -225,11 +236,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkillIDs: 0d000000
+    m_Resilience: 1
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
-    m_AttackTriggerDistance: 0
-    m_Resilience: 1
+    m_GroupID: 0
+    m_AITriggerCondition: 0
   - m_ID: 13
     m_AnimStates:
     - m_Name: DoubleChop2
@@ -243,11 +255,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
     m_ChainSkillIDs: 05000000
+    m_Resilience: 1
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
-    m_AttackTriggerDistance: 0
-    m_Resilience: 1
+    m_GroupID: 0
+    m_AITriggerCondition: 0
   - m_ID: 14
     m_AnimStates: []
     CostStrength: 0
@@ -259,11 +272,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkillIDs: 
+    m_Resilience: 1
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
-    m_AttackTriggerDistance: 0
-    m_Resilience: 1
+    m_GroupID: 0
+    m_AITriggerCondition: 0
   - m_ID: 15
     m_AnimStates:
     - m_Name: TanFanCounterAttack
@@ -277,8 +291,9 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkillIDs: 05000000
+    m_Resilience: 1
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
-    m_AttackTriggerDistance: 0
-    m_Resilience: 1
+    m_GroupID: 0
+    m_AITriggerCondition: 0

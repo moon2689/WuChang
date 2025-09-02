@@ -2048,9 +2048,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BaseActorInfo:
-    m_ActorType: 1
     m_StatsInfo:
-      m_MaxHp: 500
+      m_MaxHp: 300
       m_DefaultHpRecSpeed: 0
       m_MaxStamina: 100
       m_MaxPower: 3
@@ -2090,6 +2089,8 @@ MonoBehaviour:
       m_NodeTrans: {fileID: 7714084900097439172}
     - m_Type: 2
       m_NodeTrans: {fileID: 4993209784316434342}
+    - m_Type: 23
+      m_NodeTrans: {fileID: 2370534382926529002}
   m_MonsterInfo:
     m_DefaultAI: 1
     m_MoveByRootMotion: 0

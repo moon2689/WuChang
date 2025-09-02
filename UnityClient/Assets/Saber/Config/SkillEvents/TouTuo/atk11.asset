@@ -74,6 +74,31 @@ MonoBehaviour:
   ColliderSize: {x: 1, y: 1, z: 1}
   Radius: 2.1109076
   Height: 1
+--- !u!114 &-5031474822282579053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca2229d21ed65194bac74b8298b11290, type: 3}
+  m_Name: Particles
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 868468853075218060, guid: 1088de5662f7a1346b1d36be122c094a,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 2.383992, z: 2.2753334}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 0
+  TimeType: 1
+  m_HoldTime: 1
+  OnlyTriggerWhenPowerEnough: 0
 --- !u!114 &-4888277662149788581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,18 +113,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
-    TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
+    TargetObj: {fileID: 2557966978344939087, guid: 40d3894bcad010b4dafd0e1b2409d678,
       type: 3}
     controlType: 0
     Offset: {x: -0.17509845, y: 0.7538898, z: 3.181737}
-    Rot: {x: 0, y: 0, z: 0, w: 1}
+    Rot: {x: 0.70358765, y: 0, z: 0, w: 0.7106085}
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 1
-  ColliderOffset: {x: -0.05854869, y: 0, z: 0}
+  ColliderOffset: {x: 0, y: 0.8252592, z: 0}
   ColliderSize: {x: 1, y: 1, z: 1}
-  Radius: 2.9876053
-  Height: 1
+  Radius: 1.9429123
+  Height: 7.7652607
   m_WeaponDamageSetting:
     m_WeaponBone: 24
     m_DamageValue: 5
@@ -172,6 +197,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   m_RotateSpeed: 1080
+--- !u!114 &-1406613795831075062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca2229d21ed65194bac74b8298b11290, type: 3}
+  m_Name: Particles
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 139322, guid: 379b31ccbf65549b2a1dbfd9fad68de0, type: 3}
+    controlType: 0
+    Offset: {x: 0.01626122, y: 1.6528652, z: 1.0051547}
+    Rot: {x: 9.54143e-13, y: 0.39795873, z: -2.4664882e-12, w: -0.91740334}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 1
+  TimeType: 2
+  m_HoldTime: 1
+  OnlyTriggerWhenPowerEnough: 0
+--- !u!114 &-1324423536206223502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca2229d21ed65194bac74b8298b11290, type: 3}
+  m_Name: Particles
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 199788, guid: 98be5f4f584ba4923984e828f4afa3ac, type: 3}
+    controlType: 0
+    Offset: {x: 0.16500184, y: -0.02929096, z: 0.1306764}
+    Rot: {x: 0.87149805, y: 0.09051897, z: 0.018229961, w: 0.48162755}
+    TargetNode: 23
+    FollowNode: 1
+    RotateByNode: 1
+  TimeType: 2
+  m_HoldTime: 1
+  OnlyTriggerWhenPowerEnough: 0
 --- !u!114 &-434201264629889705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,7 +279,16 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0, y: 0.14623655}
+    EventRange: {x: 0.5623656, y: 0.6215054}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 268887344374314072}
+  - EventTime: 0
+    EventRange: {x: 0.09677419, y: 0.17204301}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -214,6 +296,42 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -1626350611884254749}
+  - EventTime: 0
+    EventRange: {x: 0.39892474, y: 0.61290324}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -1324423536206223502}
+  - EventTime: 0.021505376
+    EventRange: {x: 0.5913978, y: 0.74301076}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -1406613795831075062}
+  - EventTime: 0.7935484
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -5031474822282579053}
+  - EventTime: 0
+    EventRange: {x: 0.744086, y: 0.79247314}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 1561768133925460617}
   - EventTime: 0.0021505377
     EventRange: {x: 0, y: 1}
     EventMultiRange:
@@ -250,24 +368,6 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -4598739781130706965}
-  - EventTime: 0
-    EventRange: {x: 0.2483871, y: 0.3892473}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 2493546194577655078}
-  - EventTime: 0
-    EventRange: {x: 0.7311828, y: 0.78924733}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 1561768133925460617}
   - EventTime: 0
     EventRange: {x: 0.79247314, y: 0.8}
     EventMultiRange:
@@ -340,15 +440,6 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 1930174990664160146}
-  - EventTime: 0
-    EventRange: {x: 0.5623656, y: 0.68817204}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 268887344374314072}
 --- !u!114 &268887344374314072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,18 +482,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
-    TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
+    TargetObj: {fileID: 2557966978344939087, guid: 40d3894bcad010b4dafd0e1b2409d678,
       type: 3}
     controlType: 0
     Offset: {x: -0.17509845, y: 0.7538898, z: 3.181737}
-    Rot: {x: 0, y: 0, z: 0, w: 1}
+    Rot: {x: 0.70358765, y: 0, z: 0, w: 0.7106085}
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 1
-  ColliderOffset: {x: -0.05854869, y: 0, z: 0}
+  ColliderOffset: {x: 0, y: 0.8252592, z: 0}
   ColliderSize: {x: 1, y: 1, z: 1}
-  Radius: 2.9876053
-  Height: 1
+  Radius: 1.9429123
+  Height: 7.7652607
   m_WeaponDamageSetting:
     m_WeaponBone: 24
     m_DamageValue: 5
@@ -423,38 +514,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
-    TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
+    TargetObj: {fileID: 2557966978344939087, guid: 40d3894bcad010b4dafd0e1b2409d678,
       type: 3}
     controlType: 0
     Offset: {x: -0.17509845, y: 0.7538898, z: 3.181737}
-    Rot: {x: 0, y: 0, z: 0, w: 1}
+    Rot: {x: 0.70358765, y: 0, z: 0, w: 0.7106085}
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 1
-  ColliderOffset: {x: -0.05854869, y: 0, z: 0}
+  ColliderOffset: {x: 0, y: 0.8252592, z: 0}
   ColliderSize: {x: 1, y: 1, z: 1}
-  Radius: 2.9876053
-  Height: 1
+  Radius: 1.9429123
+  Height: 7.7652607
   m_WeaponDamageSetting:
     m_WeaponBone: 24
     m_DamageValue: 5
-    m_ImpactForce: 3
+    m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
---- !u!114 &2493546194577655078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7f29d956cd14f76ae2ff6fbffccde20, type: 3}
-  m_Name: AlignToEnemy2
-  m_EditorClassIdentifier: 
-  IsActive: 1
-  m_RotateSpeed: 1080
 --- !u!114 &5428533517639593247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,18 +572,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
-    TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
+    TargetObj: {fileID: 2557966978344939087, guid: 40d3894bcad010b4dafd0e1b2409d678,
       type: 3}
     controlType: 0
     Offset: {x: -0.17509845, y: 0.7538898, z: 3.181737}
-    Rot: {x: 0, y: 0, z: 0, w: 1}
+    Rot: {x: 0.70358765, y: 0, z: 0, w: 0.7106085}
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 1
-  ColliderOffset: {x: -0.05854869, y: 0, z: 0}
+  ColliderOffset: {x: 0, y: 0.8252592, z: 0}
   ColliderSize: {x: 1, y: 1, z: 1}
-  Radius: 2.9876053
-  Height: 1
+  Radius: 1.9429123
+  Height: 7.7652607
   m_WeaponDamageSetting:
     m_WeaponBone: 24
     m_DamageValue: 5

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CombatEditor;
+using Saber.AI;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -47,10 +48,11 @@ namespace Saber.CharacterController
         public bool m_FirstSkillOfCombo;
         public int[] m_ChainSkillIDs;
 
-        public RangedFloat m_AIPramAttackDistance;
-
-        public float m_AttackTriggerDistance;
         public EResilience m_Resilience = EResilience.Level1;
+        
+        public RangedFloat m_AIPramAttackDistance;
+        public int m_GroupID;
+        public EAITriggerSkillCondition m_AITriggerCondition;
 
         public bool IsAirSkill => m_TriggerCondition == ETriggerCondition.InAir;
 
@@ -86,7 +88,7 @@ namespace Saber.CharacterController
         LightAttack,
         HeavyAttack,
         Execute,
-        MoveThenAttack,
+        Custom1,
         Skill1,
         Skill2,
         Skill3,

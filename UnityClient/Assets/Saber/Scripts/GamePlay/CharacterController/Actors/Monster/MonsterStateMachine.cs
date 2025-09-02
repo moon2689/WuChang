@@ -19,7 +19,7 @@ namespace Saber.CharacterController
             base.RegisterState(new MonsterIdle());
             base.RegisterState(new SkillState());
             base.RegisterState(new GetHit());
-            base.RegisterState(new MonsterDie());
+            base.RegisterState(new Die());
 
             if (Monster.m_MonsterInfo.m_MoveByRootMotion)
             {

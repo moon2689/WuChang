@@ -116,10 +116,10 @@ namespace Saber.CharacterController
                 {
                     skillObj = m_SkillExecute = new SkillExecute(Actor, item);
                 }
-                else if (item.m_SkillType == ESkillType.MoveThenAttack)
-                {
-                    skillObj = new SkillMoveThenAttack(Actor, item);
-                }
+                // else if (item.m_SkillType == ESkillType.MoveThenAttack)
+                // {
+                //     skillObj = new SkillMoveThenAttack(Actor, item);
+                // }
                 else
                 {
                     skillObj = new SkillCommon(Actor, item);

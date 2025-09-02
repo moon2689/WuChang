@@ -18,10 +18,11 @@ namespace Saber.CharacterController
             GetUpAfterExecuted,
         }
 
-        enum EHitRecHurtType
+        public enum EHitRecHurtType
         {
             Stun,
             BlockBroken,
+            SpecialStun,
         }
 
 
@@ -36,7 +37,7 @@ namespace Saber.CharacterController
         public bool CanBeExecute { get; private set; }
 
         public bool IsBlockBrokenWaitExecute => m_State == EState.BlockBroken && !m_CanExecuteTimePassed;
-        public bool IsBlockBrokenHurtType => m_HurtType == EHitRecHurtType.BlockBroken;
+        public EHitRecHurtType HitRecHurtType => m_HurtType;
         public override bool ApplyRootMotionSetWhenEnter => true;
 
 
@@ -45,6 +46,25 @@ namespace Saber.CharacterController
             return dmg.DamageConfig.m_HitRecover == EHitRecover.Backstab &&
                    Vector3.Dot(hurtedActor.transform.forward, dmg.Attacker.transform.forward) > 0 ||
                    hurtedActor.CStats.CurrentUnbalanceValue <= 0;
+        }
+
+        string GetDir4()
+        {
+            float angleFromAttacker = Vector3.SignedAngle(Damage.Attacker.transform.forward, Actor.transform.forward, Vector3.up);
+            if (angleFromAttacker > -45 && angleFromAttacker <= 45)
+                return "B";
+            else if (angleFromAttacker > 45 && angleFromAttacker <= 135)
+                return "R";
+            else if (angleFromAttacker > -135 && angleFromAttacker <= -45)
+                return "L";
+            else
+                return "F";
+        }
+
+        string GetDir2()
+        {
+            float angleFromAttacker = Vector3.SignedAngle(Damage.Attacker.transform.forward, Actor.transform.forward, Vector3.up);
+            return angleFromAttacker > -90 && angleFromAttacker <= 90 ? "B" : "F";
         }
 
 
@@ -67,19 +87,26 @@ namespace Saber.CharacterController
                 return "BlockBroken";
             }
 
+            if (Damage.DamageConfig.m_HitRecover == EHitRecover.StrikeDown)
+            {
+                hurtType = EHitRecHurtType.SpecialStun;
+                return $"StrikeDown{GetDir2()}";
+            }
+
+            if (Damage.DamageConfig.m_HitRecover == EHitRecover.KnockOffLongDis)
+            {
+                hurtType = EHitRecHurtType.SpecialStun;
+                return $"KnockOffLongDis{GetDir2()}";
+            }
+
+            if (Damage.DamageConfig.m_HitRecover == EHitRecover.Uppercut)
+            {
+                hurtType = EHitRecHurtType.SpecialStun;
+                return "Uppercut";
+            }
+
             // stun
-            //float angleFromAttacker = Vector3.SignedAngle(Damage.DamageDirection, Actor.transform.forward, Vector3.up);
-            float angleFromAttacker = Vector3.SignedAngle(Damage.Attacker.transform.forward, Actor.transform.forward, Vector3.up);
-            string dirStr;
-            if (angleFromAttacker > -45 && angleFromAttacker <= 45)
-                dirStr = "B";
-            else if (angleFromAttacker > 45 && angleFromAttacker <= 135)
-                dirStr = "R";
-            else if (angleFromAttacker > -135 && angleFromAttacker <= -45)
-                dirStr = "L";
-            else
-                dirStr = "F";
-            return $"Stun{dirStr}";
+            return $"Stun{GetDir4()}";
         }
 
         public override void Enter()
@@ -105,9 +132,8 @@ namespace Saber.CharacterController
 
             m_State = m_HurtType switch
             {
-                EHitRecHurtType.Stun => EState.Stun,
                 EHitRecHurtType.BlockBroken => EState.BlockBroken,
-                _ => throw new InvalidOperationException($"Unknown hurt type:{m_HurtType}"),
+                _ => EState.Stun,
             };
 
             if (m_HurtType == EHitRecHurtType.BlockBroken)
@@ -136,7 +162,7 @@ namespace Saber.CharacterController
             }
             else
             {
-                if (!Actor.CAnim.IsPlayingOrWillPlay(m_CurAnim))
+                if (Actor.CAnim.IsPlayingOrWillPlay("Idle"))
                 {
                     Exit();
                 }
@@ -192,6 +218,6 @@ namespace Saber.CharacterController
         bool CanBeExecute { get; }
         void BeExecuted(SActor executioner);
         bool IsBlockBrokenWaitExecute { get; }
-        bool IsBlockBrokenHurtType { get; }
+        public GetHit.EHitRecHurtType HitRecHurtType { get; }
     }
 }
