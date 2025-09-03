@@ -1,0 +1,55 @@
+{
+  "Textures": {
+    "PM_Normals": "Project_Plague/Content/Scene/3D/Others/Surface/CobblestoneMossy/T_Medres_Any_dimian02_N.T_Medres_Any_dimian02_N",
+    "Normal": "Project_Plague/Content/Scene/3D/Others/Surface/CobblestoneMossy/T_Medres_Any_dimian02_N.T_Medres_Any_dimian02_N",
+    "Reflection": "Project_Plague/Content/Scene/3D/Others/Surface/CobblestoneMossy/T_Medres_Any_dimian02_R.T_Medres_Any_dimian02_R",
+    "T_Medres_Any_dimian02_R": "Project_Plague/Content/Scene/3D/Others/Surface/CobblestoneMossy/T_Medres_Any_dimian02_R.T_Medres_Any_dimian02_R",
+    "PM_Diffuse": "Project_Plague/Content/Scene/3D/Others/Surface/CobblestoneMossy/T_Medres_Any_dimian01_D.T_Medres_Any_dimian01_D",
+    "Albedo": "Project_Plague/Content/Scene/3D/Others/Surface/CobblestoneMossy/T_Medres_Any_dimian01_D.T_Medres_Any_dimian01_D"
+  },
+  "Parameters": {
+    "BlendMode": 0,
+    "ShadingModel": 0,
+    "Colors": {
+      "Albedo Tint": {
+        "R": 0.380208,
+        "G": 0.303037,
+        "B": 0.273275,
+        "A": 1.0,
+        "Hex": "A6968F"
+      }
+    },
+    "Scalars": {
+      "Offset U": 1.0,
+      "Offset V": 1.0,
+      "Tiling": 1.0,
+      "Albedo Tint Intensity": 1.0,
+      "Specular": 0.25,
+      "RefractionDepthBias": 0.0
+    },
+    "Switches": {},
+    "Properties": {
+      "PhysMaterial": {
+        "ObjectName": "PhysicalMaterial'PM_Stone'",
+        "ObjectPath": "Project_Plague/Content/Assets/PhysicMaterials/PM_Stone.0"
+      },
+      "NaniteOverrideMaterial": {
+        "OverrideMaterialRef": {
+          "AssetPathName": "",
+          "SubPathString": ""
+        },
+        "bEnableOverride": false,
+        "OverrideMaterial": null
+      },
+      "BasePropertyOverrides": {
+        "OpacityMaskClipValue": 0.3333
+      }
+    },
+    "HasTopDiffuse": true,
+    "HasTopNormals": true,
+    "HasTopSpecularMasks": false,
+    "HasTopEmissive": false,
+    "IsTranslucent": false,
+    "IsNull": false
+  }
+}

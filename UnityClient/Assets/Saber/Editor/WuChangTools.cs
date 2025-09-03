@@ -445,29 +445,37 @@ public static class WuChangTools
         Debug.Log("All done");
     }
 
-    [MenuItem("Saber/WuCH/Import material images from ue")]
-    static void ImportAllMaterialImageFromUE()
+    static List<string> GetSelectedAssets<T>(string searchPattern) where T : UnityEngine.Object
     {
-        List<string> listMaterial = new();
+        List<string> list = new();
         foreach (var obj in Selection.objects)
         {
             string path = AssetDatabase.GetAssetPath(obj);
 
             if (obj is DefaultAsset)
             {
-                string[] files = Directory.GetFiles(path, "*.mat", SearchOption.AllDirectories);
+                string[] files = Directory.GetFiles(path, searchPattern, SearchOption.AllDirectories);
                 foreach (var f in files)
                 {
-                    if (!listMaterial.Contains(f))
-                        listMaterial.Add(f);
+                    if (!list.Contains(f))
+                        list.Add(f);
                 }
             }
-            else if (obj is Material)
+            else if (obj is T)
             {
-                if (!listMaterial.Contains(path))
-                    listMaterial.Add(path);
+                if (!list.Contains(path))
+                    list.Add(path);
             }
         }
+
+        return list;
+    }
+
+
+    [MenuItem("Saber/WuCH/Import material images from ue")]
+    static void ImportAllMaterialImageFromUE()
+    {
+        List<string> listMaterial = GetSelectedAssets<Material>("*.mat");
 
         string[] allJsonFiles = Directory.GetFiles(UEProjectFolder + "/Project_Plague/Content", "*.json", SearchOption.AllDirectories);
         Dictionary<string, string> dicAllJsonFiles = new();
@@ -615,5 +623,38 @@ public static class WuChangTools
         }
 
         return diffuseUE;
+    }
+
+    [MenuItem("Saber/WuCH/Fix image setting")]
+    static void FixImageSetting()
+    {
+        List<string> listImages = GetSelectedAssets<Texture2D>("*.tga");
+        foreach (var image in listImages)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(image);
+            if (fileName.Contains("_D"))
+            {
+            }
+            else if (fileName.Contains("_N"))
+            {
+                TextureImporter tiNormal = AssetImporter.GetAtPath(image) as TextureImporter;
+                tiNormal.textureType = TextureImporterType.NormalMap;
+                tiNormal.SaveAndReimport();
+            }
+            else if (fileName.Contains("_R"))
+            {
+                TextureImporter tiMask = AssetImporter.GetAtPath(image) as TextureImporter;
+                tiMask.sRGBTexture = false;
+                tiMask.SaveAndReimport();
+            }
+            else
+            {
+                Debug.LogError($"Unknown file name:{fileName}");
+            }
+
+            Debug.Log("Done:" + image);
+        }
+
+        Debug.Log("All done");
     }
 }
