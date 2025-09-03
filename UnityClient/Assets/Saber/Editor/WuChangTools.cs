@@ -13,6 +13,9 @@ using UnityEditor.SceneManagement;
 
 public static class WuChangTools
 {
+    private static string UEProjectFolder = @"E:/1/WuChangUnity/Exports";
+
+
     static MD5 s_md5;
 
     static MD5 MD5Obj => s_md5 ??= MD5.Create();
@@ -440,5 +443,163 @@ public static class WuChangTools
         AssetDatabase.Refresh();
 
         Debug.Log("All done");
+    }
+
+    [MenuItem("Saber/WuCH/Import material images from ue")]
+    static void ImportAllMaterialImageFromUE()
+    {
+        List<string> listMaterial = new();
+        foreach (var obj in Selection.objects)
+        {
+            string path = AssetDatabase.GetAssetPath(obj);
+
+            if (obj is DefaultAsset)
+            {
+                string[] files = Directory.GetFiles(path, "*.mat", SearchOption.AllDirectories);
+                foreach (var f in files)
+                {
+                    if (!listMaterial.Contains(f))
+                        listMaterial.Add(f);
+                }
+            }
+            else if (obj is Material)
+            {
+                if (!listMaterial.Contains(path))
+                    listMaterial.Add(path);
+            }
+        }
+
+        string[] allJsonFiles = Directory.GetFiles(UEProjectFolder + "/Project_Plague/Content", "*.json", SearchOption.AllDirectories);
+        Dictionary<string, string> dicAllJsonFiles = new();
+        foreach (var jsonFile in allJsonFiles)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(jsonFile);
+            dicAllJsonFiles[fileName] = jsonFile;
+        }
+
+        string[] allTgaInProj = Directory.GetFiles("Assets/Saber/Art", "*.tga", SearchOption.AllDirectories);
+        Dictionary<string, string> dicAllLocalTga = new();
+        foreach (var tgaFile in allTgaInProj)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(tgaFile);
+            dicAllLocalTga[fileName] = tgaFile;
+        }
+
+        foreach (var m in listMaterial)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(m);
+            string jsonFile = dicAllJsonFiles[fileName];
+            string diffuseUE = GetUEDiffuseTGAPath(jsonFile, out string normalUE, out string maskUE);
+            if (diffuseUE == null)
+            {
+                continue;
+            }
+
+            string matFolder = Path.GetDirectoryName(m);
+            string matParentFolder = Path.GetDirectoryName(matFolder);
+            string textureSaveFolder = matParentFolder + "/Textures";
+            if (!AssetDatabase.IsValidFolder(textureSaveFolder))
+            {
+                AssetDatabase.CreateFolder(matParentFolder, "Textures");
+                AssetDatabase.Refresh();
+            }
+
+            string newDiffuse = ImportOrLoadFromLocal(diffuseUE, dicAllLocalTga, textureSaveFolder);
+            Texture2D diffuse = AssetDatabase.LoadAssetAtPath<Texture2D>(newDiffuse);
+
+            Material mat = AssetDatabase.LoadAssetAtPath<Material>(m);
+            mat.shader = Shader.Find("Saber/WuChang/WuChang Common Lit");
+            mat.SetTexture("_BaseMap", diffuse);
+            mat.SetColor("_BaseColor", Color.white);
+
+            if (!string.IsNullOrEmpty(normalUE))
+            {
+                string newNormal = ImportOrLoadFromLocal(normalUE, dicAllLocalTga, textureSaveFolder);
+                TextureImporter tiNormal = AssetImporter.GetAtPath(newNormal) as TextureImporter;
+                tiNormal.textureType = TextureImporterType.NormalMap;
+                tiNormal.SaveAndReimport();
+                Texture2D texNormal = AssetDatabase.LoadAssetAtPath<Texture2D>(newNormal);
+                mat.SetTexture("_BumpMap", texNormal);
+            }
+
+            if (!string.IsNullOrEmpty(maskUE))
+            {
+                string newMask = ImportOrLoadFromLocal(maskUE, dicAllLocalTga, textureSaveFolder);
+                TextureImporter tiMask = AssetImporter.GetAtPath(newMask) as TextureImporter;
+                tiMask.sRGBTexture = false;
+                tiMask.SaveAndReimport();
+                Texture2D texMask = AssetDatabase.LoadAssetAtPath<Texture2D>(newMask);
+                mat.SetTexture("_MaskMROMap", texMask);
+            }
+
+            Debug.Log($"Fix material done:{m}");
+        }
+
+        Debug.Log("All done");
+    }
+
+    static string ImportOrLoadFromLocal(string tgaUE, Dictionary<string, string> dicAllLocalTga, string saveFolder)
+    {
+        if (dicAllLocalTga.TryGetValue(tgaUE, out string localPath))
+        {
+            return localPath;
+        }
+        else
+        {
+            string tgaName = Path.GetFileName(tgaUE);
+            string savePath = saveFolder + "/" + tgaName;
+            if (!File.Exists(savePath))
+            {
+                File.Copy(tgaUE, savePath);
+                AssetDatabase.Refresh();
+                AssetDatabase.SaveAssets();
+            }
+
+            return savePath;
+        }
+    }
+
+    static string GetUEDiffuseTGAPath(string jsonFile, out string normalUE, out string maskUE)
+    {
+        normalUE = null;
+        maskUE = null;
+
+        string[] lines = File.ReadAllLines(jsonFile);
+        string diffuseUE = null;
+        foreach (var line in lines)
+        {
+            string[] words = line.Split(new string[] { ":", "\"", ",", " " }, StringSplitOptions.RemoveEmptyEntries);
+            if (words.Length > 1 && words[0] == "PM_Diffuse")
+            {
+                diffuseUE = words[1];
+                break;
+            }
+        }
+
+        if (string.IsNullOrEmpty(diffuseUE))
+        {
+            return null;
+        }
+
+        string ext = Path.GetExtension(diffuseUE);
+        diffuseUE = diffuseUE.Replace(ext, ".tga");
+        diffuseUE = UEProjectFolder + "/" + diffuseUE;
+
+        if (diffuseUE.Contains("_D.tga"))
+        {
+            normalUE = diffuseUE.Replace("_D.tga", "_N.tga");
+            maskUE = diffuseUE.Replace("_D.tga", "_R.tga");
+        }
+        else if (diffuseUE.Contains("_Albedo.tga"))
+        {
+            normalUE = diffuseUE.Replace("_Albedo.tga", "_Normal.tga");
+            maskUE = diffuseUE.Replace("_Albedo.tga", "_Reflection.tga");
+        }
+        else
+        {
+            Debug.LogError("Unknown tex path:" + diffuseUE);
+        }
+
+        return diffuseUE;
     }
 }

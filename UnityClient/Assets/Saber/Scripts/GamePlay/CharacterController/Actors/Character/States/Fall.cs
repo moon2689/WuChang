@@ -52,8 +52,8 @@ namespace Saber.CharacterController
             {
                 if (Actor.CPhysic.Grounded)
                 {
-                    float fallHeight = m_StartFallPosY - Actor.transform.position.y;
-                    m_LandAnim = fallHeight > 10 ? "LandHard" : "LandSoft";
+                    //float fallHeight = m_StartFallPosY - Actor.transform.position.y;
+                    m_LandAnim = "Land";
                     Actor.CAnim.Play(m_LandAnim);
                     m_InAir = false;
 
