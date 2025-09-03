@@ -504,32 +504,41 @@ public static class WuChangTools
                 AssetDatabase.Refresh();
             }
 
-            string newDiffuse = ImportOrLoadFromLocal(diffuseUE, dicAllLocalTga, textureSaveFolder);
-            Texture2D diffuse = AssetDatabase.LoadAssetAtPath<Texture2D>(newDiffuse);
-
             Material mat = AssetDatabase.LoadAssetAtPath<Material>(m);
             mat.shader = Shader.Find("Saber/WuChang/WuChang Common Lit");
-            mat.SetTexture("_BaseMap", diffuse);
             mat.SetColor("_BaseColor", Color.white);
+
+            string newDiffuse = ImportOrLoadFromLocal(diffuseUE, dicAllLocalTga, textureSaveFolder);
+            if (!string.IsNullOrEmpty(newDiffuse))
+            {
+                Texture2D diffuse = AssetDatabase.LoadAssetAtPath<Texture2D>(newDiffuse);
+                mat.SetTexture("_BaseMap", diffuse);
+            }
 
             if (!string.IsNullOrEmpty(normalUE))
             {
                 string newNormal = ImportOrLoadFromLocal(normalUE, dicAllLocalTga, textureSaveFolder);
-                TextureImporter tiNormal = AssetImporter.GetAtPath(newNormal) as TextureImporter;
-                tiNormal.textureType = TextureImporterType.NormalMap;
-                tiNormal.SaveAndReimport();
-                Texture2D texNormal = AssetDatabase.LoadAssetAtPath<Texture2D>(newNormal);
-                mat.SetTexture("_BumpMap", texNormal);
+                if (!string.IsNullOrEmpty(newNormal))
+                {
+                    TextureImporter tiNormal = AssetImporter.GetAtPath(newNormal) as TextureImporter;
+                    tiNormal.textureType = TextureImporterType.NormalMap;
+                    tiNormal.SaveAndReimport();
+                    Texture2D texNormal = AssetDatabase.LoadAssetAtPath<Texture2D>(newNormal);
+                    mat.SetTexture("_BumpMap", texNormal);
+                }
             }
 
             if (!string.IsNullOrEmpty(maskUE))
             {
                 string newMask = ImportOrLoadFromLocal(maskUE, dicAllLocalTga, textureSaveFolder);
-                TextureImporter tiMask = AssetImporter.GetAtPath(newMask) as TextureImporter;
-                tiMask.sRGBTexture = false;
-                tiMask.SaveAndReimport();
-                Texture2D texMask = AssetDatabase.LoadAssetAtPath<Texture2D>(newMask);
-                mat.SetTexture("_MaskMROMap", texMask);
+                if (!string.IsNullOrEmpty(newMask))
+                {
+                    TextureImporter tiMask = AssetImporter.GetAtPath(newMask) as TextureImporter;
+                    tiMask.sRGBTexture = false;
+                    tiMask.SaveAndReimport();
+                    Texture2D texMask = AssetDatabase.LoadAssetAtPath<Texture2D>(newMask);
+                    mat.SetTexture("_MaskMROMap", texMask);
+                }
             }
 
             Debug.Log($"Fix material done:{m}");
@@ -550,6 +559,11 @@ public static class WuChangTools
             string savePath = saveFolder + "/" + tgaName;
             if (!File.Exists(savePath))
             {
+                if (!File.Exists(tgaUE))
+                {
+                    return null;
+                }
+
                 File.Copy(tgaUE, savePath);
                 AssetDatabase.Refresh();
                 AssetDatabase.SaveAssets();
