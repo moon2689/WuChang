@@ -16,8 +16,8 @@ MonoBehaviour:
   PlayerInputType: 1
   PlayerID: 1
   StartSceneID: 2
-  m_BornPos: {x: 253, y: 182, z: -140}
-  m_BornRotY: -177
+  m_BornPos: {x: 0, y: 0, z: 0}
+  m_BornRotY: 0
   WitchTimeSeconds: 1.2
   DodgeCostStamina: 20
   IKBoneForceOnHit: 3

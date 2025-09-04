@@ -30,25 +30,20 @@ MonoBehaviour:
     - m_Name: 1
       m_Position: {x: 10, y: 0, z: 0}
       m_RotationY: 0
-  - m_Name: Landscape28
+  - m_Name: "\u683C\u6597\u573A"
     m_ID: 2
-    m_SceneName: Landscape28
+    m_SceneName: Arena
     m_SkyboxType: 0
     m_OpenPostprocess: 1
     m_ActiveOtherActors: 1
     m_ShadowDistance: 20
     m_OtherActorBornPoints:
-    - m_Position: {x: 246.79459, y: 183, z: -148.36963}
+    - m_Position: {x: -20, y: 0, z: 0}
       m_RotationY: 30
       m_EnemyID: 2
       m_AI: 4
-    m_PortalPoints:
-    - m_Active: 0
-      m_Position: {x: 233, y: 181.91, z: -145}
-      m_RotationY: -33.7
-      m_TargetSceneID: 3
-      m_TargetPortalIndex: 0
+    m_PortalPoints: []
     m_GodStatuePoint:
     - m_Name: 1
-      m_Position: {x: 242.94, y: 181.91, z: -122.31}
-      m_RotationY: -21
+      m_Position: {x: 20, y: 0, z: 0}
+      m_RotationY: 0
