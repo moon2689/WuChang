@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 namespace Saber
 {
@@ -8,7 +9,7 @@ namespace Saber
     {
         public List<SceneProgressData> m_SceneProgress;
         public int m_LastStayingSceneID;
-        public int m_lastStayingGodStateIndex;
+        [FormerlySerializedAs("m_lastStayingGodStateIndex")] public int m_lastStayingIdolID;
         //public int[] m_Clothes;
     }
 
@@ -16,6 +17,6 @@ namespace Saber
     public class SceneProgressData
     {
         public int m_SceneID;
-        public List<int> m_FiredGodStatues;
+        [FormerlySerializedAs("m_FiredGodStatues")] public List<int> m_FiredIdols;
     }
 }

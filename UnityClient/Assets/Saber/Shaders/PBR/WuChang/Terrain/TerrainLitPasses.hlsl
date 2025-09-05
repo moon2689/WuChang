@@ -367,6 +367,7 @@ void SplatmapFragment(
     half4 defaultOcclusion = half4(_MaskMapRemapScale0.g, _MaskMapRemapScale1.g, _MaskMapRemapScale2.g, _MaskMapRemapScale3.g) +
                             half4(_MaskMapRemapOffset0.g, _MaskMapRemapOffset1.g, _MaskMapRemapOffset2.g, _MaskMapRemapOffset3.g);
 
+    /*
     half4 maskSmoothness = half4(masks[0].a, masks[1].a, masks[2].a, masks[3].a);
     defaultSmoothness = lerp(defaultSmoothness, maskSmoothness, hasMask);
     half smoothness = dot(splatControl, defaultSmoothness);
@@ -378,6 +379,14 @@ void SplatmapFragment(
     half4 maskOcclusion = half4(masks[0].g, masks[1].g, masks[2].g, masks[3].g);
     defaultOcclusion = lerp(defaultOcclusion, maskOcclusion, hasMask);
     half occlusion = dot(splatControl, defaultOcclusion);
+    */
+    // [wuch]
+    half4 maskSmoothness = 1 - half4(masks[0].r, masks[1].r, masks[2].r, masks[3].r);
+    defaultSmoothness = lerp(defaultSmoothness, maskSmoothness, hasMask);
+    half smoothness = dot(splatControl, defaultSmoothness);
+    half metallic = dot(splatControl, defaultMetallic);
+    half occlusion = dot(splatControl, defaultOcclusion);
+    
 #endif
 
     InputData inputData;

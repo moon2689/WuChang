@@ -38,11 +38,11 @@ namespace Saber.Config
         public string m_SceneName;
         public ESkyboxType m_SkyboxType;
         public bool m_OpenPostprocess;
-        public bool m_ActiveOtherActors = true;
         public float m_ShadowDistance = 20;
-        public OtherActorBornPoint[] m_OtherActorBornPoints;
-        public PortalPoint[] m_PortalPoints;
-        public GodStatuePoint[] m_GodStatuePoint;
+        
+        // 通过工具填充
+        public IdolInfo[] m_Idols;
+        public int[] m_Portals;
     }
 
     [Serializable]
@@ -52,38 +52,11 @@ namespace Saber.Config
         DynamicSkybox,
         StaticSkybox,
     }
-
+    
     [Serializable]
-    public class OtherActorBornPoint
+    public class IdolInfo
     {
-        public Vector3 m_Position;
-        public float m_RotationY;
-        public int m_EnemyID;
-        public EAIType m_AI;
-
-        public Vector3 FixedBornPos { get; set; }
-        public Quaternion BornRot => Quaternion.Euler(0, m_RotationY, 0);
-    }
-
-    [Serializable]
-    public class PortalPoint
-    {
-        public bool m_Active = true;
-        public Vector3 m_Position;
-        public float m_RotationY;
-        public int m_TargetSceneID;
-        public int m_TargetPortalIndex;
-
-        public Portal PortalObject { get; set; }
-    }
-
-    [Serializable]
-    public class GodStatuePoint
-    {
+        public int m_ID;
         public string m_Name;
-        public Vector3 m_Position;
-        public float m_RotationY;
-
-        public Idol IdolObject { get; set; }
     }
 }

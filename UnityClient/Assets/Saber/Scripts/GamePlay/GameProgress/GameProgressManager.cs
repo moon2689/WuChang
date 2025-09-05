@@ -17,10 +17,11 @@ namespace Saber
         private string SavePath => $"{Application.persistentDataPath}/SaberProgress.json";
         public bool HasSavePointBefore { get; private set; }
         public int LastStayingSceneID => m_ProgressData.m_LastStayingSceneID;
-        public int LastStayingStatueIndex => m_ProgressData.m_lastStayingGodStateIndex;
+        public int LastStayingIdolID => m_ProgressData.m_lastStayingIdolID;
+
         public List<SceneProgressData> SceneProgressDatas => m_ProgressData.m_SceneProgress;
         //public int[] Clothes => m_ProgressData.m_Clothes;
-        
+
 
         private GameProgressManager()
         {
@@ -48,7 +49,7 @@ namespace Saber
                 m_ProgressData = new()
                 {
                     m_SceneProgress = new(),
-                    m_lastStayingGodStateIndex = -1,
+                    m_lastStayingIdolID = -1,
                     m_LastStayingSceneID = -1,
                 };
                 HasSavePointBefore = false;
@@ -65,41 +66,41 @@ namespace Saber
             Read();
         }
 
-        public bool IsGodStatueFired(int sceneID, int statueIndex)
+        public bool IsIdolFired(int sceneID, int idolID)
         {
             var tarSceneProgress = m_ProgressData.m_SceneProgress.FirstOrDefault(a => a.m_SceneID == sceneID);
             if (tarSceneProgress != null)
             {
-                return tarSceneProgress.m_FiredGodStatues.Contains(statueIndex);
+                return tarSceneProgress.m_FiredIdols.Contains(idolID);
             }
 
             return false;
         }
 
-        public void OnGodStatueFire(int sceneID, int statueIndex)
+        public void OnIdolFire(int sceneID, int idolID)
         {
             var tarSceneProgress = m_ProgressData.m_SceneProgress.FirstOrDefault(a => a.m_SceneID == sceneID);
             if (tarSceneProgress == null)
             {
                 tarSceneProgress = new SceneProgressData()
                 {
-                    m_FiredGodStatues = new(),
+                    m_FiredIdols = new(),
                     m_SceneID = sceneID,
                 };
                 m_ProgressData.m_SceneProgress.Add(tarSceneProgress);
             }
 
-            tarSceneProgress.m_FiredGodStatues.Add(statueIndex);
+            tarSceneProgress.m_FiredIdols.Add(idolID);
             m_ProgressData.m_LastStayingSceneID = sceneID;
-            m_ProgressData.m_lastStayingGodStateIndex = statueIndex;
+            m_ProgressData.m_lastStayingIdolID = idolID;
 
             Save();
         }
 
-        public void OnGodStatueRest(int sceneID, int statueIndex)
+        public void OnGodStatueRest(int sceneID, int idolID)
         {
             m_ProgressData.m_LastStayingSceneID = sceneID;
-            m_ProgressData.m_lastStayingGodStateIndex = statueIndex;
+            m_ProgressData.m_lastStayingIdolID = idolID;
             Save();
         }
     }

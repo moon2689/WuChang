@@ -20,38 +20,36 @@ namespace Saber.World
         [SerializeField] private GameObject m_FireObject;
 
         private int m_SceneID;
-        private int m_StatueIndex;
         private IHandler m_IHandler;
 
-        public GodStatuePoint GodStatueInfo { get; private set; }
         public int SceneID => m_SceneID;
-        public int StatueIndex => m_StatueIndex;
+        public int ID => Point.m_ID;
 
         public Vector3 RestPos
         {
             get { return transform.position + transform.forward * 1.5f; }
         }
 
+        public ScenePoint Point { get; private set; }
 
         public bool IsFired
         {
-            get { return GameProgressManager.Instance.IsGodStatueFired(m_SceneID, m_StatueIndex); }
+            get { return GameProgressManager.Instance.IsIdolFired(m_SceneID,ID); }
         }
 
-        public void Init(int sceneID, int statueIndex, GodStatuePoint godStatueInfo, Transform parent, IHandler handler)
+        public void Init(int sceneID, ScenePoint scenePoint, Transform parent, IHandler handler)
         {
             m_SceneID = sceneID;
-            m_StatueIndex = statueIndex;
+            Point = scenePoint;
             m_IHandler = handler;
-            GodStatueInfo = godStatueInfo;
 
-            transform.parent = parent;
-            transform.position = godStatueInfo.m_Position;
-            transform.rotation = Quaternion.Euler(0, godStatueInfo.m_RotationY, 0);
+            transform.SetParent(parent);
+            transform.position = scenePoint.transform.position;
+            transform.rotation = scenePoint.transform.rotation;
 
             RefreshFire();
 
-            godStatueInfo.IdolObject = this;
+            scenePoint.IdolObj = this;
         }
 
         public void RefreshFire()

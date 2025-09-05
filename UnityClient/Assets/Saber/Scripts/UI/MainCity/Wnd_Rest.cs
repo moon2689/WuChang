@@ -15,7 +15,7 @@ namespace Saber.UI
         public interface IHandler : IWndHandler
         {
             void OnClickQuit();
-            void OnClickTransmit(int sceneID, int statueIndex);
+            void OnClickTransmit(int sceneID, int idolID);
             void CreateEnemy(int actorID);
         }
 
@@ -59,18 +59,18 @@ namespace Saber.UI
             foreach (var s in GameProgressManager.Instance.SceneProgressDatas)
             {
                 var sceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(s.m_SceneID);
-                foreach (var statueIndex in s.m_FiredGodStatues)
+                foreach (var statueID in s.m_FiredIdols)
                 {
                     ++count;
-                    var statueInfo = sceneInfo.m_GodStatuePoint[statueIndex];
+                    var idolInfo = sceneInfo.m_Idols.FirstOrDefault(a => a.m_ID == statueID);
                     GameObject item = GameObject.Instantiate(m_TempTextItem);
                     item.SetActive(true);
                     item.name = item.ToString();
                     item.transform.SetParent(m_RootStatues.transform);
-                    item.GetComponentInChildren<Text>().text = $"{sceneInfo.m_Name} {statueInfo.m_Name}";
+                    item.GetComponentInChildren<Text>().text = $"{sceneInfo.m_Name} {idolInfo.m_Name}";
                     item.GetComponentInChildren<Button>().onClick.AddListener(() =>
                     {
-                        m_Handler.OnClickTransmit(sceneInfo.m_ID, statueIndex);
+                        m_Handler.OnClickTransmit(sceneInfo.m_ID, statueID);
                         Destroy();
                         GameApp.Entry.Game.Audio.PlayCommonClick();
                     });

@@ -18,8 +18,6 @@ namespace Saber.Config
         public EPlayerInputType PlayerInputType;
         public int PlayerID = 1;
         public int StartSceneID = 1;
-        public Vector3 m_BornPos;
-        public float m_BornRotY;
         public float WitchTimeSeconds = 2;
         public float DodgeCostStamina = 20;
         public float IKBoneForceOnHit = 1;

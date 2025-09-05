@@ -400,7 +400,7 @@ namespace Saber.AI
                 yield break;
             }
 
-            GameProgressManager.Instance.OnGodStatueRest(idol.SceneID, idol.StatueIndex);
+            GameProgressManager.Instance.OnGodStatueRest(idol.SceneID, idol.ID);
 
             OnPlayerRest();
 
@@ -451,9 +451,9 @@ namespace Saber.AI
             Actor.CStateMachine.PlayAction_IdolRestEnd(() => { Actor.CMelee.CWeapon.ToggleWeapon(true); });
         }
 
-        void Wnd_Rest.IHandler.OnClickTransmit(int sceneID, int statueIndex)
+        void Wnd_Rest.IHandler.OnClickTransmit(int sceneID, int idolID)
         {
-            GameApp.Entry.Game.World.Transmit(sceneID, statueIndex);
+            GameApp.Entry.Game.World.Transmit(sceneID, idolID);
         }
 
         void Wnd_Rest.IHandler.CreateEnemy(int actorID)

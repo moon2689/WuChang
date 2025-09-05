@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using CombatEditor;
 using Saber.AI;
 using Saber.CharacterController;
@@ -25,9 +26,9 @@ namespace Saber.World
         {
             None,
             NewGame,
-            ToLastGodStatue,
+            ToLastIdol,
             ToNextSceneByPortal,
-            ToGodStatue,
+            ToIdol,
         }
 
 
@@ -46,16 +47,14 @@ namespace Saber.World
         // private AzureWeatherController m_AzureWeather;
         // private AzureEffectsController m_AzureEffects;
         private Wnd_Loading m_WndLoading;
-        private PortalPoint m_CurrentUsingPortalInfo;
-        private Vector3 m_PlayerPos;
-        private Quaternion m_PlayerRot;
+        private Portal m_CurrentUsingPortalInfo;
         private Idol m_CurrentStayingIdol;
-        private Dictionary<OtherActorBornPoint, SActor> m_DicOtherActors = new();
-        private PortalPoint m_TransmittingPortal;
+        private int m_TransmittingPortalID;
+        private int m_TransmittingIdolID;
         private Coroutine m_CoroutineWitchTime;
         private Dictionary<SActor, CharacterAnimSpeedModifier> m_DicModifierWitchTimes = new();
         private EffectObject m_EffectWitchTimeBoom;
-        private Dictionary<GodStatuePoint, Idol> m_DicGodStatues = new();
+        private ScenePoint[] m_ScenePoints;
 
 
         public SActor Player => m_Player;
@@ -93,28 +92,21 @@ namespace Saber.World
                 // 新游戏
                 int sceneID = GameApp.Entry.Config.GameSetting.StartSceneID;
                 m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
-                m_PlayerPos = GameApp.Entry.Config.GameSetting.m_BornPos;
-                m_PlayerRot = Quaternion.Euler(0, GameApp.Entry.Config.GameSetting.m_BornRotY, 0);
+                // m_PlayerPos = GameApp.Entry.Config.GameSetting.m_BornPos;
+                // m_PlayerRot = Quaternion.Euler(0, GameApp.Entry.Config.GameSetting.m_BornRotY, 0);
             }
             else if (loadType == ELoadType.ToNextSceneByPortal)
             {
                 // 传送
-                int sceneID = m_CurrentUsingPortalInfo.m_TargetSceneID;
+                int sceneID = m_CurrentUsingPortalInfo.TargetSceneID;
                 m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
-                m_TransmittingPortal = m_SceneInfo.m_PortalPoints[m_CurrentUsingPortalInfo.m_TargetPortalIndex];
-                Quaternion tarPortalRot = Quaternion.Euler(0, m_TransmittingPortal.m_RotationY, 0);
-                m_PlayerPos = m_TransmittingPortal.m_Position;
-                m_PlayerRot = tarPortalRot;
+                m_TransmittingPortalID = m_CurrentUsingPortalInfo.TargetPortalID;
             }
-            else if (loadType == ELoadType.ToLastGodStatue)
+            else if (loadType == ELoadType.ToLastIdol)
             {
                 int sceneID = GameProgressManager.Instance.LastStayingSceneID;
                 m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
-                int statueIndex = GameProgressManager.Instance.LastStayingStatueIndex;
-                var targetStatueInfo = m_SceneInfo.m_GodStatuePoint[statueIndex];
-                Quaternion tarStatueRot = Quaternion.Euler(0, targetStatueInfo.m_RotationY, 0);
-                m_PlayerPos = targetStatueInfo.m_Position + tarStatueRot * new Vector3(0, 0.2f, 1.5f);
-                m_PlayerRot = Quaternion.Euler(0, targetStatueInfo.m_RotationY + 180, 0);
+                m_TransmittingIdolID = GameProgressManager.Instance.LastStayingIdolID;
             }
             else
             {
@@ -138,10 +130,7 @@ namespace Saber.World
             yield return CreatePlayer().StartCoroutine();
 
             // other actors
-            if (m_SceneInfo.m_ActiveOtherActors)
-            {
-                yield return CreateOtherActors().StartCoroutine();
-            }
+            yield return CreateOtherActors().StartCoroutine();
 
             // wnd
             if (m_WndMainCity == null)
@@ -151,8 +140,8 @@ namespace Saber.World
 
             // effects
             GameApp.Entry.Config.GameSetting.PreloadEffects();
+            yield return null;
 
-            m_WndLoading.Percent = 100;
             /*
             // 在神像休息
             if (loadType == ELoadType.ToGodStatue ||
@@ -170,31 +159,31 @@ namespace Saber.World
             //yield return new WaitForSeconds(0.1f);
             m_WndLoading.Destroy();
 
+            /*
             if (m_LoadType == ELoadType.NewGame)
             {
                 // 新游戏cg动画
                 m_LoadType = ELoadType.None;
-                /*
+                
                 Vector3 position = GameApp.Entry.Config.GameSetting.m_BornPos;
                 Quaternion rotation = Quaternion.Euler(0, GameApp.Entry.Config.GameSetting.m_BornRotY, 0);
                 TimelineManager timelineManager = TimelineManager.Create("CGNewGame");
                 timelineManager.BindPlayer();
                 timelineManager.Play(position, rotation, null);
-                */
+                
                 m_Player.transform.position = GameApp.Entry.Config.GameSetting.m_BornPos;
                 m_Player.transform.rotation = Quaternion.Euler(0, GameApp.Entry.Config.GameSetting.m_BornRotY, 0);
             }
             else if (m_LoadType == ELoadType.ToNextSceneByPortal)
             {
                 // 走出传送门动画
-                var curPortal = m_TransmittingPortal.PortalObject;
+                var curPortal = m_TransmittingPortalID.PortalObject;
                 GameApp.Entry.Game.PlayerCamera.LookAtTarget(curPortal.transform.rotation.eulerAngles.y + 150);
                 curPortal.EnableGateCollider(false);
-                Vector3 targetPos = m_TransmittingPortal.PortalObject.transform.position +
-                                    curPortal.transform.forward * 1f;
-                yield return GameApp.Entry.Game.PlayerAI.PlayActionMoveToTargetPos(targetPos, 0,
-                    () => { curPortal.EnableGateCollider(true); });
+                Vector3 targetPos = m_TransmittingPortalID.PortalObject.transform.position + curPortal.transform.forward * 1f;
+                yield return GameApp.Entry.Game.PlayerAI.PlayActionMoveToTargetPos(targetPos, 0, () => { curPortal.EnableGateCollider(true); });
             }
+            */
 
             onLoaded?.Invoke();
         }
@@ -215,13 +204,16 @@ namespace Saber.World
                 yield return h;
             }
 
+            m_ScenePoints = GameObject.FindObjectsOfType<ScenePoint>();
+
             m_WndLoading.Percent = 50;
 
             OnSceneLoaded();
             yield return null;
 
             // 传送门
-            if (m_SceneInfo.m_PortalPoints.Length > 0)
+            int portalCount = m_ScenePoints.Count(a => a.m_PointType == EScenePointType.Portal);
+            if (portalCount > 0)
             {
                 string portalParentName = "Portals";
                 GameObject parentPortal = GameObject.Find(portalParentName);
@@ -232,31 +224,35 @@ namespace Saber.World
 
                 parentPortal = new GameObject(portalParentName);
 
-                for (int i = 0; i < m_SceneInfo.m_PortalPoints.Length; i++)
+                int count = 0;
+                foreach (var scenePoint in m_ScenePoints)
                 {
-                    var portalInfo = m_SceneInfo.m_PortalPoints[i];
-                    if (!portalInfo.m_Active)
+                    if (scenePoint.m_PointType != EScenePointType.Portal)
                     {
                         continue;
                     }
 
-                    m_WndLoading.Percent = 50 + 10 * (i + 1) / m_SceneInfo.m_PortalPoints.Length;
+                    ++count;
+                    m_WndLoading.Percent = 50 + 10 * count / portalCount;
                     GameObject portalObj = GameApp.Entry.Asset.LoadGameObject("SceneProp/Portal");
-                    portalObj.name = i.ToString();
+                    portalObj.name = scenePoint.m_ID.ToString();
                     Portal portal = portalObj.GetComponent<Portal>();
-                    portal.Init(portalInfo, parentPortal.transform, this);
+                    portal.Init(scenePoint, parentPortal.transform, this);
                 }
             }
 
+            /*
             if (m_LoadType == ELoadType.ToNextSceneByPortal)
             {
-                m_TransmittingPortal.PortalObject.EnableGateCollider(false);
+                m_TransmittingPortalID.PortalObject.EnableGateCollider(false);
             }
+            */
 
             m_WndLoading.Percent = 60;
 
             // 雕像（存档点）
-            if (m_SceneInfo.m_GodStatuePoint.Length > 0)
+            int idolCount = m_ScenePoints.Count(a => a.m_PointType == EScenePointType.Idol);
+            if (idolCount > 0)
             {
                 string statueParentName = "Statues";
                 GameObject parentStatue = GameObject.Find(statueParentName);
@@ -266,16 +262,20 @@ namespace Saber.World
                 }
 
                 parentStatue = new GameObject(statueParentName);
-                m_DicGodStatues.Clear();
-                for (int i = 0; i < m_SceneInfo.m_GodStatuePoint.Length; i++)
+                int count = 0;
+                foreach (var scenePoint in m_ScenePoints)
                 {
-                    var statueInfo = m_SceneInfo.m_GodStatuePoint[i];
-                    m_WndLoading.Percent = 60 + 5 * (i + 1) / m_SceneInfo.m_GodStatuePoint.Length;
+                    if (scenePoint.m_PointType != EScenePointType.Idol)
+                    {
+                        continue;
+                    }
+
+                    ++count;
+                    m_WndLoading.Percent = 60 + 5 * count / idolCount;
                     GameObject godStatueObj = GameApp.Entry.Asset.LoadGameObject("SceneProp/GodStatue");
-                    godStatueObj.name = i.ToString();
+                    godStatueObj.name = scenePoint.m_ID.ToString();
                     Idol idol = godStatueObj.GetComponent<Idol>();
-                    idol.Init(m_SceneInfo.m_ID, i, statueInfo, parentStatue.transform, this);
-                    m_DicGodStatues.Add(statueInfo, idol);
+                    idol.Init(m_SceneInfo.m_ID, scenePoint, parentStatue.transform, this);
                 }
             }
 
@@ -382,15 +382,14 @@ namespace Saber.World
 
         void DestroyOtherActors()
         {
-            foreach (var pair in m_DicOtherActors)
+            if (m_ScenePoints != null)
             {
-                if (pair.Value)
+                foreach (var p in m_ScenePoints)
                 {
-                    pair.Value.Destroy();
+                    if (p.Actor)
+                        p.Actor.Destroy();
                 }
             }
-
-            m_DicOtherActors.Clear();
         }
 
         private IEnumerator CreateOtherActors()
@@ -398,38 +397,37 @@ namespace Saber.World
             DestroyOtherActors();
             yield return null;
 
-            for (int i = 0; i < m_SceneInfo.m_OtherActorBornPoints.Length; i++)
+            int totalCount = m_ScenePoints.Count(a => a.m_PointType == EScenePointType.MonsterBornPosition);
+            if (totalCount <= 0)
             {
-                var bornPoint = m_SceneInfo.m_OtherActorBornPoints[i];
-                var actor = CreateActor(bornPoint);
-                m_WndLoading.Percent = 70 + 20 * (i + 1) / m_SceneInfo.m_OtherActorBornPoints.Length;
+                yield break;
+            }
+
+            int count = 0;
+            foreach (var scenePoint in m_ScenePoints)
+            {
+                if (scenePoint.m_PointType != EScenePointType.MonsterBornPosition)
+                {
+                    continue;
+                }
+
+                ++count;
+                CreateActor(scenePoint);
+                m_WndLoading.Percent = 70 + 20 * count / totalCount;
                 yield return null;
             }
         }
 
-        SActor CreateActor(OtherActorBornPoint bornPoint, int id = -1)
+        void CreateActor(ScenePoint bornPoint, int id = -1)
         {
-            Vector3 rayOriginPos = bornPoint.m_Position + Vector3.up * 100;
-            int enemyID = id > 0 ? id : bornPoint.m_EnemyID;
-            if (Physics.Raycast(rayOriginPos, Vector3.down, out var hitInfo, 200, EStaticLayers.Default.GetLayerMask()))
-            {
-                bornPoint.FixedBornPos = hitInfo.point;
-            }
-            else
-            {
-                Debug.LogError($"Born position is error, id:{enemyID}");
-                bornPoint.FixedBornPos = bornPoint.m_Position + Vector3.up * 10;
-            }
+            int enemyID = id > 0 ? id : bornPoint.m_ID;
 
-            EAIType aiType = GameApp.Entry.Config.TestGame.TestSkill ? EAIType.TestSkill : bornPoint.m_AI;
+            EAIType aiType = GameApp.Entry.Config.TestGame.TestSkill ? EAIType.TestSkill : bornPoint.m_AIType;
             EnemyAIBase ai = aiType.CreateEnemyAI();
             var camp = EActorCamp.Monster;
-            var actor = SActor.Create(enemyID, bornPoint.FixedBornPos, bornPoint.BornRot, ai, camp);
+            var actor = SActor.Create(enemyID, bornPoint.GetFixedBornPos(), bornPoint.transform.rotation, ai, camp);
             actor.Event_OnDead += OnOtherActorDead;
-
-            m_DicOtherActors[bornPoint] = actor;
-
-            return actor;
+            bornPoint.Actor = actor;
         }
 
         private void OnOtherActorDead(SActor obj)
@@ -437,15 +435,46 @@ namespace Saber.World
             // todo
         }
 
+        Vector3 GetPlayerPosWhenEnterScene(out Quaternion rot)
+        {
+            ScenePoint point;
+            if (m_LoadType == ELoadType.NewGame)
+            {
+                point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.PlayerBornPosition);
+            }
+            else if (m_LoadType == ELoadType.ToIdol || m_LoadType == ELoadType.ToLastIdol)
+            {
+                point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.Idol && a.m_ID == m_TransmittingIdolID);
+            }
+            else if (m_LoadType == ELoadType.ToNextSceneByPortal)
+            {
+                point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.Portal && a.m_ID == m_TransmittingPortalID);
+            }
+            else
+            {
+                throw new InvalidOperationException($"Unknown load type:{m_LoadType}");
+            }
+
+            if (point != null)
+            {
+                rot = point.transform.rotation;
+                return point.GetFixedBornPos();
+            }
+
+            rot = Quaternion.identity;
+            return Vector3.zero;
+        }
+
         IEnumerator CreatePlayer()
         {
             var ai = GameApp.Entry.Game.PlayerAI;
+            Vector3 playerPos = GetPlayerPosWhenEnterScene(out var playerRot);
 
             if (m_Player)
             {
                 m_Player.gameObject.SetActive(true);
-                m_Player.transform.position = m_PlayerPos;
-                m_Player.transform.rotation = m_PlayerRot;
+                m_Player.transform.position = playerPos;
+                m_Player.transform.rotation = playerRot;
                 ai.ClearLockEnemy();
 
                 m_WndLoading.Percent = 70;
@@ -454,7 +483,7 @@ namespace Saber.World
             {
                 int id = GameApp.Entry.Config.GameSetting.PlayerID;
 
-                m_Player = SActor.Create(id, m_PlayerPos, m_PlayerRot, ai, EActorCamp.Player);
+                m_Player = SActor.Create(id, playerPos, playerRot, ai, EActorCamp.Player);
                 m_Player.name += "(Player)";
                 m_Player.Event_OnDead += OnPlayerDead;
 
@@ -529,33 +558,35 @@ namespace Saber.World
 
         Coroutine BackToLastGodStatue()
         {
-            int sceneID = GameProgressManager.Instance.LastStayingSceneID;
-            m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
-            if (m_SceneInfo == null || m_SceneInfo.m_GodStatuePoint == null || m_SceneInfo.m_GodStatuePoint.Length <= 0)
+            if (GameProgressManager.Instance.HasSavePointBefore)
             {
-                return null;
+                int sceneID = GameProgressManager.Instance.LastStayingSceneID;
+                m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
+                m_TransmittingIdolID = GameProgressManager.Instance.LastStayingIdolID;
+                return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToLastIdol, null));
             }
-
-            int statueIndex = GameProgressManager.Instance.LastStayingStatueIndex;
-            var targetStatueInfo = m_SceneInfo.m_GodStatuePoint[statueIndex];
-            Quaternion tarStatueRot = Quaternion.Euler(0, targetStatueInfo.m_RotationY, 0);
-            m_PlayerPos = targetStatueInfo.m_Position + tarStatueRot * new Vector3(0, 0.2f, 1.5f);
-            m_PlayerRot = Quaternion.Euler(0, targetStatueInfo.m_RotationY + 180, 0);
-
-            return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToLastGodStatue, null));
+            else
+            {
+                return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.NewGame, null));
+            }
         }
 
         /// <summary>其它角色复原</summary>
         public void RecorverOtherActors()
         {
-            if (m_SceneInfo == null || !m_SceneInfo.m_ActiveOtherActors)
+            if (m_SceneInfo == null)
             {
                 return;
             }
 
-            foreach (var bornPoint in m_SceneInfo.m_OtherActorBornPoints)
+            foreach (var p in m_ScenePoints)
             {
-                m_DicOtherActors.TryGetValue(bornPoint, out var actor);
+                if (p.m_PointType != EScenePointType.MonsterBornPosition)
+                {
+                    continue;
+                }
+
+                var actor = p.Actor;
                 if (actor != null)
                 {
                     if (actor.IsDead)
@@ -567,12 +598,12 @@ namespace Saber.World
                         actor.CStats.Reset();
                     }
 
-                    actor.transform.position = bornPoint.FixedBornPos;
-                    actor.transform.rotation = bornPoint.BornRot;
+                    actor.transform.position = p.GetFixedBornPos();
+                    actor.transform.rotation = p.transform.rotation;
                 }
                 else
                 {
-                    CreateActor(bornPoint);
+                    CreateActor(p);
                 }
             }
         }
@@ -741,185 +772,6 @@ namespace Saber.World
         #endregion
 
 
-        #region WitchTime
-
-        public void BeginSkillWitchTime()
-        {
-            if (m_CoroutineWitchTime != null)
-            {
-                m_CoroutineWitchTime.StopCoroutine();
-                EndWitchTime(false);
-            }
-
-            m_CoroutineWitchTime = BeginSkillWitchTimeItor().StartCoroutine();
-        }
-
-        IEnumerator BeginSkillWitchTimeItor()
-        {
-            InWitchTime = true;
-
-            Player.Invincible = true;
-            Player.ToggleTrailShadowEffect(true);
-
-            URPFeatureWitchTime.s_IsActive = true;
-
-            yield return new WaitForSeconds(0.1f);
-
-            GameApp.Entry.Game.Audio.Play2DSound("Sound/Skill/WitchTimeBegin");
-
-            m_DicModifierWitchTimes.Clear();
-            foreach (var pair in m_DicOtherActors)
-            {
-                if (pair.Value && !pair.Value.IsDead)
-                {
-                    m_DicModifierWitchTimes[pair.Value] = pair.Value.m_AnimSpeedExecutor.AddAnimSpeedModifier(0.1f);
-                }
-            }
-        }
-
-        public void BeginWitchTime()
-        {
-            if (m_CoroutineWitchTime != null)
-            {
-                m_CoroutineWitchTime.StopCoroutine();
-                EndWitchTime(false);
-            }
-
-            m_CoroutineWitchTime = BeginWitchTimeItor().StartCoroutine();
-        }
-
-        IEnumerator BeginWitchTimeItor()
-        {
-            InWitchTime = true;
-
-            Player.Invincible = true;
-            Player.ToggleTrailShadowEffect(true);
-
-            URPFeatureWitchTime.s_IsActive = true;
-
-            yield return new WaitForSeconds(0.1f);
-
-            GameApp.Entry.Game.Audio.Play2DSound("Sound/Skill/WitchTimeBegin");
-
-            m_DicModifierWitchTimes.Clear();
-            foreach (var pair in m_DicOtherActors)
-            {
-                if (pair.Value && !pair.Value.IsDead)
-                {
-                    m_DicModifierWitchTimes[pair.Value] = pair.Value.m_AnimSpeedExecutor.AddAnimSpeedModifier(0.2f);
-                }
-            }
-
-            if (m_EffectWitchTimeBoom == null)
-            {
-                GameObject effectWitchTimeBoom = GameApp.Entry.Asset.LoadGameObject("Particles/WitchTimeBoom");
-                m_EffectWitchTimeBoom = effectWitchTimeBoom.GetComponent<EffectObject>();
-            }
-
-            m_EffectWitchTimeBoom.Show(m_Player.transform.position + new Vector3(0, m_Player.CPhysic.CenterHeight));
-
-            m_DicModifierWitchTimes[m_Player] = m_Player.m_AnimSpeedExecutor.AddAnimSpeedModifier(0.2f);
-
-            yield return new WaitForSeconds(0.5f);
-
-            foreach (var pair in m_DicModifierWitchTimes)
-            {
-                pair.Key.m_AnimSpeedExecutor.RemoveAnimSpeedModifier(pair.Value);
-            }
-
-            m_DicModifierWitchTimes.Clear();
-            foreach (var pair in m_DicOtherActors)
-            {
-                if (pair.Value && !pair.Value.IsDead)
-                {
-                    m_DicModifierWitchTimes[pair.Value] = pair.Value.m_AnimSpeedExecutor.AddAnimSpeedModifier(0.1f);
-                }
-            }
-
-            /*
-            if (m_DicModifierWitchTimes.TryGetValue(m_Player, out var playerSlow))
-            {
-                m_Player.m_AnimSpeedExecutor.RemoveAnimSpeedModifier(playerSlow);
-                m_DicModifierWitchTimes.Remove(m_Player);
-            }*/
-
-            yield return new WaitForSeconds(GameApp.Entry.Config.GameSetting.WitchTimeSeconds);
-            EndWitchTime(true);
-        }
-
-        public void BeginWitchTimeFailed()
-        {
-            BeginWitchTimeFailedItor().StartCoroutine();
-        }
-
-        IEnumerator BeginWitchTimeFailedItor()
-        {
-            Player.Invincible = true;
-            Player.ToggleTrailShadowEffect(true);
-
-            //      URPFeatureWitchTime.s_IsActive = true;
-
-            yield return new WaitForSeconds(0.1f);
-
-            GameApp.Entry.Game.Audio.Play2DSound("Sound/Skill/WitchTimeFailed");
-
-            m_DicModifierWitchTimes.Clear();
-            foreach (var pair in m_DicOtherActors)
-            {
-                if (pair.Value && !pair.Value.IsDead)
-                {
-                    m_DicModifierWitchTimes[pair.Value] = pair.Value.m_AnimSpeedExecutor.AddAnimSpeedModifier(0.2f);
-                }
-            }
-
-            // m_EffectWitchTimeBoom.Show(m_Player.transform.position + new Vector3(0, m_Player.CPhysic.CenterHeight));
-
-            m_DicModifierWitchTimes[m_Player] = m_Player.m_AnimSpeedExecutor.AddAnimSpeedModifier(0.2f);
-
-            yield return new WaitForSeconds(0.5f);
-
-            Player.ToggleTrailShadowEffect(false);
-            Player.Invincible = false;
-
-            foreach (var pair in m_DicModifierWitchTimes)
-            {
-                pair.Key.m_AnimSpeedExecutor.RemoveAnimSpeedModifier(pair.Value);
-            }
-
-            m_DicModifierWitchTimes.Clear();
-        }
-
-        public void EndWitchTime(bool playSound)
-        {
-            if (!InWitchTime)
-            {
-                return;
-            }
-
-            InWitchTime = false;
-
-            if (playSound)
-            {
-                GameApp.Entry.Game.Audio.Play2DSound("Sound/Skill/WitchTimeEnd");
-            }
-
-            foreach (var pair in m_DicModifierWitchTimes)
-            {
-                pair.Key.m_AnimSpeedExecutor.RemoveAnimSpeedModifier(pair.Value);
-            }
-
-            m_DicModifierWitchTimes.Clear();
-
-            URPFeatureWitchTime.s_IsActive = false;
-            Player.ToggleTrailShadowEffect(false);
-            Player.Invincible = false;
-
-            m_CoroutineWitchTime = null;
-        }
-
-        #endregion
-
-
         #region Portal.IHandler
 
         void Portal.IHandler.OnPlayerEnter(Portal portal)
@@ -945,7 +797,7 @@ namespace Saber.World
             GameApp.Entry.Game.PlayerAI.PlayActionMoveToTargetPos(portal.transform.position, m_Player.CPhysic.Radius,
                 () =>
                 {
-                    m_CurrentUsingPortalInfo = portal.PortalInfo;
+                    m_CurrentUsingPortalInfo = portal;
                     Load(ELoadType.ToNextSceneByPortal, null);
                 });
         }
@@ -973,7 +825,7 @@ namespace Saber.World
 
             GameApp.Entry.Game.PlayerAI.ActiveIdol(idol, () =>
             {
-                GameProgressManager.Instance.OnGodStatueFire(idol.SceneID, idol.StatueIndex);
+                GameProgressManager.Instance.OnIdolFire(idol.SceneID, idol.ID);
                 idol.RefreshFire();
             });
         }
@@ -988,18 +840,18 @@ namespace Saber.World
 
         #region Wnd_Rest
 
-        public void Transmit(int sceneID, int statueIndex)
+        public void Transmit(int sceneID, int idolID)
         {
-            TransmitItor(sceneID, statueIndex).StartCoroutine();
+            TransmitItor(sceneID, idolID).StartCoroutine();
         }
 
-        IEnumerator TransmitItor(int sceneID, int statueIndex)
+        IEnumerator TransmitItor(int sceneID, int idolID)
         {
             GameApp.Entry.Game.PlayerAI.Active = true;
 
             if (m_CurrentStayingIdol != null &&
                 sceneID == m_CurrentStayingIdol.SceneID &&
-                statueIndex == m_CurrentStayingIdol.StatueIndex)
+                idolID == m_CurrentStayingIdol.ID)
             {
                 GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(m_CurrentStayingIdol);
                 yield break;
@@ -1007,7 +859,7 @@ namespace Saber.World
 
             OnPlayerExit(m_CurrentStayingIdol);
 
-            GameProgressManager.Instance.OnGodStatueRest(sceneID, statueIndex);
+            GameProgressManager.Instance.OnGodStatueRest(sceneID, idolID);
 
             bool wait = true;
             m_Player.CStateMachine.PlayAction_BranchTeleport(() => wait = false);
@@ -1017,19 +869,15 @@ namespace Saber.World
             }
 
             m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
-            var targetStatueInfo = m_SceneInfo.m_GodStatuePoint[statueIndex];
-            Quaternion tarStatueRot = Quaternion.Euler(0, targetStatueInfo.m_RotationY, 0);
-            m_PlayerPos = targetStatueInfo.m_Position + tarStatueRot * new Vector3(0, 0.2f, 1.5f);
-            m_PlayerRot = Quaternion.Euler(0, targetStatueInfo.m_RotationY + 180, 0);
-
-            yield return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToGodStatue, null));
+            m_TransmittingIdolID = idolID;
+            yield return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToIdol, null));
         }
 
         public void CreateEnemy(int actorID)
         {
             DestroyOtherActors();
-            var bornPoint = m_SceneInfo.m_OtherActorBornPoints[0];
-            CreateActor(bornPoint, actorID);
+            var firstPoint = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.MonsterBornPosition);
+            CreateActor(firstPoint, actorID);
         }
 
         #endregion
