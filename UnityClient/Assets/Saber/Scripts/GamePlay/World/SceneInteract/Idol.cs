@@ -24,18 +24,10 @@ namespace Saber.World
 
         public int SceneID => m_SceneID;
         public int ID => Point.m_ID;
-
-        public Vector3 RestPos
-        {
-            get { return transform.position + transform.forward * 1.5f; }
-        }
-
         public ScenePoint Point { get; private set; }
 
-        public bool IsFired
-        {
-            get { return GameProgressManager.Instance.IsIdolFired(m_SceneID,ID); }
-        }
+        public bool IsFired => GameProgressManager.Instance.IsIdolFired(m_SceneID, ID);
+
 
         public void Init(int sceneID, ScenePoint scenePoint, Transform parent, IHandler handler)
         {
@@ -44,8 +36,10 @@ namespace Saber.World
             m_IHandler = handler;
 
             transform.SetParent(parent);
-            transform.position = scenePoint.transform.position;
-            transform.rotation = scenePoint.transform.rotation;
+            Vector3 pos = Point.GetFixedBornPos(out var rot);
+            pos.y -= 0.02f;
+            transform.position = pos;
+            transform.rotation = rot;
 
             RefreshFire();
 

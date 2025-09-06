@@ -4,6 +4,7 @@ using Saber.AI;
 using Saber.CharacterController;
 using Saber.World;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Saber.Config
 {
@@ -35,7 +36,7 @@ namespace Saber.Config
     {
         public string m_Name;
         public int m_ID;
-        public string m_SceneName;
+        public string m_ResName;
         public ESkyboxType m_SkyboxType;
         public bool m_OpenPostprocess;
         public float m_ShadowDistance = 20;

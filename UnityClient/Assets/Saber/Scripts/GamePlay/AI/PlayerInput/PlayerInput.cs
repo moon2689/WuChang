@@ -361,7 +361,8 @@ namespace Saber.AI
             Actor.CMelee.CWeapon.ToggleWeapon(false);
 
             bool wait = true;
-            Actor.CStateMachine.SetPosAndForward(idol.RestPos, -idol.transform.forward, 0.2f, () => wait = false);
+            Vector3 idolRestPos = idol.Point.GetIdolFixedPos(out _);
+            Actor.CStateMachine.SetPosAndForward(idolRestPos, -idol.Point.transform.forward, 0.2f, () => wait = false);
             while (wait)
             {
                 yield return null;
@@ -408,7 +409,8 @@ namespace Saber.AI
             wndRest.ActiveRoot = false;
 
             bool wait = true;
-            Actor.CStateMachine.SetPosAndForward(idol.RestPos, -idol.transform.forward, 0.2f, () => wait = false);
+            Vector3 idolRestPos = idol.Point.GetIdolFixedPos(out _);
+            Actor.CStateMachine.SetPosAndForward(idolRestPos, -idol.transform.forward, 0.2f, () => wait = false);
             while (wait)
             {
                 yield return null;

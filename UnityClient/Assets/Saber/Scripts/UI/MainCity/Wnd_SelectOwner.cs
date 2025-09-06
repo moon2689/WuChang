@@ -45,7 +45,7 @@ namespace Saber.UI
             List<string> options = new();
             foreach (var scene in GameApp.Entry.Config.SceneInfo.m_Scenes)
             {
-                options.Add(scene.m_SceneName);
+                options.Add(scene.m_ResName);
             }
 
             m_dropOption.AddOptions(options);

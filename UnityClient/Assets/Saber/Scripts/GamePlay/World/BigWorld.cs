@@ -75,13 +75,6 @@ namespace Saber.World
 
         public Light MainLight { get; private set; }
 
-        public bool InWitchTime { get; private set; }
-
-
-        public BigWorld()
-        {
-        }
-
 
         #region Load
 
@@ -195,12 +188,12 @@ namespace Saber.World
                 m_Player.gameObject.SetActive(false);
             }
 
-            if (SceneManager.GetActiveScene().name != m_SceneInfo.m_SceneName)
+            if (SceneManager.GetActiveScene().name != m_SceneInfo.m_ResName)
             {
                 // destroy actors
                 DestroyOtherActors();
 
-                AsyncOperation h = SceneManager.LoadSceneAsync(m_SceneInfo.m_SceneName, LoadSceneMode.Single);
+                AsyncOperation h = SceneManager.LoadSceneAsync(m_SceneInfo.m_ResName, LoadSceneMode.Single);
                 yield return h;
             }
 
@@ -217,17 +210,18 @@ namespace Saber.World
             {
                 string portalParentName = "Portals";
                 GameObject parentPortal = GameObject.Find(portalParentName);
-                if (parentPortal)
-                {
-                    GameObject.Destroy(parentPortal);
-                }
-
-                parentPortal = new GameObject(portalParentName);
+                if (!parentPortal)
+                    parentPortal = new GameObject(portalParentName);
 
                 int count = 0;
                 foreach (var scenePoint in m_ScenePoints)
                 {
                     if (scenePoint.m_PointType != EScenePointType.Portal)
+                    {
+                        continue;
+                    }
+
+                    if (scenePoint.PortalObj != null)
                     {
                         continue;
                     }
@@ -254,18 +248,19 @@ namespace Saber.World
             int idolCount = m_ScenePoints.Count(a => a.m_PointType == EScenePointType.Idol);
             if (idolCount > 0)
             {
-                string statueParentName = "Statues";
+                string statueParentName = "Idols";
                 GameObject parentStatue = GameObject.Find(statueParentName);
-                if (parentStatue)
-                {
-                    GameObject.Destroy(parentStatue);
-                }
-
-                parentStatue = new GameObject(statueParentName);
+                if (!parentStatue)
+                    parentStatue = new GameObject(statueParentName);
                 int count = 0;
                 foreach (var scenePoint in m_ScenePoints)
                 {
                     if (scenePoint.m_PointType != EScenePointType.Idol)
+                    {
+                        continue;
+                    }
+
+                    if (scenePoint.IdolObj != null)
                     {
                         continue;
                     }
@@ -386,7 +381,7 @@ namespace Saber.World
             {
                 foreach (var p in m_ScenePoints)
                 {
-                    if (p.Actor)
+                    if (p.m_PointType == EScenePointType.MonsterBornPosition && p.Actor)
                         p.Actor.Destroy();
                 }
             }
@@ -425,7 +420,8 @@ namespace Saber.World
             EAIType aiType = GameApp.Entry.Config.TestGame.TestSkill ? EAIType.TestSkill : bornPoint.m_AIType;
             EnemyAIBase ai = aiType.CreateEnemyAI();
             var camp = EActorCamp.Monster;
-            var actor = SActor.Create(enemyID, bornPoint.GetFixedBornPos(), bornPoint.transform.rotation, ai, camp);
+            Vector3 pos = bornPoint.GetFixedBornPos(out var rot);
+            var actor = SActor.Create(enemyID, pos, rot, ai, camp);
             actor.Event_OnDead += OnOtherActorDead;
             bornPoint.Actor = actor;
         }
@@ -437,28 +433,33 @@ namespace Saber.World
 
         Vector3 GetPlayerPosWhenEnterScene(out Quaternion rot)
         {
-            ScenePoint point;
             if (m_LoadType == ELoadType.NewGame)
             {
-                point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.PlayerBornPosition);
+                ScenePoint point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.PlayerBornPosition);
+                if (point != null)
+                {
+                    return point.GetFixedBornPos(out rot);
+                }
             }
             else if (m_LoadType == ELoadType.ToIdol || m_LoadType == ELoadType.ToLastIdol)
             {
-                point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.Idol && a.m_ID == m_TransmittingIdolID);
+                ScenePoint point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.Idol && a.m_ID == m_TransmittingIdolID);
+                if (point != null)
+                {
+                    return point.GetIdolFixedPos(out rot);
+                }
             }
             else if (m_LoadType == ELoadType.ToNextSceneByPortal)
             {
-                point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.Portal && a.m_ID == m_TransmittingPortalID);
+                ScenePoint point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.Portal && a.m_ID == m_TransmittingPortalID);
+                if (point != null)
+                {
+                    return point.GetFixedBornPos(out rot);
+                }
             }
             else
             {
                 throw new InvalidOperationException($"Unknown load type:{m_LoadType}");
-            }
-
-            if (point != null)
-            {
-                rot = point.transform.rotation;
-                return point.GetFixedBornPos();
             }
 
             rot = Quaternion.identity;
@@ -598,8 +599,9 @@ namespace Saber.World
                         actor.CStats.Reset();
                     }
 
-                    actor.transform.position = p.GetFixedBornPos();
-                    actor.transform.rotation = p.transform.rotation;
+                    Vector3 pos = p.GetFixedBornPos(out var rot);
+                    actor.transform.position = pos;
+                    actor.transform.rotation = rot;
                 }
                 else
                 {

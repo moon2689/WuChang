@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Saber.Frame;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -24,7 +25,7 @@ namespace Saber
             Input.multiTouchEnabled = true;
 
             // urp
-            URPAsset.shadowDistance = 20;
+            URPAsset.shadowDistance = GameApp.Entry.Config.GameSetting.ShadowDistance;
             URPAsset.supportsCameraOpaqueTexture = true;
             URPAsset.renderScale = 1;
             // URPAsset.supportsCameraDepthTexture = true;

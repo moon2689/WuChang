@@ -15,7 +15,7 @@ namespace Saber.World
     {
         public EScenePointType m_PointType;
         public int m_ID;
-        public string m_Name;
+        public string m_PointName;
         public EAIType m_AIType;
         public int m_TargetSceneID;
         public int m_TargetPortalID;
@@ -26,24 +26,52 @@ namespace Saber.World
         public Idol IdolObj { get; set; }
 
 
-        public Vector3 GetFixedBornPos()
+        public Vector3 GetFixedBornPos(out Quaternion rot)
         {
-            Vector3 rayOriginPos = transform.position + Vector3.up * 100;
-            if (Physics.Raycast(rayOriginPos, Vector3.down, out var hitInfo, 200, EStaticLayers.Default.GetLayerMask()))
+            rot = transform.rotation;
+            return GetFixedPos(transform.position);
+        }
+
+        Vector3 GetFixedPos(Vector3 originPos)
+        {
+            Vector3 rayOriginPos = originPos + Vector3.up * 100;
+            int groundLayer = EStaticLayers.Default.GetLayerMask();
+            if (Physics.Raycast(rayOriginPos, Vector3.down, out var hitInfo, 200, groundLayer, QueryTriggerInteraction.Ignore))
             {
                 return hitInfo.point;
             }
             else
             {
                 Debug.LogError($"Born position is error, id:{m_ID}");
-                return transform.position + Vector3.up * 10;
+                return originPos;
             }
         }
 
+        public Vector3 GetIdolFixedPos(out Quaternion rot)
+        {
+            Vector3 pos = transform.position + transform.forward * 1.5f;
+            rot = Quaternion.LookRotation(-transform.forward);
+            return GetFixedPos(pos);
+        }
+
 #if UNITY_EDITOR
+        string GetLabel()
+        {
+            string startStr = m_PointType switch
+            {
+                EScenePointType.Idol => $"神像{m_ID}",
+                EScenePointType.Portal => $"传送门{m_ID}",
+                EScenePointType.PlayerBornPosition => "玩家",
+                EScenePointType.MonsterBornPosition => $"敌人{m_ID}",
+                _ => "???",
+            };
+            string label = !string.IsNullOrEmpty(m_PointName) ? $"{startStr} {m_PointName}" : $"{startStr} ???";
+            return label;
+        }
+
         private void OnDrawGizmos()
         {
-            Gizmos.DrawCube(transform.position, new Vector3(0.5f, 1, 0.5f));
+            Gizmos.DrawCube(transform.position + new Vector3(0, 0.5f), new Vector3(0.5f, 1, 0.5f));
             Gizmos.DrawIcon(transform.position, "qizi.png");
 
             GUIStyle styleText = new GUIStyle()
@@ -51,7 +79,7 @@ namespace Saber.World
                 normal = { textColor = Color.green },
                 fontSize = 10,
             };
-            string label = !string.IsNullOrEmpty(m_Name) ? $"{m_Name} {m_ID}" : $"??? {m_ID}";
+            string label = GetLabel();
             Handles.Label(transform.position + new Vector3(0, 0.5f), label, styleText);
         }
 #endif

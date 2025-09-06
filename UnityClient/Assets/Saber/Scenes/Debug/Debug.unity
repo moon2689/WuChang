@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 203844588}
-  m_IndirectSpecularColor: {r: 0.22799045, g: 0.24934652, b: 0.2602474, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -600,74 +600,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!1001 &2198319301085401582
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 576782352893239153, guid: 08d7caee498b0dd4f94f8750000806ac,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 576782352893239153, guid: 08d7caee498b0dd4f94f8750000806ac,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 576782352893239153, guid: 08d7caee498b0dd4f94f8750000806ac,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 576782352893239153, guid: 08d7caee498b0dd4f94f8750000806ac,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 576782352893239153, guid: 08d7caee498b0dd4f94f8750000806ac,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 576782352893239153, guid: 08d7caee498b0dd4f94f8750000806ac,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 576782352893239153, guid: 08d7caee498b0dd4f94f8750000806ac,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 576782352893239153, guid: 08d7caee498b0dd4f94f8750000806ac,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 576782352893239153, guid: 08d7caee498b0dd4f94f8750000806ac,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 576782352893239153, guid: 08d7caee498b0dd4f94f8750000806ac,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4294389857409548149, guid: 08d7caee498b0dd4f94f8750000806ac,
-        type: 3}
-      propertyPath: m_Name
-      value: ShuWangCi
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 08d7caee498b0dd4f94f8750000806ac, type: 3}
 --- !u!1001 &6402007571100201820
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -749,4 +681,3 @@ SceneRoots:
   - {fileID: 203844589}
   - {fileID: 548511741}
   - {fileID: 6402007571100201820}
-  - {fileID: 2198319301085401582}

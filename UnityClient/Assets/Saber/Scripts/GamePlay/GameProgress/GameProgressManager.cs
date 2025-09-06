@@ -15,7 +15,7 @@ namespace Saber
         private GameProgressData m_ProgressData;
 
         private string SavePath => $"{Application.persistentDataPath}/SaberProgress.json";
-        public bool HasSavePointBefore { get; private set; }
+        public bool HasSavePointBefore => m_ProgressData != null && m_ProgressData.m_LastStayingSceneID > 0;
         public int LastStayingSceneID => m_ProgressData.m_LastStayingSceneID;
         public int LastStayingIdolID => m_ProgressData.m_lastStayingIdolID;
 
@@ -42,7 +42,6 @@ namespace Saber
             {
                 string json = File.ReadAllText(SavePath);
                 m_ProgressData = JsonUtility.FromJson<GameProgressData>(json);
-                HasSavePointBefore = true;
             }
             else
             {
@@ -52,7 +51,6 @@ namespace Saber
                     m_lastStayingIdolID = -1,
                     m_LastStayingSceneID = -1,
                 };
-                HasSavePointBefore = false;
             }
         }
 

@@ -15,35 +15,19 @@ MonoBehaviour:
   m_Scenes:
   - m_Name: "1_\u6D4B\u8BD5\u573A\u666F"
     m_ID: 1
-    m_SceneName: WhitePlane
+    m_ResName: WhitePlane
     m_SkyboxType: 0
     m_OpenPostprocess: 1
-    m_ActiveOtherActors: 0
     m_ShadowDistance: 20
-    m_OtherActorBornPoints:
-    - m_Position: {x: 0, y: 0, z: 20}
-      m_RotationY: 0
-      m_EnemyID: 6
-      m_AI: 0
-    m_PortalPoints: []
-    m_GodStatuePoint:
-    - m_Name: 1
-      m_Position: {x: 10, y: 0, z: 0}
-      m_RotationY: 0
+    m_Idols: []
+    m_Portals: 
   - m_Name: "\u683C\u6597\u573A"
     m_ID: 2
-    m_SceneName: Arena
+    m_ResName: Arena
     m_SkyboxType: 0
     m_OpenPostprocess: 1
-    m_ActiveOtherActors: 1
     m_ShadowDistance: 20
-    m_OtherActorBornPoints:
-    - m_Position: {x: -20, y: 0, z: 0}
-      m_RotationY: 30
-      m_EnemyID: 2
-      m_AI: 4
-    m_PortalPoints: []
-    m_GodStatuePoint:
-    - m_Name: 1
-      m_Position: {x: 20, y: 0, z: 0}
-      m_RotationY: 0
+    m_Idols:
+    - m_ID: 1
+      m_Name: "\u5730\u70B9\u4E00"
+    m_Portals: 

@@ -15,7 +15,9 @@ namespace Saber.CharacterController
             base.Enter();
             Actor.CAnim.Play("Die");
             Actor.CPhysic.UseGravity = true;
-            Actor.CMelee.CWeapon.ToggleWeapon(false);
+
+            if (Actor.IsPlayer)
+                Actor.CMelee.CWeapon.ToggleWeapon(false);
         }
     }
 }
