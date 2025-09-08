@@ -12,7 +12,7 @@ namespace Saber.Frame
         {
             return LoadAsset<GameObject>(path, prefab =>
             {
-                GameObject go = GameObject.Instantiate((GameObject)prefab);
+                GameObject go = GameObject.Instantiate(prefab);
                 onLoaded?.Invoke(go);
             });
         }
@@ -22,10 +22,10 @@ namespace Saber.Frame
             return YooAssetManager.Instance.LoadAsset(path, onLoaded);
         }
 
-        public AssetHandle LoadPhysicMaterial(EPhysicMaterialType physicMaterialType, Action<PhysicMaterial> onLoaded)
+        public void LoadPhysicMaterial(EPhysicMaterialType physicMaterialType, Action<PhysicMaterial> onLoaded)
         {
             string path = $"Config/PhysicMaterial/{physicMaterialType}";
-            return LoadAsset(path, onLoaded);
+            LoadAsset(path, onLoaded);
         }
 
         public SceneHandle LoadScene(string sceneName, Action onLoaded)

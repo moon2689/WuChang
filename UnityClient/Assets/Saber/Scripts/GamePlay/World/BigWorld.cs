@@ -635,7 +635,7 @@ namespace Saber.World
 
         public void Update(float deltaTime)
         {
-            if (m_Player && m_Player.gameObject.activeSelf)
+            if (m_Player && m_Player.gameObject.activeSelf && m_Player.CurrentStateType == EStateType.Fall)
             {
                 if (m_Player.transform.position.y < -200)
                 {
