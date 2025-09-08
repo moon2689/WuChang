@@ -20,7 +20,7 @@ public static class WuChangTools
 
     static MD5 MD5Obj => s_md5 ??= MD5.Create();
 
-    [MenuItem("Saber/WuCH/Add Hurt Box")]
+    [MenuItem("Saber/WUCH/Add Hurt Box")]
     static void AddHurtBoxes()
     {
         GameObject go = Selection.activeObject as GameObject;
@@ -244,7 +244,7 @@ public static class WuChangTools
         }
     }
 
-    [MenuItem("Saber/WuCH/Delete repeat wav")]
+    [MenuItem("Saber/WUCH/Delete repeat wav")]
     static void DeleteRepeatWav()
     {
         DefaultAsset defaultAsset = Selection.activeObject as DefaultAsset;
@@ -301,7 +301,7 @@ public static class WuChangTools
     }
 
 
-    [MenuItem("Saber/WuCH/Fix Material")]
+    [MenuItem("Saber/WUCH/Fix Material")]
     static void FixWuChangMaterials()
     {
         foreach (TextAsset json in Selection.objects)
@@ -370,12 +370,14 @@ public static class WuChangTools
         // normal
         TextureImporter tiNormal = AssetImporter.GetAtPath(normalPath) as TextureImporter;
         tiNormal.textureType = TextureImporterType.NormalMap;
+        CompressTextureHalfSize(tiNormal);
         tiNormal.SaveAndReimport();
         Texture2D texNormal = AssetDatabase.LoadAssetAtPath<Texture2D>(normalPath);
 
         // mask
         TextureImporter tiMask = AssetImporter.GetAtPath(maskPath) as TextureImporter;
         tiMask.sRGBTexture = false;
+        CompressTextureHalfSize(tiMask);
         tiMask.SaveAndReimport();
         Texture2D texMask = AssetDatabase.LoadAssetAtPath<Texture2D>(maskPath);
 
@@ -393,7 +395,7 @@ public static class WuChangTools
     }
 
 
-    [MenuItem("Saber/WuCH/Fix FBX Anim Name")]
+    [MenuItem("Saber/WUCH/Fix FBX Anim Name")]
     static void FixMonsterAnimName()
     {
         foreach (var selectedObj in Selection.objects)
@@ -445,7 +447,7 @@ public static class WuChangTools
         Debug.Log("All done");
     }
 
-    static List<string> GetSelectedAssets<T>(string searchPattern) where T : UnityEngine.Object
+    public static List<string> GetSelectedAssets<T>(string searchPattern) where T : UnityEngine.Object
     {
         List<string> list = new();
         foreach (var obj in Selection.objects)
@@ -472,12 +474,13 @@ public static class WuChangTools
     }
 
 
-    [MenuItem("Saber/WuCH/Import material images from ue")]
+    [MenuItem("Saber/WUCH/Import material images from ue")]
     static void ImportAllMaterialImageFromUE()
     {
         List<string> listMaterial = GetSelectedAssets<Material>("*.mat");
 
-        string[] allJsonFiles = Directory.GetFiles(UEProjectFolder + "/Project_Plague/Content", "*.json", SearchOption.AllDirectories);
+        string[] allJsonFiles = Directory.GetFiles(UEProjectFolder + "/Project_Plague/Content", "*.json",
+            SearchOption.AllDirectories);
         Dictionary<string, string> dicAllJsonFiles = new();
         foreach (var jsonFile in allJsonFiles)
         {
@@ -530,6 +533,7 @@ public static class WuChangTools
                 {
                     TextureImporter tiNormal = AssetImporter.GetAtPath(newNormal) as TextureImporter;
                     tiNormal.textureType = TextureImporterType.NormalMap;
+                    CompressTextureHalfSize(tiNormal);
                     tiNormal.SaveAndReimport();
                     Texture2D texNormal = AssetDatabase.LoadAssetAtPath<Texture2D>(newNormal);
                     mat.SetTexture("_BumpMap", texNormal);
@@ -543,6 +547,7 @@ public static class WuChangTools
                 {
                     TextureImporter tiMask = AssetImporter.GetAtPath(newMask) as TextureImporter;
                     tiMask.sRGBTexture = false;
+                    CompressTextureHalfSize(tiMask);
                     tiMask.SaveAndReimport();
                     Texture2D texMask = AssetDatabase.LoadAssetAtPath<Texture2D>(newMask);
                     mat.SetTexture("_MaskMROMap", texMask);
@@ -625,7 +630,7 @@ public static class WuChangTools
         return diffuseUE;
     }
 
-    [MenuItem("Saber/WuCH/Fix image setting")]
+    [MenuItem("Saber/WUCH/Fix image setting")]
     static void FixImageSetting()
     {
         List<string> listImages = GetSelectedAssets<Texture2D>("*.tga");
@@ -639,11 +644,13 @@ public static class WuChangTools
             {
                 TextureImporter tiNormal = AssetImporter.GetAtPath(image) as TextureImporter;
                 tiNormal.textureType = TextureImporterType.NormalMap;
+                CompressTextureHalfSize(tiNormal);
                 tiNormal.SaveAndReimport();
             }
             else if (fileName.Contains("_R"))
             {
                 TextureImporter tiMask = AssetImporter.GetAtPath(image) as TextureImporter;
+                CompressTextureHalfSize(tiMask);
                 tiMask.sRGBTexture = false;
                 tiMask.SaveAndReimport();
             }
@@ -655,6 +662,75 @@ public static class WuChangTools
             Debug.Log("Done:" + image);
         }
 
+        Debug.Log("All done");
+    }
+
+
+    [MenuItem("Saber/WUCH/CompressTextureHalfSize")]
+    static void CompressTextureHalfSize()
+    {
+        List<string> tgaFiles = GetSelectedAssets<Texture2D>("*.tga");
+        foreach (var tgaFile in tgaFiles)
+        {
+            TextureImporter tiTGA = AssetImporter.GetAtPath(tgaFile) as TextureImporter;
+            CompressTextureHalfSize(tiTGA);
+            tiTGA.SaveAndReimport();
+
+            Debug.Log($"Done:{tgaFile}", tiTGA);
+        }
+
+        Debug.Log("All done");
+    }
+
+    static void CompressTextureHalfSize(TextureImporter tiTGA)
+    {
+        tiTGA.GetSourceTextureWidthAndHeight(out int width, out int height);
+        int maxSize = Mathf.Max(width / 2, height / 2);
+
+        // Android 端单独设置
+        TextureImporterPlatformSettings settingAndroid = tiTGA.GetPlatformTextureSettings("Android");
+        if (settingAndroid == null)
+            settingAndroid = new TextureImporterPlatformSettings();
+        settingAndroid.name = "Android";
+        settingAndroid.overridden = true;
+        settingAndroid.maxTextureSize = maxSize;
+        tiTGA.SetPlatformTextureSettings(settingAndroid);
+
+        // IOS端单独设置
+        TextureImporterPlatformSettings settingIOS = tiTGA.GetPlatformTextureSettings("iPhone");
+        if (settingIOS == null)
+            settingIOS = new TextureImporterPlatformSettings();
+        settingIOS.name = "iPhone";
+        settingIOS.overridden = true;
+        settingIOS.maxTextureSize = maxSize;
+        tiTGA.SetPlatformTextureSettings(settingIOS);
+    }
+
+
+    [MenuItem("Saber/WUCH/WEPMaterialUseSaberShader")]
+    static void WEPMaterialUseSaberShader()
+    {
+        List<string> materials = GetSelectedAssets<Material>("*.mat");
+        foreach (var path in materials)
+        {
+            Material mat = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (!mat.shader.name.StartsWith("Saber"))
+            {
+                string newShader = $"Saber/{mat.shader.name}";
+                Shader shader = Shader.Find(newShader);
+                if (shader)
+                {
+                    mat.shader = shader;
+                }
+                else
+                {
+                    Debug.LogError($"Cann't find shader:{newShader}");
+                }
+            }
+        }
+
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
         Debug.Log("All done");
     }
 }

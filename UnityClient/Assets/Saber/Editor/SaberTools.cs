@@ -12,6 +12,7 @@ using UnityEditor.SceneManagement;
 
 public static class SaberTools
 {
+
     /*
     [MenuItem("Saber/Anim/Fix Animation Clip")]
     static void FixAnimationClip()

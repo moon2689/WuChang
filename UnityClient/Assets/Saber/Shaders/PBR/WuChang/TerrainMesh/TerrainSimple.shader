@@ -14,8 +14,7 @@ Shader "Saber/WuChang/Terrain Lit Simple"
         {
             "RenderType" = "Opaque"
             "RenderPipeline" = "UniversalPipeline"
-            "UniversalMaterialType" = "SimpleLit"
-            "IgnoreProjector" = "True"
+            "Queue" = "Geometry"
         }
         LOD 0
 
@@ -27,36 +26,18 @@ Shader "Saber/WuChang/Terrain Lit Simple"
             }
             
             HLSLPROGRAM
-            #pragma target 3.0
+            #pragma target 2.0
             
             #pragma vertex vert
             #pragma fragment frag
 
             // -------------------------------------
             // Universal Pipeline keywords
-            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
-            #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
-            #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
-            #pragma multi_compile_fragment _ _REFLECTION_PROBE_BLENDING
-            #pragma multi_compile_fragment _ _SHADOWS_SOFT
-            #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
-            #pragma multi_compile _ SHADOWS_SHADOWMASK
-            #pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
-            #pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
-            #pragma multi_compile_fragment _ _LIGHT_LAYERS
-            #pragma multi_compile_fragment _ _LIGHT_COOKIES
-            #pragma multi_compile _ _FORWARD_PLUS
-            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RenderingLayers.hlsl"
+            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE
 
             // -------------------------------------
             // Unity defined keywords
-            #pragma multi_compile _ DIRLIGHTMAP_COMBINED
-            #pragma multi_compile _ LIGHTMAP_ON
-            #pragma multi_compile _ DYNAMICLIGHTMAP_ON
             #pragma multi_compile_fog
-            #pragma multi_compile_fragment _ DEBUG_DISPLAY
-            #pragma multi_compile_instancing
-            #pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap
             
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
@@ -79,7 +60,7 @@ Shader "Saber/WuChang/Terrain Lit Simple"
                 float4 pos : SV_POSITION;
                 float2 uv : TEXCOORD0;
                 float4 weight : TEXCOORD1;
-                float3 normal : NORMAL;
+                float4 normal : NORMAL;
                 float3 worldPos : TEXCOORD2;
             };
 
@@ -89,8 +70,16 @@ Shader "Saber/WuChang/Terrain Lit Simple"
                 o.pos = TransformObjectToHClip(v.vertex.xyz);
                 o.weight = v.tangent;
                 o.uv = v.uv;
-                o.normal = TransformObjectToWorldNormal(v.normal);
+                o.normal.xyz = TransformObjectToWorldNormal(v.normal);
                 o.worldPos = TransformObjectToWorld(v.vertex.xyz);
+
+                // fog
+                half fogFactor = 0;
+                #if !defined(_FOG_FRAGMENT)
+                    fogFactor = ComputeFogFactor(o.positionCS.z);
+                #endif
+                o.normal.w = fogFactor;
+                
                 return o;
             }
 
@@ -104,9 +93,15 @@ Shader "Saber/WuChang/Terrain Lit Simple"
 
                 float4 shadowCoord = TransformWorldToShadowCoord(i.worldPos);
                 Light mainLight = GetMainLight(shadowCoord);
-                half NoL = dot(i.normal, mainLight.direction) * 0.5 + 0.5;
+                half NoL = dot(i.normal.xyz, mainLight.direction) * 0.5 + 0.5;
                 half3 lighting = NoL * baseMap.rgb * mainLight.color * mainLight.shadowAttenuation;
                 half4 color = half4(lighting, 1);
+
+                // fog
+                half fogFactor = i.normal.w;
+                float fogCoord = InitializeInputDataFog(float4(i.worldPos, 1.0), fogFactor);
+                color.rgb = MixFog(color.rgb, fogCoord);
+                
                 return color;
             }
             ENDHLSL
