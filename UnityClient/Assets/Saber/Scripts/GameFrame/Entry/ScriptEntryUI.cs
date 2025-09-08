@@ -1,6 +1,7 @@
 ﻿using System;
 using Saber.UI;
 using UnityEngine;
+using YooAsset;
 
 
 namespace Saber.Frame
@@ -9,44 +10,41 @@ namespace Saber.Frame
     {
         public RootUI RootUIObj => RootUI.Instance;
 
-        public T CreateWnd<T>(WndContent content, IWndHandler handler) where T : WndBase, new()
+        public AssetHandle CreateWnd<T>(WndContent content, IWndHandler handler, Action<T> onCreated) where T : WndBase, new()
         {
             T t = RootUI.Instance.GetShowingWnd<T>();
             if (t != null)
             {
-                return t;
+                onCreated?.Invoke(t);
+                return null;
             }
 
-            return WndBase.Create<T>(content, handler);
+            return WndBase.Create<T>(content, handler, onCreated);
         }
 
-        public T CreateWnd<T>() where T : WndBase, new()
+        public AssetHandle CreateWnd<T>(Action<T> onCreated) where T : WndBase, new()
         {
-            return CreateWnd<T>(null, null);
+            return CreateWnd<T>(null, null, onCreated);
         }
 
-        public void CreateMsgBox(string msg, Action onConfirm)
+        public AssetHandle CreateMsgBox(string msg, Action onConfirm)
         {
-            var w = CreateWnd<Wnd_MsgBox>();
-            w.Reset(msg, onConfirm);
+            return CreateWnd<Wnd_MsgBox>(w => w.Reset(msg, onConfirm));
         }
 
-        public void CreateMsgBox(string msg, Action onConfirm, Action onCancel)
+        public AssetHandle CreateMsgBox(string msg, Action onConfirm, Action onCancel)
         {
-            var w = CreateWnd<Wnd_MsgBox>();
-            w.Reset(msg, onConfirm, onCancel);
+            return CreateWnd<Wnd_MsgBox>(w => w.Reset(msg, onConfirm, onCancel));
         }
 
-        public void ShowTips(string msg)
+        public AssetHandle ShowTips(string msg)
         {
-            var w = CreateWnd<Wnd_Tips>();
-            w.ShowText(msg);
+            return CreateWnd<Wnd_Tips>(w => w.ShowText(msg));
         }
 
-        public void ShowTips(string msg, float textTime)
+        public AssetHandle ShowTips(string msg, float textTime)
         {
-            var w = CreateWnd<Wnd_Tips>();
-            w.ShowText(msg, textTime);
+            return CreateWnd<Wnd_Tips>(w => w.ShowText(msg, textTime));
         }
 
         public T GetWnd<T>() where T : WndBase, new()

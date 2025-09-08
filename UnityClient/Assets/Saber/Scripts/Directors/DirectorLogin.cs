@@ -33,14 +33,13 @@ namespace Saber.Director
                 GameApp.Entry.Game.Audio.PlayBGM(bgmLoop, 1, true, null);
             });
             yield return null;
-            
+
             // 场景
-            AsyncOperation h = SceneManager.LoadSceneAsync("Empty", LoadSceneMode.Single);
-            yield return h;
+            yield return GameApp.Entry.Asset.LoadScene("Empty", null);
 
             // UI
-            var wndLogin = GameApp.Entry.UI.CreateWnd<Wnd_Login>(null, this);
-            yield return null;
+            Wnd_Login wndLogin = null;
+            yield return GameApp.Entry.UI.CreateWnd<Wnd_Login>(null, this, w => wndLogin = w);
 
             RootUI.Instance.HideBackground();
 

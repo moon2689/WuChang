@@ -56,9 +56,8 @@ namespace Saber.CharacterController
             m_CapsuleCollider.center =
                 new Vector3(0, hipHeight + physicInfo.m_Height * 0.5f, physicInfo.m_CapsuleOffsetZ);
 
-            m_CapsuleCollider.sharedMaterial = GameApp.Entry.Asset.LoadPhysicMaterial(physicInfo.m_PhysicMaterialType);
-
-
+            GameApp.Entry.Asset.LoadPhysicMaterial(physicInfo.m_PhysicMaterialType, pm => m_CapsuleCollider.sharedMaterial = pm);
+            
             if (physicInfo.m_IsBodyHuge)
             {
                 m_CapsuleCollider.excludeLayers = 1 << EStaticLayers.Actor.GetLayer();

@@ -6,6 +6,8 @@
 /UnityClient/Logs
 /UnityClient/obj
 /UnityClient/Temp
+/UnityClient/Bundles
+/UnityClient/yoo
 /UnityClient.vsconfig
 /UnityClient/.idea
 /UnityClient/*.csproj

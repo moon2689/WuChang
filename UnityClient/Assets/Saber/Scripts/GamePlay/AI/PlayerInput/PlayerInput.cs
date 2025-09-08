@@ -405,7 +405,8 @@ namespace Saber.AI
 
             OnPlayerRest();
 
-            Wnd_Rest wndRest = GameApp.Entry.UI.CreateWnd<Wnd_Rest>(null, this);
+            Wnd_Rest wndRest = null;
+            yield return GameApp.Entry.UI.CreateWnd<Wnd_Rest>(null, this, w => wndRest = w);
             wndRest.ActiveRoot = false;
 
             bool wait = true;

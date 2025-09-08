@@ -7,6 +7,7 @@ using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 using System.Collections;
 using UnityEngine.Serialization;
+using YooAsset;
 
 namespace Saber
 {
@@ -164,14 +165,14 @@ namespace Saber
         public bool Protecting { get; private set; }
 
 
-        public static void Create()
+        public static AssetHandle Create()
         {
             if (s_Instance == null)
             {
-                GameObject go = GameApp.Entry.Asset.LoadGameObject("Game/PlayerCameraRig");
-                DontDestroyOnLoad(go);
-                s_Instance = go.GetComponent<PlayerCamera>();
+                return GameApp.Entry.Asset.LoadGameObject("Game/PlayerCameraRig", go => s_Instance = go.GetComponent<PlayerCamera>());
             }
+
+            return null;
         }
 
 
@@ -202,6 +203,8 @@ namespace Saber
 
         protected void Awake()
         {
+            DontDestroyOnLoad(gameObject);
+
             Cam = GetComponentInChildren<Camera>();
             CamT = Cam.transform;
             Pivot = Cam.transform.parent;

@@ -25,11 +25,13 @@ namespace Saber.Timeline
             }
         }
 
-        public static TimelineManager Create(string name)
+        public static void Create(string name, Action<TimelineManager> onCreated)
         {
-            GameObject obj = GameApp.Entry.Asset.LoadGameObject($"Timeline/{name}");
-            TimelineManager timelineManager = obj.GetComponent<TimelineManager>();
-            return timelineManager;
+            GameApp.Entry.Asset.LoadGameObject($"Timeline/{name}", obj =>
+            {
+                TimelineManager timelineManager = obj.GetComponent<TimelineManager>();
+                onCreated?.Invoke(timelineManager);
+            });
         }
 
         public void BindPlayer()

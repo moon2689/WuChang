@@ -178,14 +178,16 @@ namespace Saber.CharacterController
 
         void CreateWaterWaveParticle()
         {
-            GameObject go = GameApp.Entry.Asset.LoadGameObject("Game/WaterWaveParticle");
-            go.transform.SetParent(m_Character.transform);
-            go.transform.localPosition = Vector3.zero;
-            go.transform.localScale = Vector3.one;
-            go.transform.localRotation = Quaternion.identity;
-            go.SetActive(false);
-            WaterWaveRenderer.SetActiveCamera(false);
-            m_WaterWaveParticle = go;
+            GameApp.Entry.Asset.LoadGameObject("Game/WaterWaveParticle", go =>
+            {
+                go.transform.SetParent(m_Character.transform);
+                go.transform.localPosition = Vector3.zero;
+                go.transform.localScale = Vector3.one;
+                go.transform.localRotation = Quaternion.identity;
+                go.SetActive(false);
+                WaterWaveRenderer.SetActiveCamera(false);
+                m_WaterWaveParticle = go;
+            });
         }
 
         public void ActiveWaterWave(bool active)
@@ -315,12 +317,12 @@ namespace Saber.CharacterController
             if (m_FlyTrailEffects == null)
             {
                 m_FlyTrailEffects = new GameObject[3];
-                m_FlyTrailEffects[0] = GameApp.Entry.Game.Effect.GetOrCreateEffect("Particles/TrailWhenGlide",
-                    m_Character.GetNodeTransform(ENodeType.LeftHand));
-                m_FlyTrailEffects[1] = GameApp.Entry.Game.Effect.GetOrCreateEffect("Particles/TrailWhenGlide",
-                    m_Character.GetNodeTransform(ENodeType.RightHand));
-                m_FlyTrailEffects[2] =
-                    GameApp.Entry.Game.Effect.GetOrCreateEffect("Particles/WindEffect", m_Character.transform);
+                GameApp.Entry.Game.Effect.GetOrCreateEffect("Particles/TrailWhenGlide",
+                    m_Character.GetNodeTransform(ENodeType.LeftHand), e => m_FlyTrailEffects[0] = e);
+                GameApp.Entry.Game.Effect.GetOrCreateEffect("Particles/TrailWhenGlide",
+                    m_Character.GetNodeTransform(ENodeType.RightHand), e => m_FlyTrailEffects[1] = e);
+                GameApp.Entry.Game.Effect.GetOrCreateEffect("Particles/WindEffect",
+                    m_Character.transform, e => m_FlyTrailEffects[2] = e);
             }
 
             for (int i = 0; i < m_FlyTrailEffects.Length; i++)

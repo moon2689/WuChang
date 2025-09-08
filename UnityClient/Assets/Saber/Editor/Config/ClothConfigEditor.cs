@@ -26,7 +26,7 @@ public class ClothConfigEditor : EditorWindow
 
     void Search()
     {
-        string path = "Assets/Saber/Resources/Config/ClothInfo.asset";
+        string path = "Assets/Saber/Resources_/Config/ClothInfo.asset";
         ClothInfo clothInfo = AssetDatabase.LoadAssetAtPath<ClothInfo>(path);
 
         int.TryParse(m_Keyword, out int tarID);

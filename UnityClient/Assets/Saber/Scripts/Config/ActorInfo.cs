@@ -2,6 +2,7 @@ using System;
 using Saber.Frame;
 using UnityEngine;
 using UnityEngine.Serialization;
+using YooAsset;
 
 namespace Saber.Config
 {
@@ -20,15 +21,15 @@ namespace Saber.Config
         public EActorType m_ActorType;
         public string m_PrefabName;
 
-        public Texture2D LoadIcon()
+        public AssetHandle LoadIcon(Action<Texture2D> onLoaded)
         {
-            return GameApp.Entry.Asset.LoadTexture($"Actor/Icon/{m_PrefabName}");
+            return GameApp.Entry.Asset.LoadAsset<Texture2D>($"Actor/Icon/{m_PrefabName}", onLoaded);
         }
 
-        public GameObject LoadGameObject()
+        public AssetHandle LoadGameObject(Action<GameObject> onLoaded)
         {
             string path = $"Actor/{m_ActorType}/{m_PrefabName}";
-            return GameApp.Entry.Asset.LoadGameObject(path);
+            return GameApp.Entry.Asset.LoadGameObject(path, onLoaded);
         }
     }
 

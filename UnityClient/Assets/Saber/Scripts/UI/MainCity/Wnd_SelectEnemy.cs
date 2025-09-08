@@ -40,7 +40,7 @@ namespace Saber.UI
         protected override void OnAwake()
         {
             base.OnAwake();
-            m_Handler=base.m_WndHandler as IHandler;
+            m_Handler = base.m_WndHandler as IHandler;
 
             m_goIcons = new List<GameObject>();
 
@@ -104,7 +104,7 @@ namespace Saber.UI
             imageIcon.color = Color.gray;
 
             // icon
-            imageIcon.texture = config.LoadIcon();
+            config.LoadIcon(t => imageIcon.texture = t);
             textName.text = config.m_Name;
 
             // click

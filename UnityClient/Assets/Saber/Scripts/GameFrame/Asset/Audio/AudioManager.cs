@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Saber.Frame;
 using UnityEngine;
+using YooAsset;
 
 namespace Saber
 {
@@ -59,29 +60,35 @@ namespace Saber
             return Play(clip, 1, pos, true, onFinished);
         }
 
-        AudioClip GetClip(string name)
+        AssetHandle GetClip(string name, Action<AudioClip> onGetted)
         {
             m_dicAssets.TryGetValue(name, out AudioClip asset);
-            if (asset == null)
+            if (asset)
             {
-                asset = Resources.Load<AudioClip>(name);
-                if (asset != null)
+                onGetted?.Invoke(asset);
+            }
+            else
+            {
+                return GameApp.Entry.Asset.LoadAsset<AudioClip>(name, c =>
                 {
-                    m_dicAssets.Add(name, asset);
-                }
-                else
-                {
-                    Debug.LogError("audio clip is null, name:" + name);
-                }
+                    if (c != null)
+                    {
+                        m_dicAssets.Add(name, c);
+                        onGetted?.Invoke(c);
+                    }
+                    else
+                    {
+                        Debug.LogError("audio clip is null, name:" + name);
+                    }
+                });
             }
 
-            return asset;
+            return null;
         }
 
         public void Play(string name, float volume, Vector3 pos, bool is3D, Action<AudioPlayer> onFinished = null)
         {
-            var asset = GetClip(name);
-            Play(asset, volume, pos, is3D, onFinished);
+            GetClip(name, c => Play(c, volume, pos, is3D, onFinished));
         }
 
         public void Play2DSound(string name, Action<AudioPlayer> onFinished = null)
@@ -113,8 +120,7 @@ namespace Saber
 
         public void PlayBGM(string name, float volume, bool loop, Action<AudioPlayer> onFinished = null)
         {
-            var asset = GetClip(name);
-            PlayBGM(asset, volume, loop, onFinished);
+            GetClip(name, c => PlayBGM(c, volume, loop, onFinished));
         }
 
         public void SetBGMVolume(float volume)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
@@ -80,20 +81,24 @@ namespace Saber
 
         public void CreateEffect(string name, Transform parent, Vector3 pos, Quaternion rot, float time)
         {
-            GameObject e = GetOrCreateEffect(name, parent, pos, rot);
-            if (time > 0)
-                GameApp.Entry.Unity.StartCoroutine(PlayEtor(e, time));
-            else
-                e.SetActive(true);
+            GetOrCreateEffect(name, parent, pos, rot, e =>
+            {
+                if (time > 0)
+                    GameApp.Entry.Unity.StartCoroutine(PlayEtor(e, time));
+                else
+                    e.SetActive(true);
+            });
         }
 
         public void CreateEffect(string name, Vector3 pos, Quaternion rot, float time)
         {
-            GameObject e = GetOrCreateEffect(name, null, pos, rot);
-            if (time > 0)
-                GameApp.Entry.Unity.StartCoroutine(PlayEtor(e, time));
-            else
-                e.SetActive(true);
+            GetOrCreateEffect(name, null, pos, rot, e =>
+            {
+                if (time > 0)
+                    GameApp.Entry.Unity.StartCoroutine(PlayEtor(e, time));
+                else
+                    e.SetActive(true);
+            });
         }
 
         IEnumerator PlayEtor(GameObject gameObject, float time)
@@ -108,27 +113,27 @@ namespace Saber
             }
         }
 
-        public GameObject GetOrCreateEffect(string name, Transform parent, Vector3 pos, Quaternion rot)
+        public void GetOrCreateEffect(string name, Transform parent, Vector3 pos, Quaternion rot, Action<GameObject> onGetted)
         {
-            GameObject e = GetOrCreateEffect(name);
-            e.transform.parent = parent;
-            e.transform.position = pos;
-            e.transform.rotation = rot;
-
-            return e;
+            GetOrCreateEffect(name, e =>
+            {
+                e.transform.parent = parent;
+                e.transform.position = pos;
+                e.transform.rotation = rot;
+            });
         }
 
-        public GameObject GetOrCreateEffect(string name, Transform parent)
+        public void GetOrCreateEffect(string name, Transform parent, Action<GameObject> onGetted)
         {
-            GameObject e = GetOrCreateEffect(name);
-            e.transform.parent = parent;
-            e.transform.localPosition = Vector3.zero;
-            e.transform.localRotation = quaternion.identity;
-
-            return e;
+            GetOrCreateEffect(name, e =>
+            {
+                e.transform.parent = parent;
+                e.transform.localPosition = Vector3.zero;
+                e.transform.localRotation = quaternion.identity;
+            });
         }
 
-        public GameObject GetOrCreateEffect(string name)
+        public void GetOrCreateEffect(string name, Action<GameObject> onGetted)
         {
             m_dicEffects.TryGetValue(name, out List<GameObject> list);
             if (list == null)
@@ -138,14 +143,18 @@ namespace Saber
             }
 
             GameObject e = list.Find(i => i != null && !i.gameObject.activeSelf);
-            if (e == null)
+            if (e)
             {
-                var asset = Resources.Load<GameObject>(name);
-                e = GameObject.Instantiate<GameObject>(asset);
-                list.Add(e);
+                onGetted?.Invoke(e);
             }
-
-            return e;
+            else
+            {
+                GameApp.Entry.Asset.LoadGameObject(name, e =>
+                {
+                    list.Add(e);
+                    onGetted?.Invoke(e);
+                });
+            }
         }
 
         public void HideEffect(string name)

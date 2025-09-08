@@ -188,7 +188,7 @@ public static class SaberTools
     [MenuItem("Saber/游戏设置")]
     static void SelectFile_GameSetting()
     {
-        var obj = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>("Assets/Saber/Resources/Config/GameSetting.asset");
+        var obj = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>("Assets/Saber/Resources_/Config/GameSetting.asset");
         Selection.activeObject = obj;
     }
 

@@ -121,6 +121,18 @@ namespace Saber.CharacterController
             Actor = actor;
             m_Handler = actor;
             Reset();
+            PreloadAssets();
+        }
+
+        void PreloadAssets()
+        {
+            GameApp.Entry.Asset.LoadGameObject("Particles/Healing", effect =>
+            {
+                effect.transform.parent = Actor.transform;
+                effect.transform.localPosition = new Vector3(0, 0, 0);
+                effect.transform.localRotation = Quaternion.identity;
+                m_HealingEffect = effect.gameObject.GetComponent<EffectObject>();
+            });
         }
 
         public virtual void Reset()
@@ -228,16 +240,7 @@ namespace Saber.CharacterController
             {
                 return;
             }
-
-            if (m_HealingEffect == null)
-            {
-                GameObject effect = GameApp.Entry.Asset.LoadGameObject("Particles/Healing");
-                effect.transform.parent = Actor.transform;
-                effect.transform.localPosition = new Vector3(0, 0, 0);
-                effect.transform.localRotation = Quaternion.identity;
-                m_HealingEffect = effect.gameObject.GetComponent<EffectObject>();
-            }
-
+            
             m_HealingEffect.Show();
             CurrentHp += hpValue;
         }

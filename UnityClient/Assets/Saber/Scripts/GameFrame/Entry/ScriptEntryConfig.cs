@@ -19,30 +19,13 @@ namespace Saber.Frame
 
         public IEnumerator LoadAsync()
         {
-            Dictionary<string, ResourceRequest> dic = new();
-            dic["GameSetting"] = Resources.LoadAsync<GameSettingInfo>("Config/GameSetting");
-            dic["TestGame"] = Resources.LoadAsync<TestGameInfo>("Config/TestGame");
-            dic["ActorInfo"] = Resources.LoadAsync<ActorInfo>("Config/ActorInfo");
-            dic["SceneInfo"] = Resources.LoadAsync<SceneInfo>("Config/SceneInfo");
-            dic["ClothInfo"] = Resources.LoadAsync<ClothInfo>("Config/ClothInfo");
-            dic["SkillCommon"] = Resources.LoadAsync<SkillCommonConfig>("Config/SkillCommon");
-            dic["MusicInfo"] = Resources.LoadAsync<MusicInfo>("Config/MusicInfo");
-
-            foreach (var pair in dic)
-            {
-                while (!pair.Value.isDone)
-                {
-                    yield return null;
-                }
-            }
-
-            GameSetting = dic["GameSetting"].asset as GameSettingInfo;
-            TestGame = dic["TestGame"].asset as TestGameInfo;
-            ActorInfo = dic["ActorInfo"].asset as ActorInfo;
-            SceneInfo = dic["SceneInfo"].asset as SceneInfo;
-            ClothInfo = dic["ClothInfo"].asset as ClothInfo;
-            SkillCommon = dic["SkillCommon"].asset as SkillCommonConfig;
-            MusicInfo = dic["MusicInfo"].asset as MusicInfo;
+            yield return GameApp.Entry.Asset.LoadAsset<GameSettingInfo>("Config/GameSetting", s => GameSetting = s);
+            yield return GameApp.Entry.Asset.LoadAsset<TestGameInfo>("Config/TestGame", s => TestGame = s);
+            yield return GameApp.Entry.Asset.LoadAsset<ActorInfo>("Config/ActorInfo", s => ActorInfo = s);
+            yield return GameApp.Entry.Asset.LoadAsset<SceneInfo>("Config/SceneInfo", s => SceneInfo = s);
+            yield return GameApp.Entry.Asset.LoadAsset<ClothInfo>("Config/ClothInfo", s => ClothInfo = s);
+            yield return GameApp.Entry.Asset.LoadAsset<SkillCommonConfig>("Config/SkillCommon", s => SkillCommon = s);
+            yield return GameApp.Entry.Asset.LoadAsset<MusicInfo>("Config/MusicInfo", s => MusicInfo = s);
         }
     }
 }

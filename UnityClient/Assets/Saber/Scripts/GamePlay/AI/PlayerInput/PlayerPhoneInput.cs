@@ -32,7 +32,8 @@ namespace Saber.AI
             // wnd
             if (s_WndJoyStick == null)
             {
-                s_WndJoyStick = GameApp.Entry.UI.CreateWnd<Wnd_JoyStick>(null, this);
+                s_WndJoyStick = GameApp.Entry.UI.GetWnd<Wnd_JoyStick>();
+                s_WndJoyStick.Handler = this;
             }
 
             GameApp.Entry.Unity.DoActionOneFrameLater(() =>

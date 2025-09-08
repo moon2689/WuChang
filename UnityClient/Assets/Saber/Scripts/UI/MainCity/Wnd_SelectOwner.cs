@@ -100,7 +100,7 @@ namespace Saber.UI
             imageIcon.color = Color.gray;
 
             // icon
-            imageIcon.texture = actorInfo.LoadIcon();
+            actorInfo.LoadIcon(t => imageIcon.texture = t);
 
             // name
             textName.text = actorInfo.m_Name;

@@ -322,11 +322,13 @@ namespace Saber.CharacterController
 
         public void PlayClip(string clipPath, Action onFinished)
         {
-            AnimationClip clip = GameApp.Entry.Asset.LoadClip(clipPath);
-            if (clip)
-                PlayClip(clip, onFinished);
-            else
-                Debug.LogError($"animClip == null,path:{clipPath}");
+            GameApp.Entry.Asset.LoadAsset<AnimationClip>(clipPath, clip =>
+            {
+                if (clip)
+                    PlayClip(clip, onFinished);
+                else
+                    Debug.LogError($"animClip == null,path:{clipPath}");
+            });
         }
 
         public void PlayClip(AnimationClip animClip, Action onFinished)

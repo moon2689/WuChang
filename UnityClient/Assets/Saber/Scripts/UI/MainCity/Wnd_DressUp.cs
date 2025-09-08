@@ -176,7 +176,7 @@ namespace Saber.UI
             go.name = clothInfo.m_ID.ToString();
 
             // icon
-            imageIcon.texture = clothInfo.LoadIcon();
+            clothInfo.LoadIcon(t => imageIcon.texture = t);
 
             // name
             textName.text = clothInfo.m_Name;

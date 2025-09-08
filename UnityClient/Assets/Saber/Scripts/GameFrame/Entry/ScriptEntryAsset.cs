@@ -1,98 +1,36 @@
-﻿using Saber.CharacterController;
+﻿using System;
+using Saber.CharacterController;
 using UnityEngine;
+using YooAsset;
 using UObject = UnityEngine.Object;
 
 namespace Saber.Frame
 {
     public class ScriptEntryAsset
     {
-        private Texture2D m_TextureUnknown;
-
-        private Texture2D TextureUnknown
+        public AssetHandle LoadGameObject(string path, Action<GameObject> onLoaded)
         {
-            get
+            return LoadAsset<GameObject>(path, prefab =>
             {
-                if (m_TextureUnknown == null)
-                {
-                    m_TextureUnknown = Resources.Load<Texture2D>("Image/Unknown");
-                }
-
-                return m_TextureUnknown;
-            }
+                GameObject go = GameObject.Instantiate((GameObject)prefab);
+                onLoaded?.Invoke(go);
+            });
         }
 
-        public GameObject LoadGameObject(string path)
+        public AssetHandle LoadAsset<T>(string path, Action<T> onLoaded) where T : UnityEngine.Object
         {
-            GameObject asset = Resources.Load<GameObject>(path);
-            GameObject go = GameObject.Instantiate(asset);
-            return go;
+            return YooAssetManager.Instance.LoadAsset(path, onLoaded);
         }
 
-        public Texture2D LoadTexture(string path)
-        {
-            return Resources.Load<Texture2D>(path) ?? TextureUnknown;
-        }
-
-        public AnimationClip LoadClip(string path)
-        {
-            return Resources.Load<AnimationClip>(path);
-        }
-
-        public PhysicMaterial LoadPhysicMaterial(string path)
-        {
-            return Resources.Load<PhysicMaterial>(path);
-        }
-
-        public PhysicMaterial LoadPhysicMaterial(EPhysicMaterialType physicMaterialType)
+        public AssetHandle LoadPhysicMaterial(EPhysicMaterialType physicMaterialType, Action<PhysicMaterial> onLoaded)
         {
             string path = $"Config/PhysicMaterial/{physicMaterialType}";
-            return LoadPhysicMaterial(path);
+            return LoadAsset(path, onLoaded);
         }
 
-        /*
-        public BundleNormal<T> CreateBundleNormal<T>(string packageName, string address) where T : UObject
+        public SceneHandle LoadScene(string sceneName, Action onLoaded)
         {
-            return new BundleNormal<T>(packageName, address);
+            return YooAssetManager.Instance.LoadScene(sceneName, onLoaded);
         }
-
-        public BundleNormal<T> CreateBundleNormal<T>(string address) where T : UObject
-        {
-            return CreateBundleNormal<T>(YooAssetPackages.PackageName_Main, address);
-        }
-
-        public bool IsAddressValid(string address)
-        {
-            return YooAssetPackages.PackageMain.CheckLocationValid(address);
-        }
-
-        public BundlePrefab CreateBundlePrefab(string packageName, string address)
-        {
-            return new BundlePrefab(packageName, address);
-        }
-
-        public BundlePrefab CreateBundlePrefab(string address)
-        {
-            return CreateBundlePrefab(YooAssetPackages.PackageName_Main, address);
-        }
-
-        public BundleAnimCtrl CreatebundleAnimCtrl(string packageName, string address)
-        {
-            return new BundleAnimCtrl(packageName, address);
-        }
-
-        public BundleAnimCtrl CreatebundleAnimCtrl(string address)
-        {
-            return CreatebundleAnimCtrl(YooAssetPackages.PackageName_Main, address);
-        }
-
-        public BundleScene CreateBundleScene(string packageName, string address)
-        {
-            return new BundleScene(packageName, address);
-        }
-
-        public BundleScene CreateBundleScene(string address)
-        {
-            return CreateBundleScene(YooAssetPackages.PackageName_Main, address);
-        }*/
     }
 }

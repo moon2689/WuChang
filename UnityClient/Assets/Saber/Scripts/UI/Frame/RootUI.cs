@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Saber.Frame;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
+using YooAsset;
 
 namespace Saber.UI
 {
@@ -32,13 +34,14 @@ namespace Saber.UI
             CanvasScalerObj.referenceResolution.y / Screen.height);
 
 
-        public static void Create()
+        public static AssetHandle Create()
         {
             if (s_Instance == null)
             {
-                GameObject prefab = Resources.Load<GameObject>("Game/Canvas");
-                GameObject.Instantiate(prefab);
+                return GameApp.Entry.Asset.LoadGameObject("Game/Canvas", null);
             }
+
+            return null;
         }
 
         public static void RegisterWnd(WndBase wnd)

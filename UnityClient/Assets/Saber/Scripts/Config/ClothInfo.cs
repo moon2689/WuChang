@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Saber.Frame;
 using UnityEngine;
+using YooAsset;
 
 namespace Saber.Config
 {
@@ -45,17 +46,17 @@ namespace Saber.Config
         public string m_Classify;
 
         public string PrefabName => $"{m_Classify}_{m_ClothType}";
-        
-        public GameObject LoadGameObject()
+
+        public AssetHandle LoadGameObject(Action<GameObject> onLoaded)
         {
             string res = $"Actor/Player/Clothes/{m_Classify}/{PrefabName}";
-            return GameApp.Entry.Asset.LoadGameObject(res);
+            return GameApp.Entry.Asset.LoadGameObject(res, onLoaded);
         }
 
-        public Texture2D LoadIcon()
+        public AssetHandle LoadIcon(Action<Texture2D> onLoaded)
         {
             string res = $"Actor/Player/Clothes/{m_Classify}/Icon_{PrefabName}";
-            return GameApp.Entry.Asset.LoadTexture(res);
+            return GameApp.Entry.Asset.LoadAsset(res, onLoaded);
         }
     }
 

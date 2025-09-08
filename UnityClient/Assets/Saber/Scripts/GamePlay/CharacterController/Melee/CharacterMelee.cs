@@ -132,7 +132,6 @@ namespace Saber.CharacterController
         public void SetWeapon(WeaponPrefab[] weaponPrefabs)
         {
             CWeapon.CreateWeapons(weaponPrefabs);
-            CWeapon.ResetParent();
         }
 
         public bool TryTriggerSkill(SkillItem skillItem)

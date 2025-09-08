@@ -12,6 +12,7 @@ using Saber.Timeline;
 using Saber.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using YooAsset;
 
 namespace Saber.World
 {
@@ -114,7 +115,9 @@ namespace Saber.World
             m_LoadType = loadType;
 
             if (m_WndLoading == null)
-                m_WndLoading = GameApp.Entry.UI.CreateWnd<Wnd_Loading>();
+                yield return GameApp.Entry.UI.CreateWnd<Wnd_Loading>(w => m_WndLoading = w);
+
+            yield return GameApp.Entry.UI.CreateWnd<Wnd_JoyStick>(null, null, null);
 
             // scene
             yield return LoadScene().StartCoroutine();
@@ -128,7 +131,7 @@ namespace Saber.World
             // wnd
             if (m_WndMainCity == null)
             {
-                m_WndMainCity = GameApp.Entry.UI.CreateWnd<Wnd_MainCity>(null, this);
+                yield return GameApp.Entry.UI.CreateWnd<Wnd_MainCity>(null, this, w => m_WndMainCity = w);
             }
 
             // effects
@@ -192,9 +195,12 @@ namespace Saber.World
             {
                 // destroy actors
                 DestroyOtherActors();
-
-                AsyncOperation h = SceneManager.LoadSceneAsync(m_SceneInfo.m_ResName, LoadSceneMode.Single);
-                yield return h;
+                SceneHandle sceneHandle = GameApp.Entry.Asset.LoadScene(m_SceneInfo.m_ResName, null);
+                while (!sceneHandle.IsDone)
+                {
+                    m_WndLoading.Percent = 50 * sceneHandle.Progress;
+                    yield return null;
+                }
             }
 
             m_ScenePoints = GameObject.FindObjectsOfType<ScenePoint>();
@@ -228,10 +234,16 @@ namespace Saber.World
 
                     ++count;
                     m_WndLoading.Percent = 50 + 10 * count / portalCount;
-                    GameObject portalObj = GameApp.Entry.Asset.LoadGameObject("SceneProp/Portal");
-                    portalObj.name = scenePoint.m_ID.ToString();
-                    Portal portal = portalObj.GetComponent<Portal>();
-                    portal.Init(scenePoint, parentPortal.transform, this);
+                    AssetHandle assetHandle = GameApp.Entry.Asset.LoadGameObject("SceneProp/Portal", portalObj =>
+                    {
+                        portalObj.name = scenePoint.m_ID.ToString();
+                        Portal portal = portalObj.GetComponent<Portal>();
+                        portal.Init(scenePoint, parentPortal.transform, this);
+                    });
+                    while (!assetHandle.IsDone)
+                    {
+                        yield return null;
+                    }
                 }
             }
 
@@ -267,10 +279,16 @@ namespace Saber.World
 
                     ++count;
                     m_WndLoading.Percent = 60 + 5 * count / idolCount;
-                    GameObject godStatueObj = GameApp.Entry.Asset.LoadGameObject("SceneProp/GodStatue");
-                    godStatueObj.name = scenePoint.m_ID.ToString();
-                    Idol idol = godStatueObj.GetComponent<Idol>();
-                    idol.Init(m_SceneInfo.m_ID, scenePoint, parentStatue.transform, this);
+                    AssetHandle assetHandle = GameApp.Entry.Asset.LoadGameObject("SceneProp/GodStatue", godStatueObj =>
+                    {
+                        godStatueObj.name = scenePoint.m_ID.ToString();
+                        Idol idol = godStatueObj.GetComponent<Idol>();
+                        idol.Init(m_SceneInfo.m_ID, scenePoint, parentStatue.transform, this);
+                    });
+                    while (!assetHandle.IsDone)
+                    {
+                        yield return null;
+                    }
                 }
             }
 
@@ -284,7 +302,7 @@ namespace Saber.World
             // volume
             if (m_SceneInfo.m_OpenPostprocess)
             {
-                GameObject.Instantiate(Resources.Load("Game/GlobalVolume"));
+                GameApp.Entry.Asset.LoadGameObject("Game/GlobalVolume", null);
             }
 
             // Dynamic Skybox
@@ -421,9 +439,11 @@ namespace Saber.World
             EnemyAIBase ai = aiType.CreateEnemyAI();
             var camp = EActorCamp.Monster;
             Vector3 pos = bornPoint.GetFixedBornPos(out var rot);
-            var actor = SActor.Create(enemyID, pos, rot, ai, camp);
-            actor.Event_OnDead += OnOtherActorDead;
-            bornPoint.Actor = actor;
+            SActor.Create(enemyID, pos, rot, ai, camp, actor =>
+            {
+                actor.Event_OnDead += OnOtherActorDead;
+                bornPoint.Actor = actor;
+            });
         }
 
         private void OnOtherActorDead(SActor obj)
@@ -484,7 +504,7 @@ namespace Saber.World
             {
                 int id = GameApp.Entry.Config.GameSetting.PlayerID;
 
-                m_Player = SActor.Create(id, playerPos, playerRot, ai, EActorCamp.Player);
+                yield return SActor.Create(id, playerPos, playerRot, ai, EActorCamp.Player, actor => m_Player = actor);
                 m_Player.name += "(Player)";
                 m_Player.Event_OnDead += OnPlayerDead;
 
@@ -630,7 +650,7 @@ namespace Saber.World
 
         public void OnClickMenu()
         {
-            GameApp.Entry.UI.CreateWnd<Wnd_Menu>(null, this);
+            GameApp.Entry.UI.CreateWnd<Wnd_Menu>(null, this, null);
         }
 
         #endregion
@@ -686,13 +706,13 @@ namespace Saber.World
                 {
                     m_ListClothes = GameApp.Entry.Config.ClothInfo.GetAllClothesID(),
                 };
-                GameApp.Entry.UI.CreateWnd<Wnd_DressUp>(content, this);
+                GameApp.Entry.UI.CreateWnd<Wnd_DressUp>(content, this, null);
             }
         }
 
         void Wnd_Menu.IHandler.OnClickWait()
         {
-            GameApp.Entry.UI.CreateWnd<Wnd_Wait>();
+            GameApp.Entry.UI.CreateWnd<Wnd_Wait>(null);
         }
 
         /*

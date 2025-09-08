@@ -59,8 +59,7 @@ namespace Saber.CharacterController
                 foreach (var id in m_ClothInfo.m_DefaultClothes)
                 {
                     var clothInfo = GameApp.Entry.Config.ClothInfo.GetClothByID(id);
-                    GameObject obj = LoadClothGameObject(clothInfo);
-                    m_DicDefaultClothes[clothInfo.m_ClothType] = obj;
+                    LoadClothGameObject(clothInfo, obj => m_DicDefaultClothes[clothInfo.m_ClothType] = obj);
                 }
             }
         }
@@ -143,14 +142,20 @@ namespace Saber.CharacterController
             yield return null;
 
             // 穿上衣服
-            GameObject obj = LoadClothGameObject(clothInfo);
+            GameObject clothObj = null;
+            LoadClothGameObject(clothInfo, obj => clothObj = obj);
+            while (clothObj == null)
+            {
+                yield return null;
+            }
+
             m_DressingClothes.Add(clothInfo);
 
             // 默认衣服
             ResetDefaultClothes();
             yield return null;
 
-            OnDressClothFinished(clothInfo, obj);
+            OnDressClothFinished(clothInfo, clothObj);
             onDressed?.Invoke();
         }
 
@@ -160,20 +165,22 @@ namespace Saber.CharacterController
         }
 
         /// <summary>加载衣服gameObject</summary>
-        private GameObject LoadClothGameObject(ClothItemInfo clothInfo)
+        private async void LoadClothGameObject(ClothItemInfo clothInfo, Action<GameObject> onLoaded)
         {
             // load obj
-            GameObject obj = clothInfo.LoadGameObject();
-            obj.name = clothInfo.PrefabName;
-            obj.transform.parent = m_Actor.transform;
-            obj.transform.localPosition = Vector3.zero;
-            obj.transform.localRotation = Quaternion.identity;
-            obj.transform.localScale = Vector3.one;
-            obj.SetLayerRecursive(EStaticLayers.Actor);
-            obj.SetRenderingLayerRecursive(ERenderingLayers.Actor);
+            GameObject clothObj = null;
+            await clothInfo.LoadGameObject(go => clothObj = go).Task;
+
+            clothObj.name = clothInfo.PrefabName;
+            clothObj.transform.parent = m_Actor.transform;
+            clothObj.transform.localPosition = Vector3.zero;
+            clothObj.transform.localRotation = Quaternion.identity;
+            clothObj.transform.localScale = Vector3.one;
+            clothObj.SetLayerRecursive(EStaticLayers.Actor);
+            clothObj.SetRenderingLayerRecursive(ERenderingLayers.Actor);
 
             // init magica cloth
-            var mcClothList = obj.GetComponentsInChildren<MagicaCloth>();
+            var mcClothList = clothObj.GetComponentsInChildren<MagicaCloth>();
             foreach (var mcCloth in mcClothList)
             {
                 mcCloth.Initialize();
@@ -181,7 +188,7 @@ namespace Saber.CharacterController
             }
 
             // set bones
-            SkinnedMeshRenderer[] smrArray = obj.GetComponentsInChildren<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer[] smrArray = clothObj.GetComponentsInChildren<SkinnedMeshRenderer>();
             foreach (var smr in smrArray)
             {
                 smr.rootBone = GetOrCreateNewBone(smr.rootBone);
@@ -215,7 +222,7 @@ namespace Saber.CharacterController
                 mcCloth.BuildAndRun();
             }
 
-            return obj;
+            onLoaded?.Invoke(clothObj);
         }
 
         /// <summary>获取动骨</summary>

@@ -1,7 +1,9 @@
+using System;
 using System.IO;
 using Saber.Director;
 using Saber.Frame;
 using UnityEngine;
+using YooAsset;
 
 namespace Saber
 {
@@ -12,13 +14,14 @@ namespace Saber
         private Light m_Light;
         private float m_TimerChangeLight;
 
-        public static SSpirit Create(string resPath)
+        public static AssetHandle Create(string resPath, Action<SSpirit> onCreated)
         {
-            GameObject prefab = Resources.Load<GameObject>(resPath);
-            GameObject go = GameObject.Instantiate<GameObject>(prefab);
-            go.name = Path.GetFileNameWithoutExtension(resPath);
-            SSpirit com = go.GetComponent<SSpirit>();
-            return com;
+            return GameApp.Entry.Asset.LoadGameObject(resPath, go =>
+            {
+                go.name = Path.GetFileNameWithoutExtension(resPath);
+                SSpirit com = go.GetComponent<SSpirit>();
+                onCreated?.Invoke(com);
+            });
         }
 
         void Awake()

@@ -1,5 +1,7 @@
 ﻿using System;
+using Saber.Frame;
 using UnityEngine;
+using YooAsset;
 
 namespace Saber.UI
 {
@@ -16,17 +18,25 @@ namespace Saber.UI
         }
 
 
-        public static T Create<T>(WndContent content, IWndHandler handler) where T : WndBase, new()
+        public static AssetHandle Create<T>(WndContent content, IWndHandler handler, Action<T> onCreated) where T : WndBase, new()
         {
             string name = typeof(T).Name;
             string path = $"UI/{name}";
-            GameObject prefab = Resources.Load<GameObject>(path);
-            GameObject go = GameObject.Instantiate(prefab, RootUI.Instance.transform);
-            T wnd = go.GetComponent<T>();
-            wnd.m_WndContent = content;
-            wnd.m_WndHandler = handler;
-            wnd.OnAwake();
-            return wnd;
+            return GameApp.Entry.Asset.LoadGameObject(path, go =>
+            {
+                go.transform.SetParent(RootUI.Instance.transform);
+                go.transform.localPosition = Vector3.zero;
+                go.transform.localScale = Vector3.one;
+                RectTransform rectTrans = go.GetComponent<RectTransform>();
+                rectTrans.offsetMin = Vector2.zero;
+                rectTrans.offsetMax = Vector2.zero;
+
+                T wnd = go.GetComponent<T>();
+                wnd.m_WndContent = content;
+                wnd.m_WndHandler = handler;
+                wnd.OnAwake();
+                onCreated?.Invoke(wnd);
+            });
         }
 
         protected override void Awake()

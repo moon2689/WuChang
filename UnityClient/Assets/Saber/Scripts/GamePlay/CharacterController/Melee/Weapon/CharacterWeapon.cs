@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CombatEditor;
+using Saber.Frame;
 using TMPro;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ namespace Saber.CharacterController
             m_Actor = actor;
         }
 
-        public void CreateWeapons(WeaponPrefab[] prefabs)
+        public async void CreateWeapons(WeaponPrefab[] prefabs)
         {
             if (m_CurWeapons != null)
             {
@@ -38,10 +39,12 @@ namespace Saber.CharacterController
                 var prefabInfo = prefabs[i];
                 if (prefabInfo.m_WeaponPrefabResPath.IsNotEmpty())
                 {
-                    var asset = UnityEngine.Resources.Load<GameObject>(prefabInfo.m_WeaponPrefabResPath);
-                    m_CurWeapons[i] = GameObject.Instantiate(asset).GetComponent<WeaponBase>();
-                    prefabInfo.m_WeaponObj = m_CurWeapons[i];
-                    m_CurWeapons[i].ResetLocation = true;
+                    await GameApp.Entry.Asset.LoadGameObject(prefabInfo.m_WeaponPrefabResPath, go =>
+                    {
+                        m_CurWeapons[i] = go.GetComponent<WeaponBase>();
+                        prefabInfo.m_WeaponObj = m_CurWeapons[i];
+                        m_CurWeapons[i].ResetLocation = true;
+                    }).Task;
                 }
                 else if (prefabInfo.m_WeaponObj)
                 {
@@ -66,9 +69,11 @@ namespace Saber.CharacterController
 
                 m_CurWeapons[i].Init(m_Actor, prefabInfo.m_WeaponParentInfo);
             }
+
+            ResetParent();
         }
 
-        public void ResetParent()
+        private void ResetParent()
         {
             for (int i = 0; i < m_CurWeapons.Length; i++)
             {

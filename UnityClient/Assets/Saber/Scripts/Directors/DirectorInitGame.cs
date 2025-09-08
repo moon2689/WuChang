@@ -16,14 +16,15 @@ namespace Saber.Director
 
         protected override IEnumerator EnterAsync()
         {
-            RootUI.Create();
-            yield return null;
-            
+            // load yoo asset
+            yield return YooAssetManager.Instance.Init();
+
+            yield return RootUI.Create();
+
             // 加载配置
             yield return GameApp.Entry.Config.LoadAsync().StartCoroutine();
 
-            PlayerCamera.Create();
-            yield return null;
+            yield return PlayerCamera.Create();
 
             // fps
             if (GameApp.Entry.Config.TestGame.DebugFPS)

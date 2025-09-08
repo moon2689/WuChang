@@ -6,6 +6,7 @@ using UnityEngine;
 using Saber.Config;
 using Saber.Frame;
 using Saber.AI;
+using YooAsset;
 
 namespace Saber.CharacterController
 {
@@ -254,7 +255,7 @@ namespace Saber.CharacterController
         }
 
 
-        public static SActor Create(int id, Vector3 pos, Quaternion rot, BaseAI ai, EActorCamp camp)
+        public static AssetHandle Create(int id, Vector3 pos, Quaternion rot, BaseAI ai, EActorCamp camp, Action<SActor> onCreated)
         {
             var ownerInfo = GameApp.Entry.Config.ActorInfo.m_Actors.FirstOrDefault(a => a.m_ID == id);
             if (ownerInfo == null)
@@ -263,13 +264,15 @@ namespace Saber.CharacterController
                 return null;
             }
 
-            var actor = Create(ownerInfo, pos, rot);
-            actor.Camp = camp;
-            actor.AI = ai;
-            return actor;
+            return Create(ownerInfo, pos, rot, actor =>
+            {
+                actor.Camp = camp;
+                actor.AI = ai;
+                onCreated?.Invoke(actor);
+            });
         }
 
-        public static SActor Create(int id, Vector3 pos, Quaternion rot)
+        public static AssetHandle Create(int id, Vector3 pos, Quaternion rot, Action<SActor> onCreated)
         {
             var ownerInfo = GameApp.Entry.Config.ActorInfo.m_Actors.FirstOrDefault(a => a.m_ID == id);
             if (ownerInfo == null)
@@ -278,19 +281,20 @@ namespace Saber.CharacterController
                 return null;
             }
 
-            var actor = Create(ownerInfo, pos, rot);
-            return actor;
+            return Create(ownerInfo, pos, rot, onCreated);
         }
 
-        static SActor Create(ActorItemInfo config, Vector3 pos, Quaternion rot)
+        static AssetHandle Create(ActorItemInfo config, Vector3 pos, Quaternion rot, Action<SActor> onCreated)
         {
-            GameObject playerGO = config.LoadGameObject();
-            playerGO.transform.position = pos;
-            playerGO.transform.rotation = rot;
-            SActor actor = playerGO.GetComponent<SActor>();
-            actor.name = config.m_PrefabName;
-            actor.BaseInfo = config;
-            return actor;
+            return config.LoadGameObject(playerGO =>
+            {
+                playerGO.transform.position = pos;
+                playerGO.transform.rotation = rot;
+                SActor actor = playerGO.GetComponent<SActor>();
+                actor.name = config.m_PrefabName;
+                actor.BaseInfo = config;
+                onCreated?.Invoke(actor);
+            });
         }
 
         protected virtual void Awake()

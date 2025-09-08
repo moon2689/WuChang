@@ -69,7 +69,7 @@ namespace Saber.UI
         [SerializeField] private Text m_MedicineCount;
         [SerializeField] private GameObject m_Sticks;
 
-        private IHandler m_Handler;
+        public IHandler Handler { get; set; }
         private ESceneInteractType m_InteractType;
 
 
@@ -98,7 +98,6 @@ namespace Saber.UI
         protected override void OnAwake()
         {
             base.OnAwake();
-            m_Handler = m_WndHandler as IHandler;
 
             m_joystick.Init(this);
             m_moveCamera.Init(this);
@@ -133,32 +132,32 @@ namespace Saber.UI
 
         private void OnPressDownFly(BaseEventData arg0)
         {
-            m_Handler?.OnPressFly(true);
+            Handler?.OnPressFly(true);
         }
 
         private void OnPressUpFly(BaseEventData arg0)
         {
-            m_Handler?.OnPressFly(false);
+            Handler?.OnPressFly(false);
         }
 
         void OnPressDownHeavyAttack(BaseEventData arg0)
         {
-            m_Handler?.OnPressHeavyAttack(true);
+            Handler?.OnPressHeavyAttack(true);
         }
 
         void OnPressUpHeavyAttack(BaseEventData arg0)
         {
-            m_Handler?.OnPressHeavyAttack(false);
+            Handler?.OnPressHeavyAttack(false);
         }
 
         void OnPressDownDefense(BaseEventData arg0)
         {
-            m_Handler?.OnPressDefense(true);
+            Handler?.OnPressDefense(true);
         }
 
         void OnPressUpDefense(BaseEventData arg0)
         {
-            m_Handler?.OnPressDefense(false);
+            Handler?.OnPressDefense(false);
         }
 
         private void OnClickMedicineNone()
@@ -169,7 +168,7 @@ namespace Saber.UI
 
         void Widget_SkillButton.IHandler.OnClickSkillButton(ESkillType type)
         {
-            m_Handler.OnClickSkill(type);
+            Handler.OnClickSkill(type);
         }
 
         public void RefreshMedicineCount(int count)
@@ -184,7 +183,7 @@ namespace Saber.UI
 
         private void OnClickDrinkMedicine()
         {
-            m_Handler?.OnClickDrinkMedicine();
+            Handler?.OnClickDrinkMedicine();
         }
 
         public void ShowButtonInteract(ESceneInteractType interactType)
@@ -207,17 +206,17 @@ namespace Saber.UI
 
         private void OnClickAttack1()
         {
-            m_Handler?.OnClickLightAttack();
+            Handler?.OnClickLightAttack();
         }
 
         private void OnPressDownDodge(BaseEventData arg0)
         {
-            m_Handler?.OnPressDodge(true);
+            Handler?.OnPressDodge(true);
         }
 
         private void OnPressUpDodge(BaseEventData arg0)
         {
-            m_Handler?.OnPressDodge(false);
+            Handler?.OnPressDodge(false);
         }
 
         /*
@@ -228,19 +227,19 @@ namespace Saber.UI
 
         void Widget_JoyStick.IHandler.OnStickUsed(Vector2 axis, bool isDragging)
         {
-            m_Handler?.OnUseStick(axis, isDragging);
+            Handler?.OnUseStick(axis, isDragging);
         }
 
         void Widget_MoveCamera.IHandler.OnCamStickUsed(float x, float y)
         {
-            m_Handler?.OnUseCamStick(x, y);
+            Handler?.OnUseCamStick(x, y);
         }
 
         // event ---------->
 
         void OnClickInteract()
         {
-            m_Handler?.OnClickInteract(m_InteractType);
+            Handler?.OnClickInteract(m_InteractType);
         }
 
         /*
@@ -251,7 +250,7 @@ namespace Saber.UI
 
         void OnClickLockOn()
         {
-            m_Handler?.OnClickLockOn();
+            Handler?.OnClickLockOn();
         }
 
         protected override void Update()

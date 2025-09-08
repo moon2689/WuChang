@@ -18,7 +18,7 @@ public class ScenePointInspector : Editor
     {
         if (m_ActorInfo == null)
         {
-            m_ActorInfo = AssetDatabase.LoadAssetAtPath<ActorInfo>("Assets/Saber/Resources/Config/ActorInfo.asset");
+            m_ActorInfo = AssetDatabase.LoadAssetAtPath<ActorInfo>("Assets/Saber/Resources_/Config/ActorInfo.asset");
         }
 
         EScenePointType oldType = Obj.m_PointType;
@@ -60,7 +60,7 @@ public class ScenePointInspector : Editor
 
     void SyncToSceneConfig()
     {
-        SceneInfo sceneInfo = AssetDatabase.LoadAssetAtPath<SceneInfo>("Assets/Saber/Resources/Config/SceneInfo.asset");
+        SceneInfo sceneInfo = AssetDatabase.LoadAssetAtPath<SceneInfo>("Assets/Saber/Resources_/Config/SceneInfo.asset");
         ScenePoint[] points = GameObject.FindObjectsOfType<ScenePoint>();
         List<IdolInfo> listIdols = new();
         foreach (var p in points)

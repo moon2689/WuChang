@@ -273,7 +273,7 @@ namespace CombatEditor
             go.name = prefab.name;
 
             // create animator
-            string folder = "Assets/Saber/Resources/Actor";
+            string folder = "Assets/Saber/Resources_/Actor";
             string[] files = Directory.GetFiles(folder, "*.prefab", SearchOption.AllDirectories);
             foreach (var file in files)
             {
@@ -313,7 +313,7 @@ namespace CombatEditor
                 if (weaponPrefab.m_WeaponObj != null)
                     continue;
 
-                string path = $"Assets/Saber/Resources/{weaponPrefab.m_WeaponPrefabResPath}.prefab";
+                string path = $"Assets/Saber/Resources_/{weaponPrefab.m_WeaponPrefabResPath}.prefab";
                 Transform parent = weaponPrefab.m_WeaponParentInfo.m_ArmBone;
                 GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
                 GameObject go = GameObject.Instantiate(prefab);

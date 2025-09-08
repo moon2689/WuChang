@@ -8,10 +8,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Saber/Scenes/SLauncher.unity
     guid: e44a251b25c39914cad789c75ba97625
-  - enabled: 1
-    path: Assets/Saber/Scenes/Empty/Empty.unity
-    guid: 9939720c383c48e49af1a39a3e3fe31b
-  - enabled: 1
-    path: Assets/Saber/Scenes/Arena/Arena.unity
-    guid: f94ad1af4416e0b4ab3939a752f4bb67
   m_configObjects: {}
