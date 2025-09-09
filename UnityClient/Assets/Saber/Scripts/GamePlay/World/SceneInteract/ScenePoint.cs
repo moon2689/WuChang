@@ -18,6 +18,7 @@ namespace Saber.World
         public string m_PointName;
         public EAIType m_AIType;
         public int m_TargetSceneID;
+        public string m_TargetSceneName;
         public int m_TargetPortalID;
 
 
@@ -34,9 +35,8 @@ namespace Saber.World
 
         Vector3 GetFixedPos(Vector3 originPos)
         {
-            Vector3 rayOriginPos = originPos + Vector3.up * 100;
             int groundLayer = EStaticLayers.Default.GetLayerMask();
-            if (Physics.Raycast(rayOriginPos, Vector3.down, out var hitInfo, 200, groundLayer, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(originPos, Vector3.down, out var hitInfo, 200, groundLayer, QueryTriggerInteraction.Ignore))
             {
                 return hitInfo.point;
             }
@@ -50,6 +50,13 @@ namespace Saber.World
         public Vector3 GetIdolFixedPos(out Quaternion rot)
         {
             Vector3 pos = transform.position + transform.forward * 1.5f;
+            rot = Quaternion.LookRotation(-transform.forward);
+            return GetFixedPos(pos);
+        }
+        
+        public Vector3 GetPortalFixedPos(out Quaternion rot)
+        {
+            Vector3 pos = transform.position + transform.forward * 0.8f;
             rot = Quaternion.LookRotation(-transform.forward);
             return GetFixedPos(pos);
         }

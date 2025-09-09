@@ -13,12 +13,10 @@ MonoBehaviour:
   m_Name: GameSetting
   m_EditorClassIdentifier: 
   OpenCameraLight: 0
+  ShadowDistance: 50
   PlayerInputType: 1
   PlayerID: 1
   StartSceneID: 2
-  m_BornPos: {x: 0, y: 0, z: 0}
-  m_BornRotY: 0
-  WitchTimeSeconds: 1.2
   DodgeCostStamina: 20
   IKBoneForceOnHit: 3
   RecoverUnbalanceValueDelaySeconds: 4

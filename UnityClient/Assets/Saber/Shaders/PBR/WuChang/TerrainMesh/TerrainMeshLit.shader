@@ -1,4 +1,4 @@
-Shader "Saber/WuChang/Terrain Lit Simple"
+Shader "Saber/WuChang/Terrain Mesh Lit"
 {
     Properties
     {
@@ -42,10 +42,12 @@ Shader "Saber/WuChang/Terrain Lit Simple"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
-            sampler2D _Texture0;
-            sampler2D _Texture1;
-            sampler2D _Texture2;
-            sampler2D _Texture3;
+            
+            TEXTURE2D(_Texture0);
+            TEXTURE2D(_Texture1);
+            TEXTURE2D(_Texture2);
+            TEXTURE2D(_Texture3);
+            SAMPLER(sampler_Texture0);
 
             struct appdata
             {
@@ -85,18 +87,24 @@ Shader "Saber/WuChang/Terrain Lit Simple"
 
             half4 frag(v2f i) : SV_TARGET
             {
-                half4 t0 = tex2D(_Texture0, i.uv);
-                half4 t1 = tex2D(_Texture1, i.uv);
-                half4 t2 = tex2D(_Texture2, i.uv);
-                half4 t3 = tex2D(_Texture3, i.uv);
+                half4 t0 = SAMPLE_TEXTURE2D(_Texture0, sampler_Texture0, i.uv);
+                half4 t1 = SAMPLE_TEXTURE2D(_Texture1, sampler_Texture0, i.uv);
+                half4 t2 = SAMPLE_TEXTURE2D(_Texture2, sampler_Texture0, i.uv);
+                half4 t3 = SAMPLE_TEXTURE2D(_Texture3, sampler_Texture0, i.uv);
                 half4 baseMap = t0 * i.weight.x + t1 * i.weight.y + t2 * i.weight.z + t3 * i.weight.w;
 
                 float4 shadowCoord = TransformWorldToShadowCoord(i.worldPos);
                 Light mainLight = GetMainLight(shadowCoord);
-                half NoL = dot(i.normal.xyz, mainLight.direction) * 0.5 + 0.5;
-                half3 lighting = NoL * baseMap.rgb * mainLight.color * mainLight.shadowAttenuation;
+                half3 albedo = baseMap.rgb;
+                float3 N = i.normal.xyz;
+                half NoL = dot(N, mainLight.direction) * 0.5 + 0.5;
+                half3 lighting = NoL * albedo * mainLight.color * mainLight.shadowAttenuation;
                 half4 color = half4(lighting, 1);
 
+                // sh
+                half3 sh = SampleSH(N);
+                color.rgb += sh * albedo;
+                
                 // fog
                 half fogFactor = i.normal.w;
                 float fogCoord = InitializeInputDataFog(float4(i.worldPos, 1.0), fogFactor);

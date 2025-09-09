@@ -733,4 +733,31 @@ public static class WuChangTools
         AssetDatabase.Refresh();
         Debug.Log("All done");
     }
+    
+    [MenuItem("Saber/WUCH/Revert_WEPMaterialUseSaberShader")]
+    static void Revert_WEPMaterialUseSaberShader()
+    {
+        List<string> materials = GetSelectedAssets<Material>("*.mat");
+        foreach (var path in materials)
+        {
+            Material mat = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (mat.shader.name.StartsWith("Saber"))
+            {
+                string newShader = mat.shader.name.Substring(5);
+                Shader shader = Shader.Find(newShader);
+                if (shader)
+                {
+                    mat.shader = shader;
+                }
+                else
+                {
+                    Debug.LogError($"Cann't find shader:{newShader}");
+                }
+            }
+        }
+
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        Debug.Log("All done");
+    }
 }

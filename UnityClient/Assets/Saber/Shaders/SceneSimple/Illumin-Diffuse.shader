@@ -1,41 +1,116 @@
-// Unity built-in shader source. Copyright (c) 2016 Unity Technologies. MIT license (see license.txt)
+Shader "Saber/Legacy Shaders/Self-Illumin/Diffuse"
+{
+    Properties
+    {
+		_Color ("Main Color", Color) = (1,1,1,1)
+		_MainTex ("Base (RGB)", 2D) = "white" {}
+		_Illum ("Illumin (A)", 2D) = "white" {}
+		_Emission ("Emission (Lightmapper)", Float) = 1.0
+    }
 
-Shader "Saber/Legacy Shaders/Self-Illumin/Diffuse" {
-Properties {
-    _Color ("Main Color", Color) = (1,1,1,1)
-    _MainTex ("Base (RGB)", 2D) = "white" {}
-    _Illum ("Illumin (A)", 2D) = "white" {}
-    _Emission ("Emission (Lightmapper)", Float) = 1.0
-}
-SubShader {
-    Tags { "RenderType"="Opaque" }
-    LOD 200
+    SubShader
+    {
+        Tags
+        {
+            "RenderType" = "Opaque"
+            "RenderPipeline" = "UniversalPipeline"
+            "Queue" = "Geometry"
+        }
+        LOD 200
 
-CGPROGRAM
-#pragma surface surf Lambert
+        Pass
+        {
+            Tags
+            {
+                "LightMode" = "UniversalForward"
+            }
+            
+            HLSLPROGRAM
+            #pragma target 2.0
+            
+            #pragma vertex vert
+            #pragma fragment frag
 
-sampler2D _MainTex;
-sampler2D _Illum;
-fixed4 _Color;
-fixed _Emission;
+            // -------------------------------------
+            // Universal Pipeline keywords
+            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE
 
-struct Input {
-    float2 uv_MainTex;
-    float2 uv_Illum;
-};
+            // -------------------------------------
+            // Unity defined keywords
+            #pragma multi_compile_fog
+            
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
-void surf (Input IN, inout SurfaceOutput o) {
-    fixed4 tex = tex2D(_MainTex, IN.uv_MainTex);
-    fixed4 c = tex * _Color;
-    o.Albedo = c.rgb;
-    o.Emission = c.rgb * tex2D(_Illum, IN.uv_Illum).a;
-#if defined (UNITY_PASS_META)
-    o.Emission *= _Emission.rrr;
-#endif
-    o.Alpha = c.a;
-}
-ENDCG
-}
-FallBack "Legacy Shaders/Self-Illumin/VertexLit"
-CustomEditor "LegacyIlluminShaderGUI"
+			TEXTURE2D(_MainTex);  SAMPLER(sampler_MainTex);
+			TEXTURE2D(_Illum);  SAMPLER(sampler_Illum);
+			half4 _Color;
+			half _Emission;
+
+            struct appdata
+            {
+                float4 vertex : POSITION;
+                float2 uv : TEXCOORD0;
+                float3 normal : NORMAL;
+            };
+
+            struct v2f
+            {
+                float4 pos : SV_POSITION;
+                float2 uv : TEXCOORD0;
+                float4 normal : NORMAL;
+                float3 worldPos : TEXCOORD1;
+            };
+
+            v2f vert(appdata v)
+            {
+                v2f o;
+                o.pos = TransformObjectToHClip(v.vertex.xyz);
+                o.uv = v.uv;
+                o.normal.xyz = TransformObjectToWorldNormal(v.normal);
+                o.worldPos = TransformObjectToWorld(v.vertex.xyz);
+
+                // fog
+                half fogFactor = 0;
+                #if !defined(_FOG_FRAGMENT)
+                    fogFactor = ComputeFogFactor(o.positionCS.z);
+                #endif
+                o.normal.w = fogFactor;
+                
+                return o;
+            }
+
+            half4 frag(v2f i) : SV_TARGET
+            {
+                half4 baseMap = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv) * _Color;
+
+                float4 shadowCoord = TransformWorldToShadowCoord(i.worldPos);
+                Light mainLight = GetMainLight(shadowCoord);
+                float3 N = i.normal.xyz;
+                half NoL = dot(N, mainLight.direction) * 0.5 + 0.5;
+                half3 albedo = baseMap.rgb;
+                half3 lighting = NoL * albedo * mainLight.color * mainLight.shadowAttenuation;
+
+                half4 color;
+                color.rgb = lighting;
+                color.a = baseMap.a;
+
+                // sh
+                half3 sh = SampleSH(N);
+                color.rgb += sh * albedo;
+				
+				// emission
+				half3 emission = baseMap.rgb * SAMPLE_TEXTURE2D(_Illum, sampler_Illum, i.uv).a;
+				color.rgb += emission;
+
+                // fog
+                half fogFactor = i.normal.w;
+                float fogCoord = InitializeInputDataFog(float4(i.worldPos, 1.0), fogFactor);
+                color.rgb = MixFog(color.rgb, fogCoord);
+                
+                return color;
+            }
+            ENDHLSL
+        }
+    }
 }

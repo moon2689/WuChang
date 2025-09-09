@@ -32,6 +32,23 @@ namespace Saber
 
             // camera
             PlayerCamera.Instance.OnDistanceChange += OnCamDistanceChange;
+
+            // render scale
+            ResetResolution(1);
+        }
+
+        static void ResetResolution(float ratio)
+        {
+            float minRatio = ratio * 0.5f;
+            float maxRatio = ratio;
+            float renderScale = (1920 * 1080 * ratio) / (Screen.width * Screen.height);
+            renderScale = Mathf.Clamp(renderScale, minRatio, maxRatio);
+            renderScale = Mathf.Clamp01(renderScale);
+            Debug.Log($"Set render scale:{renderScale}");
+#if UNITY_EDITOR
+            renderScale = 1;
+#endif
+            URPAsset.renderScale = renderScale;
         }
 
         static void OnCamDistanceChange(float dis)
@@ -45,7 +62,7 @@ namespace Saber
             }
             else
             {
-                shadowDis = 20;
+                shadowDis = 50;
                 depthOfFieldMode = DepthOfFieldMode.Off;
             }
 
@@ -53,8 +70,7 @@ namespace Saber
 
             //Debug.Log($"cam dis:{dis},shadowDis:{shadowDis}");
 
-            DepthOfField dof =
-                GlobalVolume?.sharedProfile.components.FirstOrDefault(a => a is DepthOfField) as DepthOfField;
+            DepthOfField dof = GlobalVolume?.sharedProfile.components.FirstOrDefault(a => a is DepthOfField) as DepthOfField;
             if (dof)
             {
                 dof.mode.value = depthOfFieldMode;

@@ -117,7 +117,9 @@ namespace Saber.World
             if (m_WndLoading == null)
                 yield return GameApp.Entry.UI.CreateWnd<Wnd_Loading>(w => m_WndLoading = w);
 
-            yield return GameApp.Entry.UI.CreateWnd<Wnd_JoyStick>(null, null, null);
+            Wnd_JoyStick wndJoyStick = null;
+            yield return GameApp.Entry.UI.CreateWnd<Wnd_JoyStick>(null, null, w => wndJoyStick = w);
+            wndJoyStick.ActiveSticks = true;
 
             // scene
             yield return LoadScene().StartCoroutine();
@@ -474,7 +476,7 @@ namespace Saber.World
                 ScenePoint point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.Portal && a.m_ID == m_TransmittingPortalID);
                 if (point != null)
                 {
-                    return point.GetFixedBornPos(out rot);
+                    return point.GetPortalFixedPos(out rot);
                 }
             }
             else
@@ -808,13 +810,23 @@ namespace Saber.World
 
         void Portal.IHandler.OnPlayerTransmit(Portal portal)
         {
+            PlayerTransmitByPortal(portal).StartCoroutine();
+        }
+
+        IEnumerator PlayerTransmitByPortal(Portal portal)
+        {
             portal.EnableGateCollider(false);
-            GameApp.Entry.Game.PlayerCamera.LookAtTarget(portal.transform.rotation.eulerAngles.y + 150);
+            //GameApp.Entry.Game.PlayerCamera.LookAtTarget(portal.transform.rotation.eulerAngles.y + 150);
             GameApp.Entry.Game.PlayerAI.OnPlayerExitPortal(portal);
 
-            m_Player.transform.position = portal.transform.position + portal.transform.forward * 0.8f;
+            Vector3 startPos = portal.transform.position + portal.transform.forward * 0.8f;
             Vector3 dir = portal.transform.position - m_Player.transform.position;
-            m_Player.transform.rotation = Quaternion.LookRotation(dir);
+            bool wait = true;
+            m_Player.CStateMachine.SetPosAndForward(startPos, dir, 0.2f, () => wait = false);
+            while (wait)
+            {
+                yield return null;
+            }
 
             GameApp.Entry.Game.PlayerAI.PlayActionMoveToTargetPos(portal.transform.position, m_Player.CPhysic.Radius,
                 () =>

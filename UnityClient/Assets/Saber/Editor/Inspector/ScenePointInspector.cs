@@ -11,6 +11,7 @@ using UnityEngine.SceneManagement;
 public class ScenePointInspector : Editor
 {
     private ActorInfo m_ActorInfo;
+    private SceneInfo m_SceneInfo;
 
     private ScenePoint Obj => (ScenePoint)target;
 
@@ -21,8 +22,14 @@ public class ScenePointInspector : Editor
             m_ActorInfo = AssetDatabase.LoadAssetAtPath<ActorInfo>("Assets/Saber/Resources_/Config/ActorInfo.asset");
         }
 
+        if (m_SceneInfo == null)
+        {
+            m_SceneInfo = AssetDatabase.LoadAssetAtPath<SceneInfo>("Assets/Saber/Resources_/Config/SceneInfo.asset");
+        }
+
         EScenePointType oldType = Obj.m_PointType;
         Obj.m_PointType = (EScenePointType)EditorGUILayout.EnumPopup("类型：", Obj.m_PointType);
+        Obj.m_PointName = EditorGUILayout.TextField("名字：", Obj.m_PointName);
 
         if (Obj.m_PointType == EScenePointType.MonsterBornPosition)
         {
@@ -34,11 +41,28 @@ public class ScenePointInspector : Editor
                 ShowSelectMonsterWnd();
             }
         }
-        else if (Obj.m_PointType == EScenePointType.Portal || Obj.m_PointType == EScenePointType.Idol)
+        else if (Obj.m_PointType == EScenePointType.Idol)
         {
-            Obj.m_ID = EditorGUILayout.IntField("ID:", Obj.m_ID);
-            Obj.m_PointName = EditorGUILayout.TextField("名字：", Obj.m_PointName);
+            Obj.m_ID = EditorGUILayout.IntField("ID: ", Obj.m_ID);
             EditorUtility.SetDirty(Obj.transform);
+
+            if (GUILayout.Button("同步至配置"))
+            {
+                SyncToSceneConfig();
+            }
+        }
+        else if (Obj.m_PointType == EScenePointType.Portal)
+        {
+            Obj.m_ID = EditorGUILayout.IntField("ID: ", Obj.m_ID);
+            EditorGUILayout.LabelField($"Target scene id: {Obj.m_TargetSceneID}");
+            EditorGUILayout.LabelField("Target scene name: " + Obj.m_TargetSceneName);
+            Obj.m_TargetPortalID = EditorGUILayout.IntField("Target portal id:", Obj.m_TargetPortalID);
+            EditorUtility.SetDirty(Obj.transform);
+
+            if (GUILayout.Button("选择目标场景"))
+            {
+                ShowSelectSceneWnd();
+            }
 
             if (GUILayout.Button("同步至配置"))
             {
@@ -111,6 +135,7 @@ public class ScenePointInspector : Editor
     {
         ActorItemInfo info = (ActorItemInfo)userdata;
         Obj.m_ID = info.m_ID;
+        RefreshName();
         EditorUtility.SetDirty(Obj.transform);
     }
 
@@ -128,6 +153,26 @@ public class ScenePointInspector : Editor
         }
 
 
+        EditorUtility.SetDirty(Obj.transform);
+    }
+
+    void ShowSelectSceneWnd()
+    {
+        GenericMenu Menu = new GenericMenu();
+        foreach (var s in m_SceneInfo.m_Scenes)
+        {
+            Menu.AddItem(new GUIContent(s.m_ID + " " + s.m_Name), false, OnSelectScene, s);
+        }
+
+        Menu.ShowAsContext();
+    }
+
+    private void OnSelectScene(object userdata)
+    {
+        SceneBaseInfo info = userdata as SceneBaseInfo;
+        Obj.m_TargetSceneID = info.m_ID;
+        Obj.m_TargetSceneName = info.m_Name;
+        Obj.m_TargetPortalID = 1;
         EditorUtility.SetDirty(Obj.transform);
     }
 }

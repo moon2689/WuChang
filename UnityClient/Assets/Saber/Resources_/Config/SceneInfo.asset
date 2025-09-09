@@ -26,8 +26,98 @@ MonoBehaviour:
     m_ResName: Arena
     m_SkyboxType: 0
     m_OpenPostprocess: 1
-    m_ShadowDistance: 20
+    m_ShadowDistance: 50
     m_Idols:
     - m_ID: 1
       m_Name: "\u5730\u70B9\u4E00"
-    m_Portals: 
+    m_Portals: 03000000
+  - m_Name: mep1
+    m_ID: 3
+    m_ResName: MEP1
+    m_SkyboxType: 0
+    m_OpenPostprocess: 1
+    m_ShadowDistance: 50
+    m_Idols:
+    - m_ID: 1
+      m_Name: idol1
+    m_Portals: 01000000
+  - m_Name: mep2
+    m_ID: 4
+    m_ResName: MEP2
+    m_SkyboxType: 0
+    m_OpenPostprocess: 1
+    m_ShadowDistance: 50
+    m_Idols:
+    - m_ID: 1
+      m_Name: idol1
+    m_Portals: 01000000
+  - m_Name: mep3
+    m_ID: 5
+    m_ResName: MEP3
+    m_SkyboxType: 0
+    m_OpenPostprocess: 1
+    m_ShadowDistance: 50
+    m_Idols:
+    - m_ID: 1
+      m_Name: p1
+    m_Portals: 01000000
+  - m_Name: mep4
+    m_ID: 6
+    m_ResName: MEP4
+    m_SkyboxType: 0
+    m_OpenPostprocess: 1
+    m_ShadowDistance: 50
+    m_Idols:
+    - m_ID: 1
+      m_Name: idol1
+    m_Portals: 01000000
+  - m_Name: mep5
+    m_ID: 7
+    m_ResName: MEP5
+    m_SkyboxType: 0
+    m_OpenPostprocess: 1
+    m_ShadowDistance: 50
+    m_Idols:
+    - m_ID: 1
+      m_Name: idol1
+    m_Portals: 01000000
+  - m_Name: mep6
+    m_ID: 8
+    m_ResName: MEP6
+    m_SkyboxType: 0
+    m_OpenPostprocess: 1
+    m_ShadowDistance: 50
+    m_Idols:
+    - m_ID: 1
+      m_Name: idol1
+    m_Portals: 01000000
+  - m_Name: mep cave
+    m_ID: 9
+    m_ResName: MEPCave
+    m_SkyboxType: 0
+    m_OpenPostprocess: 1
+    m_ShadowDistance: 50
+    m_Idols:
+    - m_ID: 1
+      m_Name: idol1
+    m_Portals: 01000000
+  - m_Name: mep desert
+    m_ID: 10
+    m_ResName: MEPDesert
+    m_SkyboxType: 0
+    m_OpenPostprocess: 1
+    m_ShadowDistance: 50
+    m_Idols:
+    - m_ID: 1
+      m_Name: idol1
+    m_Portals: 01000000
+  - m_Name: mep snow
+    m_ID: 11
+    m_ResName: MEPSnow
+    m_SkyboxType: 0
+    m_OpenPostprocess: 1
+    m_ShadowDistance: 50
+    m_Idols:
+    - m_ID: 1
+      m_Name: idol1
+    m_Portals: 01000000

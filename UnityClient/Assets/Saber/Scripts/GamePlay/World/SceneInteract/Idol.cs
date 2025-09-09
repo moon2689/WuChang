@@ -36,10 +36,8 @@ namespace Saber.World
             m_IHandler = handler;
 
             transform.SetParent(parent);
-            Vector3 pos = Point.GetFixedBornPos(out var rot);
-            pos.y -= 0.02f;
-            transform.position = pos;
-            transform.rotation = rot;
+            transform.position = scenePoint.transform.position;
+            transform.rotation = scenePoint.transform.rotation;
 
             RefreshFire();
 

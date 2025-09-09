@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public static class TerrainToMesh
 {
-    [MenuItem("Saber/WuCH/Terrain to mesh")]
-    static void Init()
+    [MenuItem("Saber/WUCH/Terrain to mesh")]
+    static void ConvertTerrainToMesh()
     {
         if (Selection.objects.Length <= 0)
         {
@@ -133,7 +133,7 @@ public static class TerrainToMesh
             mat = AssetDatabase.LoadAssetAtPath<Material>(matPath);
             if (!mat)
             {
-                mat = new Material(Shader.Find("Saber/WuChang/Terrain Lit Simple"));
+                mat = new Material(Shader.Find("Saber/WuChang/Terrain Mesh Lit"));
                 AssetDatabase.CreateAsset(mat, matPath);
                 AssetDatabase.SaveAssets();
                 mat = AssetDatabase.LoadAssetAtPath<Material>(matPath);
