@@ -441,8 +441,9 @@ namespace Saber.CharacterController
             return true;
         }
 
-        public virtual void SetPosAndForward(Vector3 tarPos, Vector3 forward, float time, Action onFinished)
+        public virtual bool SetPosAndForward(Vector3 tarPos, Vector3 forward, Action onFinished)
         {
+            return false;
         }
     }
 }

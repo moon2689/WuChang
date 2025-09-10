@@ -8,8 +8,6 @@ namespace Saber.World
 {
     public class Portal : SceneInteractObjectBase
     {
-        [SerializeField] private Collider[] m_GateCollider;
-
         public interface IHandler
         {
             void OnPlayerEnter(Portal portal);
@@ -48,12 +46,6 @@ namespace Saber.World
         {
             m_IHandler.OnPlayerExit(this);
             m_IHandler.OnPlayerTransmit(this);
-        }
-
-        public void EnableGateCollider(bool enable)
-        {
-            foreach (var c in m_GateCollider)
-                c.enabled = enable;
         }
     }
 }

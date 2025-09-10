@@ -131,7 +131,7 @@ namespace Saber.CharacterController
         public bool AlignForwardTo(Vector3 dir, float turnSpeed)
         {
             float angle = AlignForwardTo(dir, a => turnSpeed);
-            return angle == 0;
+            return Mathf.Abs(angle) < 1f;
         }
 
         public void ControlInAir()

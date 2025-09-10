@@ -424,7 +424,7 @@ namespace Saber.CharacterController
 
             AI?.Init(this);
 
-            CMelee.CWeapon.ToggleWeapon(true);
+            CMelee.CWeapon.ShowOrHideWeapon(true);
         }
 
         #region States

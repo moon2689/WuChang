@@ -42,7 +42,7 @@ namespace Saber.World
             }
             else
             {
-                Debug.LogError($"Born position is error, id:{m_ID}");
+                //Debug.LogError($"Born position is error, id:{m_ID}");
                 return originPos;
             }
         }
@@ -53,11 +53,11 @@ namespace Saber.World
             rot = Quaternion.LookRotation(-transform.forward);
             return GetFixedPos(pos);
         }
-        
+
         public Vector3 GetPortalFixedPos(out Quaternion rot)
         {
             Vector3 pos = transform.position + transform.forward * 0.8f;
-            rot = Quaternion.LookRotation(-transform.forward);
+            rot = Quaternion.LookRotation(transform.forward);
             return GetFixedPos(pos);
         }
 

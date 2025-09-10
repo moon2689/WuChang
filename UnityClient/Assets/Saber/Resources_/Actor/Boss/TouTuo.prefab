@@ -2083,7 +2083,7 @@ MonoBehaviour:
         m_ArmRot: {x: 0, y: 0, z: 0}
       m_WeaponObj: {fileID: 0}
     m_AIInfo:
-      m_WarningRange: 10
+      m_WarningRange: 30
     m_Nodes:
     - m_Type: 1
       m_NodeTrans: {fileID: 7714084900097439172}

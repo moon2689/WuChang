@@ -359,6 +359,11 @@ public static class WuChangTools
             return;
         }
 
+        TextureImporter tiDiffuse = AssetImporter.GetAtPath(texPath) as TextureImporter;
+        tiDiffuse.sRGBTexture = true;
+        CompressTextureHalfSize(tiDiffuse);
+        tiDiffuse.SaveAndReimport();
+
         Texture2D diffuse = AssetDatabase.LoadAssetAtPath<Texture2D>(texPath);
 
         if (diffuse == null)
@@ -479,8 +484,7 @@ public static class WuChangTools
     {
         List<string> listMaterial = GetSelectedAssets<Material>("*.mat");
 
-        string[] allJsonFiles = Directory.GetFiles(UEProjectFolder + "/Project_Plague/Content", "*.json",
-            SearchOption.AllDirectories);
+        string[] allJsonFiles = Directory.GetFiles(UEProjectFolder + "/Project_Plague/Content", "*.json", SearchOption.AllDirectories);
         Dictionary<string, string> dicAllJsonFiles = new();
         foreach (var jsonFile in allJsonFiles)
         {
@@ -496,10 +500,18 @@ public static class WuChangTools
             dicAllLocalTga[fileName] = tgaFile;
         }
 
+        string wuchangCommonShader = "Saber/WuChang/WuChang Common Lit";
         foreach (var m in listMaterial)
         {
+            Material mat = AssetDatabase.LoadAssetAtPath<Material>(m);
+            if (mat.shader.name.Contains("WuChang") && mat.shader.name != wuchangCommonShader)
+            {
+                continue;
+            }
+
             string fileName = Path.GetFileNameWithoutExtension(m);
             string jsonFile = dicAllJsonFiles[fileName];
+            Debug.Log($"Json: {fileName} {jsonFile} {File.ReadAllText(jsonFile)}");
             string diffuseUE = GetUEDiffuseTGAPath(jsonFile, out string normalUE, out string maskUE);
             if (diffuseUE == null)
             {
@@ -515,13 +527,17 @@ public static class WuChangTools
                 AssetDatabase.Refresh();
             }
 
-            Material mat = AssetDatabase.LoadAssetAtPath<Material>(m);
-            mat.shader = Shader.Find("Saber/WuChang/WuChang Common Lit");
+            mat.shader = Shader.Find(wuchangCommonShader);
             mat.SetColor("_BaseColor", Color.white);
 
             string newDiffuse = ImportOrLoadFromLocal(diffuseUE, dicAllLocalTga, textureSaveFolder);
             if (!string.IsNullOrEmpty(newDiffuse))
             {
+                TextureImporter tiDiffuse = AssetImporter.GetAtPath(newDiffuse) as TextureImporter;
+                tiDiffuse.sRGBTexture = true;
+                CompressTextureHalfSize(tiDiffuse);
+                tiDiffuse.SaveAndReimport();
+
                 Texture2D diffuse = AssetDatabase.LoadAssetAtPath<Texture2D>(newDiffuse);
                 mat.SetTexture("_BaseMap", diffuse);
             }
@@ -605,6 +621,7 @@ public static class WuChangTools
 
         if (string.IsNullOrEmpty(diffuseUE))
         {
+            Debug.LogError("Cann't find ue diffuse from json");
             return null;
         }
 
@@ -669,6 +686,12 @@ public static class WuChangTools
     [MenuItem("Saber/WUCH/CompressTextureHalfSize")]
     static void CompressTextureHalfSize()
     {
+        bool confirm = EditorUtility.DisplayDialog("提示", "确定压缩图片尺寸为原尺寸的一半？", "确定", "取消");
+        if (!confirm)
+        {
+            return;
+        }
+
         List<string> tgaFiles = GetSelectedAssets<Texture2D>("*.tga");
         foreach (var tgaFile in tgaFiles)
         {
@@ -733,7 +756,7 @@ public static class WuChangTools
         AssetDatabase.Refresh();
         Debug.Log("All done");
     }
-    
+
     [MenuItem("Saber/WUCH/Revert_WEPMaterialUseSaberShader")]
     static void Revert_WEPMaterialUseSaberShader()
     {

@@ -16,7 +16,7 @@ MonoBehaviour:
   ShadowDistance: 50
   PlayerInputType: 1
   PlayerID: 1
-  StartSceneID: 2
+  StartSceneID: 1
   DodgeCostStamina: 20
   IKBoneForceOnHit: 3
   RecoverUnbalanceValueDelaySeconds: 4

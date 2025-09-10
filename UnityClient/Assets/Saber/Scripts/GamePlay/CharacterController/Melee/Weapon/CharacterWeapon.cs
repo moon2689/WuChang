@@ -77,7 +77,8 @@ namespace Saber.CharacterController
         {
             for (int i = 0; i < m_CurWeapons.Length; i++)
             {
-                m_CurWeapons[i].ResetParent();
+                if (m_CurWeapons[i] != null)
+                    m_CurWeapons[i].ResetParent();
             }
         }
 
@@ -107,11 +108,12 @@ namespace Saber.CharacterController
                 w.HideTrail();
         }
 
-        public void ToggleWeapon(bool show)
+        public void ShowOrHideWeapon(bool show)
         {
             for (int i = 0; i < m_CurWeapons.Length; i++)
             {
-                m_CurWeapons[i].gameObject.SetActive(show);
+                if (m_CurWeapons[i] != null)
+                    m_CurWeapons[i].gameObject.SetActive(show);
             }
         }
     }

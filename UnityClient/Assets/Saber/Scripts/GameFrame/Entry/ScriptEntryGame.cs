@@ -15,23 +15,7 @@ namespace Saber.Frame
 
         public RootUI RootUI => RootUI.Instance;
 
-        public PlayerInput PlayerAI
-        {
-            get
-            {
-                var gameSetting = GameApp.Entry.Config.GameSetting;
-                if (gameSetting.PlayerInputType == GameSettingInfo.EPlayerInputType.PC)
-                {
-                    return PlayerPCInput.Instance;
-                }
-                else if (gameSetting.PlayerInputType == GameSettingInfo.EPlayerInputType.Phone)
-                {
-                    return PlayerPhoneInput.Instance;
-                }
-
-                return null;
-            }
-        }
+        public PlayerPhoneInput PlayerAI => PlayerPhoneInput.Instance;
 
         public AudioManager Audio => AudioManager.GetInstance();
 

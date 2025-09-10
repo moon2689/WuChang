@@ -55,16 +55,17 @@ namespace Saber.CharacterController
             }
         }
 
-        public void SetPosAndForward(Vector3 tarPos, Vector3 forward, float time, Action onFinished)
+        public void SetPosAndForward(Vector3 tarPos, Vector3 forward, Action onFinished)
         {
-            m_IsSettingPosAndForward = true;
-            m_ToSetForward = forward;
-            m_ToSetPosTime = time;
-            m_SetPosAndForwardFinishedEvent = onFinished;
-
             Vector3 dis = tarPos - Actor.transform.position;
             dis.y = 0;
-            m_ToSetPosSpeed = dis.normalized * dis.magnitude / time;
+            float speed = 5f;
+            m_ToSetPosSpeed = dis.normalized * speed;
+
+            m_IsSettingPosAndForward = true;
+            m_ToSetForward = forward;
+            m_ToSetPosTime = dis.magnitude / speed;
+            m_SetPosAndForwardFinishedEvent = onFinished;
         }
 
         public void IdolActive(Action onPlayFinish)
@@ -97,11 +98,11 @@ namespace Saber.CharacterController
             base.OnTriggerAnimEvent(eventObj);
             if (eventObj.EventType == EAnimTriggerEvent.ShowWeapon)
             {
-                Character.CMelee.CWeapon.ToggleWeapon(true);
+                Character.CMelee.CWeapon.ShowOrHideWeapon(true);
             }
             else if (eventObj.EventType == EAnimTriggerEvent.HideWeapon)
             {
-                Character.CMelee.CWeapon.ToggleWeapon(false);
+                Character.CMelee.CWeapon.ShowOrHideWeapon(false);
             }
         }
     }

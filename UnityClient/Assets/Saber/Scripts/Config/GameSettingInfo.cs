@@ -7,16 +7,9 @@ namespace Saber.Config
     [CreateAssetMenu(menuName = "Saber/Game Setting Info", fileName = "GameSetting", order = 1)]
     public class GameSettingInfo : ScriptableObject
     {
-        public enum EPlayerInputType
-        {
-            PC,
-            Phone,
-        }
-
         public bool OpenCameraLight;
         public float ShadowDistance = 50;
 
-        public EPlayerInputType PlayerInputType;
         public int PlayerID = 1;
         public int StartSceneID = 1;
 

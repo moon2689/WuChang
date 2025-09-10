@@ -17,7 +17,7 @@ namespace Saber.CharacterController
             Actor.CPhysic.UseGravity = true;
 
             if (Actor.IsPlayer)
-                Actor.CMelee.CWeapon.ToggleWeapon(false);
+                Actor.CMelee.CWeapon.ShowOrHideWeapon(false);
         }
     }
 }

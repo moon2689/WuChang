@@ -315,13 +315,16 @@ namespace Saber.CharacterController
             return TryEnterState<GetHit>(EStateType.GetHit, state => state.Damage = dmgInfo);
         }
 
-        public override void SetPosAndForward(Vector3 tarPos, Vector3 forward, float time, Action onFinished)
+        public override bool SetPosAndForward(Vector3 tarPos, Vector3 forward, Action onFinished)
         {
             if (CurrentStateType == EStateType.Idle)
             {
                 Idle idle = GetState<Idle>(EStateType.Idle);
-                idle.SetPosAndForward(tarPos, forward, time, onFinished);
+                idle.SetPosAndForward(tarPos, forward, onFinished);
+                return true;
             }
+
+            return false;
         }
     }
 }

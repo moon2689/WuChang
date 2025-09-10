@@ -30,7 +30,7 @@ MonoBehaviour:
     m_WeaponBone: 24
     m_DamageValue: 5
     m_ImpactForce: 2
-    m_HitRecover: 2
+    m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
 --- !u!114 &-2508352014013756546
 MonoBehaviour:
@@ -143,6 +143,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 214150762797873696}
+  - EventTime: 0
+    EventRange: {x: 0.3961039, y: 0.41125542}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 7409707976918256963}
 --- !u!114 &214150762797873696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +165,38 @@ MonoBehaviour:
   m_Name: ComboTime
   m_EditorClassIdentifier: 
   IsActive: 1
+--- !u!114 &7409707976918256963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
+  m_Name: CreateHitBox2
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
+      type: 3}
+    controlType: 0
+    Offset: {x: -0.17509845, y: 0.7538898, z: 1.5806744}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 1
+  ColliderOffset: {x: -0.056289554, y: 0, z: 0}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 1.6410688
+  Height: 1
+  m_WeaponDamageSetting:
+    m_WeaponBone: 24
+    m_DamageValue: 5
+    m_ImpactForce: 2
+    m_HitRecover: 0
+    m_ForceWhenGround: {x: 0, y: 0}
 --- !u!114 &7992728637768394703
 MonoBehaviour:
   m_ObjectHideFlags: 0

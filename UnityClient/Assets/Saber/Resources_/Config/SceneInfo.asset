@@ -13,24 +13,26 @@ MonoBehaviour:
   m_Name: SceneInfo
   m_EditorClassIdentifier: 
   m_Scenes:
-  - m_Name: "1_\u6D4B\u8BD5\u573A\u666F"
+  - m_Name: mep desert
     m_ID: 1
-    m_ResName: WhitePlane
-    m_SkyboxType: 0
-    m_OpenPostprocess: 1
-    m_ShadowDistance: 20
-    m_Idols: []
-    m_Portals: 
-  - m_Name: "\u683C\u6597\u573A"
-    m_ID: 2
-    m_ResName: Arena
+    m_ResName: MEPDesert
     m_SkyboxType: 0
     m_OpenPostprocess: 1
     m_ShadowDistance: 50
     m_Idols:
     - m_ID: 1
-      m_Name: "\u5730\u70B9\u4E00"
-    m_Portals: 03000000
+      m_Name: idol1
+    m_Portals: 01000000
+  - m_Name: mep cave
+    m_ID: 2
+    m_ResName: MEPCave
+    m_SkyboxType: 0
+    m_OpenPostprocess: 1
+    m_ShadowDistance: 50
+    m_Idols:
+    - m_ID: 1
+      m_Name: idol1
+    m_Portals: 01000000
   - m_Name: mep1
     m_ID: 3
     m_ResName: MEP1
@@ -84,26 +86,6 @@ MonoBehaviour:
   - m_Name: mep6
     m_ID: 8
     m_ResName: MEP6
-    m_SkyboxType: 0
-    m_OpenPostprocess: 1
-    m_ShadowDistance: 50
-    m_Idols:
-    - m_ID: 1
-      m_Name: idol1
-    m_Portals: 01000000
-  - m_Name: mep cave
-    m_ID: 9
-    m_ResName: MEPCave
-    m_SkyboxType: 0
-    m_OpenPostprocess: 1
-    m_ShadowDistance: 50
-    m_Idols:
-    - m_ID: 1
-      m_Name: idol1
-    m_Portals: 01000000
-  - m_Name: mep desert
-    m_ID: 10
-    m_ResName: MEPDesert
     m_SkyboxType: 0
     m_OpenPostprocess: 1
     m_ShadowDistance: 50

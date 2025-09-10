@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SelectedAbility: {fileID: 0}
   CombatDatas:
-  - IsFolded: 0
+  - IsFolded: 1
     Label: atk1-6
     CombatObjs:
     - {fileID: 11400000, guid: 9f32668fb58c25348b74572d1e8affb5, type: 2}

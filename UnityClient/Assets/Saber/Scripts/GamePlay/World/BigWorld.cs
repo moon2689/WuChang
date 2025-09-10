@@ -48,6 +48,7 @@ namespace Saber.World
         // private AzureWeatherController m_AzureWeather;
         // private AzureEffectsController m_AzureEffects;
         private Wnd_Loading m_WndLoading;
+        Wnd_JoyStick m_WndJoyStick;
         private Portal m_CurrentUsingPortalInfo;
         private Idol m_CurrentStayingIdol;
         private int m_TransmittingPortalID;
@@ -117,9 +118,8 @@ namespace Saber.World
             if (m_WndLoading == null)
                 yield return GameApp.Entry.UI.CreateWnd<Wnd_Loading>(w => m_WndLoading = w);
 
-            Wnd_JoyStick wndJoyStick = null;
-            yield return GameApp.Entry.UI.CreateWnd<Wnd_JoyStick>(null, null, w => wndJoyStick = w);
-            wndJoyStick.ActiveSticks = true;
+            yield return GameApp.Entry.UI.CreateWnd<Wnd_JoyStick>(null, null, w => m_WndJoyStick = w);
+            m_WndJoyStick.ActiveSticks = true;
 
             // scene
             yield return LoadScene().StartCoroutine();
@@ -157,9 +157,9 @@ namespace Saber.World
             //yield return new WaitForSeconds(0.1f);
             m_WndLoading.Destroy();
 
-            /*
             if (m_LoadType == ELoadType.NewGame)
             {
+                /*
                 // 新游戏cg动画
                 m_LoadType = ELoadType.None;
                 
@@ -171,17 +171,16 @@ namespace Saber.World
                 
                 m_Player.transform.position = GameApp.Entry.Config.GameSetting.m_BornPos;
                 m_Player.transform.rotation = Quaternion.Euler(0, GameApp.Entry.Config.GameSetting.m_BornRotY, 0);
+                */
             }
             else if (m_LoadType == ELoadType.ToNextSceneByPortal)
             {
                 // 走出传送门动画
-                var curPortal = m_TransmittingPortalID.PortalObject;
-                GameApp.Entry.Game.PlayerCamera.LookAtTarget(curPortal.transform.rotation.eulerAngles.y + 150);
-                curPortal.EnableGateCollider(false);
-                Vector3 targetPos = m_TransmittingPortalID.PortalObject.transform.position + curPortal.transform.forward * 1f;
-                yield return GameApp.Entry.Game.PlayerAI.PlayActionMoveToTargetPos(targetPos, 0, () => { curPortal.EnableGateCollider(true); });
+                ScenePoint portalPoint = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.Portal && a.m_ID == m_TransmittingPortalID);
+                GameApp.Entry.Game.PlayerCamera.LookAtTarget(portalPoint.transform.rotation.eulerAngles.y + 150);
+                Vector3 targetPos = portalPoint.transform.position + portalPoint.transform.forward * 1f;
+                yield return GameApp.Entry.Game.PlayerAI.PlayActionMoveToTargetPos(targetPos, null);
             }
-            */
 
             onLoaded?.Invoke();
         }
@@ -476,7 +475,8 @@ namespace Saber.World
                 ScenePoint point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.Portal && a.m_ID == m_TransmittingPortalID);
                 if (point != null)
                 {
-                    return point.GetPortalFixedPos(out rot);
+                    return point.GetFixedBornPos(out rot);
+                    //return point.GetPortalFixedPos(out rot);
                 }
             }
             else
@@ -535,6 +535,7 @@ namespace Saber.World
                 }
             }
 
+            m_Player.CMelee.CWeapon.ShowOrHideWeapon(true);
             yield return null;
             GameApp.Entry.Game.PlayerCamera.LookAtTarget(m_Player.transform.rotation.eulerAngles.y + 30);
             GameApp.Entry.Game.PlayerCamera.ResetPosition();
@@ -677,13 +678,13 @@ namespace Saber.World
             bool wait = true;
             if (m_Player.CStateMachine.PlayAction_GoHome(() => wait = false))
             {
-                m_Player.CMelee.CWeapon.ToggleWeapon(false);
+                m_Player.CMelee.CWeapon.ShowOrHideWeapon(false);
                 while (wait)
                 {
                     yield return null;
                 }
 
-                m_Player.CMelee.CWeapon.ToggleWeapon(true);
+                m_Player.CMelee.CWeapon.ShowOrHideWeapon(true);
 
                 yield return BackToLastGodStatue();
             }
@@ -815,31 +816,41 @@ namespace Saber.World
 
         IEnumerator PlayerTransmitByPortal(Portal portal)
         {
-            portal.EnableGateCollider(false);
             //GameApp.Entry.Game.PlayerCamera.LookAtTarget(portal.transform.rotation.eulerAngles.y + 150);
+
+            Vector3 dirFromPortal = m_Player.transform.position - portal.transform.position;
+            dirFromPortal.y = 0;
+            Vector3 startPos = portal.transform.position + Vector3.Project(dirFromPortal, portal.transform.forward);
+            Vector3 tarForward = portal.transform.position - startPos;
+            bool wait = true;
+            bool succeed = m_Player.CStateMachine.SetPosAndForward(startPos, tarForward, () => wait = false);
+            if (!succeed)
+            {
+                GameApp.Entry.UI.ShowTips("当前状态不能执行该操作");
+                yield break;
+            }
+
+            m_WndJoyStick.ActiveSticks = false;
             GameApp.Entry.Game.PlayerAI.OnPlayerExitPortal(portal);
 
-            Vector3 startPos = portal.transform.position + portal.transform.forward * 0.8f;
-            Vector3 dir = portal.transform.position - m_Player.transform.position;
-            bool wait = true;
-            m_Player.CStateMachine.SetPosAndForward(startPos, dir, 0.2f, () => wait = false);
             while (wait)
             {
                 yield return null;
             }
 
-            GameApp.Entry.Game.PlayerAI.PlayActionMoveToTargetPos(portal.transform.position, m_Player.CPhysic.Radius,
-                () =>
-                {
-                    m_CurrentUsingPortalInfo = portal;
-                    Load(ELoadType.ToNextSceneByPortal, null);
-                });
+            yield return new WaitForSeconds(0.5f);
+
+            yield return GameApp.Entry.Game.PlayerAI.PlayActionMoveToTargetPos(portal.transform.position, () =>
+            {
+                m_CurrentUsingPortalInfo = portal;
+                Load(ELoadType.ToNextSceneByPortal, null);
+            });
         }
 
         #endregion
 
 
-        #region GodStatue.IHandler
+        #region Idol.IHandler
 
         void Idol.IHandler.OnPlayerEnter(Idol idol)
         {
@@ -895,12 +906,15 @@ namespace Saber.World
 
             GameProgressManager.Instance.OnGodStatueRest(sceneID, idolID);
 
+            /*
             bool wait = true;
             m_Player.CStateMachine.PlayAction_BranchTeleport(() => wait = false);
             while (wait)
             {
                 yield return null;
             }
+            */
+            yield return null;
 
             m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
             m_TransmittingIdolID = idolID;

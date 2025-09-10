@@ -17,30 +17,13 @@ namespace Saber.UI
         {
             void OnUseStick(Vector2 axis, bool isDragging);
             void OnUseCamStick(float x, float y);
-
-            //void OnPressAttackA(bool value);
             void OnClickLightAttack();
             void OnPressHeavyAttack(bool press);
-
-            //void OnClickHeavyAttack();
             void OnPressDodge(bool value);
-
-            //void OnClickJump();
-
-            //void OnPressJump(bool value);
-            //void OnPressSprint(bool value);
             void OnClickLockOn();
-
-            //void OnClickArm();
             void OnPressDefense(bool value);
 
             void OnClickInteract(ESceneInteractType interactType);
-
-            //void OnTriggerSkill(SkillItem skillConfig);
-            //void OnClickGlide();
-            //void OnClickSlide();
-            //void OnClickClimb();
-            void OnPressFly(bool value);
             void OnClickDrinkMedicine();
             void OnClickSkill(ESkillType type);
         }
@@ -53,8 +36,6 @@ namespace Saber.UI
             m_ButtonHeavyAttack,
             m_btnRoll,
             m_btnLockOn,
-            //m_btnArm,
-            m_ButtonFly,
             m_btnInteract,
             m_ButtonDrinkMedicine,
             m_ButtonMedicineNone,
@@ -91,7 +72,11 @@ namespace Saber.UI
 
         public bool ActiveSticks
         {
-            set { m_Sticks.SetActive(value); }
+            set
+            {
+                m_Sticks.SetActive(value);
+                Debug.Log($"ActiveSticks:{value}");
+            }
         }
 
 
@@ -105,17 +90,10 @@ namespace Saber.UI
             m_btnAttackA.onClick.AddListener(OnClickAttack1);
             m_ButtonHeavyAttack.AddEvent(EventTriggerType.PointerDown, OnPressDownHeavyAttack);
             m_ButtonHeavyAttack.AddEvent(EventTriggerType.PointerUp, OnPressUpHeavyAttack);
-            //m_btnRoll.onClick.AddListener(OnClickRoll);
-            //m_btnJump.onClick.AddListener(OnClickJump);
             m_btnLockOn.onClick.AddListener(OnClickLockOn);
-            //m_btnArm.onClick.AddListener(OnClickArm);
-            //m_ButtonFly.onClick.AddListener(OnClickFly);
             m_btnInteract.onClick.AddListener(OnClickInteract);
             m_ButtonDrinkMedicine.onClick.AddListener(OnClickDrinkMedicine);
             m_ButtonMedicineNone.onClick.AddListener(OnClickMedicineNone);
-
-            m_ButtonFly.AddEvent(EventTriggerType.PointerDown, OnPressDownFly);
-            m_ButtonFly.AddEvent(EventTriggerType.PointerUp, OnPressUpFly);
 
             m_btnRoll.AddEvent(EventTriggerType.PointerDown, OnPressDownDodge);
             m_btnRoll.AddEvent(EventTriggerType.PointerUp, OnPressUpDodge);
@@ -128,16 +106,6 @@ namespace Saber.UI
             m_ButtonSkill1.Init(ESkillType.Skill1, this);
             m_ButtonSkill2.Init(ESkillType.Skill2, this);
             m_ButtonSkill3.Init(ESkillType.Skill3, this);
-        }
-
-        private void OnPressDownFly(BaseEventData arg0)
-        {
-            Handler?.OnPressFly(true);
-        }
-
-        private void OnPressUpFly(BaseEventData arg0)
-        {
-            Handler?.OnPressFly(false);
         }
 
         void OnPressDownHeavyAttack(BaseEventData arg0)
@@ -289,17 +257,6 @@ namespace Saber.UI
                 m_btnLockOn.OnSubmit(null);
             }
 
-            /*
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                m_btnArm.OnSubmit(null);
-            }
-
-            if (Input.GetKeyDown(KeyCode.LeftAlt))
-            {
-                m_btnJump.OnSubmit(null);
-            }*/
-
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 m_btnRoll.TriggerEvent(EventTriggerType.PointerDown);
@@ -331,16 +288,6 @@ namespace Saber.UI
             if (Input.GetKeyDown(KeyCode.R))
             {
                 m_btnInteract.OnSubmit(null);
-            }
-
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                m_ButtonFly.TriggerEvent(EventTriggerType.PointerDown);
-            }
-
-            if (Input.GetKeyUp(KeyCode.F))
-            {
-                m_ButtonFly.TriggerEvent(EventTriggerType.PointerUp);
             }
         }
 #endif

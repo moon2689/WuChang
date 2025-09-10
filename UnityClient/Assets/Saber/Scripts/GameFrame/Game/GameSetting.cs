@@ -8,26 +8,26 @@ namespace Saber
 {
     public static class GameSetting
     {
-        static UniversalRenderPipelineAsset s_URPAsset;
+        private static UniversalRenderPipelineAsset s_URPAsset;
         private static Volume m_Volume;
 
-        public static UniversalRenderPipelineAsset URPAsset =>
-            s_URPAsset ??= (UniversalRenderPipelineAsset)GraphicsSettings.renderPipelineAsset;
+
+        public static UniversalRenderPipelineAsset URPAsset => s_URPAsset ??= (UniversalRenderPipelineAsset)GraphicsSettings.renderPipelineAsset;
 
         public static Volume GlobalVolume => m_Volume ??= GameObject.FindObjectOfType<Volume>();
+
 
         public static void Init()
         {
             Application.runInBackground = true;
-
-            Application.targetFrameRate = 60;
+            Application.targetFrameRate = 30;
 
             Input.multiTouchEnabled = true;
 
             // urp
             URPAsset.shadowDistance = GameApp.Entry.Config.GameSetting.ShadowDistance;
             URPAsset.supportsCameraOpaqueTexture = true;
-            URPAsset.renderScale = 1;
+            //URPAsset.renderScale = 1;
             // URPAsset.supportsCameraDepthTexture = true;
 
             // camera
@@ -45,35 +45,22 @@ namespace Saber
             renderScale = Mathf.Clamp(renderScale, minRatio, maxRatio);
             renderScale = Mathf.Clamp01(renderScale);
             Debug.Log($"Set render scale:{renderScale}");
-#if UNITY_EDITOR
-            renderScale = 1;
-#endif
             URPAsset.renderScale = renderScale;
         }
 
         static void OnCamDistanceChange(float dis)
         {
-            float shadowDis;
-            DepthOfFieldMode depthOfFieldMode;
-            if (dis < 1)
-            {
-                shadowDis = Mathf.Max(3, dis + 0.5f);
-                depthOfFieldMode = DepthOfFieldMode.Gaussian;
-            }
-            else
-            {
-                shadowDis = 50;
-                depthOfFieldMode = DepthOfFieldMode.Off;
-            }
-
+            bool isClose = dis < 1;
+            float shadowDis = isClose ? Mathf.Max(3, dis + 0.5f) : GameApp.Entry.Config.GameSetting.ShadowDistance;
             URPAsset.shadowDistance = shadowDis;
+        }
 
-            //Debug.Log($"cam dis:{dis},shadowDis:{shadowDis}");
-
+        public static void SetDepthOfField(bool open)
+        {
             DepthOfField dof = GlobalVolume?.sharedProfile.components.FirstOrDefault(a => a is DepthOfField) as DepthOfField;
             if (dof)
             {
-                dof.mode.value = depthOfFieldMode;
+                dof.mode.value = open ? DepthOfFieldMode.Gaussian : DepthOfFieldMode.Off;
             }
         }
 

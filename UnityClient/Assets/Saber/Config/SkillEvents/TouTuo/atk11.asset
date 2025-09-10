@@ -32,6 +32,22 @@ MonoBehaviour:
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
+--- !u!114 &-8458792543140055454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFX
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: a7e7ebdf14df62645aa484791ed06601, type: 3}
+  m_Volume: 1
 --- !u!114 &-6183101167938090822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,6 +456,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 1930174990664160146}
+  - EventTime: 0.0010752688
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -8458792543140055454}
 --- !u!114 &268887344374314072
 MonoBehaviour:
   m_ObjectHideFlags: 0

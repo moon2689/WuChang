@@ -1,9 +1,8 @@
-#define USEBUNDLEINEDITOR
-
 using System;
 using System.Collections;
 using JetBrains.Annotations;
 using Saber.CharacterController;
+using Saber.Config;
 using Saber.Frame;
 using YooAsset;
 using UnityEngine;
@@ -40,8 +39,15 @@ namespace Saber
             m_Package = YooAssets.CreatePackage("DefaultPackage");
             YooAssets.SetDefaultPackage(m_Package);
 
-#if USEBUNDLEINEDITOR && UNITY_EDITOR
-            yield return InitPackageEditorMode().StartCoroutine();
+#if UNITY_EDITOR
+            if (GameBaseSetting.Instance.EditorUseBundleAsset)
+            {
+                yield return InitPackageOfflineMode().StartCoroutine();
+            }
+            else
+            {
+                yield return InitPackageEditorMode().StartCoroutine();
+            }
 #else
             yield return InitPackageOfflineMode().StartCoroutine();
 #endif
