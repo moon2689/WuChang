@@ -219,12 +219,7 @@ namespace Saber.CharacterController
 
         public void PlayHealingEffect(float hpValue)
         {
-            if (IsHPFull && CurrentPower >= MaxPower)
-            {
-                return;
-            }
-
-            if (CurrentHp <= 0)
+            if (IsHPFull || Actor.IsDead)
             {
                 return;
             }

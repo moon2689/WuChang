@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: a538c0519281dd147a9de2677c0b18a1, type: 3}
+  - {fileID: 8300000, guid: fc471827d10c769439267b9547a102d7, type: 3}
   m_Volume: 1
 --- !u!114 &11400000
 MonoBehaviour:

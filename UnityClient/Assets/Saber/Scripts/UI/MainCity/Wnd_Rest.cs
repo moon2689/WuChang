@@ -16,16 +16,15 @@ namespace Saber.UI
         {
             void OnClickQuit();
             void OnClickTransmit(int sceneID, int idolID);
-            void CreateEnemy(int actorID);
+            void OnClickDressUp();
         }
 
         [SerializeField] private Button m_BtnQuit;
         [SerializeField] private Button m_BtnTransmit;
-        [SerializeField] private Button m_BtnSelectEnemy;
+        [SerializeField] private Button m_BtnDressUp;
         [SerializeField] private GameObject m_Root;
         [SerializeField] private GameObject m_TempTextItem;
         [SerializeField] private GameObject m_RootStatues;
-        [SerializeField] private GameObject m_RootEnemyNames;
 
 
         private IHandler m_Handler;
@@ -45,12 +44,11 @@ namespace Saber.UI
 
             m_BtnQuit.onClick.AddListener(OnClickQuit);
             m_BtnTransmit.onClick.AddListener(OnClickTransmit);
-            m_BtnSelectEnemy.onClick.AddListener(OnClickSelectEnemy);
+            m_BtnDressUp.onClick.AddListener(OnClickDressUp);
 
             GameApp.Entry.Game.Audio.Play2DSound("Sound/UI/ActorInfoWndOpen");
 
             InitStatueTransmit();
-            InitEnemies();
         }
 
         void InitStatueTransmit()
@@ -80,6 +78,7 @@ namespace Saber.UI
             m_RootStatues.SetActive(false);
         }
 
+        /*
         void InitEnemies()
         {
             foreach (var actorItemInfo in GameApp.Entry.Config.ActorInfo.m_Actors)
@@ -104,19 +103,19 @@ namespace Saber.UI
 
             m_RootEnemyNames.SetActive(false);
         }
+        */
 
-        void OnClickSelectEnemy()
+        void OnClickDressUp()
         {
             GameApp.Entry.Game.Audio.PlayCommonClick();
             m_RootStatues.SetActive(false);
-            m_RootEnemyNames.SetActive(true);
+            m_Handler.OnClickDressUp();
         }
 
         void OnClickTransmit()
         {
             GameApp.Entry.Game.Audio.PlayCommonClick();
             m_RootStatues.SetActive(true);
-            m_RootEnemyNames.SetActive(false);
         }
 
         void OnClickQuit()

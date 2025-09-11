@@ -20,6 +20,7 @@ namespace Saber.UI
         {
             void OnClickDressUp(int id, Action onFinished);
             bool IsDressing(int id);
+            void OnCloseWnd();
         }
 
         enum EDressUpToggleType
@@ -105,6 +106,7 @@ namespace Saber.UI
         {
             GameApp.Entry.Game.Audio.PlayCommonClick();
             Destroy();
+            m_Handler.OnCloseWnd();
         }
 
         bool IsClothTypeRight(EClothType clothType)

@@ -85,7 +85,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: a538c0519281dd147a9de2677c0b18a1, type: 3}
+  - {fileID: 8300000, guid: d579bb9fed594aa4a9767145d0a81bb7, type: 3}
   m_Volume: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -149,7 +149,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 713653125189028397}
-  - EventTime: 0.488
+  - EventTime: 0.016
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: a538c0519281dd147a9de2677c0b18a1, type: 3}
+  - {fileID: 8300000, guid: 9736f266a184eac4988029b110864c6a, type: 3}
   m_Volume: 1
 --- !u!114 &1187914017144936385
 MonoBehaviour:

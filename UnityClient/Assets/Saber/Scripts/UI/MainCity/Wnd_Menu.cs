@@ -11,7 +11,6 @@ namespace Saber.UI
         [SerializeField] Button m_BtnResume,
             m_BtnBackToLastGodStatue,
             m_BtnToMainWnd,
-            m_BtnDressUp,
             m_BtnWait;
 
 
@@ -19,7 +18,6 @@ namespace Saber.UI
         {
             void OnClickBackToLastGodStatue();
             void OnClickToMainWnd();
-            void OnClickDressUp();
             void OnClickWait();
         }
 
@@ -36,7 +34,6 @@ namespace Saber.UI
             m_BtnResume.onClick.AddListener(OnClickClose);
             m_BtnBackToLastGodStatue.onClick.AddListener(OnClickBackToLastGodStatue);
             m_BtnToMainWnd.onClick.AddListener(OnClickToMainWnd);
-            m_BtnDressUp.onClick.AddListener(OnClickDressUp);
             m_BtnWait.onClick.AddListener(OnClickWait);
 
             GameApp.Entry.Game.Audio.Play2DSound("Sound/UI/ActorInfoWndOpen");
@@ -49,13 +46,6 @@ namespace Saber.UI
             m_Handler.OnClickWait();
         }
 
-        void OnClickDressUp()
-        {
-            Destroy();
-            GameApp.Entry.Game.Audio.PlayCommonClick();
-            m_Handler.OnClickDressUp();
-        }
-
         void OnClickToMainWnd()
         {
             Destroy();
@@ -65,6 +55,7 @@ namespace Saber.UI
 
         void OnClickClose()
         {
+            GameApp.Entry.Game.Audio.Play2DSound("Sound/UI/ActorInfoWndClose");
             Destroy();
         }
 
@@ -73,12 +64,6 @@ namespace Saber.UI
             Destroy();
             GameApp.Entry.Game.Audio.PlayCommonClick();
             m_Handler.OnClickBackToLastGodStatue();
-        }
-
-        protected override void OnDestroy()
-        {
-            GameApp.Entry.Game.Audio.Play2DSound("Sound/UI/ActorInfoWndClose");
-            base.OnDestroy();
         }
     }
 }

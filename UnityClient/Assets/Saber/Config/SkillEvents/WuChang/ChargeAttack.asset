@@ -19,6 +19,38 @@ MonoBehaviour:
     m_ImpactForce: 2
     m_HitRecover: 1
     m_ForceWhenGround: {x: 0, y: 0}
+--- !u!114 &-6535749840808245940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFXHuiWu
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: b1a4bd74575a8db4b94359e57180eff4, type: 3}
+  m_Volume: 1
+--- !u!114 &-5323700535884001536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2691aa5d4e1e45d0af630ed0c8966637, type: 3}
+  m_Name: ShakeCamera
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_Duration: 0.1
+  m_Amount: 0.3
+  m_Speed: 3
 --- !u!114 &-4971889854022305811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +155,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -64503482192311057}
-  - EventTime: 0.505
+  - EventTime: 0.095
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -195,6 +227,49 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 4867759612993005173}
+  - EventTime: 0.355
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -6535749840808245940}
+  - EventTime: 0.3
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 646702915303535274}
+  - EventTime: 0.395
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -5323700535884001536}
+--- !u!114 &646702915303535274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFXDing
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 7a37a3cfce5f05d40a81c3ef5e997fa4, type: 3}
+  m_Volume: 1
 --- !u!114 &4867759612993005173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,11 +305,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
-  m_Name: SFX
+  m_Name: SFXXuLi
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: a538c0519281dd147a9de2677c0b18a1, type: 3}
+  - {fileID: 8300000, guid: d83a024242a04f545918ef7aee29715e, type: 3}
   m_Volume: 1
 --- !u!114 &8133752312050658843
 MonoBehaviour:

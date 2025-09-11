@@ -22,6 +22,7 @@ namespace Saber.World
         , Wnd_DressUp.IHandler
         , Portal.IHandler
         , Idol.IHandler
+        , Wnd_Rest.IHandler
     {
         public enum ELoadType
         {
@@ -30,6 +31,7 @@ namespace Saber.World
             ToLastIdol,
             ToNextSceneByPortal,
             ToIdol,
+            ToNearestIdol,
         }
 
 
@@ -48,13 +50,13 @@ namespace Saber.World
         // private AzureWeatherController m_AzureWeather;
         // private AzureEffectsController m_AzureEffects;
         private Wnd_Loading m_WndLoading;
-        Wnd_JoyStick m_WndJoyStick;
+        private Wnd_JoyStick m_WndJoyStick;
+        private Wnd_Rest m_WndRest;
         private Portal m_CurrentUsingPortalInfo;
         private Idol m_CurrentStayingIdol;
         private int m_TransmittingPortalID;
         private int m_TransmittingIdolID;
         private Coroutine m_CoroutineWitchTime;
-        private Dictionary<SActor, CharacterAnimSpeedModifier> m_DicModifierWitchTimes = new();
         private EffectObject m_EffectWitchTimeBoom;
         private ScenePoint[] m_ScenePoints;
 
@@ -119,7 +121,6 @@ namespace Saber.World
                 yield return GameApp.Entry.UI.CreateWnd<Wnd_Loading>(w => m_WndLoading = w);
 
             yield return GameApp.Entry.UI.CreateWnd<Wnd_JoyStick>(null, null, w => m_WndJoyStick = w);
-            m_WndJoyStick.ActiveSticks = true;
 
             // scene
             yield return LoadScene().StartCoroutine();
@@ -139,6 +140,8 @@ namespace Saber.World
             // effects
             GameApp.Entry.Config.GameSetting.PreloadEffects();
             yield return null;
+
+            SetFilmEffect(false);
 
             /*
             // 在神像休息
@@ -462,7 +465,7 @@ namespace Saber.World
                     return point.GetFixedBornPos(out rot);
                 }
             }
-            else if (m_LoadType == ELoadType.ToIdol || m_LoadType == ELoadType.ToLastIdol)
+            else if (m_LoadType == ELoadType.ToIdol || m_LoadType == ELoadType.ToLastIdol || m_LoadType == ELoadType.ToNearestIdol)
             {
                 ScenePoint point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.Idol && a.m_ID == m_TransmittingIdolID);
                 if (point != null)
@@ -559,6 +562,21 @@ namespace Saber.World
             OnSetLockingEnemyEvent?.Invoke();
         }
 
+        public void SetFilmEffect(bool open)
+        {
+            GameSetting.ActiveVignette = open;
+            GameSetting.ActiveDepthOfField = open;
+            if (m_WndJoyStick)
+            {
+                m_WndJoyStick.ActiveSticks = !open;
+            }
+
+            if (m_WndMainCity)
+            {
+                m_WndMainCity.gameObject.SetActive(!open);
+            }
+        }
+
         #endregion
 
 
@@ -572,7 +590,7 @@ namespace Saber.World
             m_Player.Rebirth();
             yield return null;
 
-            yield return BackToLastGodStatue();
+            yield return BackToLastIdol();
 
             RecorverOtherActors();
             yield return null;
@@ -580,7 +598,7 @@ namespace Saber.World
             //Timeline += 6;
         }
 
-        Coroutine BackToLastGodStatue()
+        Coroutine BackToLastIdol()
         {
             if (GameProgressManager.Instance.HasSavePointBefore)
             {
@@ -643,7 +661,7 @@ namespace Saber.World
                 if (m_Player.transform.position.y < -200)
                 {
                     m_Player.gameObject.SetActive(false);
-                    BackToLastGodStatue();
+                    BackToLastIdol();
                 }
             }
         }
@@ -678,15 +696,14 @@ namespace Saber.World
             bool wait = true;
             if (m_Player.CStateMachine.PlayAction_GoHome(() => wait = false))
             {
+                SetFilmEffect(true);
                 m_Player.CMelee.CWeapon.ShowOrHideWeapon(false);
                 while (wait)
                 {
                     yield return null;
                 }
 
-                m_Player.CMelee.CWeapon.ShowOrHideWeapon(true);
-
-                yield return BackToLastGodStatue();
+                yield return BackToNerestIdol();
             }
             else
             {
@@ -695,22 +712,52 @@ namespace Saber.World
             }
         }
 
+        Coroutine BackToNerestIdol()
+        {
+            if (GameProgressManager.Instance.HasSavePointBefore)
+            {
+                m_TransmittingIdolID = -1;
+                if (m_SceneInfo != null)
+                {
+                    float minDis = float.MaxValue;
+                    foreach (var scenePoint in m_ScenePoints)
+                    {
+                        if (scenePoint.m_PointType != EScenePointType.Idol)
+                        {
+                            continue;
+                        }
+
+                        if (!scenePoint.IdolObj.IsFired)
+                        {
+                            continue;
+                        }
+
+                        float dis = Vector3.Distance(m_Player.transform.position, scenePoint.transform.position);
+                        if (dis < minDis)
+                        {
+                            minDis = dis;
+                            m_TransmittingIdolID = scenePoint.m_ID;
+                        }
+                    }
+                }
+
+                if (m_TransmittingIdolID < 0)
+                {
+                    return BackToLastIdol();
+                }
+
+                return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToNearestIdol, null));
+            }
+            else
+            {
+                return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.NewGame, null));
+            }
+        }
+
         void Wnd_Menu.IHandler.OnClickToMainWnd()
         {
             DirectorLogin dirLogin = new();
             GameApp.Instance.TryEnterNextDir(dirLogin);
-        }
-
-        void Wnd_Menu.IHandler.OnClickDressUp()
-        {
-            if (m_Player.CDressUp != null)
-            {
-                Wnd_DressUp.Content content = new()
-                {
-                    m_ListClothes = GameApp.Entry.Config.ClothInfo.GetAllClothesID(),
-                };
-                GameApp.Entry.UI.CreateWnd<Wnd_DressUp>(content, this, null);
-            }
         }
 
         void Wnd_Menu.IHandler.OnClickWait()
@@ -794,6 +841,84 @@ namespace Saber.World
             return false;
         }
 
+        void Wnd_DressUp.IHandler.OnCloseWnd()
+        {
+            m_WndRest.ActiveRoot = true;
+        }
+
+        #endregion
+
+        #region Wnd_Rest.IHandler
+
+        void Wnd_Rest.IHandler.OnClickQuit()
+        {
+            GameApp.Entry.Game.World.SetFilmEffect(false);
+
+            GameApp.Entry.Game.PlayerAI.Active = true;
+            GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(m_CurrentStayingIdol);
+
+            m_Player.CStateMachine.PlayAction_IdolRestEnd(() => { m_Player.CMelee.CWeapon.ShowOrHideWeapon(true); });
+        }
+
+        void Wnd_Rest.IHandler.OnClickTransmit(int sceneID, int idolID)
+        {
+            TransmitItor(sceneID, idolID).StartCoroutine();
+        }
+
+        void Wnd_Rest.IHandler.OnClickDressUp()
+        {
+            if (m_Player.CDressUp != null)
+            {
+                Wnd_DressUp.Content content = new()
+                {
+                    m_ListClothes = GameApp.Entry.Config.ClothInfo.GetAllClothesID(),
+                };
+                GameApp.Entry.UI.CreateWnd<Wnd_DressUp>(content, this, null);
+
+                m_WndRest.ActiveRoot = false;
+            }
+        }
+
+        IEnumerator TransmitItor(int sceneID, int idolID)
+        {
+            GameApp.Entry.Game.PlayerAI.Active = true;
+
+            if (m_CurrentStayingIdol != null &&
+                sceneID == m_CurrentStayingIdol.SceneID &&
+                idolID == m_CurrentStayingIdol.ID)
+            {
+                GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(m_CurrentStayingIdol);
+                yield break;
+            }
+
+            OnPlayerExit(m_CurrentStayingIdol);
+
+            GameProgressManager.Instance.OnGodStatueRest(sceneID, idolID);
+
+            /*
+            bool wait = true;
+            m_Player.CStateMachine.PlayAction_BranchTeleport(() => wait = false);
+            while (wait)
+            {
+                yield return null;
+            }
+            */
+            yield return null;
+
+            m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
+            m_TransmittingIdolID = idolID;
+            yield return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToIdol, null));
+        }
+
+        /*
+        public void CreateEnemy(int actorID)
+        {
+            DestroyOtherActors();
+            var firstPoint = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.MonsterBornPosition);
+            CreateActor(firstPoint, actorID);
+        }
+        */
+
         #endregion
 
 
@@ -832,6 +957,7 @@ namespace Saber.World
 
             m_WndJoyStick.ActiveSticks = false;
             GameApp.Entry.Game.PlayerAI.OnPlayerExitPortal(portal);
+            SetFilmEffect(true);
 
             while (wait)
             {
@@ -877,55 +1003,46 @@ namespace Saber.World
 
         Coroutine Idol.IHandler.OnPlayerRest(Idol idol)
         {
-            return GameApp.Entry.Game.PlayerAI.PlayerRestBeforeIdol(idol);
+            return PlayerRestBeforeIdolItor(idol).StartCoroutine();
         }
 
-        #endregion
-
-
-        #region Wnd_Rest
-
-        public void Transmit(int sceneID, int idolID)
+        IEnumerator PlayerRestBeforeIdolItor(Idol idol)
         {
-            TransmitItor(sceneID, idolID).StartCoroutine();
-        }
-
-        IEnumerator TransmitItor(int sceneID, int idolID)
-        {
-            GameApp.Entry.Game.PlayerAI.Active = true;
-
-            if (m_CurrentStayingIdol != null &&
-                sceneID == m_CurrentStayingIdol.SceneID &&
-                idolID == m_CurrentStayingIdol.ID)
+            bool wait = true;
+            Vector3 idolRestPos = idol.Point.GetIdolFixedPos(out _);
+            bool succeed = m_Player.CStateMachine.SetPosAndForward(idolRestPos, -idol.transform.forward, () => wait = false);
+            if (!succeed)
             {
-                GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(m_CurrentStayingIdol);
+                GameApp.Entry.UI.ShowTips("当前状态不能执行该操作");
                 yield break;
             }
 
-            OnPlayerExit(m_CurrentStayingIdol);
+            GameApp.Entry.Game.World.SetFilmEffect(true);
+            GameProgressManager.Instance.OnGodStatueRest(idol.SceneID, idol.ID);
 
-            GameProgressManager.Instance.OnGodStatueRest(sceneID, idolID);
+            m_WndRest = null;
+            yield return GameApp.Entry.UI.CreateWnd<Wnd_Rest>(null, this, w => m_WndRest = w);
+            m_WndRest.ActiveRoot = false;
 
-            /*
-            bool wait = true;
-            m_Player.CStateMachine.PlayAction_BranchTeleport(() => wait = false);
             while (wait)
             {
                 yield return null;
             }
-            */
+
+            m_Player.CMelee.CWeapon.ShowOrHideWeapon(false);
+            wait = true;
+            m_Player.CStateMachine.PlayAction_IdolRest(() => wait = false);
+            while (wait)
+            {
+                yield return null;
+            }
+
+            m_WndRest.ActiveRoot = true;
+            m_Player.OnGodStatueRest();
+
             yield return null;
 
-            m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
-            m_TransmittingIdolID = idolID;
-            yield return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToIdol, null));
-        }
-
-        public void CreateEnemy(int actorID)
-        {
-            DestroyOtherActors();
-            var firstPoint = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.MonsterBornPosition);
-            CreateActor(firstPoint, actorID);
+            GameApp.Entry.Game.World.RecorverOtherActors();
         }
 
         #endregion

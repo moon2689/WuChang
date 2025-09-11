@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: a538c0519281dd147a9de2677c0b18a1, type: 3}
+  - {fileID: 8300000, guid: 87c21c8f1095e744db702c514c92e6e7, type: 3}
   m_Volume: 1
 --- !u!114 &6479033831387410052
 MonoBehaviour:
@@ -167,13 +167,9 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_WeaponBone: 24
     m_DamageValue: 5
-    m_DamageLevel: 0
+    m_ImpactForce: 1
+    m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
-    m_ForceWhenAir: {x: 0, y: 0}
-    m_OwnerForce: {x: 0, y: 0}
-    m_AlignEnemyPosWhenAirAttack: 0
-    m_AlignEnemyOffsetWhenAirAttack: {x: 1, y: 0}
-    m_AlignEnemyPosSecondsWhenAirAttack: 0.3
 --- !u!114 &8054521031239728569
 MonoBehaviour:
   m_ObjectHideFlags: 0

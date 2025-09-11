@@ -8,14 +8,14 @@ using Saber.CharacterController;
 
 namespace Saber.AI
 {
-    public class PlayerPhoneInput : BaseAI, Wnd_JoyStick.IHandler, Wnd_Rest.IHandler
+    public class PlayerPhoneInput : BaseAI, Wnd_JoyStick.IHandler
     {
         // 单例
         private static PlayerPhoneInput s_Instance;
         public static PlayerPhoneInput Instance => s_Instance ??= new PlayerPhoneInput();
 
 
-        private static Wnd_JoyStick s_WndJoyStick;
+        private Wnd_JoyStick m_WndJoyStick;
 
         private AheadInputData m_AheadInput;
         private bool m_PlayingAction;
@@ -37,7 +37,7 @@ namespace Saber.AI
 
         public bool Active
         {
-            set => s_WndJoyStick.IsShow = value;
+            set => m_WndJoyStick.IsShow = value;
         }
 
         public override void Init(SActor actor)
@@ -56,10 +56,10 @@ namespace Saber.AI
             m_AheadInput = new(Actor);
 
             // wnd
-            if (s_WndJoyStick == null)
+            if (m_WndJoyStick == null)
             {
-                s_WndJoyStick = GameApp.Entry.UI.GetWnd<Wnd_JoyStick>();
-                s_WndJoyStick.Handler = this;
+                m_WndJoyStick = GameApp.Entry.UI.GetWnd<Wnd_JoyStick>();
+                m_WndJoyStick.Handler = this;
             }
 
             GameApp.Entry.Unity.DoActionOneFrameLater(() =>
@@ -318,10 +318,9 @@ namespace Saber.AI
                 yield break;
             }
 
-            s_WndJoyStick.ActiveSticks = false;
-
             m_PlayingAction = true;
             Actor.CMelee.CWeapon.ShowOrHideWeapon(false);
+            GameApp.Entry.Game.World.SetFilmEffect(true);
 
             while (wait)
             {
@@ -342,64 +341,17 @@ namespace Saber.AI
             Actor.CStateMachine.PlayAction_IdolActive(() =>
             {
                 Actor.CMelee.CWeapon.ShowOrHideWeapon(true);
-                s_WndJoyStick.ActiveSticks = true;
+                GameApp.Entry.Game.World.SetFilmEffect(false);
                 onWorshiped?.Invoke();
             });
 
             m_PlayingAction = false;
         }
 
-        public Coroutine PlayerRestBeforeIdol(Idol idol)
-        {
-            return PlayerRestBeforeIdolItor(idol).StartCoroutine();
-        }
-
-        IEnumerator PlayerRestBeforeIdolItor(Idol idol)
-        {
-            bool wait = true;
-            Vector3 idolRestPos = idol.Point.GetIdolFixedPos(out _);
-            bool succeed = Actor.CStateMachine.SetPosAndForward(idolRestPos, -idol.transform.forward, () => wait = false);
-            if (!succeed)
-            {
-                GameApp.Entry.UI.ShowTips("当前状态不能执行该操作");
-                yield break;
-            }
-
-            GameSetting.SetDepthOfField(true);
-            GameProgressManager.Instance.OnGodStatueRest(idol.SceneID, idol.ID);
-
-            s_WndJoyStick.ActiveSticks = false;
-
-            Wnd_Rest wndRest = null;
-            yield return GameApp.Entry.UI.CreateWnd<Wnd_Rest>(null, this, w => wndRest = w);
-            wndRest.ActiveRoot = false;
-
-            while (wait)
-            {
-                yield return null;
-            }
-
-            Actor.CMelee.CWeapon.ShowOrHideWeapon(false);
-            wait = true;
-            Actor.CStateMachine.PlayAction_IdolRest(() => wait = false);
-            while (wait)
-            {
-                yield return null;
-            }
-
-            wndRest.ActiveRoot = true;
-            Actor.OnGodStatueRest();
-
-            yield return null;
-
-            GameApp.Entry.Game.World.RecorverOtherActors();
-        }
-
-
         void RefreshHPPointCount()
         {
             int count = GameApp.Entry.Game.Player.CStats.HPPotionCount;
-            s_WndJoyStick.RefreshMedicineCount(count);
+            m_WndJoyStick.RefreshMedicineCount(count);
         }
 
         public override void Update()
@@ -499,13 +451,13 @@ namespace Saber.AI
         public void OnPlayerEnterPortal(Portal portal)
         {
             m_CurrentStayingPortal = portal;
-            s_WndJoyStick.ShowButtonInteract(ESceneInteractType.Portal);
+            m_WndJoyStick.ShowButtonInteract(ESceneInteractType.Portal);
         }
 
         public void OnPlayerExitPortal(Portal portal)
         {
             m_CurrentStayingPortal = null;
-            s_WndJoyStick.HideButtonInteract();
+            m_WndJoyStick.HideButtonInteract();
         }
 
         public void OnPlayerEnterGodStatue(Idol idol)
@@ -513,13 +465,13 @@ namespace Saber.AI
             m_CurrentStayingIdol = idol;
 
             ESceneInteractType interactType = idol.IsFired ? ESceneInteractType.Rest : ESceneInteractType.ActiveIdol;
-            s_WndJoyStick.ShowButtonInteract(interactType);
+            m_WndJoyStick.ShowButtonInteract(interactType);
         }
 
         public void OnPlayerExitGodStatue(Idol idol)
         {
             m_CurrentStayingIdol = null;
-            s_WndJoyStick.HideButtonInteract();
+            m_WndJoyStick.HideButtonInteract();
         }
 
         #endregion
@@ -539,7 +491,7 @@ namespace Saber.AI
                 if (m_CurrentStayingIdol)
                 {
                     m_CurrentStayingIdol.Active();
-                    s_WndJoyStick.ShowButtonInteract(ESceneInteractType.Rest);
+                    m_WndJoyStick.ShowButtonInteract(ESceneInteractType.Rest);
                 }
             }
             else if (interactType == ESceneInteractType.Rest)
@@ -681,43 +633,11 @@ namespace Saber.AI
         #endregion
 
 
-        #region Wnd_Rest.IHandler
-
-        void Wnd_Rest.IHandler.OnClickQuit()
-        {
-            GameSetting.SetDepthOfField(false);
-
-            GameApp.Entry.Game.PlayerAI.Active = true;
-            GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(m_CurrentStayingIdol);
-
-            Actor.CStateMachine.PlayAction_IdolRestEnd(() => { Actor.CMelee.CWeapon.ShowOrHideWeapon(true); });
-
-            s_WndJoyStick.ActiveSticks = true;
-        }
-
-        void Wnd_Rest.IHandler.OnClickTransmit(int sceneID, int idolID)
-        {
-            GameApp.Entry.Game.World.Transmit(sceneID, idolID);
-        }
-
-        void Wnd_Rest.IHandler.CreateEnemy(int actorID)
-        {
-            GameApp.Entry.Game.World.CreateEnemy(actorID);
-        }
-
-        #endregion
-
         public override void Release()
         {
             base.Release();
             PlayerCameraObj?.ClearTarget();
-
             this.Actor.CStats.OnHPPointCountChange -= RefreshHPPointCount;
-            if (s_WndJoyStick)
-            {
-                s_WndJoyStick.Destroy();
-                s_WndJoyStick = null;
-            }
         }
     }
 }

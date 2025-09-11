@@ -1,5 +1,4 @@
 using Saber.Frame;
-
 using UnityEngine;
 
 //Replace the "ShakeCamera" with the event you want to create
@@ -11,9 +10,9 @@ namespace CombatEditor
     [CreateAssetMenu(menuName = "AbilityEvents / ShakeCamera")]
     public class AbilityEventObj_ShakeCamera : AbilityEventObj
     {
-        public float m_Duration;
-        public float m_Amount;
-        public float m_Speed;
+        public float m_Duration = 0.1f;
+        public float m_Amount = 0.3f;
+        public float m_Speed = 3f;
 
         //Write the data you need here.
         public override EventTimeType GetEventTimeType()

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Net;
 using Saber.Frame;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -15,6 +16,26 @@ namespace Saber
         public static UniversalRenderPipelineAsset URPAsset => s_URPAsset ??= (UniversalRenderPipelineAsset)GraphicsSettings.renderPipelineAsset;
 
         public static Volume GlobalVolume => m_Volume ??= GameObject.FindObjectOfType<Volume>();
+
+        public static bool ActiveDepthOfField
+        {
+            set
+            {
+                DepthOfField dof = GlobalVolume.sharedProfile.components.FirstOrDefault(a => a is DepthOfField) as DepthOfField;
+                if (dof)
+                    dof.active = value;
+            }
+        }
+
+        public static bool ActiveVignette
+        {
+            set
+            {
+                Vignette v = GlobalVolume.sharedProfile.components.FirstOrDefault(a => a is Vignette) as Vignette;
+                if (v)
+                    v.active = value;
+            }
+        }
 
 
         public static void Init()
@@ -53,15 +74,6 @@ namespace Saber
             bool isClose = dis < 1;
             float shadowDis = isClose ? Mathf.Max(3, dis + 0.5f) : GameApp.Entry.Config.GameSetting.ShadowDistance;
             URPAsset.shadowDistance = shadowDis;
-        }
-
-        public static void SetDepthOfField(bool open)
-        {
-            DepthOfField dof = GlobalVolume?.sharedProfile.components.FirstOrDefault(a => a is DepthOfField) as DepthOfField;
-            if (dof)
-            {
-                dof.mode.value = open ? DepthOfFieldMode.Gaussian : DepthOfFieldMode.Off;
-            }
         }
 
         // 横竖屏

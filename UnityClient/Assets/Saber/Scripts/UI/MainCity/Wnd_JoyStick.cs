@@ -75,7 +75,7 @@ namespace Saber.UI
             set
             {
                 m_Sticks.SetActive(value);
-                Debug.Log($"ActiveSticks:{value}");
+                //Debug.Log($"ActiveSticks:{value}");
             }
         }
 
