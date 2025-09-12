@@ -32,6 +32,9 @@ namespace Saber.AI
         private bool m_ToCheckChargeAttack;
         private float m_PressDownHeavyAttackTime;
 
+        private bool m_IsTryMoving;
+        private float m_PressDodgeDownTime;
+
 
         protected PlayerCamera PlayerCameraObj => GameApp.Entry.Game.PlayerCamera;
 
@@ -311,7 +314,8 @@ namespace Saber.AI
         {
             bool wait = true;
             Vector3 idolRestPos = idol.Point.GetIdolFixedPos(out _);
-            bool succeed = Actor.CStateMachine.SetPosAndForward(idolRestPos, -idol.Point.transform.forward, () => wait = false);
+            bool succeed =
+                Actor.CStateMachine.SetPosAndForward(idolRestPos, -idol.Point.transform.forward, () => wait = false);
             if (!succeed)
             {
                 GameApp.Entry.UI.ShowTips("当前状态不能执行该操作");
@@ -530,8 +534,6 @@ namespace Saber.AI
             Actor.IsDraggingMovementAxis = isDragging;
         }
 
-        private bool m_IsTryMoving;
-
         void UpdateMovement()
         {
             EMoveSpeedV moveSpeedV;
@@ -539,7 +541,7 @@ namespace Saber.AI
             {
                 moveSpeedV = EMoveSpeedV.None;
             }
-            else if (m_Sprint)
+            else if (m_Sprint && m_StickLength > 0.9f)
             {
                 moveSpeedV = EMoveSpeedV.Sprint;
             }
@@ -554,6 +556,11 @@ namespace Saber.AI
             else
             {
                 moveSpeedV = EMoveSpeedV.None;
+            }
+
+            if (m_Sprint && moveSpeedV != EMoveSpeedV.Sprint)
+            {
+                m_Sprint = false;
             }
 
             if (moveSpeedV != EMoveSpeedV.None)
@@ -580,10 +587,19 @@ namespace Saber.AI
 
         void Wnd_JoyStick.IHandler.OnPressDodge(bool value)
         {
-            m_Sprint = value;
+            //m_Sprint = value;
             if (value)
             {
                 OnDodgeDown();
+                m_Sprint = true;
+                m_PressDodgeDownTime = Time.time;
+            }
+            else
+            {
+                if (Time.time - m_PressDodgeDownTime < 1f)
+                {
+                    m_Sprint = false;
+                }
             }
         }
 

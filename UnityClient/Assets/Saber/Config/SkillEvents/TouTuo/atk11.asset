@@ -10,27 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
-  m_Name: CreateHitBox2
+  m_Name: hitBomb
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
     TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
       type: 3}
     controlType: 0
-    Offset: {x: -0.17509845, y: 0.75388974, z: 2.965632}
+    Offset: {x: -0.17509845, y: 1.478889, z: 2.965632}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 1
-  ColliderOffset: {x: -0.077322006, y: 0, z: 0}
+  ColliderOffset: {x: 0, y: 0, z: -0.07566941}
   ColliderSize: {x: 1, y: 1, z: 1}
-  Radius: 2.9487057
+  Radius: 4.008114
   Height: 1
   m_WeaponDamageSetting:
     m_WeaponBone: 24
     m_DamageValue: 5
-    m_ImpactForce: 1
-    m_HitRecover: 0
+    m_ImpactForce: 2
+    m_HitRecover: 5
     m_ForceWhenGround: {x: 0, y: 0}
 --- !u!114 &-8458792543140055454
 MonoBehaviour:
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
-  m_Name: SFX
+  m_Name: SFXYaYaYa
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca2229d21ed65194bac74b8298b11290, type: 3}
-  m_Name: Particles
+  m_Name: ParBomb
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
-  m_Name: CreateHitBox5
+  m_Name: hitFire3
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca2229d21ed65194bac74b8298b11290, type: 3}
-  m_Name: Particles
+  m_Name: ParFire2
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca2229d21ed65194bac74b8298b11290, type: 3}
-  m_Name: Particles
+  m_Name: ParFire1
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
-  m_Name: SFX2
+  m_Name: SFXBomb
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
@@ -503,7 +503,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
-  m_Name: CreateHitBox3
+  m_Name: hitFire1
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
@@ -535,7 +535,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
-  m_Name: CreateHitBox6
+  m_Name: hitFire4
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
@@ -593,7 +593,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
-  m_Name: CreateHitBox4
+  m_Name: hitFire2
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
@@ -625,7 +625,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
-  m_Name: CreateHitBox
+  m_Name: hitHuiWu
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:

@@ -239,7 +239,7 @@ MonoBehaviour:
     m_Resilience: 2
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 4
+      maxValue: 8
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 17
@@ -258,7 +258,7 @@ MonoBehaviour:
     m_Resilience: 2
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 4
+      maxValue: 8
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 18
@@ -277,7 +277,7 @@ MonoBehaviour:
     m_Resilience: 2
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 4
+      maxValue: 8
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 19

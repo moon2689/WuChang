@@ -47,12 +47,19 @@ namespace Saber.CharacterController
         {
             base.OnStay();
 
+            float fallHeight = m_StartFallPosY - Actor.transform.position.y;
+            if (fallHeight > 100)
+            {
+                Actor.CStats.TakeDamage(Actor.CStats.MaxHp);
+                Exit();
+                return;
+            }
+
             // 空中
             if (m_InAir)
             {
                 if (Actor.CPhysic.Grounded)
                 {
-                    //float fallHeight = m_StartFallPosY - Actor.transform.position.y;
                     m_LandAnim = "Land";
                     Actor.CAnim.Play(m_LandAnim);
                     m_InAir = false;

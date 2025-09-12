@@ -125,7 +125,8 @@ namespace Saber.AI
 
         bool IsRepeatSkill(SkillItem skill)
         {
-            return m_LastSkill == skill || (m_LastSkill != null && m_LastSkill.m_GroupID != 0 && m_LastSkill.m_GroupID == skill.m_GroupID);
+            return m_LastSkill == skill || (m_LastSkill != null && m_LastSkill.m_GroupID != 0 &&
+                                            m_LastSkill.m_GroupID == skill.m_GroupID);
         }
 
         bool IsCDColldown(SkillItem skill)
@@ -213,32 +214,50 @@ namespace Saber.AI
             }
             else
             {
+                // 找攻击距离最大的技能
+                float maxAttackDistance = float.MinValue;
+                m_CurrentSkill = null;
                 foreach (SkillItem skill in Actor.Skills)
                 {
                     if (skill.m_FirstSkillOfCombo &&
                         IsCDColldown(skill) &&
-                        !IsRepeatSkill(skill) &&
-                        SatifyTriggerCondition(skill))
+                        SatifyTriggerCondition(skill) &&
+                        !IsRepeatSkill(skill))
                     {
-                        m_ListSkills.Add(skill);
+                        if (skill.m_AIPramAttackDistance.maxValue > maxAttackDistance)
+                        {
+                            maxAttackDistance = skill.m_AIPramAttackDistance.maxValue;
+                            m_CurrentSkill = skill;
+                        }
                     }
                 }
 
-                if (m_ListSkills.Count == 0)
+                if (m_CurrentSkill == null)
                 {
+                    maxAttackDistance = float.MinValue;
                     foreach (SkillItem skill in Actor.Skills)
                     {
                         if (skill.m_FirstSkillOfCombo &&
                             IsCDColldown(skill) &&
                             SatifyTriggerCondition(skill))
                         {
-                            m_ListSkills.Add(skill);
+                            if (skill.m_AIPramAttackDistance.maxValue > maxAttackDistance)
+                            {
+                                maxAttackDistance = skill.m_AIPramAttackDistance.maxValue;
+                                m_CurrentSkill = skill;
+                            }
                         }
                     }
                 }
 
-                m_CurrentSkill = m_ListSkills[UnityEngine.Random.Range(0, m_ListSkills.Count)];
-                SwitchCoroutine(SprintAndAttackItor());
+                if (m_CurrentSkill != null)
+                {
+                    SwitchCoroutine(SprintAndAttackItor());
+                }
+                else
+                {
+                    ToStalemate();
+                }
             }
         }
 

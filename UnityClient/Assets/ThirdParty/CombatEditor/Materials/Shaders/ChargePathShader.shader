@@ -1,4 +1,4 @@
-Shader "ChargePathShader"
+Shader "Saber/Particles/ChargePathShader"
 {
     Properties
     {
@@ -22,7 +22,7 @@ Shader "ChargePathShader"
         {
             Blend SrcAlpha OneMinusSrcAlpha
 			Cull Off
-			//ZWrite Off
+			ZWrite Off
             
             HLSLPROGRAM
             //--------------------------------------

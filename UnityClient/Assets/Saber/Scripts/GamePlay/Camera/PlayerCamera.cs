@@ -306,7 +306,7 @@ namespace Saber
             Vector3 lockPos = LockTarget.LockPosition;
             Vector3 viewPoint = Cam.WorldToViewportPoint(lockPos);
             outScreen = viewPoint.x < 0.1f || viewPoint.x > 0.9f || viewPoint.y < 0.1f || viewPoint.y > 0.9f;
-            outCenterRect = viewPoint.x < 0.4f || viewPoint.x > 0.7f || viewPoint.y < 0.4f || viewPoint.y > 0.8f;
+            outCenterRect = viewPoint.x < 0.4f || viewPoint.x > 0.7f || viewPoint.y < 0.5f || viewPoint.y > 0.8f;
         }
 
         void CheckWhetherLookAtTarget(Vector3 dirToLockTarget)

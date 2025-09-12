@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OpenCameraLight: 0
   ShadowDistance: 50
-  PlayerInputType: 1
   PlayerID: 1
   StartSceneID: 1
   DodgeCostStamina: 20
@@ -29,7 +28,7 @@ MonoBehaviour:
   m_SoundWeaponHitGround:
   - {fileID: 8300000, guid: 8db4e869274f0584ab4f9bde3185f7f3, type: 3}
   m_SoundSharpWeaponHitBody:
-  - {fileID: 8300000, guid: 7d2a603faffba1f47ba91d83067db132, type: 3}
+  - {fileID: 8300000, guid: 3e5180c5069905c4ea86851d1949f43d, type: 3}
   m_SoundFistHitBody: []
   m_SoundClawHitBody: []
   m_EffectBlood:

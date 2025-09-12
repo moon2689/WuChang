@@ -227,7 +227,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 4867759612993005173}
-  - EventTime: 0.355
+  - EventTime: 0.275
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -254,6 +254,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -5323700535884001536}
+  - EventTime: 0
+    EventRange: {x: 0.12, y: 0.445}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 9128150703317598071}
 --- !u!114 &646702915303535274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,10 +275,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
   m_Name: SFXDing
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   clips:
   - {fileID: 8300000, guid: 7a37a3cfce5f05d40a81c3ef5e997fa4, type: 3}
-  m_Volume: 1
+  m_Volume: 0.5
 --- !u!114 &4867759612993005173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,7 +318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: d83a024242a04f545918ef7aee29715e, type: 3}
+  - {fileID: 8300000, guid: b9fe9efc3df62d044bbfe98c7c356f13, type: 3}
   m_Volume: 1
 --- !u!114 &8133752312050658843
 MonoBehaviour:
@@ -338,3 +347,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   m_RotateSpeed: 1080
+--- !u!114 &9128150703317598071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca2229d21ed65194bac74b8298b11290, type: 3}
+  m_Name: ParticlesCharge
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 883157226942159327, guid: a000f8631a5c03545b13f9030703fe20,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 24
+    FollowNode: 1
+    RotateByNode: 1
+  TimeType: 2
+  m_HoldTime: 1
+  OnlyTriggerWhenPowerEnough: 0

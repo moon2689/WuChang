@@ -227,16 +227,16 @@ MonoBehaviour:
     m_AnimStates:
     - m_Name: DoubleChop
       m_EventData: {fileID: 11400000, guid: 4b7853feca07eba40b7d1494f9d574df, type: 2}
-    CostStrength: 0
+    CostStrength: 20
     m_CostPower: 2
     m_PowerAddWhenHitted: 0
-    m_CDSeconds: 0
+    m_CDSeconds: 10
     m_SkillType: 4
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkillIDs: 0d000000
-    m_Resilience: 1
+    m_Resilience: 2
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2

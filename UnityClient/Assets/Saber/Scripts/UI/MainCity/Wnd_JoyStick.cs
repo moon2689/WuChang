@@ -285,7 +285,7 @@ namespace Saber.UI
                     m_ButtonMedicineNone.OnSubmit(null);
             }
 
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 m_btnInteract.OnSubmit(null);
             }

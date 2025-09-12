@@ -62,13 +62,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4321efb720844eebda3a90b5dd0b8d5, type: 3}
-  m_Name: WeaponDamage2
+  m_Name: dmg2
   m_EditorClassIdentifier: 
   IsActive: 1
   m_WeaponDamageSetting:
     m_WeaponBone: 24
     m_DamageValue: 5
-    m_ImpactForce: 2
+    m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
 --- !u!114 &-3243925066545868809
@@ -81,11 +81,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
-  m_Name: SFX2
+  m_Name: SFXCharge
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: d579bb9fed594aa4a9767145d0a81bb7, type: 3}
+  - {fileID: 8300000, guid: b9fe9efc3df62d044bbfe98c7c356f13, type: 3}
   m_Volume: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -221,6 +221,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -3422441798065318331}
+  - EventTime: 0
+    EventRange: {x: 0.08, y: 0.348}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 2674222689386724167}
 --- !u!114 &713653125189028397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,7 +240,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
-  m_Name: SFX
+  m_Name: SFXHuiWu
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
@@ -251,6 +260,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   m_RotateSpeed: 1080
+--- !u!114 &2674222689386724167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca2229d21ed65194bac74b8298b11290, type: 3}
+  m_Name: Particles
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 883157226942159327, guid: a000f8631a5c03545b13f9030703fe20,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 24
+    FollowNode: 1
+    RotateByNode: 1
+  TimeType: 2
+  m_HoldTime: 1
+  OnlyTriggerWhenPowerEnough: 0
 --- !u!114 &6323405225867874281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,13 +350,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4321efb720844eebda3a90b5dd0b8d5, type: 3}
-  m_Name: WeaponDamage
+  m_Name: dmg1
   m_EditorClassIdentifier: 
   IsActive: 1
   m_WeaponDamageSetting:
     m_WeaponBone: 24
     m_DamageValue: 5
-    m_ImpactForce: 2
+    m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
 --- !u!114 &8101979912186525173

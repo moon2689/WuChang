@@ -37,7 +37,8 @@ namespace CombatEditor
         {
             base.StartEffect();
             AudioClip clip = EventObj.clips[Random.Range(0, EventObj.clips.Count)];
-            Actor.PlaySound(clip);
+            //Actor.PlaySound(clip);
+            GameApp.Entry.Game.Audio.Play3DSound(clip, Actor.transform.position);
         }
     }
 
