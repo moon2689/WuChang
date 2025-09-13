@@ -11,6 +11,7 @@ namespace Saber.AI
             None,
             Skill,
             Dodge,
+            DrinkPotion,
         }
 
         private SActor m_Actor;
@@ -49,6 +50,10 @@ namespace Saber.AI
             {
                 return m_Actor.Dodge(m_DodgeAxis);
             }
+            else if (m_AheadType == EAheadInputType.DrinkPotion)
+            {
+                return m_Actor.DrinkPotion();
+            }
             else
             {
                 Debug.LogError("Unknown type:" + m_AheadType);
@@ -74,6 +79,14 @@ namespace Saber.AI
                 //Debug.Log("SetData_Dodge:" + axis);
                 m_AheadType = EAheadInputType.Dodge;
                 m_DodgeAxis = axis;
+            }
+        }
+        
+        public void SetData_DrinkPotion()
+        {
+            if (CanAheadInput)
+            {
+                m_AheadType = EAheadInputType.DrinkPotion;
             }
         }
 

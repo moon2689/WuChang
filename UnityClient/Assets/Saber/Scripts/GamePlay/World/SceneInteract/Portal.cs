@@ -44,7 +44,6 @@ namespace Saber.World
 
         public void Transmit()
         {
-            m_IHandler.OnPlayerExit(this);
             m_IHandler.OnPlayerTransmit(this);
         }
     }

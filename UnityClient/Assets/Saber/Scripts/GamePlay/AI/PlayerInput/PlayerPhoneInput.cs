@@ -147,16 +147,6 @@ namespace Saber.AI
             m_AheadInput.Clear();
         }
 
-        protected void OnDefenseDown()
-        {
-            Actor.DefenseStart();
-        }
-
-        protected void OnDefenseUp()
-        {
-            Actor.DefenseEnd();
-        }
-
         private bool TryLockEnemy()
         {
             return TryLockEnemy(Actor.m_BaseActorInfo.m_AIInfo.m_WarningRange, true);
@@ -220,18 +210,6 @@ namespace Saber.AI
             base.ClearLockEnemy();
             Actor.EyeLockAt(null);
             GameApp.Entry.Game.PlayerCamera.LockTarget = null;
-        }
-
-        private void OnDodgeDown()
-        {
-            if (Actor.CStats.CurrentStamina <= 0)
-            {
-                GameApp.Entry.UI.ShowTips("体力不足");
-                GameApp.Entry.Game.Audio.PlaySoundSkillFailed();
-            }
-
-            if (!Actor.Dodge())
-                m_AheadInput.SetData_Dodge(Actor.MovementAxis);
         }
 
 
@@ -515,6 +493,7 @@ namespace Saber.AI
             if (value)
             {
                 Actor.DefenseStart();
+                ClearAheadInput();
             }
             else
             {
@@ -590,9 +569,19 @@ namespace Saber.AI
             //m_Sprint = value;
             if (value)
             {
-                OnDodgeDown();
                 m_Sprint = true;
                 m_PressDodgeDownTime = Time.time;
+                
+                ClearAheadInput();
+                
+                if (Actor.CStats.CurrentStamina <= 0)
+                {
+                    GameApp.Entry.UI.ShowTips("体力不足");
+                    GameApp.Entry.Game.Audio.PlaySoundSkillFailed();
+                }
+
+                if (!Actor.Dodge())
+                    m_AheadInput.SetData_Dodge(Actor.MovementAxis);
             }
             else
             {
@@ -610,7 +599,11 @@ namespace Saber.AI
 
         void Wnd_JoyStick.IHandler.OnClickDrinkMedicine()
         {
-            Actor.DrinkPotion();
+            ClearAheadInput();
+            if (!Actor.DrinkPotion())
+            {
+                m_AheadInput.SetData_DrinkPotion();
+            }
         }
 
         void Wnd_JoyStick.IHandler.OnClickSkill(ESkillType type)

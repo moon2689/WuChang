@@ -12,7 +12,7 @@ namespace Saber.CharacterController
         public event Action<EMoveSpeedV, EMoveSpeedV> EventOnMoveSpeedVChange;
 
         private CharacterStateMachine m_CStates;
-        
+
 
         public CharacterRender CRender { get; private set; }
         // public CharacterSpeech CSpeech { get; private set; }
@@ -230,10 +230,9 @@ namespace Saber.CharacterController
             // CSpeech.RandomSpeech();
         }
 
-        public override void DrinkPotion()
+        public override bool DrinkPotion()
         {
-            base.DrinkPotion();
-            CAbility.DrinkMedicine();
+            return CAbility.DrinkMedicine();
         }
 
         protected override void OnDestroy()

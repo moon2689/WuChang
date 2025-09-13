@@ -516,8 +516,9 @@ namespace Saber.CharacterController
         {
         }
 
-        public virtual void DrinkPotion()
+        public virtual bool DrinkPotion()
         {
+            return false;
         }
 
 
