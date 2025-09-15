@@ -103,7 +103,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -246336151232287671}
   - EventTime: 0
-    EventRange: {x: 0.9018568, y: 0.9177719}
+    EventRange: {x: 0.5331565, y: 0.54376656}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -133,9 +133,9 @@ MonoBehaviour:
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 1
-  ColliderOffset: {x: -0.08891702, y: 0, z: 0}
+  ColliderOffset: {x: 0, y: 0, z: -0.067005634}
   ColliderSize: {x: 1, y: 1, z: 1}
-  Radius: 2.0500882
+  Radius: 2.800016
   Height: 1
   m_WeaponDamageSetting:
     m_WeaponBone: 24

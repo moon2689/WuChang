@@ -148,7 +148,7 @@ namespace Saber.CharacterController
             {
                 if (CurSkill.SkillConfig.m_ChainSkillIDs.Contains(skillItem.m_ID) && skillObj.CanEnter)
                 {
-                    ForceTriggerSkill(skillObj);
+                    ForceTriggerSkill(skillObj, true);
                     return true;
                 }
             }
@@ -158,7 +158,7 @@ namespace Saber.CharacterController
             {
                 if (skillItem.m_FirstSkillOfCombo && skillObj.CanEnter && CanSwitchToSpecialSkill(skillItem))
                 {
-                    ForceTriggerSkill(skillObj);
+                    ForceTriggerSkill(skillObj, false);
                     return true;
                 }
             }
@@ -166,7 +166,7 @@ namespace Saber.CharacterController
             return false;
         }
 
-        void ForceTriggerSkill(BaseSkill tarSkill)
+        void ForceTriggerSkill(BaseSkill tarSkill, bool comboed)
         {
             SkillState skillState = Actor.CStateMachine.GetState<SkillState>(EStateType.Skill);
             if (skillState.IsTriggering)
@@ -175,6 +175,7 @@ namespace Saber.CharacterController
             }
 
             CurSkill = tarSkill;
+            CurSkill.IsComboed = comboed;
             Actor.CStateMachine.ForceEnterState(skillState);
         }
 
@@ -199,7 +200,7 @@ namespace Saber.CharacterController
                 if (target != null)
                 {
                     m_SkillExecute.Target = target;
-                    ForceTriggerSkill(m_SkillExecute);
+                    ForceTriggerSkill(m_SkillExecute, false);
                     return true;
                 }
             }
@@ -213,7 +214,7 @@ namespace Saber.CharacterController
                     var chainSkill = m_DicSkills[chainSkillID];
                     if (chainSkill.SkillConfig.m_SkillType == type && chainSkill.CanEnter)
                     {
-                        ForceTriggerSkill(chainSkill);
+                        ForceTriggerSkill(chainSkill, true);
                         return true;
                     }
                 }
@@ -228,7 +229,7 @@ namespace Saber.CharacterController
                     skill.CanEnter &&
                     CanSwitchToSpecialSkill(skillItem))
                 {
-                    ForceTriggerSkill(skill);
+                    ForceTriggerSkill(skill, false);
                     return true;
                 }
             }

@@ -60,17 +60,17 @@ namespace CombatEditor
                 EditorGUI.DrawRect(AnimTrackRect, SelectedTrackColor);
             }
 
-            int AnimStartFrame = Mathf.RoundToInt(SelectedAbilityObj.PreviewPercentageRange.x * AnimFrameCount);
-            int AnimEndFrame = Mathf.RoundToInt(SelectedAbilityObj.PreviewPercentageRange.y * AnimFrameCount);
+            int AnimStartFrame = Mathf.RoundToInt(SelectedAbilityObj.PreviewPercentageRange.x * m_AnimFrameCount);
+            int AnimEndFrame = Mathf.RoundToInt(SelectedAbilityObj.PreviewPercentageRange.y * m_AnimFrameCount);
             int[] AnimTimeRange = AnimClipHelper.DrawHorizontalDraggableRange(AnimStartFrame, AnimEndFrame,
-                AnimFrameCount, AnimTrackRect, Color.white, "flow node 4", 5,
+                m_AnimFrameCount, AnimTrackRect, Color.white, "flow node 4", 5,
                 () =>
                 {
                     UpdateAsset(SelectedAbilityObj);
                     HardResetPreviewToCurrentFrame();
                 });
-            SelectedAbilityObj.PreviewPercentageRange.x = (float)AnimTimeRange[0] / (float)AnimFrameCount;
-            SelectedAbilityObj.PreviewPercentageRange.y = (float)AnimTimeRange[1] / (float)AnimFrameCount;
+            SelectedAbilityObj.PreviewPercentageRange.x = (float)AnimTimeRange[0] / (float)m_AnimFrameCount;
+            SelectedAbilityObj.PreviewPercentageRange.y = (float)AnimTimeRange[1] / (float)m_AnimFrameCount;
         }
 
 
@@ -81,10 +81,10 @@ namespace CombatEditor
             Rect OutTrackRect = new Rect(L3TrackAvailableRect.x, L3TrackAvailableRect.y + (i + 1) * LineHeight,
                 MaxWidth, LineHeight);
 
-            int StartFrame = Mathf.RoundToInt((AnimEventTracks[i].eve.EventTime * AnimFrameCount));
+            int StartFrame = Mathf.RoundToInt((AnimEventTracks[i].eve.EventTime * m_AnimFrameCount));
             StartFrame = AnimEventTracks[i].helper.DrawHorizontalDraggablePoint(
                 StartFrame,
-                AnimFrameCount,
+                m_AnimFrameCount,
                 AvilableTrackRect,
                 Color.white,
                 "flow node 3",
@@ -93,9 +93,9 @@ namespace CombatEditor
                 true, false, null
                 , () => { OnDragEventTimePoint(); }
             );
-            if (AnimFrameCount != 0)
+            if (m_AnimFrameCount != 0)
             {
-                AnimEventTracks[i].eve.EventTime = (float)StartFrame / (float)AnimFrameCount;
+                AnimEventTracks[i].eve.EventTime = (float)StartFrame / (float)m_AnimFrameCount;
             }
         }
 
@@ -106,13 +106,13 @@ namespace CombatEditor
             Rect OutTrackRect = new Rect(L3TrackAvailableRect.x, L3TrackAvailableRect.y + (i + 1) * LineHeight,
                 MaxWidth, LineHeight);
 
-            int StartFrame = Mathf.RoundToInt(AnimEventTracks[i].eve.EventRange.x * AnimFrameCount);
-            int EndFrame = Mathf.RoundToInt(AnimEventTracks[i].eve.EventRange.y * AnimFrameCount);
+            int StartFrame = Mathf.RoundToInt(AnimEventTracks[i].eve.EventRange.x * m_AnimFrameCount);
+            int EndFrame = Mathf.RoundToInt(AnimEventTracks[i].eve.EventRange.y * m_AnimFrameCount);
             int[] TimeRange =
                 AnimEventTracks[i].helper.DrawHorizontalDraggableRange(
                     StartFrame,
                     EndFrame,
-                    AnimFrameCount,
+                    m_AnimFrameCount,
                     AvilableTrackRect,
                     Color.white,
                     "flow node 3",
@@ -120,10 +120,10 @@ namespace CombatEditor
                     () => { OnDragEventTimePoint(); }
                 );
 
-            if (AnimFrameCount != 0)
+            if (m_AnimFrameCount != 0)
             {
-                AnimEventTracks[i].eve.EventRange.x = (float)TimeRange[0] / (float)AnimFrameCount;
-                AnimEventTracks[i].eve.EventRange.y = (float)TimeRange[1] / (float)AnimFrameCount;
+                AnimEventTracks[i].eve.EventRange.x = (float)TimeRange[0] / (float)m_AnimFrameCount;
+                AnimEventTracks[i].eve.EventRange.y = (float)TimeRange[1] / (float)m_AnimFrameCount;
             }
         }
 
@@ -138,15 +138,15 @@ namespace CombatEditor
             int[] TargetFrames = new int[multiRangeCount - 1];
             for (int j = 0; j < TargetFrames.Length; j++)
             {
-                TargetFrames[j] = Mathf.RoundToInt(AnimEventTracks[i].eve.EventMultiRange[j] * AnimFrameCount);
+                TargetFrames[j] = Mathf.RoundToInt(AnimEventTracks[i].eve.EventMultiRange[j] * m_AnimFrameCount);
             }
 
             string[] names = (AnimEventTracks[i].eve.Obj as AbilityEventObj_States).States;
-            int[] Targets = AnimEventTracks[i].helper.DrawHorizontalMultiDraggable(TargetFrames, names, AnimFrameCount,
+            int[] Targets = AnimEventTracks[i].helper.DrawHorizontalMultiDraggable(TargetFrames, names, m_AnimFrameCount,
                 AvilableTrackRect, Color.white, TimePointWidth, OnDragEventTimePoint);
             for (int j = 0; j < Targets.Length; j++)
             {
-                AnimEventTracks[i].eve.EventMultiRange[j] = (float)Targets[j] / (float)AnimFrameCount;
+                AnimEventTracks[i].eve.EventMultiRange[j] = (float)Targets[j] / (float)m_AnimFrameCount;
             }
         }
 
@@ -167,13 +167,13 @@ namespace CombatEditor
 
         public void PaintCurrentIndicator()
         {
-            if (CurrentFrame == 0)
+            if (m_CurrentFrame == 0)
             {
                 return;
             }
 
             // 考虑区域有scroll view的情况
-            float p1X = ((float)CurrentFrame / AnimFrameCount) * L3TrackAvailableRect.width - Scroll_Track.x;
+            float p1X = ((float)m_CurrentFrame / m_AnimFrameCount) * L3TrackAvailableRect.width - Scroll_Track.x;
             if (p1X < 0 || p1X > L3TrackAvailableRect.width)
             {
                 return;
@@ -211,10 +211,10 @@ namespace CombatEditor
             {
                 TopFrameThumbHelper = new TimeLineHelper(this);
             }
-            
+
             //UpdateAnimation
             Rect draggablePointRect = new Rect(L3TrackAvailableRect.x, 0, L3TrackAvailableRect.width, Height_Top);
-            CurrentFrame = TopFrameThumbHelper.DrawHorizontalDraggablePoint(CurrentFrame, AnimFrameCount, draggablePointRect,
+            m_CurrentFrame = TopFrameThumbHelper.DrawHorizontalDraggablePoint(m_CurrentFrame, m_AnimFrameCount, draggablePointRect,
                 Color.white, GUIStyle.none, 12, true, true, false,
                 _ => OnDragRuler(), Repaint, Scroll_Track.x);
 
@@ -234,7 +234,7 @@ namespace CombatEditor
                 Vector3 StartPoint = new Vector3(L3TrackAvailableRect.x + i * FrameIntervalDistance,
                     L3TrackAvailableRect.y, 0);
 
-                if (i <= AnimFrameCount)
+                if (i <= m_AnimFrameCount)
                 {
                     DrawVerticalLine(StartPoint, StartPoint - new Vector3(0, 10, 0), Color.white, 1);
                     GUI.Label(new Rect(StartPoint.x, StartPoint.y - 20, 35, 20), i.ToString());
@@ -250,10 +250,10 @@ namespace CombatEditor
             }
 
             //
-            Vector3 FrameEndStartPoint = new Vector3(L3TrackAvailableRect.x + AnimFrameCount * FrameIntervalDistance,
+            Vector3 FrameEndStartPoint = new Vector3(L3TrackAvailableRect.x + m_AnimFrameCount * FrameIntervalDistance,
                 L3TrackAvailableRect.y, 0);
             DrawVerticalLine(FrameEndStartPoint, FrameEndStartPoint - new Vector3(0, 10, 0), Color.white, 1);
-            GUI.Label(new Rect(FrameEndStartPoint.x, FrameEndStartPoint.y - 20, 35, 20), AnimFrameCount.ToString());
+            GUI.Label(new Rect(FrameEndStartPoint.x, FrameEndStartPoint.y - 20, 35, 20), m_AnimFrameCount.ToString());
             GUI.EndScrollView();
         }
 

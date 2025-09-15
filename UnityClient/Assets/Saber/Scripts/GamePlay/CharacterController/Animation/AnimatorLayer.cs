@@ -93,7 +93,7 @@ namespace Saber.CharacterController
         }
 
         // Animator trigger
-        public virtual void Play(string anim, bool force, float blendTime, float exitTime, Action onFinished = null)
+        public virtual void Play(string anim, bool force, float blendTime, float timeOffset, Action onFinished = null)
         {
             if (string.IsNullOrEmpty(anim))
                 return;
@@ -104,11 +104,19 @@ namespace Saber.CharacterController
                 Debug.LogError($"No anim {anim} in animator {m_Animator.name}, layer {this.m_Layer}", m_Animator);
             }
 #endif
-            
+
             //Debug.Log($"Play anim:{anim}, hash:{anim.GetAnimatorHash()}, layer:{m_Layer}, blendTime:{blendTime}, exitTime:{exitTime}");
             if (force || !IsReallyPlaying(anim))
             {
-                m_Animator.CrossFadeInFixedTime(anim, blendTime, m_Layer);
+                if (timeOffset > 0)
+                {
+                    m_Animator.CrossFadeInFixedTime(anim, blendTime, m_Layer, timeOffset);
+                }
+                else
+                {
+                    m_Animator.CrossFadeInFixedTime(anim, blendTime, m_Layer);
+                }
+
                 m_TransitionAnimID = anim.GetAnimatorHash();
             }
 

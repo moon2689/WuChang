@@ -15,9 +15,11 @@ MonoBehaviour:
   m_WeaponStyle: 0
   m_SkillItems:
   - m_ID: 1
+    m_SkillName: "\u65CB\u8F6C\u540E\u4E0B\u7838"
     m_AnimStates:
     - m_Name: toutuo_atk01
       m_EventData: {fileID: 11400000, guid: 9f32668fb58c25348b74572d1e8affb5, type: 2}
+    m_ComboedAnimTimeOffset: 0
     CostStrength: 5
     m_CostPower: 0
     m_PowerAddWhenHitted: 0
@@ -26,7 +28,7 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
-    m_ChainSkillIDs: 03000000060000000b0000000f000000
+    m_ChainSkillIDs: 060000000b0000000f000000
     m_Resilience: 2
     m_AIPramAttackDistance:
       minValue: 0
@@ -34,9 +36,11 @@ MonoBehaviour:
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 2
+    m_SkillName: "\u51B2\u523A\u653B\u51FB"
     m_AnimStates:
     - m_Name: toutuo_atk02
       m_EventData: {fileID: 11400000, guid: fa8415e43eb5c4b4c92f96ee20af4513, type: 2}
+    m_ComboedAnimTimeOffset: 0
     CostStrength: 5
     m_CostPower: 0
     m_PowerAddWhenHitted: 0
@@ -53,9 +57,11 @@ MonoBehaviour:
     m_GroupID: 1
     m_AITriggerCondition: 0
   - m_ID: 3
+    m_SkillName: "\u65CB\u8F6C\u540E\u4E0B\u78382"
     m_AnimStates:
     - m_Name: toutuo_atk03
       m_EventData: {fileID: 11400000, guid: cee2ab16265c9734aaa4b9c00b1a48d8, type: 2}
+    m_ComboedAnimTimeOffset: 0
     CostStrength: 5
     m_CostPower: 0
     m_PowerAddWhenHitted: 0
@@ -64,7 +70,7 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
-    m_ChainSkillIDs: 01000000060000000b0000000f000000
+    m_ChainSkillIDs: 060000000b0000000f000000
     m_Resilience: 2
     m_AIPramAttackDistance:
       minValue: 0
@@ -72,9 +78,11 @@ MonoBehaviour:
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 6
+    m_SkillName: "\u540E\u9000\u5411\u4E0A\u94F2"
     m_AnimStates:
     - m_Name: toutuo_atk_05
       m_EventData: {fileID: 11400000, guid: e27e04afedfc8524fa43d93c6232518b, type: 2}
+    m_ComboedAnimTimeOffset: 0
     CostStrength: 5
     m_CostPower: 0
     m_PowerAddWhenHitted: 0
@@ -83,7 +91,7 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
-    m_ChainSkillIDs: 01000000030000000b0000000f000000
+    m_ChainSkillIDs: 0f000000
     m_Resilience: 2
     m_AIPramAttackDistance:
       minValue: 0
@@ -91,9 +99,11 @@ MonoBehaviour:
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 8
+    m_SkillName: "\u8DF3\u5288\u8FD1"
     m_AnimStates:
     - m_Name: atk06_400
       m_EventData: {fileID: 11400000, guid: 6d921c8c464246e439678b4827b7e522, type: 2}
+    m_ComboedAnimTimeOffset: 0
     CostStrength: 5
     m_CostPower: 0
     m_PowerAddWhenHitted: 0
@@ -110,9 +120,11 @@ MonoBehaviour:
     m_GroupID: 2
     m_AITriggerCondition: 0
   - m_ID: 9
+    m_SkillName: "\u8DF3\u5288"
     m_AnimStates:
     - m_Name: atk06_600
       m_EventData: {fileID: 11400000, guid: 7f3539b656d474646809c208d138c172, type: 2}
+    m_ComboedAnimTimeOffset: 0
     CostStrength: 5
     m_CostPower: 0
     m_PowerAddWhenHitted: 0
@@ -129,9 +141,11 @@ MonoBehaviour:
     m_GroupID: 2
     m_AITriggerCondition: 0
   - m_ID: 10
+    m_SkillName: "\u8DF3\u5288\u8FDC"
     m_AnimStates:
     - m_Name: atk06_800
       m_EventData: {fileID: 11400000, guid: 7bb1e3d7ecec77141a9f58db521c75cd, type: 2}
+    m_ComboedAnimTimeOffset: 0
     CostStrength: 5
     m_CostPower: 0
     m_PowerAddWhenHitted: 0
@@ -148,9 +162,11 @@ MonoBehaviour:
     m_GroupID: 2
     m_AITriggerCondition: 0
   - m_ID: 11
+    m_SkillName: "\u6A2A\u626B"
     m_AnimStates:
     - m_Name: toutuo_atk_07
       m_EventData: {fileID: 11400000, guid: 9fad0fc081a9d8c4bbf35948c409b58c, type: 2}
+    m_ComboedAnimTimeOffset: 0
     CostStrength: 5
     m_CostPower: 0
     m_PowerAddWhenHitted: 0
@@ -159,7 +175,7 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
-    m_ChainSkillIDs: 0100000003000000060000000f000000
+    m_ChainSkillIDs: 
     m_Resilience: 2
     m_AIPramAttackDistance:
       minValue: 0
@@ -167,9 +183,11 @@ MonoBehaviour:
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 13
+    m_SkillName: "\u51B2\u523A\u653B\u51FB2"
     m_AnimStates:
     - m_Name: toutuo_atk_08
       m_EventData: {fileID: 11400000, guid: d970ff827e23b8d48a839563bb63d487, type: 2}
+    m_ComboedAnimTimeOffset: 0
     CostStrength: 5
     m_CostPower: 0
     m_PowerAddWhenHitted: 0
@@ -186,9 +204,11 @@ MonoBehaviour:
     m_GroupID: 1
     m_AITriggerCondition: 0
   - m_ID: 14
+    m_SkillName: "\u8E29\u5730"
     m_AnimStates:
     - m_Name: toutuo_atk_09
       m_EventData: {fileID: 11400000, guid: 1e789aca985afc142b8cf41638124dc6, type: 2}
+    m_ComboedAnimTimeOffset: 0
     CostStrength: 5
     m_CostPower: 0
     m_PowerAddWhenHitted: 0
@@ -205,9 +225,11 @@ MonoBehaviour:
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 15
+    m_SkillName: "\u56DB\u8FDE1"
     m_AnimStates:
     - m_Name: toutuo_atk_10a
       m_EventData: {fileID: 11400000, guid: 818ba81e92435bb4d87f173e2dd71c48, type: 2}
+    m_ComboedAnimTimeOffset: 0
     CostStrength: 5
     m_CostPower: 0
     m_PowerAddWhenHitted: 0
@@ -224,9 +246,11 @@ MonoBehaviour:
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 16
+    m_SkillName: "\u56DB\u8FDE2"
     m_AnimStates:
     - m_Name: toutuo_atk10b
       m_EventData: {fileID: 11400000, guid: 52214d791801e8446b778a9de8893332, type: 2}
+    m_ComboedAnimTimeOffset: 0
     CostStrength: 5
     m_CostPower: 0
     m_PowerAddWhenHitted: 0
@@ -243,9 +267,11 @@ MonoBehaviour:
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 17
+    m_SkillName: "\u56DB\u8FDE3"
     m_AnimStates:
     - m_Name: toutuo_atk10c
       m_EventData: {fileID: 11400000, guid: c1d0fd83bb569c146a4ba2024ee3b63d, type: 2}
+    m_ComboedAnimTimeOffset: 0
     CostStrength: 5
     m_CostPower: 0
     m_PowerAddWhenHitted: 0
@@ -262,9 +288,11 @@ MonoBehaviour:
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 18
+    m_SkillName: "\u56DB\u8FDE4"
     m_AnimStates:
     - m_Name: toutuo_atk10d
       m_EventData: {fileID: 11400000, guid: a4b0d960732890c43942c425c4d2b16c, type: 2}
+    m_ComboedAnimTimeOffset: 0
     CostStrength: 5
     m_CostPower: 0
     m_PowerAddWhenHitted: 0
@@ -273,7 +301,7 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
-    m_ChainSkillIDs: 0100000003000000060000000b0000000f000000
+    m_ChainSkillIDs: 01000000
     m_Resilience: 2
     m_AIPramAttackDistance:
       minValue: 0
@@ -281,9 +309,11 @@ MonoBehaviour:
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 19
+    m_SkillName: "\u6253\u94C1\u82B1"
     m_AnimStates:
     - m_Name: toutuo_atk11
       m_EventData: {fileID: 11400000, guid: 974f31288d007e54b9126a2a143a7415, type: 2}
+    m_ComboedAnimTimeOffset: 0
     CostStrength: 5
     m_CostPower: 0
     m_PowerAddWhenHitted: 0

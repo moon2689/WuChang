@@ -40,7 +40,7 @@ namespace CombatEditor
         public static float LineHeight = 25;
 
 
-        Rect boxRect;
+        Rect m_BoxRect;
         public float valueChangeValue = 5;
         public float Width_TrackLabel = 250;
         int HeaderFontSize = 15;
@@ -58,11 +58,12 @@ namespace CombatEditor
         public float Width_Inspector = 350;
         TimeLineHelper TopFrameThumbHelper;
 
-        int CurrentFrame = 0;
+        int m_CurrentFrame;
 
         Rect L3TrackAvailableRect;
         Rect L2Rect;
-        int AnimFrameCount;
+        int m_AnimFrameCount;
+        private float m_AnimClipLength;
 
         public bool IsInited = false;
         GUIStyle MyBoxGUIStyle;
@@ -153,7 +154,7 @@ namespace CombatEditor
         {
             L2Rect = new Rect(Width_Ability, 0, Width_TrackLabel - SplitterIntervalDistance, position.height);
             L3TrackAvailableRect = new Rect(Width_Ability + Width_TrackLabel, Height_Top,
-                AnimFrameCount * FrameIntervalDistance, position.height - Height_Top);
+                m_AnimFrameCount * FrameIntervalDistance, position.height - Height_Top);
         }
 
         bool ReloadAfterStart;

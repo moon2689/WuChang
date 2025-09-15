@@ -73,7 +73,7 @@ namespace Saber.CharacterController
                     case ETriggerCondition.AfterTanFanSucceed:
                         // 在状态机中判断
                         return true;
-                    
+
                     default:
                         throw new InvalidOperationException($"Unknown condition:{condition}");
                 }
@@ -134,6 +134,9 @@ namespace Saber.CharacterController
 
         public bool IsPowerEnough { get; private set; }
 
+        /// <summary>是从别的技能连招过来的</summary>
+        public bool IsComboed { get; set; }
+
 
         public BaseSkill(SActor actor, SkillItem skillConfig)
         {
@@ -144,7 +147,10 @@ namespace Saber.CharacterController
         protected virtual void PlayAnimOnEnter(string firstAnim, string endAnim)
         {
             m_LastAnimHash = endAnim.GetAnimatorHash();
-            Actor.CAnim.Play(firstAnim, force: true);
+
+            float fixedTimeOffset = IsComboed ? SkillConfig.m_ComboedAnimTimeOffset : 0;
+            float fixedBlendTime = IsComboed ? 1 : 0.3f;
+            Actor.CAnim.Play(firstAnim, force: true, blendTime: fixedBlendTime, timeOffset: fixedTimeOffset);
         }
 
         public virtual void Enter()

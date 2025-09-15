@@ -81,13 +81,13 @@ namespace Saber.CharacterController
             SetWeight(weight);
         }
 
-        public override void Play(string anim, bool force, float blendTime, float exitTime, Action onFinished = null)
+        public override void Play(string anim, bool force, float blendTime, float timeOffset, Action onFinished = null)
         {
             if (!string.IsNullOrEmpty(anim))
             {
                 m_State = EState.WaitPlay;
                 m_CurAnim = anim;
-                base.Play(anim, force, blendTime, exitTime, onFinished);
+                base.Play(anim, force, blendTime, timeOffset, onFinished);
             }
         }
 

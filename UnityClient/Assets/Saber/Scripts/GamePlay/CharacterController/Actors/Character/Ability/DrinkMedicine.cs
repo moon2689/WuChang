@@ -25,7 +25,7 @@ namespace Saber.CharacterController
         public override void Enter()
         {
             base.Enter();
-            Actor.CAnim.Play("DrinkPotion", 1, exitTime: 0.98f, onFinished: Exit);
+            Actor.CAnim.Play("DrinkPotion", 1, onFinished: Exit);
             m_Breaked = false;
 
             Actor.MaxMoveSpeedV = EMoveSpeedV.Walk;

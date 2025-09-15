@@ -24,7 +24,11 @@ public class SkillConfigEditor : EditorBase
         }
 
         string strTitle = $"{item.m_ID}";
-        if (item.m_AnimStates.Length > 0)
+        if (!string.IsNullOrEmpty(item.m_SkillName))
+        {
+            strTitle += $" {item.m_SkillName}";
+        }
+        else if (item.m_AnimStates.Length > 0)
         {
             strTitle += $" {item.m_AnimStates[0].m_Name}";
         }
@@ -81,8 +85,7 @@ public class SkillConfigEditor : EditorBase
             }
 
             GUILayout.Space(10);
-            m_ListSelectedSkills[i] =
-                EditorGUILayout.Foldout(m_ListSelectedSkills[i], GetSKillItemTitle(item), m_FoldStyle);
+            m_ListSelectedSkills[i] = EditorGUILayout.Foldout(m_ListSelectedSkills[i], GetSKillItemTitle(item), m_FoldStyle);
             GUILayout.EndHorizontal();
 
             if (m_ListSelectedSkills[i])
@@ -99,6 +102,7 @@ public class SkillConfigEditor : EditorBase
             {
                 m_ID = m_SkillConfig.m_SkillItems.Length + 1,
                 m_AnimStates = new SkillAnimStateMachine[1],
+                m_ComboedAnimTimeOffset = 0,
                 CostStrength = 5,
                 m_SkillType = ESkillType.LightAttack,
                 m_TriggerCondition = ETriggerCondition.InGround,
@@ -121,6 +125,7 @@ public class SkillConfigEditor : EditorBase
     void DrawSkillItem(SkillItem item)
     {
         item.m_ID = EditorGUILayout.IntField("ID：", item.m_ID);
+        item.m_SkillName = EditorGUILayout.TextField("技能名：", item.m_SkillName);
 
         if (m_IsPlayer)
         {
@@ -182,6 +187,8 @@ public class SkillConfigEditor : EditorBase
         }
 
         GUILayout.EndVertical();
+
+        item.m_ComboedAnimTimeOffset = EditorGUILayout.FloatField("combo时动画的时间偏移:", item.m_ComboedAnimTimeOffset);
 
         // 连招
         GUILayout.BeginHorizontal();

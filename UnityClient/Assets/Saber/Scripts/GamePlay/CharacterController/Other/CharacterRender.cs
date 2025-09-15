@@ -156,7 +156,7 @@ namespace Saber.CharacterController
 
                 yield return null;
 
-                if (weight == 1)
+                if (weight >= 1)
                 {
                     break;
                 }

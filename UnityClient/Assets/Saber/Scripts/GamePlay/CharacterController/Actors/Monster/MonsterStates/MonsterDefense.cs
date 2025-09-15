@@ -23,7 +23,7 @@ namespace Saber.CharacterController
 
             m_TimerAlign = 0.1f;
 
-            Actor.CAnim.Play($"DefenseStart");
+            Actor.CAnim.Play("DefenseStart");
         }
 
         public override void OnStay()
@@ -41,7 +41,7 @@ namespace Saber.CharacterController
             if (m_CurState != EState.DefenseEnd)
             {
                 m_CurState = EState.DefenseEnd;
-                Actor.CAnim.Play($"DefenseEnd", exitTime: 0.9f, onFinished: Exit);
+                Actor.CAnim.Play("DefenseEnd", onFinished: Exit);
             }
         }
 

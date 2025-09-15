@@ -105,8 +105,7 @@ namespace Saber.CharacterController
             return AnimatorObj.HasState(layer, animName.GetAnimatorHash());
         }
 
-        public void Play(string anim, int layer = 0, bool force = false, float blendTime = 0.1f, float exitTime = 0.9f,
-            Action onFinished = null)
+        public void Play(string anim, int layer = 0, bool force = false, float blendTime = 0.1f, float timeOffset = 0, Action onFinished = null)
         {
             if (anim.IsEmpty() || layer < 0 || m_Layers == null)
             {
@@ -116,12 +115,11 @@ namespace Saber.CharacterController
 
             if (layer >= m_Layers.Length)
             {
-                Debug.LogError(
-                    $"Play anim {anim} failed, error:layer ({layer}) >= m_Layers.Length ({m_Layers.Length})");
+                Debug.LogError($"Play anim {anim} failed, error:layer ({layer}) >= m_Layers.Length ({m_Layers.Length})");
                 return;
             }
 
-            m_Layers[layer].Play(anim, force, blendTime, exitTime, onFinished);
+            m_Layers[layer].Play(anim, force, blendTime, timeOffset, onFinished);
 
             // if (Actor.IsPlayer)
             //     Debug.Log($"Play anim:{anim}");

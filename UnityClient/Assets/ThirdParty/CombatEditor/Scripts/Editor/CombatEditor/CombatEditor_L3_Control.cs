@@ -13,13 +13,13 @@ namespace CombatEditor
             var Height = Height_Top;
             L3SurfaceRect = new Rect(StartX, Height_Top, position.width - Width_Inspector - StartX,
                 position.height - Height_Top);
-            L3ViewRect = new Rect(StartX, Height, AnimFrameCount * FrameIntervalDistance,
+            L3ViewRect = new Rect(StartX, Height, m_AnimFrameCount * FrameIntervalDistance,
                 (AnimEventTracks.Count + 3) * LineHeight);
             MaxWidth = L3SurfaceRect.width > L3ViewRect.width ? L3SurfaceRect.width : L3ViewRect.width;
             Scroll_Track = GUI.BeginScrollView(L3SurfaceRect, Scroll_Track, L3ViewRect);
             Scroll_Fields = new Vector2(Scroll_Fields.x, Scroll_Track.y);
             AnimTrackRect = new Rect(L3TrackAvailableRect.x, L3TrackAvailableRect.y,
-                (AnimFrameCount) * FrameIntervalDistance, LineHeight);
+                (m_AnimFrameCount) * FrameIntervalDistance, LineHeight);
         }
 
         public void InitBeforePaintTrack()
@@ -76,7 +76,7 @@ namespace CombatEditor
 
         public void OnSetPointerOnTrack(int Frame)
         {
-            CurrentFrame = Frame;
+            m_CurrentFrame = Frame;
         }
 
         public void OnPreviewCheckResetNeeded()
@@ -92,7 +92,7 @@ namespace CombatEditor
         {
             //Stop preview from playing.
             ResetPlayStates();
-            OnPreviewAnimationAtFrame(CurrentFrame);
+            OnPreviewAnimationAtFrame(m_CurrentFrame);
         }
 
         public void OnDragEventTimePoint()

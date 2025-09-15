@@ -35,7 +35,9 @@ namespace Saber.CharacterController
     public class SkillItem
     {
         public int m_ID;
+        public string m_SkillName;
         public SkillAnimStateMachine[] m_AnimStates;
+        public float m_ComboedAnimTimeOffset;
 
         public float CostStrength = 5;
         public int m_CostPower;

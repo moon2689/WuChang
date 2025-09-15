@@ -372,7 +372,10 @@ namespace Saber.AI
             if (m_PressDefense)
             {
                 if (Actor.CurrentStateType != EStateType.Defense)
+                {
                     Actor.DefenseStart();
+                    ClearAheadInput();
+                }
             }
             else
             {
@@ -520,13 +523,9 @@ namespace Saber.AI
             {
                 moveSpeedV = EMoveSpeedV.None;
             }
-            else if (m_Sprint && m_StickLength > 0.9f)
-            {
-                moveSpeedV = EMoveSpeedV.Sprint;
-            }
             else if (m_StickLength > 0.5f)
             {
-                moveSpeedV = EMoveSpeedV.Run;
+                moveSpeedV = m_Sprint ? EMoveSpeedV.Sprint : EMoveSpeedV.Run;
             }
             else if (m_StickLength > 0.1f)
             {
@@ -571,9 +570,9 @@ namespace Saber.AI
             {
                 m_Sprint = true;
                 m_PressDodgeDownTime = Time.time;
-                
+
                 ClearAheadInput();
-                
+
                 if (Actor.CStats.CurrentStamina <= 0)
                 {
                     GameApp.Entry.UI.ShowTips("体力不足");

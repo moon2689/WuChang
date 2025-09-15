@@ -308,7 +308,7 @@ namespace CombatEditor
         public void HardResetPreviewToCurrentFrame()
         {
             OnHardResetPreviewObj();
-            OnPreviewAnimationAtFrame(CurrentFrame);
+            OnPreviewAnimationAtFrame(m_CurrentFrame);
             SceneView.RepaintAll();
         }
 
