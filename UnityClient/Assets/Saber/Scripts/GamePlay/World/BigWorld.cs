@@ -101,9 +101,9 @@ namespace Saber.World
             }
             else if (loadType == ELoadType.ToLastIdol)
             {
-                int sceneID = GameProgressManager.Instance.LastStayingSceneID;
+                int sceneID = GameApp.Entry.Game.ProgressMgr.LastStayingSceneID;
                 m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
-                m_TransmittingIdolID = GameProgressManager.Instance.LastStayingIdolID;
+                m_TransmittingIdolID = GameApp.Entry.Game.ProgressMgr.LastStayingIdolID;
             }
             else
             {
@@ -439,7 +439,8 @@ namespace Saber.World
         {
             int enemyID = id > 0 ? id : bornPoint.m_ID;
 
-            EAIType aiType = GameApp.Entry.Config.TestGame.TestSkill ? EAIType.TestSkill : bornPoint.m_AIType;
+            EAIType aiType = GameApp.Entry.Config.TestGame.EnemyAI != EAIType.None ?
+                GameApp.Entry.Config.TestGame.EnemyAI : bornPoint.m_AIType;
             EnemyAIBase ai = aiType.CreateEnemyAI();
             var camp = EActorCamp.Monster;
             Vector3 pos = bornPoint.GetFixedBornPos(out var rot);
@@ -516,10 +517,10 @@ namespace Saber.World
                 GameObject.DontDestroyOnLoad(m_Player.gameObject);
                 yield return null;
                 /*
-                if (GameProgressManager.Instance.Clothes != null &&
-                    GameProgressManager.Instance.Clothes.Length > 0)
+                if (GameApp.Entry.Game.ProgressMgr.Clothes != null &&
+                    GameApp.Entry.Game.ProgressMgr.Clothes.Length > 0)
                 {
-                    m_Player.CDressUp.DressClothes(GameProgressManager.Instance.Clothes);
+                    m_Player.CDressUp.DressClothes(GameApp.Entry.Game.ProgressMgr.Clothes);
                 }
                 else
                 {
@@ -600,11 +601,11 @@ namespace Saber.World
 
         Coroutine BackToLastIdol()
         {
-            if (GameProgressManager.Instance.HasSavePointBefore)
+            if (GameApp.Entry.Game.ProgressMgr.HasSavePointBefore)
             {
-                int sceneID = GameProgressManager.Instance.LastStayingSceneID;
+                int sceneID = GameApp.Entry.Game.ProgressMgr.LastStayingSceneID;
                 m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
-                m_TransmittingIdolID = GameProgressManager.Instance.LastStayingIdolID;
+                m_TransmittingIdolID = GameApp.Entry.Game.ProgressMgr.LastStayingIdolID;
                 return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToLastIdol, null));
             }
             else
@@ -656,7 +657,6 @@ namespace Saber.World
 
         public void Update(float deltaTime)
         {
-            
         }
 
 
@@ -707,7 +707,7 @@ namespace Saber.World
 
         Coroutine BackToNerestIdol()
         {
-            if (GameProgressManager.Instance.HasSavePointBefore)
+            if (GameApp.Entry.Game.ProgressMgr.HasSavePointBefore)
             {
                 m_TransmittingIdolID = -1;
                 if (m_SceneInfo != null)
@@ -837,6 +837,7 @@ namespace Saber.World
         void Wnd_DressUp.IHandler.OnCloseWnd()
         {
             m_WndRest.ActiveRoot = true;
+            GameApp.Entry.Game.ProgressMgr.OnDressClothes();
         }
 
         #endregion
@@ -886,7 +887,7 @@ namespace Saber.World
 
             OnPlayerExit(m_CurrentStayingIdol);
 
-            GameProgressManager.Instance.OnGodStatueRest(sceneID, idolID);
+            GameApp.Entry.Game.ProgressMgr.OnGodStatueRest(sceneID, idolID);
 
             /*
             bool wait = true;
@@ -989,7 +990,7 @@ namespace Saber.World
 
             GameApp.Entry.Game.PlayerAI.ActiveIdol(idol, () =>
             {
-                GameProgressManager.Instance.OnIdolFire(idol.SceneID, idol.ID);
+                GameApp.Entry.Game.ProgressMgr.OnIdolFire(idol.SceneID, idol.ID);
                 idol.RefreshFire();
             });
         }
@@ -1011,7 +1012,7 @@ namespace Saber.World
             }
 
             GameApp.Entry.Game.World.SetFilmEffect(true);
-            GameProgressManager.Instance.OnGodStatueRest(idol.SceneID, idol.ID);
+            GameApp.Entry.Game.ProgressMgr.OnGodStatueRest(idol.SceneID, idol.ID);
 
             m_WndRest = null;
             yield return GameApp.Entry.UI.CreateWnd<Wnd_Rest>(null, this, w => m_WndRest = w);

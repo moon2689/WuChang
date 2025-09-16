@@ -43,6 +43,8 @@ namespace Saber.CharacterController
         Claw, //爪
 
         Sword, //剑
+        YueYaChan, //月牙铲
+        MiaoDao, //苗刀
 
         // GreatSword, //大剑
         // Axe, //斧

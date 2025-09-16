@@ -54,7 +54,7 @@ namespace Saber.UI
         void InitStatueTransmit()
         {
             int count = 0;
-            foreach (var s in GameProgressManager.Instance.SceneProgressDatas)
+            foreach (var s in GameApp.Entry.Game.ProgressMgr.SceneProgressDatas)
             {
                 var sceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(s.m_SceneID);
                 foreach (var statueID in s.m_FiredIdols)

@@ -80,9 +80,9 @@ namespace Saber.AI
 
         void AddComboSkills(SkillItem skillItem)
         {
-            if (skillItem.m_ChainSkillIDs.Length > 0)
+            if (skillItem.m_ChainSkills.Length > 0)
             {
-                SkillItem chainSkill = Actor.CMelee.SkillConfig.GetSkillItemByID(skillItem.m_ChainSkillIDs[0]);
+                SkillItem chainSkill = Actor.CMelee.SkillConfig.GetSkillItemByID(skillItem.m_ChainSkills[0].m_SkillID);
                 m_CurSkill.Add(chainSkill);
                 AddComboSkills(chainSkill);
             }

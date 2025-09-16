@@ -146,9 +146,10 @@ namespace Saber.CharacterController
             bool maybeCombo = CurSkill != null && CurSkill.IsTriggering && CurSkill.InComboTime;
             if (maybeCombo)
             {
-                if (CurSkill.SkillConfig.m_ChainSkillIDs.Contains(skillItem.m_ID) && skillObj.CanEnter)
+                var chainSkillConfig = CurSkill.SkillConfig.m_ChainSkills.FirstOrDefault(a => a.m_SkillID == skillItem.m_ID);
+                if (chainSkillConfig != null && skillObj.CanEnter)
                 {
-                    ForceTriggerSkill(skillObj, true);
+                    ForceTriggerSkill(skillObj, chainSkillConfig.m_BlendTime);
                     return true;
                 }
             }
@@ -158,7 +159,7 @@ namespace Saber.CharacterController
             {
                 if (skillItem.m_FirstSkillOfCombo && skillObj.CanEnter && CanSwitchToSpecialSkill(skillItem))
                 {
-                    ForceTriggerSkill(skillObj, false);
+                    ForceTriggerSkill(skillObj);
                     return true;
                 }
             }
@@ -166,7 +167,7 @@ namespace Saber.CharacterController
             return false;
         }
 
-        void ForceTriggerSkill(BaseSkill tarSkill, bool comboed)
+        void ForceTriggerSkill(BaseSkill tarSkill, float blendTime = 0.1f)
         {
             SkillState skillState = Actor.CStateMachine.GetState<SkillState>(EStateType.Skill);
             if (skillState.IsTriggering)
@@ -175,7 +176,7 @@ namespace Saber.CharacterController
             }
 
             CurSkill = tarSkill;
-            CurSkill.IsComboed = comboed;
+            CurSkill.BlendTime = blendTime;
             Actor.CStateMachine.ForceEnterState(skillState);
         }
 
@@ -200,7 +201,7 @@ namespace Saber.CharacterController
                 if (target != null)
                 {
                     m_SkillExecute.Target = target;
-                    ForceTriggerSkill(m_SkillExecute, false);
+                    ForceTriggerSkill(m_SkillExecute);
                     return true;
                 }
             }
@@ -209,12 +210,12 @@ namespace Saber.CharacterController
             bool canCombo = CurSkill != null && CurSkill.IsTriggering && CurSkill.InComboTime;
             if (canCombo)
             {
-                foreach (var chainSkillID in CurSkill.SkillConfig.m_ChainSkillIDs)
+                foreach (var item in CurSkill.SkillConfig.m_ChainSkills)
                 {
-                    var chainSkill = m_DicSkills[chainSkillID];
+                    var chainSkill = m_DicSkills[item.m_SkillID];
                     if (chainSkill.SkillConfig.m_SkillType == type && chainSkill.CanEnter)
                     {
-                        ForceTriggerSkill(chainSkill, true);
+                        ForceTriggerSkill(chainSkill, item.m_BlendTime);
                         return true;
                     }
                 }
@@ -229,7 +230,7 @@ namespace Saber.CharacterController
                     skill.CanEnter &&
                     CanSwitchToSpecialSkill(skillItem))
                 {
-                    ForceTriggerSkill(skill, false);
+                    ForceTriggerSkill(skill);
                     return true;
                 }
             }
@@ -261,7 +262,7 @@ namespace Saber.CharacterController
             bool maybeCombo = CurSkill != null && CurSkill.IsTriggering && !CurSkill.ComboTimePassed;
             if (maybeCombo)
             {
-                foreach (var chainSkillID in CurSkill.SkillConfig.m_ChainSkillIDs)
+                foreach (var chainSkillID in CurSkill.SkillConfig.m_ChainSkills)
                 {
                     var chainSkill = m_DicSkills[chainSkillID];
                     if (chainSkill.SkillConfig.m_SkillType == type)

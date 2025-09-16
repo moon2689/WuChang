@@ -37,7 +37,6 @@ namespace Saber.CharacterController
         public int m_ID;
         public string m_SkillName;
         public SkillAnimStateMachine[] m_AnimStates;
-        public float m_ComboedAnimTimeOffset;
 
         public float CostStrength = 5;
         public int m_CostPower;
@@ -48,10 +47,10 @@ namespace Saber.CharacterController
         public bool UseGravityWhenInAir;
 
         public bool m_FirstSkillOfCombo;
-        public int[] m_ChainSkillIDs;
+        public ChainSkill[] m_ChainSkills;
 
         public EResilience m_Resilience = EResilience.Level1;
-        
+
         public RangedFloat m_AIPramAttackDistance;
         public int m_GroupID;
         public EAITriggerSkillCondition m_AITriggerCondition;
@@ -62,6 +61,13 @@ namespace Saber.CharacterController
         {
             return distance >= m_AIPramAttackDistance.minValue && distance <= m_AIPramAttackDistance.maxValue;
         }
+    }
+
+    [Serializable]
+    public class ChainSkill
+    {
+        public int m_SkillID;
+        public float m_BlendTime = 0.1f;
     }
 
     [Serializable]

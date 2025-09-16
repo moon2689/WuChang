@@ -478,6 +478,28 @@ public static class WuChangTools
         return list;
     }
 
+    [MenuItem("Saber/WUCH/Print UE Material Content")]
+    static void PrintUEMaterialContent()
+    {
+        List<string> listMaterial = GetSelectedAssets<Material>("*.mat");
+
+        string[] allJsonFiles = Directory.GetFiles(UEProjectFolder + "/Project_Plague/Content", "*.json", SearchOption.AllDirectories);
+        Dictionary<string, string> dicAllJsonFiles = new();
+        foreach (var jsonFile in allJsonFiles)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(jsonFile);
+            dicAllJsonFiles[fileName] = jsonFile;
+        }
+
+        foreach (var m in listMaterial)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(m);
+            string jsonFile = dicAllJsonFiles[fileName];
+            Debug.Log($"Json: {fileName} {jsonFile},Content:");
+            Debug.Log($"{File.ReadAllText(jsonFile)}");
+        }
+    }
+
 
     [MenuItem("Saber/WUCH/Import material images from ue")]
     static void ImportAllMaterialImageFromUE()
@@ -730,7 +752,7 @@ public static class WuChangTools
     }
 
 
-    [MenuItem("Saber/WUCH/WEPMaterialUseSaberShader")]
+    [MenuItem("Saber/WUCH/Scene/WEPMaterialUseSaberShader")]
     static void WEPMaterialUseSaberShader()
     {
         List<string> materials = GetSelectedAssets<Material>("*.mat");
@@ -757,7 +779,7 @@ public static class WuChangTools
         Debug.Log("All done");
     }
 
-    [MenuItem("Saber/WUCH/Revert_WEPMaterialUseSaberShader")]
+    [MenuItem("Saber/WUCH/Scene/Revert_WEPMaterialUseSaberShader")]
     static void Revert_WEPMaterialUseSaberShader()
     {
         List<string> materials = GetSelectedAssets<Material>("*.mat");

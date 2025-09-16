@@ -9,9 +9,6 @@ namespace Saber
 {
     public class GameProgressManager
     {
-        private static GameProgressManager s_Instance;
-        public static GameProgressManager Instance => s_Instance ??= new();
-
         private GameProgressData m_ProgressData;
 
         private string SavePath => $"{Application.persistentDataPath}/SaberProgress.json";
@@ -20,17 +17,13 @@ namespace Saber
         public int LastStayingIdolID => m_ProgressData.m_lastStayingIdolID;
 
         public List<SceneProgressData> SceneProgressDatas => m_ProgressData.m_SceneProgress;
-        //public int[] Clothes => m_ProgressData.m_Clothes;
-
-
-        private GameProgressManager()
-        {
-        }
+        public int[] Clothes => m_ProgressData.m_Clothes;
+        
+        
 
         public void Save()
         {
             // Debug.Log($"Save progress file:{SavePath}");
-            //m_ProgressData.m_Clothes = GameApp.Entry.Game.Player.CDressUp.GetDressingClothes();
             string json = JsonUtility.ToJson(m_ProgressData);
             File.WriteAllText(SavePath, json);
         }
@@ -50,6 +43,7 @@ namespace Saber
                     m_SceneProgress = new(),
                     m_lastStayingIdolID = -1,
                     m_LastStayingSceneID = -1,
+                    m_Clothes = GameApp.Entry.Config.GameSetting.PlayerStartClothes,
                 };
             }
         }
@@ -99,6 +93,12 @@ namespace Saber
         {
             m_ProgressData.m_LastStayingSceneID = sceneID;
             m_ProgressData.m_lastStayingIdolID = idolID;
+            Save();
+        }
+
+        public void OnDressClothes()
+        {
+            m_ProgressData.m_Clothes = GameApp.Entry.Game.Player.CDressUp.GetDressingClothes();
             Save();
         }
     }

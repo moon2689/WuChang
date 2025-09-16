@@ -44,15 +44,15 @@ namespace Saber.Director
             RootUI.Instance.HideBackground();
 
             // 进度
-            GameProgressManager.Instance.Read();
+            GameApp.Entry.Game.ProgressMgr.Read();
             yield return null;
 
-            wndLogin.EnableContinueGameButton = GameProgressManager.Instance.HasSavePointBefore;
+            wndLogin.EnableContinueGameButton = GameApp.Entry.Game.ProgressMgr.HasSavePointBefore;
         }
 
         void Wnd_Login.IHandler.NewGame()
         {
-            GameProgressManager.Instance.Clear();
+            GameApp.Entry.Game.ProgressMgr.Clear();
             m_NextDirector = new DirectorWorld(EStartGameType.NewGame);
         }
 

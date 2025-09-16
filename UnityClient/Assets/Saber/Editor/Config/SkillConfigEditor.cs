@@ -37,11 +37,11 @@ public class SkillConfigEditor : EditorBase
             strTitle += $" {item.m_SkillType}";
         }
 
-        if (item.m_ChainSkillIDs.Length > 0)
+        if (item.m_ChainSkills.Length > 0)
         {
             strTitle += " (->";
-            foreach (var chainSkillID in item.m_ChainSkillIDs)
-                strTitle += $"{chainSkillID}/";
+            foreach (var chainSkillID in item.m_ChainSkills)
+                strTitle += $"{chainSkillID.m_SkillID}/";
             strTitle = strTitle.TrimEnd('/');
             strTitle += ")";
         }
@@ -102,13 +102,12 @@ public class SkillConfigEditor : EditorBase
             {
                 m_ID = m_SkillConfig.m_SkillItems.Length + 1,
                 m_AnimStates = new SkillAnimStateMachine[1],
-                m_ComboedAnimTimeOffset = 0,
                 CostStrength = 5,
                 m_SkillType = ESkillType.LightAttack,
                 m_TriggerCondition = ETriggerCondition.InGround,
                 UseGravityWhenInAir = false,
                 m_FirstSkillOfCombo = false,
-                m_ChainSkillIDs = new int[0],
+                m_ChainSkills = new ChainSkill[0],
                 m_AIPramAttackDistance = new RangedFloat(0f, 2f),
             };
             skillItem.m_AnimStates[0] = new SkillAnimStateMachine()
@@ -188,33 +187,39 @@ public class SkillConfigEditor : EditorBase
 
         GUILayout.EndVertical();
 
-        item.m_ComboedAnimTimeOffset = EditorGUILayout.FloatField("combo时动画的时间偏移:", item.m_ComboedAnimTimeOffset);
-
         // 连招
         GUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField($"连招技能ID({item.m_ChainSkillIDs.Length})：", GUILayout.Width(100));
+        EditorGUILayout.LabelField($"连招技能ID({item.m_ChainSkills.Length})：", GUILayout.Width(100));
         if (GUILayout.Button("+", GUILayout.Width(20)))
         {
-            item.m_ChainSkillIDs = AddElement(item.m_ChainSkillIDs, 0);
+            item.m_ChainSkills = AddElement(item.m_ChainSkills, new ChainSkill() { m_SkillID = 0, m_BlendTime = 0.1f });
         }
 
         GUILayout.EndHorizontal();
 
-        if (item.m_ChainSkillIDs.Length > 0)
+        if (item.m_ChainSkills.Length > 0)
         {
             GUILayout.BeginVertical(m_SubGroupStyle);
-            for (int i = 0; i < item.m_ChainSkillIDs.Length; i++)
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Space(80);
+            GUILayout.Label("id", GUILayout.Width(40));
+            GUILayout.Label("blend", GUILayout.Width(40));
+            GUILayout.EndVertical();
+
+            for (int i = 0; i < item.m_ChainSkills.Length; i++)
             {
                 GUILayout.BeginHorizontal();
-                GUILayout.Space(80);
+                GUILayout.Space(20);
                 if (GUILayout.Button("-", GUILayout.Width(20)))
                 {
-                    item.m_ChainSkillIDs = RemoveElementByIndex(item.m_ChainSkillIDs, i);
+                    item.m_ChainSkills = RemoveElementByIndex(item.m_ChainSkills, i);
                     continue;
                 }
 
                 GUILayout.Label($"{i}:", GUILayout.Width(30));
-                item.m_ChainSkillIDs[i] = EditorGUILayout.IntField(item.m_ChainSkillIDs[i], GUILayout.Width(100));
+                item.m_ChainSkills[i].m_SkillID = EditorGUILayout.IntField(item.m_ChainSkills[i].m_SkillID, GUILayout.Width(40));
+                item.m_ChainSkills[i].m_BlendTime = EditorGUILayout.FloatField(item.m_ChainSkills[i].m_BlendTime, GUILayout.Width(40));
                 GUILayout.EndHorizontal();
             }
 

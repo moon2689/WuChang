@@ -41,9 +41,8 @@ namespace Saber.CharacterController
             m_PerfectDodged = true;
             //m_Character.CRender.ShowOneChaShadow(0.5f);
             var setting = GameApp.Entry.Config.GameSetting;
-            Character.CRender.ShowManyChaShadow(setting.PerfectDodgeShaEffCount,
-                setting.PerfectDodgeShaInterval, setting.PerfectDodgeShaHoldTime);
-            GameApp.Entry.Game.Audio.Play3DSound("Sound/Skill/PerfectDodge", Actor.transform.position);
+            Character.CRender.ShowManyChaShadow(setting.PerfectDodgeShaEffCount, setting.PerfectDodgeShaInterval, setting.PerfectDodgeShaHoldTime);
+            //GameApp.Entry.Game.Audio.Play3DSound("Sound/Skill/PerfectDodge", Actor.transform.position);
 
             Actor.CStats.AddPower(1);
         }

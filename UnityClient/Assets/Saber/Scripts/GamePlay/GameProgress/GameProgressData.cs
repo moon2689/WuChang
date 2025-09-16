@@ -10,7 +10,7 @@ namespace Saber
         public List<SceneProgressData> m_SceneProgress;
         public int m_LastStayingSceneID;
         [FormerlySerializedAs("m_lastStayingGodStateIndex")] public int m_lastStayingIdolID;
-        //public int[] m_Clothes;
+        public int[] m_Clothes;
     }
 
     [Serializable]

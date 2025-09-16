@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
-  m_Name: SFX2
+  m_Name: SFXVoice
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: a7e7ebdf14df62645aa484791ed06601, type: 3}
+  - {fileID: 8300000, guid: a45bd77c64090df48be83a5df18f7316, type: 3}
   m_Volume: 1
 --- !u!114 &-7520908954871964161
 MonoBehaviour:
@@ -46,7 +46,7 @@ MonoBehaviour:
     m_WeaponBone: 24
     m_DamageValue: 5
     m_ImpactForce: 2
-    m_HitRecover: 2
+    m_HitRecover: 5
     m_ForceWhenGround: {x: 0, y: 0}
 --- !u!114 &-6237534702805161801
 MonoBehaviour:
@@ -169,7 +169,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -5388176379663999569}
   - EventTime: 0
-    EventRange: {x: 0.82228917, y: 0.83433735}
+    EventRange: {x: 0.7981928, y: 0.80421686}
     EventMultiRange:
     - 0.2
     - 0.4

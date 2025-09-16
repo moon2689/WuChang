@@ -10,6 +10,9 @@ namespace Saber.Frame
 {
     public class ScriptEntryGame
     {
+        private static GameProgressManager s_InstanceGameProgressManager;
+
+
         // public Root3D Root3D => Root3D.Instance;
         public PlayerCamera PlayerCamera => PlayerCamera.Instance;
 
@@ -23,6 +26,7 @@ namespace Saber.Frame
 
         public BigWorld World { get; set; }
         public SActor Player => World?.Player;
+        public GameProgressManager ProgressMgr => s_InstanceGameProgressManager ??= new GameProgressManager();
 
 
         public void ExitGame()

@@ -316,12 +316,12 @@ namespace Saber.AI
                 }
                 else if (Actor.CurrentStateType == EStateType.Skill)
                 {
-                    if (Actor.CurrentSkill.SkillConfig.m_ChainSkillIDs.Length > 0 && Actor.CurrentSkill.InComboTime)
+                    if (Actor.CurrentSkill.SkillConfig.m_ChainSkills.Length > 0 && Actor.CurrentSkill.InComboTime)
                     {
                         m_ListSkills.Clear();
-                        foreach (var chainID in Actor.CurrentSkill.SkillConfig.m_ChainSkillIDs)
+                        foreach (var item in Actor.CurrentSkill.SkillConfig.m_ChainSkills)
                         {
-                            SkillItem skillConfig = Actor.CMelee.SkillConfig.GetSkillItemByID(chainID);
+                            SkillItem skillConfig = Actor.CMelee.SkillConfig.GetSkillItemByID(item.m_SkillID);
                             if (m_DistanceToEnemy < skillConfig.m_AIPramAttackDistance.maxValue)
                                 m_ListSkills.Add(skillConfig);
                         }

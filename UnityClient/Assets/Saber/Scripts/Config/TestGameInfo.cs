@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Saber.AI;
 using UnityEngine;
 using Saber.Frame;
 using UnityEngine.Serialization;
@@ -11,7 +12,7 @@ namespace Saber.Config
     {
         public bool DebugFPS;
         public bool DebugFight;
-        public bool TestSkill;
+        public EAIType EnemyAI;
         public int[] TestingSkillID;
     }
 }

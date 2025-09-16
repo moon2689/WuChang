@@ -11,6 +11,7 @@ namespace Saber.Config
         public float ShadowDistance = 50;
 
         public int PlayerID = 1;
+        public int[] PlayerStartClothes;
         public int StartSceneID = 1;
 
         [Header("Player")] public float DodgeCostStamina = 20;
@@ -32,16 +33,6 @@ namespace Saber.Config
         public GameObject[] m_EffectSharpWeaponHitBody;
         public GameObject[] m_EffectFistHitBody;
         public GameObject[] m_EffectClawHitBody;
-
-        public bool m_ShakeCameraOnHurt;
-        public float m_ShakeCameraDurationOnHurt = 0.2f;
-        public float m_ShakeCameraAmountOnHurt = 1f;
-        public float m_ShakeCameraSpeedOnHurt = 3f;
-
-        public bool m_ShakeCameraHitOther;
-        public float m_ShakeCameraDuratiHitOther = 0.1f;
-        public float m_ShakeCameraAmountHitOther = 0.3f;
-        public float m_ShakeCameraSpeedHitOther = 3f;
 
         public AudioClip GetRandomSound_SwordHitSword()
         {

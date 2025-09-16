@@ -13,6 +13,22 @@ MonoBehaviour:
   m_Name: ComboTime
   m_EditorClassIdentifier: 
   IsActive: 1
+--- !u!114 &-7348366523158276051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFXVoice
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 87f030455d2d40a4698357c7ff32b687, type: 3}
+  m_Volume: 1
 --- !u!114 &-6974220687102563831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +143,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 4994669248576957424}
   - EventTime: 0
-    EventRange: {x: 0.6629423, y: 0.6703911}
+    EventRange: {x: 0.6331471, y: 0.6368715}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -135,6 +151,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -7931595816993816095}
+  - EventTime: 0.011173184
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -7348366523158276051}
 --- !u!114 &3916167865440424638
 MonoBehaviour:
   m_ObjectHideFlags: 0

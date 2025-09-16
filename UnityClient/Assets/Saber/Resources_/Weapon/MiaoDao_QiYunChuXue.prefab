@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31f3ad334d7ce154e88bae3fe4abdcea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_WeaponType: 3
+  m_WeaponType: 5
   m_WeaponTrails:
   - {fileID: 283841385127477590}
   m_PosStart: {fileID: 6484838340881086570}

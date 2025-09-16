@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078f86e5c1fc484f80e9eb585c1d684e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_WeaponType: 3
+  m_WeaponType: 4
   m_WeaponTrails: []
   m_PosStart: {fileID: 2745496709788906179}
   m_PosEnd: {fileID: 5452846328833726978}
@@ -2049,7 +2049,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BaseActorInfo:
     m_StatsInfo:
-      m_MaxHp: 300
+      m_MaxHp: 500
       m_DefaultHpRecSpeed: 0
       m_MaxStamina: 100
       m_MaxPower: 3
@@ -2081,7 +2081,7 @@ MonoBehaviour:
         m_ArmBoneType: 24
         m_ArmPos: {x: 0, y: 0, z: 0}
         m_ArmRot: {x: 0, y: 0, z: 0}
-      m_WeaponObj: {fileID: 0}
+      m_WeaponObj: {fileID: 2468409911873757604}
     m_AIInfo:
       m_WarningRange: 30
     m_Nodes:

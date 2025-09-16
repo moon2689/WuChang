@@ -133,9 +133,7 @@ namespace Saber.CharacterController
         public virtual bool IsQuiet => false;
 
         public bool IsPowerEnough { get; private set; }
-
-        /// <summary>是从别的技能连招过来的</summary>
-        public bool IsComboed { get; set; }
+        public float BlendTime { get; set; } = 0.1f;
 
 
         public BaseSkill(SActor actor, SkillItem skillConfig)
@@ -147,10 +145,7 @@ namespace Saber.CharacterController
         protected virtual void PlayAnimOnEnter(string firstAnim, string endAnim)
         {
             m_LastAnimHash = endAnim.GetAnimatorHash();
-
-            float fixedTimeOffset = IsComboed ? SkillConfig.m_ComboedAnimTimeOffset : 0;
-            float fixedBlendTime = IsComboed ? 1 : 0.3f;
-            Actor.CAnim.Play(firstAnim, force: true, blendTime: fixedBlendTime, timeOffset: fixedTimeOffset);
+            Actor.CAnim.Play(firstAnim, force: true, blendTime: BlendTime);
         }
 
         public virtual void Enter()

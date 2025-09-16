@@ -236,15 +236,8 @@ namespace Saber.CharacterController
             GameObject prefabHit = null;
             bool showBlood = false;
 
-            if (curDmgInfo.DamagingWeaponType == EWeaponType.Boxing)
-            {
-                prefabHit = GameApp.Entry.Config.GameSetting.GetRandomEffectPrefab_FistHitBody();
-            }
-            else if (curDmgInfo.DamagingWeaponType == EWeaponType.Claw)
-            {
-                prefabHit = GameApp.Entry.Config.GameSetting.GetRandomEffectPrefab_ClawHitBody();
-            }
-            else if (curDmgInfo.DamagingWeaponType == EWeaponType.Sword)
+            if (curDmgInfo.DamagingWeaponType == EWeaponType.MiaoDao ||
+                curDmgInfo.DamagingWeaponType == EWeaponType.YueYaChan)
             {
                 prefabHit = GameApp.Entry.Config.GameSetting.GetRandomEffectPrefab_SharpWeaponHitBody();
                 showBlood = true;
@@ -276,6 +269,7 @@ namespace Saber.CharacterController
                 GameApp.Entry.Game.Effect.CreateEffect(prefabBlood, null, curDmgInfo.DamagePosition, rot, 30f);
             }
 
+            /*
             // shake camera
             if (actor.IsPlayer && GameApp.Entry.Config.GameSetting.m_ShakeCameraHitOther)
             {
@@ -291,35 +285,21 @@ namespace Saber.CharacterController
                 float speed = GameApp.Entry.Config.GameSetting.m_ShakeCameraSpeedOnHurt;
                 GameApp.Entry.Game.PlayerCamera.ShakeCamera(duration, amount, speed);
             }
+            */
         }
 
         static void PlayHitSound(SActor actor, bool block, HurtBox hurtBox, DamageInfo curDmgInfo)
         {
             EWeaponType weaponType = curDmgInfo.DamagingWeaponType;
 
-            AudioClip sound = null;
+            AudioClip sound;
             if (block)
             {
                 sound = GameApp.Entry.Config.GameSetting.GetRandomSound_SwordHitSword();
             }
             else
             {
-                if (weaponType == EWeaponType.Boxing)
-                {
-                    sound = GameApp.Entry.Config.GameSetting.GetRandomSound_FistHitBody();
-                }
-                else if (weaponType == EWeaponType.Claw)
-                {
-                    sound = GameApp.Entry.Config.GameSetting.GetRandomSound_ClawHitBody();
-                }
-                else if (weaponType == EWeaponType.Sword)
-                {
-                    sound = GameApp.Entry.Config.GameSetting.GetRandomSound_SharpWeaponHitBody();
-                }
-                else
-                {
-                    Debug.LogError("Play sound, unknown weapon:" + actor.CurrentWeaponStyle);
-                }
+                sound = GameApp.Entry.Config.SkillCommon.GetRandomHitBodySound(weaponType);
             }
 
             if (sound != null)

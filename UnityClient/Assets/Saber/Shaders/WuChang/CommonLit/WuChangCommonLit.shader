@@ -115,8 +115,8 @@ Shader "Saber/WuChang/WuChang Common Lit"
             #pragma instancing_options renderinglayer
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
 
-            #include "WuChangCommonLitInput.hlsl"
-            #include "WuChangCommonLitForwardPass.hlsl"
+            #include "CommonLitInput.hlsl"
+            #include "CommonLitForwardPass.hlsl"
             ENDHLSL
         }
 

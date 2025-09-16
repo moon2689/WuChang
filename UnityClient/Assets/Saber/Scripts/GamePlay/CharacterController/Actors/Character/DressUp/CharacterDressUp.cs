@@ -17,7 +17,6 @@ namespace Saber.CharacterController
         {
             public bool m_Enable;
             public int[] m_DefaultClothes; //一般指内衣，和默认头发
-            public int[] m_StartClothes; //初始服饰
             public SkinnedMeshRenderer[] m_DefaultSMR;
         }
 
@@ -47,20 +46,18 @@ namespace Saber.CharacterController
                     smr.gameObject.SetActive(false);
                 }
 
-                LoadDefaultClothes();
-                DressStartClothes();
-            }
-        }
-
-        private void LoadDefaultClothes()
-        {
-            if (m_ClothInfo.m_DefaultClothes != null)
-            {
-                foreach (var id in m_ClothInfo.m_DefaultClothes)
+                // Load default clothes
+                if (m_ClothInfo.m_DefaultClothes != null)
                 {
-                    var clothInfo = GameApp.Entry.Config.ClothInfo.GetClothByID(id);
-                    LoadClothGameObject(clothInfo, obj => m_DicDefaultClothes[clothInfo.m_ClothType] = obj);
+                    foreach (var id in m_ClothInfo.m_DefaultClothes)
+                    {
+                        var clothInfo = GameApp.Entry.Config.ClothInfo.GetClothByID(id);
+                        LoadClothGameObject(clothInfo, obj => m_DicDefaultClothes[clothInfo.m_ClothType] = obj);
+                    }
                 }
+
+                // Dress current clothes
+                DressClothes(GameApp.Entry.Game.ProgressMgr.Clothes);
             }
         }
 
@@ -71,19 +68,6 @@ namespace Saber.CharacterController
             {
                 bool isDressing = m_DressingClothes.Any(a => a.m_ClothType == pair.Key);
                 pair.Value.SetActive(!isDressing);
-            }
-        }
-
-        public void DressStartClothes()
-        {
-            if (!Enable)
-            {
-                return;
-            }
-
-            foreach (var id in m_ClothInfo.m_StartClothes)
-            {
-                DressCloth(id);
             }
         }
 
@@ -376,6 +360,17 @@ namespace Saber.CharacterController
             }
 
             return false;
+        }
+
+        public int[] GetDressingClothes()
+        {
+            int[] clothes = new int[m_DressingClothes.Count];
+            for (int i = 0; i < m_DressingClothes.Count; i++)
+            {
+                clothes[i] = m_DressingClothes[i].m_ID;
+            }
+
+            return clothes;
         }
     }
 }

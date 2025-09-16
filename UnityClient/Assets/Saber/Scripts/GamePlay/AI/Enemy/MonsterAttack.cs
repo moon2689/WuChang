@@ -95,10 +95,10 @@ namespace Saber.AI
                         currentSkill != null &&
                         currentSkill.IsTriggering &&
                         currentSkill.InComboTime &&
-                        currentSkill.SkillConfig.m_ChainSkillIDs.Length > 0)
+                        currentSkill.SkillConfig.m_ChainSkills.Length > 0)
                     {
-                        int randomIndex = UnityEngine.Random.Range(0, currentSkill.SkillConfig.m_ChainSkillIDs.Length);
-                        int tarSkillItemID = currentSkill.SkillConfig.m_ChainSkillIDs[randomIndex];
+                        int randomIndex = UnityEngine.Random.Range(0, currentSkill.SkillConfig.m_ChainSkills.Length);
+                        int tarSkillItemID = currentSkill.SkillConfig.m_ChainSkills[randomIndex].m_SkillID;
                         SkillItem tarSkillItem = Actor.CMelee.SkillConfig.GetSkillItemByID(tarSkillItemID);
                         if (tarSkillItem.InRange(m_DistanceToEnemy))
                         {

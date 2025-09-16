@@ -33,3 +33,8 @@ MonoBehaviour:
   ExecuteSkillCanExitTime: 0.8
   BackStabPower: 3
   CanTanFanSecondsFromDefenseStart: 0.2
+  BlockBrokenSound: {fileID: 8300000, guid: 00b642d1610fb77449e92765ec09a134, type: 3}
+  m_MiaoDaoHitBodySound:
+  - {fileID: 8300000, guid: 4fe859fa6716aed43be23ad0c78a3be2, type: 3}
+  m_YueYaChanHitBodySound:
+  - {fileID: 8300000, guid: 999b0752e536b894285d8a137e0c0633, type: 3}

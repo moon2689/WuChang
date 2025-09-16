@@ -44,6 +44,7 @@ namespace Saber.CharacterController
         public static bool ToBlockBroken(DamageInfo dmg, SActor hurtedActor)
         {
             return dmg.DamageConfig.m_HitRecover == EHitRecover.Backstab &&
+                   (int)GameApp.Entry.Config.SkillCommon.BackStabPower > (int)hurtedActor.CurrentResilience &&
                    Vector3.Dot(hurtedActor.transform.forward, dmg.Attacker.transform.forward) > 0 ||
                    hurtedActor.CStats.CurrentUnbalanceValue <= 0;
         }
@@ -126,6 +127,11 @@ namespace Saber.CharacterController
             // 受击动画
             m_CurAnim = GetHitAnim(out m_HurtType);
             Actor.CAnim.Play(m_CurAnim, force: true);
+
+            if (m_HurtType == EHitRecHurtType.BlockBroken)
+            {
+                GameApp.Entry.Game.Audio.Play3DSound(GameApp.Entry.Config.SkillCommon.BlockBrokenSound, Actor.transform.position);
+            }
 
             CanBeExecute = false;
             m_CanExecuteTimePassed = false;

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DebugFPS: 1
   DebugFight: 0
-  TestSkill: 0
+  EnemyAI: 0
   TestingSkillID: 08000000

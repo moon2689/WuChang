@@ -26,7 +26,7 @@ namespace Saber.World
         public int ID => Point.m_ID;
         public ScenePoint Point { get; private set; }
 
-        public bool IsFired => GameProgressManager.Instance.IsIdolFired(m_SceneID, ID);
+        public bool IsFired => GameApp.Entry.Game.ProgressMgr.IsIdolFired(m_SceneID, ID);
 
 
         public void Init(int sceneID, ScenePoint scenePoint, Transform parent, IHandler handler)

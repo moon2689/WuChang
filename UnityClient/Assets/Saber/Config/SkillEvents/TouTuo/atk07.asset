@@ -141,7 +141,7 @@ MonoBehaviour:
     m_WeaponBone: 24
     m_DamageValue: 5
     m_ImpactForce: 2
-    m_HitRecover: 0
+    m_HitRecover: 5
     m_ForceWhenGround: {x: 0, y: 0}
 --- !u!114 &6622581661699679155
 MonoBehaviour:

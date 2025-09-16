@@ -16,6 +16,38 @@ namespace Saber.CharacterController
         public EImpactForce BackStabPower = EImpactForce.Level3;
 
         [Header("弹反")] public float CanTanFanSecondsFromDefenseStart = 2f;
+        public AudioClip BlockBrokenSound;
+
+        [Header("打击肉体音效")] public AudioClip[] m_MiaoDaoHitBodySound;
+        public AudioClip[] m_YueYaChanHitBodySound;
+
+        private AudioClip GetRandomSound(AudioClip[] clips)
+        {
+            if (clips != null && clips.Length > 0)
+            {
+                int ranIndex = UnityEngine.Random.Range(0, clips.Length);
+                return clips[ranIndex];
+            }
+
+            return null;
+        }
+
+        public AudioClip GetRandomHitBodySound(EWeaponType weaponType)
+        {
+            if (weaponType == EWeaponType.MiaoDao)
+            {
+                return GetRandomSound(m_MiaoDaoHitBodySound);
+            }
+            else if (weaponType == EWeaponType.YueYaChan)
+            {
+                return GetRandomSound(m_YueYaChanHitBodySound);
+            }
+            else
+            {
+                Debug.LogError($"Unknown weapon:{weaponType}");
+                return null;
+            }
+        }
     }
 
     [Serializable]

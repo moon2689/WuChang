@@ -42,6 +42,22 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: aca4947f127dbe94494b779e10806bbe, type: 3}
   m_Volume: 1
+--- !u!114 &-2193942072718037766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFXVoice
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 8b37a1dd5f0ee594cb43b7702b0fe952, type: 3}
+  m_Volume: 1
 --- !u!114 &-2162347420620034583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +161,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 380764706270634749}
+  - EventTime: 0.0063157897
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -2193942072718037766}
 --- !u!114 &380764706270634749
 MonoBehaviour:
   m_ObjectHideFlags: 0
