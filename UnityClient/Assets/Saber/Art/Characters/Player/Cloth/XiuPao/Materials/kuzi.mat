@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 93fdc990612838f4c931023600e122bc, type: 3}
+        m_Texture: {fileID: 2800000, guid: b7f8d54bcc77add4691952ed2868380f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -52,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMROMap:
-        m_Texture: {fileID: 2800000, guid: b9e39342b14d4e1408fa1d42b173c041, type: 3}
+        m_Texture: {fileID: 2800000, guid: 196295c5338f0b344b7666796d9aa0e9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:

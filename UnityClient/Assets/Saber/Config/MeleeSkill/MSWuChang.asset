@@ -326,7 +326,7 @@ MonoBehaviour:
     m_ChainSkills:
     - m_SkillID: 13
       m_BlendTime: 0.1
-    m_Resilience: 1
+    m_Resilience: 2
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -348,7 +348,7 @@ MonoBehaviour:
     m_ChainSkills:
     - m_SkillID: 5
       m_BlendTime: 0.1
-    m_Resilience: 1
+    m_Resilience: 2
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
