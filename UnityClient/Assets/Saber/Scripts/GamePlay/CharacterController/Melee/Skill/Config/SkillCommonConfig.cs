@@ -18,8 +18,13 @@ namespace Saber.CharacterController
         [Header("弹反")] public float CanTanFanSecondsFromDefenseStart = 2f;
         public AudioClip BlockBrokenSound;
 
-        [Header("打击肉体音效")] public AudioClip[] m_MiaoDaoHitBodySound;
+        [Header("音效")] public AudioClip[] m_MiaoDaoHitBodySound;
         public AudioClip[] m_YueYaChanHitBodySound;
+        public AudioClip m_SoundAddYuMao;
+        public AudioClip m_SoundUseYuMao;
+        
+        [Header("特效")]
+        public GameObject m_EffectAddYuMao;
 
         private AudioClip GetRandomSound(AudioClip[] clips)
         {

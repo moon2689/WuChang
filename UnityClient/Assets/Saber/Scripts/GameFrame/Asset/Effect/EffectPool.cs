@@ -18,6 +18,31 @@ namespace Saber
             return s_instance ??= new EffectPool();
         }
 
+        public void CreateEffect(GameObject prefab, Transform parent, float time)
+        {
+            m_dicEffects.TryGetValue(prefab.name, out List<GameObject> list);
+            if (list == null)
+            {
+                list = new List<GameObject>();
+                m_dicEffects[prefab.name] = list;
+            }
+
+            GameObject go = list.Find(i => i != null && !i.gameObject.activeSelf);
+            if (go == null)
+            {
+                go = GameObject.Instantiate<GameObject>(prefab);
+                list.Add(go);
+            }
+
+            go.transform.parent = parent;
+            go.transform.localPosition = Vector3.zero;
+            go.transform.localRotation = Quaternion.identity;
+
+            if (time > 0)
+                GameApp.Entry.Unity.StartCoroutine(PlayEtor(go, time));
+            else
+                go.SetActive(true);
+        }
 
         public void CreateEffect(GameObject prefab, Transform parent, Vector3 pos, Quaternion rot, float time)
         {
@@ -79,12 +104,17 @@ namespace Saber
             }
         }
 
+        public void CreateEffect(string name, Transform parent, float time)
+        {
+            CreateEffect(name, parent, parent.position, parent.rotation, time);
+        }
+
         public void CreateEffect(string name, Transform parent, Vector3 pos, Quaternion rot, float time)
         {
             GetOrCreateEffect(name, parent, pos, rot, e =>
             {
                 if (time > 0)
-                    GameApp.Entry.Unity.StartCoroutine(PlayEtor(e, time));
+                    PlayEtor(e, time).StartCoroutine();
                 else
                     e.SetActive(true);
             });
@@ -92,13 +122,7 @@ namespace Saber
 
         public void CreateEffect(string name, Vector3 pos, Quaternion rot, float time)
         {
-            GetOrCreateEffect(name, null, pos, rot, e =>
-            {
-                if (time > 0)
-                    GameApp.Entry.Unity.StartCoroutine(PlayEtor(e, time));
-                else
-                    e.SetActive(true);
-            });
+            CreateEffect(name, null, pos, rot, time);
         }
 
         IEnumerator PlayEtor(GameObject gameObject, float time)
@@ -120,6 +144,7 @@ namespace Saber
                 e.transform.parent = parent;
                 e.transform.position = pos;
                 e.transform.rotation = rot;
+                onGetted?.Invoke(e);
             });
         }
 
@@ -130,6 +155,7 @@ namespace Saber
                 e.transform.parent = parent;
                 e.transform.localPosition = Vector3.zero;
                 e.transform.localRotation = quaternion.identity;
+                onGetted?.Invoke(e);
             });
         }
 

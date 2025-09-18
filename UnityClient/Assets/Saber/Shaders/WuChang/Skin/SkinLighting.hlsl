@@ -16,17 +16,15 @@ struct SkinSurfaceData
     float2 uv;
     half3x3 tangentToWorld;
     float normalMapMipCount;
-    half lightIntensity;
 };
 
-SkinSurfaceData InitializeSkinSurfaceData(half4 sssFalloff, float2 uv, half3x3 tangentToWorld, half lightIntensity)
+SkinSurfaceData InitializeSkinSurfaceData(half4 sssFalloff, float2 uv, half3x3 tangentToWorld)
 {
     SkinSurfaceData skinSurfaceData = (SkinSurfaceData)0;
     skinSurfaceData.sssFalloff = sssFalloff;
     skinSurfaceData.uv = uv;
     skinSurfaceData.tangentToWorld = tangentToWorld;
     skinSurfaceData.normalMapMipCount = _NormalMapMipCount;
-    skinSurfaceData.lightIntensity = lightIntensity;
     return skinSurfaceData;
 }
 
@@ -35,7 +33,7 @@ SkinSurfaceData InitializeSkinSurfaceData(half4 sssFalloff, float2 uv, half3x3 t
 ///////////////////////////////////////////////////////////////////////////////
 
 /// 次表面散射
-half3 SubsurfaceScattering(half3x3 tangentSpaceTransform, half3 lightDir, half3 SSSFalloff, float2 uv, int mipCount, half intensity)
+half3 SubsurfaceScattering(half3x3 tangentSpaceTransform, half3 lightDir, half3 SSSFalloff, float2 uv, int mipCount)
 {
     half3 weights = 0.0;
     half scattering = 0.0;
@@ -111,7 +109,7 @@ half3 SubsurfaceScattering(half3x3 tangentSpaceTransform, half3 lightDir, half3 
         directDiffuse = SAMPLE_TEXTURE2D(_PreIntegratedSSSMap, sampler_PreIntegratedSSSMap, float2(brdfLookup, scattering)).r;
 
         //brdf += weights * (directDiffuse + (pow(1 - dot(normalWS, viewDirectionWS), 3)) *  ao * shadow * half3(0.9, 0.3, 0.1));
-        brdf += weights * directDiffuse * intensity;
+        brdf += weights * directDiffuse;
     }
 
     return brdf;
@@ -131,7 +129,7 @@ half3 LightingPhysicallySSS(BRDFData brdfData, Light light, half3 normalWS, half
     half3x3 tangentToWorld = skinSurfaceData.tangentToWorld;
     half3 sssFalloff = skinSurfaceData.sssFalloff.rgb;
     float2 uv = skinSurfaceData.uv;
-    half3 sss = SubsurfaceScattering(tangentToWorld, lightDirectionWS, sssFalloff, uv, skinSurfaceData.normalMapMipCount, skinSurfaceData.lightIntensity);
+    half3 sss = SubsurfaceScattering(tangentToWorld, lightDirectionWS, sssFalloff, uv, skinSurfaceData.normalMapMipCount);
     half3 radiance = sss * lightColor * lightAttenuation;
 #else
     half NdotL = saturate(dot(normalWS, lightDirectionWS));

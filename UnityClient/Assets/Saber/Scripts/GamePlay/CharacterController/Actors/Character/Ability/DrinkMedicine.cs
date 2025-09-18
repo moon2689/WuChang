@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Saber.Frame;
 using UnityEngine;
 
 namespace Saber.CharacterController
@@ -7,6 +8,7 @@ namespace Saber.CharacterController
     public class DrinkMedicine : AbilityBase
     {
         private bool m_Breaked;
+        private bool m_CanExit;
 
         public override bool CanEnter
         {
@@ -27,6 +29,7 @@ namespace Saber.CharacterController
             base.Enter();
             Actor.CAnim.Play("DrinkPotion", 1, onFinished: Exit);
             m_Breaked = false;
+            m_CanExit = false;
 
             Actor.MaxMoveSpeedV = EMoveSpeedV.Walk;
         }
@@ -41,11 +44,18 @@ namespace Saber.CharacterController
         public override void OnTriggerAnimEvent(AnimPointTimeEvent eventObj)
         {
             base.OnTriggerAnimEvent(eventObj);
-            if (eventObj.EventType == EAnimTriggerEvent.RecoverHP && !this.Actor.CStats.IsHPFull && !m_Breaked)
+            if (eventObj.EventType == EAnimTriggerEvent.RecoverHP)
             {
-                float hpValue = Actor.CStats.MaxHp;
-                Actor.CStats.PlayHealingEffect(hpValue);
-                --Actor.CStats.HPPotionCount;
+                if (!m_Breaked)
+                {
+                    float hpValue = Actor.CStats.MaxHp * GameApp.Entry.Config.GameSetting.HPPotionRecoverRate;
+                    if (Actor.Heal(hpValue))
+                        --Actor.CStats.HPPotionCount;
+                }
+            }
+            else if (eventObj.EventType == EAnimTriggerEvent.AnimCanExit)
+            {
+                m_CanExit = true;
             }
         }
 
@@ -57,6 +67,16 @@ namespace Saber.CharacterController
                 Actor.CAnim.StopMaskLayerAnims();
                 m_Breaked = true;
             }
+        }
+
+        public override bool CanSwitchTo(EStateType to)
+        {
+            if (m_CanExit)
+            {
+                return true;
+            }
+
+            return base.CanSwitchTo(to);
         }
     }
 }

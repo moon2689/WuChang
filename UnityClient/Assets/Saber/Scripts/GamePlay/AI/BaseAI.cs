@@ -8,11 +8,10 @@ namespace Saber.AI
 {
     public abstract class BaseAI
     {
-        public Action OnSetLockingEnemy;
-
+        public Action<SActor, SActor> OnSetLockingEnemy;
 
         private SActor m_LockingEnemy;
-
+        
         public SActor Actor { get; private set; }
 
         public SActor LockingEnemy
@@ -23,15 +22,19 @@ namespace Saber.AI
                 if (m_LockingEnemy != value)
                 {
                     m_LockingEnemy = value;
-                    OnSetLockingEnemy?.Invoke();
+                    OnSetLockingEnemy?.Invoke(Actor, value);
                 }
             }
         }
 
 
+        protected abstract void OnDead(SActor owner);
+
+
         public virtual void Init(SActor actor)
         {
             Actor = actor;
+            actor.Event_OnDead += OnDead;
         }
 
         public virtual void Update()
@@ -40,15 +43,7 @@ namespace Saber.AI
 
         public virtual void Release()
         {
-        }
-
-        public virtual void ClearLockEnemy()
-        {
-            LockingEnemy = null;
-        }
-
-        public virtual void OnLockedByEnemy(SActor enemy)
-        {
+            Actor.Event_OnDead -= OnDead;
         }
     }
 }

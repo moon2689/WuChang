@@ -7,8 +7,6 @@ namespace Saber.UI
 {
     public abstract class WndBase : UIItem
     {
-        protected abstract bool PauseGame { get; }
-
         protected WndContent m_WndContent;
         protected IWndHandler m_WndHandler;
 
@@ -16,6 +14,8 @@ namespace Saber.UI
         {
             set => gameObject.SetActive(value);
         }
+
+        protected virtual bool PauseGame => false;
 
 
         public static AssetHandle Create<T>(WndContent content, IWndHandler handler, Action<T> onCreated) where T : WndBase, new()

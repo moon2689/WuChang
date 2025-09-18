@@ -7291,6 +7291,57 @@ Transform:
   - {fileID: 1196402735}
   m_Father: {fileID: 725989682}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1134065690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1134065691}
+  - component: {fileID: 1134065692}
+  m_Layer: 0
+  m_Name: Boss2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1134065691
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134065690}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.6931517, z: -0, w: 0.72079176}
+  m_LocalPosition: {x: 357, y: 13.7, z: 581}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1838369116}
+  m_LocalEulerAnglesHint: {x: 0, y: 87.76, z: 0}
+--- !u!114 &1134065692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134065690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cab281a6b5c5cd4d91e62cac1fa620c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PointType: 1
+  m_ID: 3
+  m_PointName: "\u7EA2\u5C9A"
+  m_AIType: 1
+  m_TargetSceneID: 0
+  m_TargetSceneName: 
+  m_TargetPortalID: 0
 --- !u!1 &1141110946
 GameObject:
   m_ObjectHideFlags: 0
@@ -10719,6 +10770,7 @@ Transform:
   m_Children:
   - {fileID: 1162372713}
   - {fileID: 1279733927}
+  - {fileID: 1134065691}
   - {fileID: 772215129}
   - {fileID: 219927380}
   m_Father: {fileID: 0}

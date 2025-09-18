@@ -25,6 +25,7 @@ Shader "Saber/WuChang/Eyelash"
             
             Blend SrcAlpha OneMinusSrcAlpha
             ZWrite Off
+            Cull Off
             
             HLSLPROGRAM
             #pragma target 2.0

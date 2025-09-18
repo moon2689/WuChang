@@ -42,6 +42,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: aca4947f127dbe94494b779e10806bbe, type: 3}
   m_Volume: 1
+  m_TriggerProbability: 100
 --- !u!114 &-2193942072718037766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,6 +59,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 8b37a1dd5f0ee594cb43b7702b0fe952, type: 3}
   m_Volume: 1
+  m_TriggerProbability: 60
 --- !u!114 &-2162347420620034583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,7 +198,7 @@ MonoBehaviour:
   m_Name: AlignToEnemy
   m_EditorClassIdentifier: 
   IsActive: 1
-  m_RotateSpeed: 1080
+  m_RotateSpeed: 720
 --- !u!114 &8378878382377201102
 MonoBehaviour:
   m_ObjectHideFlags: 0

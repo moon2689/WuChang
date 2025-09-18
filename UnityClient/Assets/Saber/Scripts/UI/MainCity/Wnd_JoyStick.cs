@@ -68,8 +68,6 @@ namespace Saber.UI
             set => m_btnInteract.gameObject.SetActive(value);
         }
 
-        protected override bool PauseGame => false;
-
         public bool ActiveSticks
         {
             set

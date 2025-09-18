@@ -121,6 +121,7 @@ namespace Saber.CharacterController
                 Actor.CAnim.Play("TanFan", force: true);
                 m_CurState = EState.TanDao;
                 m_TimerCanTanFan = 0;
+                Actor.AddYuMao(1);
             }
         }
 

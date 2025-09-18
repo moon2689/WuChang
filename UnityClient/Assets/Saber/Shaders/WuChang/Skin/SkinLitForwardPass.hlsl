@@ -97,20 +97,14 @@ half4 LitPassFragment(Varyings input) : SV_Target0
     UNITY_SETUP_INSTANCE_ID(input);
     UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
 
-    half4 maskMap;
-    SurfaceData surfaceData = InitializeStandardLitSurfaceData(input.uv, maskMap);
+    SurfaceData surfaceData = InitializeStandardLitSurfaceData(input.uv);
     InputData inputData = InitializeInputData(input, surfaceData.normalTS);
     
     // skin surface data
-    SkinSurfaceData skinSurfaceData = InitializeSkinSurfaceData(_SSSColor, input.uv, inputData.tangentToWorld, maskMap.a);
+    SkinSurfaceData skinSurfaceData = InitializeSkinSurfaceData(_SSSColor, input.uv, inputData.tangentToWorld);
     half4 color = UniversalFragmentPBR(inputData, surfaceData, skinSurfaceData);
     color.rgb = MixFog(color.rgb, inputData.fogCoord);
     color.a = 1;
-    
-    //color.rgb = maskMap.rrr; //粗糙度？
-    //color.rgb = maskMap.ggg; //厚度？
-    //color.rgb = maskMap.bbb; //ao
-    //color.rgb = maskMap.aaa; //光照强度？
 
     return color;
 }

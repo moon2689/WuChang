@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4788100964304506}
-  - component: {fileID: 3583077152696449432}
   m_Layer: 0
   m_Name: Healing
   m_TagString: Untagged
@@ -33,19 +32,6 @@ Transform:
   - {fileID: 4293164750154384}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3583077152696449432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1062216865421866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6c4319c88041914b95cd08aa7bdf88d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_DelaySeconds: 8
 --- !u!1 &1169783513152388
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,7 +286,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.8
+      scalar: 0.5
       minScalar: 0.05
       maxCurve:
         serializedVersion: 2
@@ -764,7 +750,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.81
+      value: 0.5
       mode: 0
       spread: 0
       speed:
@@ -9786,7 +9772,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.8
+      scalar: 0.5
       minScalar: 0.05
       maxCurve:
         serializedVersion: 2
@@ -10250,7 +10236,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.81
+      value: 0.5
       mode: 0
       spread: 0
       speed:

@@ -54,7 +54,6 @@ namespace Saber.AI
                 PlayerCameraObj.transform.position = actor.transform.position;
 
             Actor.CStateMachine.Event_OnStateChange += OnStateChange;
-            Actor.Event_OnDead += OnPlayerDead;
 
             m_AheadInput = new(Actor);
 
@@ -67,16 +66,11 @@ namespace Saber.AI
 
             GameApp.Entry.Unity.DoActionOneFrameLater(() =>
             {
-                this.Actor.CStats.OnHPPointCountChange += RefreshHPPointCount;
+                this.Actor.CStats.EventOnHPPointCountChange += RefreshHPPointCount;
                 RefreshHPPointCount();
             });
 
             actor.CStateMachine.Event_OnStateChange += OnStateChange;
-        }
-
-        private void OnPlayerDead(SActor obj)
-        {
-            ClearLockEnemy();
         }
 
         private void OnStateChange(EStateType from, EStateType to)
@@ -201,20 +195,29 @@ namespace Saber.AI
             if (lockCamera)
             {
                 GameApp.Entry.Game.PlayerCamera.LockTarget = tarEnemy;
-                tarEnemy.Event_OnDead += obj => ClearLockEnemy();
             }
         }
 
-        public override void ClearLockEnemy()
+        protected override void OnDead(SActor owner)
         {
-            base.ClearLockEnemy();
+            ClearLockEnemy();
+        }
+
+        private void ClearLockEnemy()
+        {
+            LockingEnemy = null;
             Actor.EyeLockAt(null);
             GameApp.Entry.Game.PlayerCamera.LockTarget = null;
         }
 
-
         void CheckLockEnemy()
         {
+            if (LockingEnemy != null && LockingEnemy.IsDead)
+            {
+                ClearLockEnemy();
+                return;
+            }
+
             if (m_TimerCheckLockEnemy >= 0)
             {
                 m_TimerCheckLockEnemy -= Time.deltaTime;
@@ -536,9 +539,20 @@ namespace Saber.AI
                 moveSpeedV = EMoveSpeedV.None;
             }
 
-            if (m_Sprint && moveSpeedV != EMoveSpeedV.Sprint)
+            if (m_Sprint)
             {
-                m_Sprint = false;
+                if (moveSpeedV != EMoveSpeedV.Sprint)
+                {
+                    m_Sprint = false;
+                }
+                else if (Actor.CStats.CurrentStamina <= 0)
+                {
+                    m_Sprint = false;
+                }
+                else if (Actor.CurrentStateType == EStateType.Move && Actor.MoveSpeedV != EMoveSpeedV.Sprint)
+                {
+                    m_Sprint = false;
+                }
             }
 
             if (moveSpeedV != EMoveSpeedV.None)
@@ -645,7 +659,7 @@ namespace Saber.AI
         {
             base.Release();
             PlayerCameraObj?.ClearTarget();
-            this.Actor.CStats.OnHPPointCountChange -= RefreshHPPointCount;
+            this.Actor.CStats.EventOnHPPointCountChange -= RefreshHPPointCount;
         }
     }
 }

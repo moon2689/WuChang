@@ -19,7 +19,6 @@ namespace Saber.UI
 
         private Coroutine m_Coroutine;
 
-        protected override bool PauseGame => false;
 
         protected override void OnAwake()
         {

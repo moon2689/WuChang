@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 using Saber.CharacterController;
 
 namespace Saber.AI
@@ -9,7 +10,7 @@ namespace Saber.AI
     public class BossAttack : EnemyAIBase
     {
         private List<SkillItem> m_ListSkills = new();
-        private SkillItem m_LastSkill;
+        private Queue<SkillItem> m_LastSkill = new();
         private SkillItem m_CurrentSkill;
 
 
@@ -125,8 +126,7 @@ namespace Saber.AI
 
         bool IsRepeatSkill(SkillItem skill)
         {
-            return m_LastSkill == skill || (m_LastSkill != null && m_LastSkill.m_GroupID != 0 &&
-                                            m_LastSkill.m_GroupID == skill.m_GroupID);
+            return m_LastSkill.Any(a => a == skill || (a.m_GroupID != 0 && a.m_GroupID == skill.m_GroupID));
         }
 
         bool IsCDColldown(SkillItem skill)
@@ -167,6 +167,22 @@ namespace Saber.AI
             }
         }
 
+        SkillItem GetCanTriggerSpecialSkill()
+        {
+            foreach (SkillItem skill in Actor.Skills)
+            {
+                if (skill.m_FirstSkillOfCombo &&
+                    IsCDColldown(skill) &&
+                    skill.m_AITriggerCondition != EAITriggerSkillCondition.None &&
+                    SatifyTriggerCondition(skill))
+                {
+                    return skill;
+                }
+            }
+
+            return null;
+        }
+
         void ToAttack()
         {
             if (LockingEnemy.IsDead)
@@ -175,14 +191,21 @@ namespace Saber.AI
                 return;
             }
 
-            m_ListSkills.Clear();
+            SkillItem specialSkill = GetCanTriggerSpecialSkill();
+            if (specialSkill != null)
+            {
+                m_CurrentSkill = specialSkill;
+                SwitchCoroutine(SprintAndAttackItor());
+                return;
+            }
 
+
+            m_ListSkills.Clear();
             foreach (SkillItem skill in Actor.Skills)
             {
                 if (skill.m_FirstSkillOfCombo &&
                     IsCDColldown(skill) &&
                     !IsRepeatSkill(skill) &&
-                    skill.m_AITriggerCondition != EAITriggerSkillCondition.None &&
                     SatifyTriggerCondition(skill) &&
                     skill.InRange(m_DistanceToEnemy))
                 {
@@ -191,21 +214,6 @@ namespace Saber.AI
                 }
             }
 
-            if (m_ListSkills.Count <= 0)
-            {
-                foreach (SkillItem skill in Actor.Skills)
-                {
-                    if (skill.m_FirstSkillOfCombo &&
-                        IsCDColldown(skill) &&
-                        !IsRepeatSkill(skill) &&
-                        SatifyTriggerCondition(skill) &&
-                        skill.InRange(m_DistanceToEnemy))
-                    {
-                        m_ListSkills.Add(skill);
-                        break;
-                    }
-                }
-            }
 
             if (m_ListSkills.Count > 0)
             {
@@ -289,6 +297,15 @@ namespace Saber.AI
             }
         }
 
+        void SetLastSkill(SkillItem skill)
+        {
+            m_LastSkill.Enqueue(skill);
+            if (m_LastSkill.Count > 2)
+            {
+                m_LastSkill.Dequeue();
+            }
+        }
+
         /// <summary>攻击</summary>
         IEnumerator AttackItor()
         {
@@ -296,7 +313,7 @@ namespace Saber.AI
             bool triggered = false;
             while (true)
             {
-                if (LockingEnemy.IsDead)
+                if (LockingEnemy == null || LockingEnemy.IsDead)
                 {
                     ToStalemate();
                     yield break;
@@ -311,13 +328,21 @@ namespace Saber.AI
                     if (Actor.TryTriggerSkill(m_CurrentSkill))
                     {
                         triggered = true;
-                        m_LastSkill = m_CurrentSkill;
+                        SetLastSkill(m_CurrentSkill);
                     }
                 }
                 else if (Actor.CurrentStateType == EStateType.Skill)
                 {
                     if (Actor.CurrentSkill.SkillConfig.m_ChainSkills.Length > 0 && Actor.CurrentSkill.InComboTime)
                     {
+                        var specialSkill = GetCanTriggerSpecialSkill();
+                        if (specialSkill != null)
+                        {
+                            m_CurrentSkill = specialSkill;
+                            SwitchCoroutine(SprintAndAttackItor());
+                            yield break;
+                        }
+
                         m_ListSkills.Clear();
                         foreach (var item in Actor.CurrentSkill.SkillConfig.m_ChainSkills)
                         {

@@ -117,7 +117,6 @@ Shader "Saber/WuChang/Hair Lit"
             
             ENDHLSL
         }
-
         
         Pass
         {

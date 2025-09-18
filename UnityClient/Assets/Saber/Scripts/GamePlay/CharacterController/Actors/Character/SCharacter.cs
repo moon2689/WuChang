@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Saber.Frame;
 using UnityEngine;
 
 namespace Saber.CharacterController
@@ -65,6 +66,7 @@ namespace Saber.CharacterController
 
             CBuff = new();
             CStats = new ActorBaseStats(this);
+            CStats.EventOnStaminaZero += OnStaminaZero;
             CPhysic = new CharacterPhysic(this, m_BaseActorInfo.m_PhysicInfo);
             CAnim = new CharacterAnimation(this, this);
             //CIK = new CharacterIK(this, CAnim.AnimatorObj, m_CharacterInfo.m_IKInfo);
@@ -89,6 +91,12 @@ namespace Saber.CharacterController
             {
                 CIK.Event_OnUpdateIKRotation += OnIKUpdateRotation;
             }*/
+        }
+
+        private void OnStaminaZero()
+        {
+            var clip = GameApp.Entry.Config.GameSetting.GetRandomVoiceTired();
+            GameApp.Entry.Game.Audio.Play3DSound(clip, transform.position);
         }
 
         protected override void OnAnimatorMove()
@@ -246,6 +254,33 @@ namespace Saber.CharacterController
         {
             base.OnGodStatueRest();
             CRender.OnGodStatueRest();
+        }
+
+        public override void AddYuMao(int value)
+        {
+            if (value < 1)
+            {
+                return;
+            }
+
+            CStats.AddPower(value);
+            CRender.ShowEffectYuMaoAdded();
+
+            var clip = GameApp.Entry.Config.SkillCommon.m_SoundAddYuMao;
+            GameApp.Entry.Game.Audio.Play3DSound(clip, transform.position);
+        }
+
+        public override void CostYuMao(int value)
+        {
+            if (value < 1)
+            {
+                return;
+            }
+
+            CStats.CostPower(value);
+
+            var clip = GameApp.Entry.Config.SkillCommon.m_SoundUseYuMao;
+            GameApp.Entry.Game.Audio.Play3DSound(clip, transform.position);
         }
     }
 }

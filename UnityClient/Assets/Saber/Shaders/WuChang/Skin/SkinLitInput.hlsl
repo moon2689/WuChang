@@ -22,19 +22,14 @@ TEXTURE2D(_PreIntegratedSSSMap);SAMPLER(sampler_PreIntegratedSSSMap);
 TEXTURE2D(_DetailNormalMap);    SAMPLER(sampler_DetailNormalMap);
 
 
-SurfaceData InitializeStandardLitSurfaceData(float2 uv,out half4 maskMap)
+SurfaceData InitializeStandardLitSurfaceData(float2 uv)
 {
     SurfaceData surfaceData = (SurfaceData)0;
     
-     maskMap = SAMPLE_TEXTURE2D(_MaskMap, sampler_MaskMap, uv);
+    half4 maskMap = SAMPLE_TEXTURE2D(_MaskMap, sampler_MaskMap, uv);
     half4 baseMap = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, uv);
     half4 normalMap = SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, uv);
     half3 normalTS = UnpackNormal(normalMap);
-
-    //color.rgb = maskMap.rrr; //粗糙度？
-    //color.rgb = maskMap.ggg; //厚度？
-    //color.rgb = maskMap.bbb; //ao
-    //color.rgb = maskMap.aaa; //光照强度？
     
     surfaceData.albedo = baseMap.rgb * _BaseColor.rgb;
     surfaceData.alpha = baseMap.a * _BaseColor.a;
@@ -42,7 +37,7 @@ SurfaceData InitializeStandardLitSurfaceData(float2 uv,out half4 maskMap)
     surfaceData.specular = half3(0.0, 0.0, 0.0);
     surfaceData.smoothness = 1 - maskMap.r;
     //surfaceData.normalTS = normalTS;
-    surfaceData.occlusion = maskMap.b;
+    surfaceData.occlusion = 1;;
     surfaceData.emission = half(0.0);
     surfaceData.clearCoatMask = half(0.0);
     surfaceData.clearCoatSmoothness = half(0.0);

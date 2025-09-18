@@ -8,13 +8,11 @@ using RootMotion.FinalIK;
 using Saber.CharacterController;
 using UnityEngine;
 using UnityEditor;
-using UnityEditor.Animations;
-using UnityEditor.SceneManagement;
 
 public static class WuChangTools
 {
-    private static string UEProjectFolder = @"E:/1/WuChangUnity/Exports";
-
+    private const string k_UEProjectFolder = @"E:/1/WuChangUnity/Exports";
+    private const string k_WuChCommonShader = "Saber/WuChang/Common Lit";
 
     static MD5 s_md5;
 
@@ -312,6 +310,34 @@ public static class WuChangTools
         Debug.Log("FixWuChangMaterials all done");
     }
 
+    static bool GetUENormalMaskPathByAlbedoPath(string albedoPath, out string normalPath, out string maskPath)
+    {
+        normalPath = null;
+        maskPath = null;
+        if (albedoPath.Contains("_D.tga"))
+        {
+            normalPath = albedoPath.Replace("_D.tga", "_N.tga");
+            maskPath = albedoPath.Replace("_D.tga", "_R.tga");
+        }
+        else if (albedoPath.Contains("_C.tga"))
+        {
+            normalPath = albedoPath.Replace("_C.tga", "_N.tga");
+            maskPath = albedoPath.Replace("_C.tga", "_R.tga");
+        }
+        else if (albedoPath.Contains("_Albedo.tga"))
+        {
+            normalPath = albedoPath.Replace("_Albedo.tga", "_Normal.tga");
+            maskPath = albedoPath.Replace("_Albedo.tga", "_Reflection.tga");
+        }
+        else
+        {
+            Debug.LogError("Unknown tex path:" + albedoPath);
+            return false;
+        }
+
+        return true;
+    }
+
     static void FixWuChMaterial(TextAsset jsonFile)
     {
         string path = AssetDatabase.GetAssetPath(jsonFile);
@@ -342,22 +368,8 @@ public static class WuChangTools
         string texName = Path.GetFileNameWithoutExtension(texOldPath);
 
         string texPath = $"{dirName}/{folderName}/{texName}.tga";
-        string normalPath, maskPath;
-        if (texPath.Contains("_D.tga"))
-        {
-            normalPath = texPath.Replace("_D.tga", "_N.tga");
-            maskPath = texPath.Replace("_D.tga", "_R.tga");
-        }
-        else if (texPath.Contains("_Albedo.tga"))
-        {
-            normalPath = texPath.Replace("_Albedo.tga", "_Normal.tga");
-            maskPath = texPath.Replace("_Albedo.tga", "_Reflection.tga");
-        }
-        else
-        {
-            Debug.LogError("Unknown tex path:" + texPath);
+        if (!GetUENormalMaskPathByAlbedoPath(texPath, out string normalPath, out string maskPath))
             return;
-        }
 
         TextureImporter tiDiffuse = AssetImporter.GetAtPath(texPath) as TextureImporter;
         tiDiffuse.sRGBTexture = true;
@@ -386,7 +398,7 @@ public static class WuChangTools
         tiMask.SaveAndReimport();
         Texture2D texMask = AssetDatabase.LoadAssetAtPath<Texture2D>(maskPath);
 
-        mat.shader = Shader.Find("Saber/WuChang/WuChang Common Lit");
+        mat.shader = Shader.Find(k_WuChCommonShader);
         mat.SetTexture("_BaseMap", diffuse);
         mat.SetColor("_BaseColor", Color.white);
         mat.SetTexture("_BumpMap", texNormal);
@@ -483,7 +495,8 @@ public static class WuChangTools
     {
         List<string> listMaterial = GetSelectedAssets<Material>("*.mat");
 
-        string[] allJsonFiles = Directory.GetFiles(UEProjectFolder + "/Project_Plague/Content", "*.json", SearchOption.AllDirectories);
+        string[] allJsonFiles = Directory.GetFiles(k_UEProjectFolder + "/Project_Plague/Content", "*.json",
+            SearchOption.AllDirectories);
         Dictionary<string, string> dicAllJsonFiles = new();
         foreach (var jsonFile in allJsonFiles)
         {
@@ -529,7 +542,7 @@ public static class WuChangTools
                 if (words.Length > 1 && words[1].Length > 0)
                 {
                     string key = words[0].Split('\"')[1];
-                    string v = $"{UEProjectFolder}/{words[1]}.tga";
+                    string v = $"{k_UEProjectFolder}/{words[1]}.tga";
                     filePaths[key] = v;
                 }
             }
@@ -547,7 +560,8 @@ public static class WuChangTools
     {
         List<string> listMaterial = GetSelectedAssets<Material>("*.mat");
 
-        string[] allJsonFiles = Directory.GetFiles(UEProjectFolder + "/Project_Plague/Content", "*.json", SearchOption.AllDirectories);
+        string[] allJsonFiles = Directory.GetFiles(k_UEProjectFolder + "/Project_Plague/Content", "*.json",
+            SearchOption.AllDirectories);
         Dictionary<string, string> dicAllJsonFiles = new();
         foreach (var jsonFile in allJsonFiles)
         {
@@ -613,7 +627,8 @@ public static class WuChangTools
     {
         List<string> listMaterial = GetSelectedAssets<Material>("*.mat");
 
-        string[] allJsonFiles = Directory.GetFiles(UEProjectFolder + "/Project_Plague/Content", "*.json", SearchOption.AllDirectories);
+        string[] allJsonFiles = Directory.GetFiles(k_UEProjectFolder + "/Project_Plague/Content", "*.json",
+            SearchOption.AllDirectories);
         Dictionary<string, string> dicAllJsonFiles = new();
         foreach (var jsonFile in allJsonFiles)
         {
@@ -629,11 +644,10 @@ public static class WuChangTools
             dicAllLocalTga[fileName] = tgaFile;
         }
 
-        string wuchangCommonShader = "Saber/WuChang/WuChang Common Lit";
         foreach (var m in listMaterial)
         {
             Material mat = AssetDatabase.LoadAssetAtPath<Material>(m);
-            if (!force && mat.shader.name.Contains("WuChang") && mat.shader.name != wuchangCommonShader)
+            if (!force && mat.shader.name.Contains("WuChang") && mat.shader.name != k_WuChCommonShader)
             {
                 continue;
             }
@@ -658,7 +672,7 @@ public static class WuChangTools
 
             if (!string.IsNullOrEmpty(diffuseUE))
             {
-                mat.shader = Shader.Find(wuchangCommonShader);
+                mat.shader = Shader.Find(k_WuChCommonShader);
                 mat.SetColor("_BaseColor", Color.white);
 
                 string newDiffuse = ImportOrLoadFromLocal(diffuseUE, dicAllLocalTga, textureSaveFolder);
@@ -741,7 +755,8 @@ public static class WuChangTools
         }
     }
 
-    static string GetUEDiffuseTGAPath(string jsonFile, out string normalUE, out string maskUE, out Dictionary<string, string> allFiles)
+    static string GetUEDiffuseTGAPath(string jsonFile, out string normalUE, out string maskUE,
+        out Dictionary<string, string> allFiles)
     {
         allFiles = GetAllImagePath(jsonFile);
 
@@ -757,27 +772,9 @@ public static class WuChangTools
 
         string ext = Path.GetExtension(diffuseUE);
         diffuseUE = diffuseUE.Replace(ext, ".tga");
-        diffuseUE = UEProjectFolder + "/" + diffuseUE;
+        diffuseUE = k_UEProjectFolder + "/" + diffuseUE;
 
-        if (diffuseUE.Contains("_D.tga"))
-        {
-            normalUE = diffuseUE.Replace("_D.tga", "_N.tga");
-            maskUE = diffuseUE.Replace("_D.tga", "_R.tga");
-        }
-        else if (diffuseUE.Contains("_C.tga"))
-        {
-            normalUE = diffuseUE.Replace("_C.tga", "_N.tga");
-            maskUE = diffuseUE.Replace("_C.tga", "_R.tga");
-        }
-        else if (diffuseUE.Contains("_Albedo.tga"))
-        {
-            normalUE = diffuseUE.Replace("_Albedo.tga", "_Normal.tga");
-            maskUE = diffuseUE.Replace("_Albedo.tga", "_Reflection.tga");
-        }
-        else
-        {
-            Debug.LogError("Unknown tex path:" + diffuseUE);
-        }
+        GetUENormalMaskPathByAlbedoPath(diffuseUE, out normalUE, out maskUE);
 
         return diffuseUE;
     }

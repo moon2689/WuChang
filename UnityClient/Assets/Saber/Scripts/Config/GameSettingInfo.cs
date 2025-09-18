@@ -21,6 +21,9 @@ namespace Saber.Config
         public int PerfectDodgeShaEffCount = 6;
         public float PerfectDodgeShaInterval = 0.1f;
         public float PerfectDodgeShaHoldTime = 0.3f;
+        public int MaxHPPotionCount = 5;
+        public float HPPotionRecoverRate = 0.5f;
+        public AudioClip[] m_VoiceTired;
 
         [Header("Melee")] public AudioClip[] m_SoundSwordHitSword;
         public AudioClip[] m_SoundWeaponHitGround;
@@ -34,6 +37,12 @@ namespace Saber.Config
         public GameObject[] m_EffectFistHitBody;
         public GameObject[] m_EffectClawHitBody;
 
+        public AudioClip GetRandomVoiceTired()
+        {
+            int ranIndex = UnityEngine.Random.Range(0, m_VoiceTired.Length);
+            return m_VoiceTired[ranIndex];
+        }
+        
         public AudioClip GetRandomSound_SwordHitSword()
         {
             int ranIndex = UnityEngine.Random.Range(0, m_SoundSwordHitSword.Length);

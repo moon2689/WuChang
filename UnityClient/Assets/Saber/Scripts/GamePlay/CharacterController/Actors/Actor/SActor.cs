@@ -530,7 +530,7 @@ namespace Saber.CharacterController
 
         public virtual void OnGodStatueRest()
         {
-            CStats.PlayHealingEffect(CStats.MaxHp);
+            Heal(CStats.MaxHp);
             CStats.DefaultHPPointCount();
             CStats.ClearPower();
         }
@@ -601,6 +601,26 @@ namespace Saber.CharacterController
                     p.AudioSource.pitch = TimeMultiplier;
                 }
             }
+        }
+
+        public virtual void AddYuMao(int value)
+        {
+        }
+
+        public virtual void CostYuMao(int value)
+        {
+        }
+
+        public bool Heal(float value)
+        {
+            if (!IsDead && value > 0)
+            {
+                GameApp.Entry.Game.Effect.CreateEffect("Particles/Healing", transform, 5);
+                CStats.AddHp(value);
+                return true;
+            }
+
+            return false;
         }
     }
 }

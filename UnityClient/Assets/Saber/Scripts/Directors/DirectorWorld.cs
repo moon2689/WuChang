@@ -32,16 +32,16 @@ namespace Saber.Director
         {
             base.Enter();
             GameApp.Entry.Game.World.Load(m_LoadType, StartBGM);
-            GameApp.Entry.Game.World.OnSetLockingEnemyEvent = OnSetLockingEnemy;
+            GameApp.Entry.Game.World.Event_OnStartOrEndFightingBoss = OnStartOrEndFightingBoss;
         }
 
-        private void OnSetLockingEnemy()
+        private void OnStartOrEndFightingBoss(bool isFightingBoss)
         {
-            var lockEnemy = GameApp.Entry.Game.PlayerAI.LockingEnemy;
-            if (lockEnemy != null && lockEnemy.BaseInfo.m_ActorType == EActorType.Boss)
+            if (isFightingBoss)
             {
                 AudioClip clip = GameApp.Entry.Config.MusicInfo.m_BattleCommon;
-                GameApp.Entry.Game.Audio.PlayBGM(clip, 0.5f, true, null);
+                if (GameApp.Entry.Game.Audio.CurBGMName != clip.name)
+                    GameApp.Entry.Game.Audio.PlayBGM(clip, 0.5f, true, null);
             }
             else
             {

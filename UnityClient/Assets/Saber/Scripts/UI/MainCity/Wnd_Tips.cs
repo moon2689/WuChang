@@ -24,8 +24,6 @@ namespace Saber.UI
         private EState m_State;
 
 
-        protected override bool PauseGame => false;
-
         protected override void Start()
         {
             base.Start();

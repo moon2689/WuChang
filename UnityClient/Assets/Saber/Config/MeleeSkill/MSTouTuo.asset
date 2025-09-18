@@ -27,13 +27,7 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
-    m_ChainSkills:
-    - m_SkillID: 6
-      m_BlendTime: 0.5
-    - m_SkillID: 11
-      m_BlendTime: 0.5
-    - m_SkillID: 15
-      m_BlendTime: 0.5
+    m_ChainSkills: []
     m_Resilience: 2
     m_AIPramAttackDistance:
       minValue: 0
@@ -81,13 +75,7 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
-    m_ChainSkills:
-    - m_SkillID: 6
-      m_BlendTime: 0.5
-    - m_SkillID: 11
-      m_BlendTime: 0.5
-    - m_SkillID: 15
-      m_BlendTime: 0.5
+    m_ChainSkills: []
     m_Resilience: 2
     m_AIPramAttackDistance:
       minValue: 0
@@ -138,7 +126,7 @@ MonoBehaviour:
       m_BlendTime: 0.5
     - m_SkillID: 15
       m_BlendTime: 0.5
-    m_Resilience: 2
+    m_Resilience: 3
     m_AIPramAttackDistance:
       minValue: 3
       maxValue: 5
@@ -166,7 +154,7 @@ MonoBehaviour:
       m_BlendTime: 0.5
     - m_SkillID: 15
       m_BlendTime: 0.5
-    m_Resilience: 2
+    m_Resilience: 3
     m_AIPramAttackDistance:
       minValue: 5
       maxValue: 7
@@ -194,7 +182,7 @@ MonoBehaviour:
       m_BlendTime: 0.5
     - m_SkillID: 15
       m_BlendTime: 0.5
-    m_Resilience: 2
+    m_Resilience: 3
     m_AIPramAttackDistance:
       minValue: 7
       maxValue: 9
@@ -344,8 +332,10 @@ MonoBehaviour:
     m_ChainSkills:
     - m_SkillID: 1
       m_BlendTime: 0.5
-    - m_SkillID: 11
+    - m_SkillID: 3
       m_BlendTime: 0.5
+    - m_SkillID: 11
+      m_BlendTime: 0.1
     m_Resilience: 2
     m_AIPramAttackDistance:
       minValue: 0

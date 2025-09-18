@@ -79,5 +79,6 @@ namespace Saber.CharacterController
         RightHand,
 
         Tail,
+        YuMao,
     }
 }

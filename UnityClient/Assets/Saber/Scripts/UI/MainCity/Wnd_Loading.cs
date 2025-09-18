@@ -19,9 +19,7 @@ namespace Saber.UI
                 m_PercentText.text = value.ToString("0") + "%";
             }
         }
-
-
-        protected override bool PauseGame => false;
+        
 
         protected override void OnAwake()
         {

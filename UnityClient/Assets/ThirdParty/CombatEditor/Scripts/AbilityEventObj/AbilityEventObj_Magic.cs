@@ -56,7 +56,7 @@ namespace CombatEditor
             }
             else if (magicType == EMagicType.RecoverHP)
             {
-                Actor.CStats.PlayHealingEffect(60);
+                Actor.Heal(60);
             }
             else
             {

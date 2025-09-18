@@ -51,5 +51,10 @@ namespace Saber.Frame
         {
             return RootUI.Instance.GetShowingWnd<T>();
         }
+
+        public AssetHandle ShowPopScreen(Wnd_PopScreen.EStyle style)
+        {
+            return CreateWnd<Wnd_PopScreen>(w => w.Reset(style));
+        }
     }
 }

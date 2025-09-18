@@ -137,5 +137,10 @@ namespace Saber.AI
         {
             return UnityEngine.Random.Range(0, 100) < percent;
         }
+
+        protected override void OnDead(SActor owner)
+        {
+            LockingEnemy = null;
+        }
     }
 }

@@ -31,10 +31,14 @@ MonoBehaviour:
     m_Blood: {fileID: 8129476537154334463, guid: f278962be0ad1614b9b5784fab88b9ae,
       type: 3}
   ExecuteSkillCanExitTime: 0.8
-  BackStabPower: 3
+  BackStabPower: 4
   CanTanFanSecondsFromDefenseStart: 0.2
   BlockBrokenSound: {fileID: 8300000, guid: 00b642d1610fb77449e92765ec09a134, type: 3}
   m_MiaoDaoHitBodySound:
   - {fileID: 8300000, guid: 4fe859fa6716aed43be23ad0c78a3be2, type: 3}
   m_YueYaChanHitBodySound:
   - {fileID: 8300000, guid: 999b0752e536b894285d8a137e0c0633, type: 3}
+  m_SoundAddYuMao: {fileID: 8300000, guid: c5b6e1143e0ab2540816edc0ea0eb844, type: 3}
+  m_SoundUseYuMao: {fileID: 8300000, guid: 8d16f5cb71c64e94aa6433a45e571732, type: 3}
+  m_EffectAddYuMao: {fileID: 6589205166322888823, guid: 9c5d30c2d871b4549925f25b51d27ce8,
+    type: 3}

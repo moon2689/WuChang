@@ -20,9 +20,7 @@ namespace Saber.UI
         [SerializeField] private GameObject m_IconLockDecapitate;
 
         private IHandler m_Handler;
-
-
-        protected override bool PauseGame => false;
+        
 
         protected override void OnAwake()
         {

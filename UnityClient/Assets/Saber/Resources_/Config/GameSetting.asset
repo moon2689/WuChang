@@ -24,6 +24,11 @@ MonoBehaviour:
   PerfectDodgeShaEffCount: 3
   PerfectDodgeShaInterval: 0.2
   PerfectDodgeShaHoldTime: 0.5
+  MaxHPPotionCount: 5
+  HPPotionRecoverRate: 0.5
+  m_VoiceTired:
+  - {fileID: 8300000, guid: a839d3f8dfd4a984ea10cb68a6f435dd, type: 3}
+  - {fileID: 8300000, guid: e2202e4466a37e14f84e86f07ad2a8b2, type: 3}
   m_SoundSwordHitSword:
   - {fileID: 8300000, guid: 0033e1e4b1d3e0d43aa3c336b531f70b, type: 3}
   m_SoundWeaponHitGround:

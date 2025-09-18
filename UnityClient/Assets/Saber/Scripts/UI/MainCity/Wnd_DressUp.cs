@@ -44,8 +44,6 @@ namespace Saber.UI
         private Content m_Content;
         private IHandler m_Handler;
 
-        protected override bool PauseGame => false;
-
 
         protected override void OnAwake()
         {

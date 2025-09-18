@@ -13,7 +13,8 @@ namespace Saber
         private static Volume m_Volume;
 
 
-        public static UniversalRenderPipelineAsset URPAsset => s_URPAsset ??= (UniversalRenderPipelineAsset)GraphicsSettings.renderPipelineAsset;
+        public static UniversalRenderPipelineAsset URPAsset =>
+            s_URPAsset ??= (UniversalRenderPipelineAsset)GraphicsSettings.renderPipelineAsset;
 
         public static Volume GlobalVolume => m_Volume ??= GameObject.FindObjectOfType<Volume>();
 
@@ -21,7 +22,8 @@ namespace Saber
         {
             set
             {
-                DepthOfField dof = GlobalVolume.sharedProfile.components.FirstOrDefault(a => a is DepthOfField) as DepthOfField;
+                DepthOfField dof =
+                    GlobalVolume.sharedProfile.components.FirstOrDefault(a => a is DepthOfField) as DepthOfField;
                 if (dof)
                     dof.active = value;
             }
@@ -41,7 +43,11 @@ namespace Saber
         public static void Init()
         {
             Application.runInBackground = true;
+#if UNITY_EDITOR
+            Application.targetFrameRate = 60;
+#else
             Application.targetFrameRate = 30;
+#endif
 
             Input.multiTouchEnabled = true;
 

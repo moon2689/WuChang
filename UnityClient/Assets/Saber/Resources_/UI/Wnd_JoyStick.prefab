@@ -5015,7 +5015,6 @@ MonoBehaviour:
   m_ButtonHeavyAttack: {fileID: 5207788898817457848}
   m_btnRoll: {fileID: 329403973729538938}
   m_btnLockOn: {fileID: 3240475164681248815}
-  m_ButtonFly: {fileID: 0}
   m_btnInteract: {fileID: 7192362223616612074}
   m_ButtonDrinkMedicine: {fileID: 6337609526741686127}
   m_ButtonMedicineNone: {fileID: 7905656950917609031}

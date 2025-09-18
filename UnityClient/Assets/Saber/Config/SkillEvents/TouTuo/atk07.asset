@@ -58,7 +58,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0, y: 0.331565}
+    EventRange: {x: 0, y: 0.3713528}
     EventMultiRange:
     - 0.2
     - 0.4

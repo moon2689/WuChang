@@ -108,6 +108,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 6174110188060731140}
+  - EventTime: 0.09090909
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 8323216861943269061}
 --- !u!114 &634662789174911584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +160,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 0acfd59499ff8144dbcfd69764fea468, type: 3}
   m_Volume: 1
+  m_TriggerProbability: 100
 --- !u!114 &6174110188060731140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,6 +180,44 @@ MonoBehaviour:
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
+--- !u!114 &8323216861943269061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFXVoice
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 384b32f4ade185543a5afab33eead8a3, type: 3}
+  - {fileID: 8300000, guid: 4408150f758656e4e91a8331efc53585, type: 3}
+  - {fileID: 8300000, guid: 5ea9a058178f8284f9b8bb8f99ca6581, type: 3}
+  - {fileID: 8300000, guid: 1a8a727636e9ba744bdd208712ecb332, type: 3}
+  - {fileID: 8300000, guid: 063594fcd48241e4388a3fef40ebee5b, type: 3}
+  - {fileID: 8300000, guid: d56ffc4b5df771f4ca69853f715b5ad1, type: 3}
+  - {fileID: 8300000, guid: 50d2cb6038a59f048a209f214c383678, type: 3}
+  - {fileID: 8300000, guid: a7b5b0dc647421647ae79c2b8506b328, type: 3}
+  - {fileID: 8300000, guid: 6679aeee3355b2642923823a68722502, type: 3}
+  - {fileID: 8300000, guid: a1803fe57bd16ed4cb26b95fd2ee6ebe, type: 3}
+  - {fileID: 8300000, guid: af99e23177a598843bae778b3613ed82, type: 3}
+  - {fileID: 8300000, guid: 83186d54da90a224f99d4cff96b35f4b, type: 3}
+  - {fileID: 8300000, guid: e5acb9f50a3629946b33621b658d03c5, type: 3}
+  - {fileID: 8300000, guid: 870415c5a3dc4ad4fb33216039914be4, type: 3}
+  - {fileID: 8300000, guid: 00ba902ed8a2f584cb03bd1f15eccdc9, type: 3}
+  - {fileID: 8300000, guid: fb6ec4d856be22946a389b1db9f763d5, type: 3}
+  - {fileID: 8300000, guid: bc348228002382146b67327481fa50d5, type: 3}
+  - {fileID: 8300000, guid: d573c60ffddec5a40aebe1a3565a75e3, type: 3}
+  - {fileID: 8300000, guid: 0a38975e154ed304782007cfce0a257e, type: 3}
+  - {fileID: 8300000, guid: cb52de02819c4ef4fae9e46eb477e303, type: 3}
+  - {fileID: 8300000, guid: 5dbf3af1f4244d7419567d53ba120951, type: 3}
+  - {fileID: 8300000, guid: 9d7a8c28db177dd478896459b75505fc, type: 3}
+  m_Volume: 1
+  m_TriggerProbability: 20
 --- !u!114 &9149797077305929752
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -35,7 +35,7 @@ namespace Saber.World
         }
 
 
-        public Action OnSetLockingEnemyEvent;
+        public Action<bool> Event_OnStartOrEndFightingBoss;
 
 
         private SActor m_Player;
@@ -78,6 +78,7 @@ namespace Saber.World
         //public Vector3 Date => m_AzureTime != null ? m_AzureTime.GetDate() : Vector3.zero;
 
         public Light MainLight { get; private set; }
+        public bool IsFightingBoss { get; private set; }
 
 
         #region Load
@@ -439,8 +440,7 @@ namespace Saber.World
         {
             int enemyID = id > 0 ? id : bornPoint.m_ID;
 
-            EAIType aiType = GameApp.Entry.Config.TestGame.EnemyAI != EAIType.None ?
-                GameApp.Entry.Config.TestGame.EnemyAI : bornPoint.m_AIType;
+            EAIType aiType = GameApp.Entry.Config.TestGame.EnemyAI != EAIType.None ? GameApp.Entry.Config.TestGame.EnemyAI : bornPoint.m_AIType;
             EnemyAIBase ai = aiType.CreateEnemyAI();
             var camp = EActorCamp.Monster;
             Vector3 pos = bornPoint.GetFixedBornPos(out var rot);
@@ -448,12 +448,16 @@ namespace Saber.World
             {
                 actor.Event_OnDead += OnOtherActorDead;
                 bornPoint.Actor = actor;
+                ai.OnSetLockingEnemy = OnActorSetLockingEnemy;
             });
         }
 
         private void OnOtherActorDead(SActor obj)
         {
-            // todo
+            if (obj.BaseInfo.m_ActorType == EActorType.Boss)
+            {
+                GameApp.Entry.UI.ShowPopScreen(Wnd_PopScreen.EStyle.BossDead);
+            }
         }
 
         Vector3 GetPlayerPosWhenEnterScene(out Quaternion rot)
@@ -502,7 +506,6 @@ namespace Saber.World
                 m_Player.gameObject.SetActive(true);
                 m_Player.transform.position = playerPos;
                 m_Player.transform.rotation = playerRot;
-                ai.ClearLockEnemy();
 
                 m_WndLoading.Percent = 70;
             }
@@ -530,7 +533,7 @@ namespace Saber.World
                 yield return null;
                 */
 
-                ai.OnSetLockingEnemy = OnSetLockingEnemy;
+                ai.OnSetLockingEnemy = OnActorSetLockingEnemy;
 
                 for (int i = 0; i < 10; i++)
                 {
@@ -554,13 +557,19 @@ namespace Saber.World
         private void OnPlayerDead(SActor obj)
         {
             GameApp.Entry.Game.Audio.Play2DSound("Sound/Game/GameLose");
-            GameApp.Entry.UI.ShowTips("你被击败了！", 5);
+            //GameApp.Entry.UI.ShowTips("你被击败了！", 5);
             GameApp.Entry.Unity.StartCoroutine(RebirthPlayerItor());
+            GameApp.Entry.UI.ShowPopScreen(Wnd_PopScreen.EStyle.PlayerDead);
         }
 
-        void OnSetLockingEnemy()
+        void OnActorSetLockingEnemy(SActor owner, SActor enemy)
         {
-            OnSetLockingEnemyEvent?.Invoke();
+            if (owner.BaseInfo.m_ActorType == EActorType.Boss)
+            {
+                IsFightingBoss = enemy == m_Player;
+            }
+
+            Event_OnStartOrEndFightingBoss?.Invoke(IsFightingBoss);
         }
 
         public void SetFilmEffect(bool open)

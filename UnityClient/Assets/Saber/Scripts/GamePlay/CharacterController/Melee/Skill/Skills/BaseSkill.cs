@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CombatEditor;
+using Saber.Config;
 using Saber.Frame;
 using UnityEngine;
 
@@ -161,9 +162,9 @@ namespace Saber.CharacterController
             m_PowerAdded = false;
 
             IsPowerEnough = Actor.CStats.CurrentPower >= SkillConfig.m_CostPower;
-            if (IsPowerEnough)
+            if (SkillConfig.m_CostPower > 0 && IsPowerEnough)
             {
-                Actor.CStats.CostPower(SkillConfig.m_CostPower);
+                Actor.CostYuMao(SkillConfig.m_CostPower);
             }
 
             // play anim
@@ -296,7 +297,7 @@ namespace Saber.CharacterController
             if (!m_PowerAdded && SkillConfig.m_PowerAddWhenHitted > 0)
             {
                 m_PowerAdded = true;
-                Actor.CStats.AddPower(SkillConfig.m_PowerAddWhenHitted);
+                Actor.AddYuMao(SkillConfig.m_PowerAddWhenHitted);
             }
         }
     }

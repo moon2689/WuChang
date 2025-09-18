@@ -14687,7 +14687,6 @@ GameObject:
   - component: {fileID: 6138665662408877354}
   - component: {fileID: 4246760969376755766}
   - component: {fileID: 2525466223611485912}
-  - component: {fileID: 2946659426893779658}
   m_Layer: 0
   m_Name: WitchTimeBoom
   m_TagString: Untagged
@@ -19508,16 +19507,3 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &2946659426893779658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5428354638140494870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6c4319c88041914b95cd08aa7bdf88d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_DelaySeconds: 1

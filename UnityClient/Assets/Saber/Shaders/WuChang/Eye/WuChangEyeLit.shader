@@ -6,8 +6,6 @@ Shader "Saber/WuChang/Eye Lit"
         [MainColor] _BaseColor("Color", Color) = (1,1,1,1)
         _IrisMap("Iris", 2D) = "black" {}
         _IrisRadius("Iris Radius", Range(0, 1)) = 0.25
-
-        //_BumpMap("Normal Map", 2D) = "bump" {}
     }
 
     SubShader

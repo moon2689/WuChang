@@ -40,11 +40,11 @@ namespace Saber.CharacterController
 
             m_PerfectDodged = true;
             //m_Character.CRender.ShowOneChaShadow(0.5f);
-            var setting = GameApp.Entry.Config.GameSetting;
-            Character.CRender.ShowManyChaShadow(setting.PerfectDodgeShaEffCount, setting.PerfectDodgeShaInterval, setting.PerfectDodgeShaHoldTime);
+            //var setting = GameApp.Entry.Config.GameSetting;
+            //Character.CRender.ShowManyChaShadow(setting.PerfectDodgeShaEffCount, setting.PerfectDodgeShaInterval, setting.PerfectDodgeShaHoldTime);
             //GameApp.Entry.Game.Audio.Play3DSound("Sound/Skill/PerfectDodge", Actor.transform.position);
 
-            Actor.CStats.AddPower(1);
+            Actor.AddYuMao(1);
         }
 
         public Dodge() : base(EStateType.Dodge)
@@ -130,7 +130,6 @@ namespace Saber.CharacterController
             {
                 Actor.Invincible = enter;
             }
-
 
             if (eventObj.EventType == EAnimRangeEvent.CanTriggerSkill)
             {

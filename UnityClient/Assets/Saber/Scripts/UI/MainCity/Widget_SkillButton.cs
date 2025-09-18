@@ -52,8 +52,8 @@ namespace Saber.UI
                     m_SkillObj.OnSkillTrigger += OnSkillTrigger;
                     OnSkillTrigger();
 
-                    GameApp.Entry.Game.Player.CStats.OnPowerChange += OnPowerChange;
-                    OnPowerChange();
+                    GameApp.Entry.Game.Player.CStats.EventOnPowerChange += OnPowerChanged;
+                    OnPowerChanged();
                     yield break;
                 }
 
@@ -71,7 +71,7 @@ namespace Saber.UI
             m_Handler.OnClickSkillButton(m_SkillObj.SkillConfig.m_SkillType);
         }
 
-        private void OnPowerChange()
+        private void OnPowerChanged()
         {
             bool powerEnough = IsPowerEnough;
             m_Icon.SetActive(powerEnough);
@@ -89,7 +89,7 @@ namespace Saber.UI
             base.OnDestroy();
             if (GameApp.Entry.Game.Player)
             {
-                GameApp.Entry.Game.Player.CStats.OnPowerChange -= OnPowerChange;
+                GameApp.Entry.Game.Player.CStats.EventOnPowerChange -= OnPowerChanged;
             }
 
             if (m_SkillObj != null)

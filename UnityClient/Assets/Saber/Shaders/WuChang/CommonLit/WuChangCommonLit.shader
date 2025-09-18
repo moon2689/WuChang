@@ -1,4 +1,4 @@
-Shader "Saber/WuChang/WuChang Common Lit"
+Shader "Saber/WuChang/Common Lit"
 {
     Properties
     {

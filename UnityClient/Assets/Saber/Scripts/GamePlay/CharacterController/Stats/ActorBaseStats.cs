@@ -23,16 +23,14 @@ namespace Saber.CharacterController
             void OnDamaged(float damage);
         }
 
-        public event Action OnHPPointCountChange;
-        public event Action OnPowerChange;
-
-        private const int k_MaxHPCount = 10;
+        public event Action EventOnHPPointCountChange;
+        public event Action EventOnPowerChange;
+        public event Action EventOnStaminaZero;
 
         private IHandler m_Handler;
 
         private float m_CurrentHp;
         private float m_CurrentStamina;
-        private EffectObject m_HealingEffect;
         private int m_HPPotionCount;
         public int m_CurrentPower;
         private float m_CurrentUnbalanceValue;
@@ -84,12 +82,12 @@ namespace Saber.CharacterController
                 if (m_HPPotionCount == value)
                     return;
 
-                int tar = Mathf.Clamp(value, 0, k_MaxHPCount);
+                int tar = Mathf.Clamp(value, 0, GameApp.Entry.Config.GameSetting.MaxHPPotionCount);
                 if (m_HPPotionCount == tar)
                     return;
 
                 m_HPPotionCount = tar;
-                OnHPPointCountChange?.Invoke();
+                EventOnHPPointCountChange?.Invoke();
             }
         }
 
@@ -101,7 +99,7 @@ namespace Saber.CharacterController
             private set
             {
                 m_CurrentPower = Mathf.Clamp(value, 0, MaxPower);
-                OnPowerChange?.Invoke();
+                EventOnPowerChange?.Invoke();
             }
         }
 
@@ -139,7 +137,7 @@ namespace Saber.CharacterController
 
         public void DefaultHPPointCount()
         {
-            HPPotionCount = k_MaxHPCount;
+            HPPotionCount = GameApp.Entry.Config.GameSetting.MaxHPPotionCount;
         }
 
         public void ClearPower()
@@ -204,7 +202,13 @@ namespace Saber.CharacterController
         public void CostStamina(float value)
         {
             if (EnableStamina)
+            {
                 CurrentStamina -= value;
+                if (CurrentStamina <= 0)
+                {
+                    EventOnStaminaZero?.Invoke();
+                }
+            }
         }
 
         public void CostPower(int value)
@@ -217,30 +221,9 @@ namespace Saber.CharacterController
             CurrentPower += value;
         }
 
-        public void PlayHealingEffect(float hpValue)
+        public void AddHp(float value)
         {
-            if (IsHPFull || Actor.IsDead)
-            {
-                return;
-            }
-
-            if (m_HealingEffect)
-            {
-                m_HealingEffect.Show();
-            }
-            else
-            {
-                GameApp.Entry.Asset.LoadGameObject("Particles/Healing", effect =>
-                {
-                    effect.transform.parent = Actor.transform;
-                    effect.transform.localPosition = new Vector3(0, 0, 0);
-                    effect.transform.localRotation = Quaternion.identity;
-                    m_HealingEffect = effect.gameObject.GetComponent<EffectObject>();
-                    m_HealingEffect.Show();
-                });
-            }
-
-            CurrentHp += hpValue;
+            CurrentHp += value;
         }
 
         void OnDead()

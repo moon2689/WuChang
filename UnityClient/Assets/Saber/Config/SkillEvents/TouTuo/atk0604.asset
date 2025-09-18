@@ -16,6 +16,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 5f535851f66b0e44f936ca5cca9de907, type: 3}
   m_Volume: 1
+  m_TriggerProbability: 100
 --- !u!114 &-8911281513957452820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,12 +53,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
-  m_Name: SFX2
+  m_Name: SFXVoice
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
   - {fileID: 8300000, guid: 87f030455d2d40a4698357c7ff32b687, type: 3}
   m_Volume: 1
+  m_TriggerProbability: 80
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,7 +78,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0.37988827, y: 0.52700186}
+    EventRange: {x: 0.3594041, y: 0.46368715}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -121,7 +123,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -8911281513957452820}
   - EventTime: 0
-    EventRange: {x: 0, y: 0.22905028}
+    EventRange: {x: 0, y: 0.10614525}
     EventMultiRange:
     - 0.2
     - 0.4

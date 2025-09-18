@@ -178,6 +178,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -7997075837953226657}
+  - EventTime: 0.085
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 2991111789317121901}
 --- !u!114 &974268347516908716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +200,35 @@ MonoBehaviour:
   m_Name: ComboTime
   m_EditorClassIdentifier: 
   IsActive: 1
+--- !u!114 &2991111789317121901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFXVoice
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 37906344a0feaae49afd7e96442bd4f4, type: 3}
+  - {fileID: 8300000, guid: 48e656b7994fdbd45b7fd94f3b6d4101, type: 3}
+  - {fileID: 8300000, guid: 8442cdd81573b0145be7b62eb0e252f5, type: 3}
+  - {fileID: 8300000, guid: c77dfbfeede60df40a6a6d335aabaeb5, type: 3}
+  - {fileID: 8300000, guid: 8efac65d42ae17342a24f53a724d03e2, type: 3}
+  - {fileID: 8300000, guid: c17fb575b1377874da918338207c276b, type: 3}
+  - {fileID: 8300000, guid: c9821e5335f0c9c41a242f106493e5aa, type: 3}
+  - {fileID: 8300000, guid: 38877d0ae7c60d1499e097204302f338, type: 3}
+  - {fileID: 8300000, guid: 56a7829fa745a2e4db4994151fb80671, type: 3}
+  - {fileID: 8300000, guid: d3dc7c56b093f36488fdd338e0cc1c3a, type: 3}
+  - {fileID: 8300000, guid: 91ca1b8175c3363409370d5c56e5f778, type: 3}
+  - {fileID: 8300000, guid: ef16c0214bf99024ab50e6997bcf3aec, type: 3}
+  - {fileID: 8300000, guid: b950eaeeabdbbf2449ed38cb01ea77ec, type: 3}
+  m_Volume: 1
+  m_TriggerProbability: 50
 --- !u!114 &3283165656678560353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,6 +259,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: fc471827d10c769439267b9547a102d7, type: 3}
   m_Volume: 1
+  m_TriggerProbability: 100
 --- !u!114 &7988935901002624519
 MonoBehaviour:
   m_ObjectHideFlags: 0

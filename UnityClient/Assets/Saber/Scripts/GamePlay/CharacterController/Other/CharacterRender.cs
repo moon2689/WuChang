@@ -333,6 +333,17 @@ namespace Saber.CharacterController
 
         #endregion
 
+        #region 特效
+
+        public void ShowEffectYuMaoAdded()
+        {
+            GameObject prefab = GameApp.Entry.Config.SkillCommon.m_EffectAddYuMao;
+            Transform nodeChest = m_Character.GetNodeTransform(ENodeType.YuMao);
+            GameApp.Entry.Game.Effect.CreateEffect(prefab, nodeChest, 1);
+        }
+
+        #endregion
+
 
         /*
          private LookTargetController m_LookTargetController;

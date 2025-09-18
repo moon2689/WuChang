@@ -29,6 +29,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 87f030455d2d40a4698357c7ff32b687, type: 3}
   m_Volume: 1
+  m_TriggerProbability: 80
 --- !u!114 &-6974220687102563831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,6 +72,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 5f535851f66b0e44f936ca5cca9de907, type: 3}
   m_Volume: 1
+  m_TriggerProbability: 100
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,7 +91,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0.38733706, y: 0.53445065}
+    EventRange: {x: 0.3594041, y: 0.46368715}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -134,7 +136,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -6974220687102563831}
   - EventTime: 0
-    EventRange: {x: 0, y: 0.26443204}
+    EventRange: {x: 0, y: 0.10614525}
     EventMultiRange:
     - 0.2
     - 0.4
