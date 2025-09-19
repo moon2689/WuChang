@@ -16,7 +16,7 @@ namespace Saber.CharacterController
         public event Action<SActor, float> Event_OnDamage;
 
 
-        [SerializeField] public BaseActorInfo m_BaseActorInfo;
+        [SerializeField] private List<CharacterNode> m_Nodes;
 
         private float m_TimeMultiplier = 1;
         private BaseAI m_AI;
@@ -25,12 +25,15 @@ namespace Saber.CharacterController
         public AnimSpeedExecutor m_AnimSpeedExecutor;
         private List<AudioPlayer> m_PlayingSounds = new();
         private bool m_IsDead;
+        private Dictionary<ENodeType, Transform> m_DicNodes;
 
 
+        public abstract BaseActorInfo m_BaseActorInfo { get; }
         public abstract ActorStateMachine CStateMachine { get; }
 
         public StatsInfo StatsInfo => m_BaseActorInfo.m_StatsInfo;
         public PhysicInfo PhysicInfo => m_BaseActorInfo.m_PhysicInfo;
+        public List<CharacterNode> Nodes => m_Nodes;
         public ActorItemInfo BaseInfo { get; set; }
 
         /// <summary>物理</summary>
@@ -399,14 +402,24 @@ namespace Saber.CharacterController
             m_BaseActorInfo.m_PhysicInfo.m_GroundOffset = offset;
         }
 
-        public Transform GetNodeTransform(ENodeType type)
+        public Transform GetNodeTransform(ENodeType nodeType)
         {
-            if (type == ENodeType.Animator)
+            if (m_DicNodes == null)
             {
-                return transform;
+                m_DicNodes = new();
+                foreach (var n in m_Nodes)
+                {
+                    m_DicNodes.Add(n.m_Type, n.m_NodeTrans);
+                }
             }
 
-            return m_BaseActorInfo.GetNode(type);
+            m_DicNodes.TryGetValue(nodeType, out var t);
+            if (t == null)
+            {
+                Debug.LogError($"Node is null,type:{nodeType}");
+            }
+
+            return t;
         }
 
         public virtual void OnPlayDamageEffect(Vector3 pos)

@@ -17,10 +17,9 @@ namespace Saber.CharacterController
         {
             public bool m_Enable;
             public int[] m_DefaultClothes; //一般指内衣，和默认头发
-            public SkinnedMeshRenderer[] m_DefaultSMR;
         }
 
-        private SActor m_Actor;
+        private SCharacter m_Actor;
         private CharacterClothInfo m_ClothInfo;
         private List<ClothItemInfo> m_DressingClothes = new();
         private List<Transform> m_ExtraBones = new();
@@ -33,7 +32,7 @@ namespace Saber.CharacterController
         public bool Enable => m_ClothInfo.m_Enable;
 
 
-        public CharacterDressUp(SActor actor, CharacterClothInfo info)
+        public CharacterDressUp(SCharacter actor, CharacterClothInfo info)
         {
             m_Actor = actor;
             m_ClothInfo = info;
@@ -41,7 +40,7 @@ namespace Saber.CharacterController
 
             if (Enable)
             {
-                foreach (var smr in info.m_DefaultSMR)
+                foreach (var smr in actor.m_DefaultSMR)
                 {
                     smr.gameObject.SetActive(false);
                 }

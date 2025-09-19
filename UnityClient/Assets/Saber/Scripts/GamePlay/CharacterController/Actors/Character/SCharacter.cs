@@ -7,13 +7,17 @@ namespace Saber.CharacterController
 {
     public class SCharacter : SActor
     {
-        [SerializeField] public CharacterInfo m_CharacterInfo;
+        [SerializeField] public CharacterConfig m_CharacterConfig;
+        [SerializeField] public SkinnedMeshRenderer[] m_DefaultSMR;
 
         public event Action<Collider> EventOnTriggerEnter, EventOnTriggerExit;
         public event Action<EMoveSpeedV, EMoveSpeedV> EventOnMoveSpeedVChange;
 
         private CharacterStateMachine m_CStates;
 
+
+        public override BaseActorInfo m_BaseActorInfo => m_CharacterConfig.m_BaseActorInfo;
+        public CharacterInfo m_CharacterInfo => m_CharacterConfig.m_CharacterInfo;
 
         public CharacterRender CRender { get; private set; }
         // public CharacterSpeech CSpeech { get; private set; }

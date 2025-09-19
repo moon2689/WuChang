@@ -20,8 +20,6 @@ namespace Saber.CharacterController
         [Tooltip("是否体型巨大")] public bool m_IsBodyHuge;
 
         public EPhysicMaterialType m_PhysicMaterialType;
-        public Transform m_PivotChest;
-        public Transform m_PivotHip;
         public float m_ChestHeight = 1;
 
         public ETurnRotationSpeed m_TurnRotSpeed;

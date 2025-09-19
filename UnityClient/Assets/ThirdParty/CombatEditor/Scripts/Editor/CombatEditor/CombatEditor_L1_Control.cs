@@ -308,18 +308,23 @@ namespace CombatEditor
             {
                 return;
             }
+
             foreach (var weaponPrefab in actor.m_BaseActorInfo.m_WeaponPrefabs)
             {
-                if (weaponPrefab.m_WeaponObj != null)
+                Transform parent = actor.GetNodeTransform(weaponPrefab.m_ArmBoneType);
+                WeaponBase weapon = parent.GetComponentInChildren<WeaponBase>();
+                if (weapon)
+                {
                     continue;
+                }
 
                 string path = $"Assets/Saber/Resources_/{weaponPrefab.m_WeaponPrefabResPath}.prefab";
-                Transform parent = weaponPrefab.m_WeaponParentInfo.m_ArmBone;
                 GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
                 GameObject go = GameObject.Instantiate(prefab);
                 go.transform.SetParent(parent);
-                go.transform.localPosition = weaponPrefab.m_WeaponParentInfo.m_ArmPos;
-                go.transform.localRotation = Quaternion.Euler(weaponPrefab.m_WeaponParentInfo.m_ArmRot);
+                go.transform.localPosition = Vector3.zero;
+                go.transform.localRotation = Quaternion.identity;
+                go.transform.localScale = Vector3.one;
             }
         }
 

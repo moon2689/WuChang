@@ -73,7 +73,7 @@ namespace CombatEditor
             
             List<string> NodeTypesInController = new List<string>();
             //var nodes = editor.SelectedController.Nodes;
-            var nodes = editor.SelectedController.Actor.m_BaseActorInfo.m_Nodes;
+            var nodes = editor.SelectedController.Actor.Nodes;
 
             var DefaultNodeName = System.Enum.GetName(typeof(ENodeType), 0);
             NodeTypesInController.Add(DefaultNodeName);

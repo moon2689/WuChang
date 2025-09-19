@@ -4,6 +4,8 @@ namespace Saber.CharacterController
     {
         private NPCStateMachine m_CStates;
 
+        public override BaseActorInfo m_BaseActorInfo => null;
+
         public override ActorStateMachine CStateMachine
         {
             get

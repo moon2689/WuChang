@@ -135,10 +135,10 @@ public class SkillConfigEditor : EditorBase
         item.m_TriggerCondition = (ETriggerCondition)EditorGUILayout.EnumPopup("触发条件:", item.m_TriggerCondition);
         if (item.m_TriggerCondition == ETriggerCondition.InAir)
         {
-            item.UseGravityWhenInAir = EditorGUILayout.Toggle("空中开启重力：", item.UseGravityWhenInAir);
+            item.UseGravityWhenInAir = EditorGUILayout.Toggle("空中开启重力？", item.UseGravityWhenInAir);
         }
 
-        item.m_FirstSkillOfCombo = EditorGUILayout.Toggle("起手技能:", item.m_FirstSkillOfCombo);
+        item.m_FirstSkillOfCombo = EditorGUILayout.Toggle("起手技能？", item.m_FirstSkillOfCombo);
         if (item.m_FirstSkillOfCombo)
         {
             item.m_CDSeconds = EditorGUILayout.FloatField("冷却时间（秒）:", item.m_CDSeconds);
@@ -148,6 +148,8 @@ public class SkillConfigEditor : EditorBase
         {
             item.m_CostPower = EditorGUILayout.IntField("消耗能量:", item.m_CostPower);
             item.m_PowerAddWhenHitted = EditorGUILayout.IntField("击中时增加能量:", item.m_PowerAddWhenHitted);
+            if (item.m_CostPower > 0)
+                item.m_CanTriggerWhenPowerNotEnough = EditorGUILayout.Toggle("能量不足也可释放？", item.m_CanTriggerWhenPowerNotEnough);
         }
 
         item.m_Resilience = (EResilience)EditorGUILayout.EnumPopup("韧性:", item.m_Resilience);

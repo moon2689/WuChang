@@ -45,7 +45,7 @@ namespace Saber.CharacterController
         {
             return dmg.DamageConfig.m_HitRecover == EHitRecover.Backstab &&
                    (int)GameApp.Entry.Config.SkillCommon.BackStabPower > (int)hurtedActor.CurrentResilience &&
-                   Vector3.Dot(hurtedActor.transform.forward, dmg.Attacker.transform.forward) > 0 ||
+                   Vector3.Dot(hurtedActor.GetNodeTransform(ENodeType.BackSocket).right, dmg.Attacker.transform.forward) > 0 ||
                    hurtedActor.CStats.CurrentUnbalanceValue <= 0;
         }
 
@@ -213,9 +213,9 @@ namespace Saber.CharacterController
 
         void DieAfterExecuted()
         {
-            m_CurAnim = m_IsExecuteFromBack ? "ExecutedBackDownDie" : "ExecutedFrontDownDie";
-            Actor.CAnim.Play(m_CurAnim, force: true);
             Exit();
+            string dieAnim = m_IsExecuteFromBack ? "ExecutedBackDownDie" : "ExecutedFrontDownDie";
+            StateMachine.Die(dieAnim);
         }
     }
 

@@ -1,5 +1,55 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &498249593113925184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5188024840862976110}
+  - component: {fileID: 3075233181674177674}
+  m_Layer: 0
+  m_Name: Magica Capsule Collider (Ankle_R)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5188024840862976110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498249593113925184}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0000000372529, y: -0.00000010244547, z: 0.13225755, w: 0.99121535}
+  m_LocalPosition: {x: -0.009, y: 0.034, z: -0}
+  m_LocalScale: {x: 0.9999999, y: 0.99999976, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4202666867125308536}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 15.2}
+--- !u!114 &3075233181674177674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498249593113925184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f5338a96461264fb9a1132c8509672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: -0.06, y: 0.04, z: 0}
+  size: {x: 0.03, y: 0.06, z: 0.24}
+  direction: 1
+  reverseDirection: 0
+  radiusSeparation: 1
+  alignedOnCenter: 1
 --- !u!1 &600543220258157583
 GameObject:
   m_ObjectHideFlags: 0
@@ -68,6 +118,102 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd9debe37b95824da9543145aafa2c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1026420241331853911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4940047800965703452}
+  - component: {fileID: 6113840603860768972}
+  m_Layer: 0
+  m_Name: Magica Capsule Collider (Elbow_R)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4940047800965703452
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026420241331853911}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000004, y: 1.0000004, z: 1.0000002}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3465218320194182201}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6113840603860768972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026420241331853911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f5338a96461264fb9a1132c8509672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: -0.13, y: 0, z: 0}
+  size: {x: 0.05, y: 0.05, z: 0.3}
+  direction: 0
+  reverseDirection: 0
+  radiusSeparation: 0
+  alignedOnCenter: 1
+--- !u!1 &1423768268275775728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5094130157239504391}
+  - component: {fileID: 6913033826437283797}
+  m_Layer: 0
+  m_Name: Magica Sphere Collider (Chest_M)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5094130157239504391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423768268275775728}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 226361628000857102}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6913033826437283797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423768268275775728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2b68b2c7953ebb479b78627f19a6ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: 0, y: 0, z: 0}
+  size: {x: 0.11, y: 0, z: 0}
 --- !u!1 &1427571429949881041
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,6 +282,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd9debe37b95824da9543145aafa2c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1509387131707374606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8852189371432714808}
+  - component: {fileID: 2275808841114551589}
+  m_Layer: 0
+  m_Name: Magica Capsule Collider (Hip_R)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8852189371432714808
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509387131707374606}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 0.9999999, z: 1.0000001}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7563072371803645107}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2275808841114551589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509387131707374606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f5338a96461264fb9a1132c8509672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: -0.2, y: 0, z: 0}
+  size: {x: 0.08, y: 0.05, z: 0.46}
+  direction: 0
+  reverseDirection: 0
+  radiusSeparation: 1
+  alignedOnCenter: 1
 --- !u!1 &1860002195840462271
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,6 +468,152 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd9debe37b95824da9543145aafa2c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2021770308476228754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7385724113075371987}
+  - component: {fileID: 8262711651117779579}
+  m_Layer: 0
+  m_Name: Magica Capsule Collider (Knee_R)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7385724113075371987
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021770308476228754}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 0.99999976, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7903334174093902849}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8262711651117779579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021770308476228754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f5338a96461264fb9a1132c8509672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: -0.2, y: 0, z: 0}
+  size: {x: 0.05, y: 0.04, z: 0.46}
+  direction: 0
+  reverseDirection: 0
+  radiusSeparation: 1
+  alignedOnCenter: 1
+--- !u!1 &2048358205851988526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7771597442854266892}
+  - component: {fileID: 2586836898599423268}
+  m_Layer: 0
+  m_Name: Magica Sphere Collider (Wrist_R)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7771597442854266892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048358205851988526}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000002, y: 1.0000004, z: 1.0000002}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6153310854026616086}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2586836898599423268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048358205851988526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2b68b2c7953ebb479b78627f19a6ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: -0.06, y: 0, z: -0.03}
+  size: {x: 0.07, y: 0, z: 0}
+--- !u!1 &2181407210413399818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2339272098271196009}
+  - component: {fileID: 7190389203653387614}
+  m_Layer: 0
+  m_Name: Magica Capsule Collider (Shoulder_R)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2339272098271196009
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2181407210413399818}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000001, y: 1.0000006, z: 1.0000002}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1746245036509826181}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7190389203653387614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2181407210413399818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f5338a96461264fb9a1132c8509672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: -0.13, y: 0, z: 0}
+  size: {x: 0.05, y: 0.05, z: 0.3}
+  direction: 0
+  reverseDirection: 0
+  radiusSeparation: 0
+  alignedOnCenter: 1
 --- !u!1 &2357215681188655473
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,6 +750,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd9debe37b95824da9543145aafa2c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2894846621908282480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5742009764098654686}
+  - component: {fileID: 8174394058432351460}
+  m_Layer: 0
+  m_Name: Magica Sphere Collider (Chest_M) (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5742009764098654686
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2894846621908282480}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 226361628000857102}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8174394058432351460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2894846621908282480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2b68b2c7953ebb479b78627f19a6ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: -0.07, y: 0.01, z: 0}
+  size: {x: 0.12, y: 0, z: 0}
 --- !u!1 &3093956567886426605
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,6 +864,298 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd9debe37b95824da9543145aafa2c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3537941581935692240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7974072742157459095}
+  - component: {fileID: 7084565830102071365}
+  m_Layer: 0
+  m_Name: Magica Capsule Collider (Ankle_L)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7974072742157459095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3537941581935692240}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.000000011175872, y: -0.00000007636846, z: 0.13201886, w: 0.99124724}
+  m_LocalPosition: {x: 0.009, y: -0.035, z: 0}
+  m_LocalScale: {x: 0.99999344, y: 1.0000001, z: 0.99999964}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4854061436501696517}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 15.173}
+--- !u!114 &7084565830102071365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3537941581935692240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f5338a96461264fb9a1132c8509672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: 0.06, y: -0.04, z: 0}
+  size: {x: 0.06, y: 0.03, z: 0.24}
+  direction: 1
+  reverseDirection: 0
+  radiusSeparation: 1
+  alignedOnCenter: 1
+--- !u!1 &4579397582478352485
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4782812181259793130}
+  - component: {fileID: 8534493547406425738}
+  m_Layer: 0
+  m_Name: Magica Sphere Collider (Head_M)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4782812181259793130
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4579397582478352485}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000004, y: 1.0000004, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9092198076156099710}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8534493547406425738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4579397582478352485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2b68b2c7953ebb479b78627f19a6ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: -0.08, y: 0, z: 0}
+  size: {x: 0.1, y: 0.1, z: 0.1}
+--- !u!1 &5039924292201953894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6826745812806109912}
+  - component: {fileID: 7371765073616019427}
+  m_Layer: 0
+  m_Name: Magica Sphere Collider (Neck_M)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6826745812806109912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5039924292201953894}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000001, y: 1, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1567197800681888251}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7371765073616019427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5039924292201953894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2b68b2c7953ebb479b78627f19a6ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: -0.06, y: 0, z: 0}
+  size: {x: 0.05, y: 0, z: 0}
+--- !u!1 &5110516301359634343
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7284862180596166792}
+  - component: {fileID: 6326434046638860302}
+  m_Layer: 0
+  m_Name: Magica Capsule Collider (Elbow_L)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7284862180596166792
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5110516301359634343}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.9999987, y: 0.99999964, z: 0.99999905}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4032159946473639099}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6326434046638860302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5110516301359634343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f5338a96461264fb9a1132c8509672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: 0.13, y: 0, z: 0}
+  size: {x: 0.05, y: 0.05, z: 0.3}
+  direction: 0
+  reverseDirection: 0
+  radiusSeparation: 0
+  alignedOnCenter: 1
+--- !u!1 &5277863410021185114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7015730080588253683}
+  - component: {fileID: 7032465782003750609}
+  m_Layer: 0
+  m_Name: Magica Capsule Collider (RootPart2_M)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7015730080588253683
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5277863410021185114}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2970377981798203331}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7032465782003750609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5277863410021185114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f5338a96461264fb9a1132c8509672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: 0, y: 0, z: 0}
+  size: {x: 0.08, y: 0.05, z: 0.25}
+  direction: 2
+  reverseDirection: 0
+  radiusSeparation: 0
+  alignedOnCenter: 1
+--- !u!1 &5296511257529764254
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2200186386580480713}
+  - component: {fileID: 5003007464508380738}
+  m_Layer: 0
+  m_Name: Magica Capsule Collider (Knee_L)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2200186386580480713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296511257529764254}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.9999932, y: 1, z: 0.9999994}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6084486531391296732}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5003007464508380738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296511257529764254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f5338a96461264fb9a1132c8509672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: 0.2, y: 0, z: 0}
+  size: {x: 0.04, y: 0.05, z: 0.46}
+  direction: 0
+  reverseDirection: 0
+  radiusSeparation: 1
+  alignedOnCenter: 1
 --- !u!1 &5440141416016344502
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,6 +1224,106 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd9debe37b95824da9543145aafa2c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5685353849975296510
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5625364424195087295}
+  - component: {fileID: 5847606135848490935}
+  m_Layer: 0
+  m_Name: Magica Capsule Collider (Root_M)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5625364424195087295
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5685353849975296510}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 0.9999999}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 82183521129402392}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5847606135848490935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5685353849975296510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f5338a96461264fb9a1132c8509672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: 0.04, y: 0, z: 0}
+  size: {x: 0.12, y: 0.05, z: 0.35}
+  direction: 2
+  reverseDirection: 0
+  radiusSeparation: 0
+  alignedOnCenter: 1
+--- !u!1 &6039800973196988087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6802362717574116251}
+  - component: {fileID: 4081747673827173623}
+  m_Layer: 0
+  m_Name: Magica Capsule Collider (Hip_L)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6802362717574116251
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6039800973196988087}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.9999933, y: 1.0000001, z: 0.9999995}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 463770631492553473}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4081747673827173623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6039800973196988087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f5338a96461264fb9a1132c8509672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: 0.2, y: 0, z: 0}
+  size: {x: 0.05, y: 0.08, z: 0.46}
+  direction: 0
+  reverseDirection: 0
+  radiusSeparation: 1
+  alignedOnCenter: 1
 --- !u!1 &6933950484102195441
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,6 +1528,152 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd9debe37b95824da9543145aafa2c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7999320977833999355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4218885399996166540}
+  - component: {fileID: 6614727336231316502}
+  m_Layer: 0
+  m_Name: Magica Sphere Collider (Wrist_L)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4218885399996166540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7999320977833999355}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.99999845, y: 0.9999994, z: 0.9999993}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4128014584909223765}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6614727336231316502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7999320977833999355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2b68b2c7953ebb479b78627f19a6ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: 0.06, y: 0, z: 0.03}
+  size: {x: 0.07, y: 0, z: 0}
+--- !u!1 &8420120632258068169
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6741803767546360419}
+  - component: {fileID: 3691215916420181577}
+  m_Layer: 0
+  m_Name: Magica Capsule Collider (Shoulder_L)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6741803767546360419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8420120632258068169}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.9999987, y: 0.99999964, z: 0.99999905}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8335914210516004594}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3691215916420181577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8420120632258068169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f5338a96461264fb9a1132c8509672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: 0.13, y: 0, z: 0}
+  size: {x: 0.05, y: 0.05, z: 0.3}
+  direction: 0
+  reverseDirection: 0
+  radiusSeparation: 0
+  alignedOnCenter: 1
+--- !u!1 &8773866052625327467
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1973121094240103251}
+  - component: {fileID: 28685482695030801}
+  m_Layer: 0
+  m_Name: Magica Capsule Collider (Chest_M)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1973121094240103251
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8773866052625327467}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 226361628000857102}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &28685482695030801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8773866052625327467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f5338a96461264fb9a1132c8509672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {x: -0.16, y: 0, z: 0}
+  size: {x: 0.06, y: 0.05, z: 0.36}
+  direction: 2
+  reverseDirection: 0
+  radiusSeparation: 0
+  alignedOnCenter: 1
 --- !u!1001 &4462960118155150232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -975,6 +1901,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: c6df45c6d04f35546b75ec08df95582e, type: 2}
+    - target: {fileID: 6276317379150125689, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9084594797544220651, guid: ebb3e0dc355e4654fbb7c0735aee904e,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1001,46 +1932,122 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2953250101904288114}
+    - targetCorrespondingSourceObject: {fileID: 5256927352109421680, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5625364424195087295}
     - targetCorrespondingSourceObject: {fileID: 5744347954875207529, guid: ebb3e0dc355e4654fbb7c0735aee904e,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1848425837363596416}
+    - targetCorrespondingSourceObject: {fileID: 5744347954875207529, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6802362717574116251}
     - targetCorrespondingSourceObject: {fileID: 2136908177943384244, guid: ebb3e0dc355e4654fbb7c0735aee904e,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7987692352393102639}
+    - targetCorrespondingSourceObject: {fileID: 2136908177943384244, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2200186386580480713}
+    - targetCorrespondingSourceObject: {fileID: 759619330103075949, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7974072742157459095}
     - targetCorrespondingSourceObject: {fileID: -6835676257030102821, guid: ebb3e0dc355e4654fbb7c0735aee904e,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8031789391929281319}
+    - targetCorrespondingSourceObject: {fileID: -6835676257030102821, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8852189371432714808}
     - targetCorrespondingSourceObject: {fileID: -6594982447650586519, guid: ebb3e0dc355e4654fbb7c0735aee904e,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8031570835743844317}
+    - targetCorrespondingSourceObject: {fileID: -6594982447650586519, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7385724113075371987}
+    - targetCorrespondingSourceObject: {fileID: -899174189636417520, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5188024840862976110}
+    - targetCorrespondingSourceObject: {fileID: 6984878377370024875, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7015730080588253683}
     - targetCorrespondingSourceObject: {fileID: -3822552939867772826, guid: ebb3e0dc355e4654fbb7c0735aee904e,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4045035078574083896}
+    - targetCorrespondingSourceObject: {fileID: -3822552939867772826, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5094130157239504391}
+    - targetCorrespondingSourceObject: {fileID: -3822552939867772826, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5742009764098654686}
+    - targetCorrespondingSourceObject: {fileID: -3822552939867772826, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1973121094240103251}
+    - targetCorrespondingSourceObject: {fileID: -2564680202263093869, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6826745812806109912}
     - targetCorrespondingSourceObject: {fileID: -5189735481900959722, guid: ebb3e0dc355e4654fbb7c0735aee904e,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7144483838246887367}
+    - targetCorrespondingSourceObject: {fileID: -5189735481900959722, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4782812181259793130}
     - targetCorrespondingSourceObject: {fileID: 4213327621404273306, guid: ebb3e0dc355e4654fbb7c0735aee904e,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5369370386813175959}
+    - targetCorrespondingSourceObject: {fileID: 4213327621404273306, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6741803767546360419}
     - targetCorrespondingSourceObject: {fileID: -134335089309529901, guid: ebb3e0dc355e4654fbb7c0735aee904e,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 926282439736551296}
+    - targetCorrespondingSourceObject: {fileID: -134335089309529901, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7284862180596166792}
+    - targetCorrespondingSourceObject: {fileID: -1108442351800544451, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4218885399996166540}
     - targetCorrespondingSourceObject: {fileID: -3320196968499754771, guid: ebb3e0dc355e4654fbb7c0735aee904e,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1891636302910345118}
+    - targetCorrespondingSourceObject: {fileID: -3320196968499754771, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2339272098271196009}
     - targetCorrespondingSourceObject: {fileID: 8773380801146574929, guid: ebb3e0dc355e4654fbb7c0735aee904e,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 156821722451070124}
+    - targetCorrespondingSourceObject: {fileID: 8773380801146574929, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4940047800965703452}
+    - targetCorrespondingSourceObject: {fileID: -7155285808582977154, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7771597442854266892}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ebb3e0dc355e4654fbb7c0735aee904e,
         type: 3}
@@ -1078,6 +2085,12 @@ Transform:
 --- !u!4 &1486729396083508488 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -2488715521844117152, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5320900606771807336}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1567197800681888251 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2564680202263093869, guid: ebb3e0dc355e4654fbb7c0735aee904e,
     type: 3}
   m_PrefabInstance: {fileID: 5320900606771807336}
   m_PrefabAsset: {fileID: 0}
@@ -1135,6 +2148,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5320900606771807336}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &4495722074892364609 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8625415288732266281, guid: ebb3e0dc355e4654fbb7c0735aee904e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5320900606771807336}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4854061436501696517 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 759619330103075949, guid: ebb3e0dc355e4654fbb7c0735aee904e,
@@ -1159,80 +2178,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7da90d2bf95ea04384d13f6ad54c061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BaseActorInfo:
-    m_StatsInfo:
-      m_MaxHp: 30
-      m_DefaultHpRecSpeed: 0
-      m_MaxStamina: 100
-      m_MaxPower: 5
-      m_Resilience: 0
-      m_UnbalanceValue: 100
-    m_PhysicInfo:
-      m_Mass: 50
-      m_Height: 1.6
-      m_HipHeight: 0.3
-      m_Radius: 0.4
-      m_CapsuleOffsetZ: 0
-      m_GroundOffset: 0
-      m_IsWalkingUpright: 1
-      m_IsBodyHuge: 0
-      m_PhysicMaterialType: 0
-      m_PivotChest: {fileID: 0}
-      m_PivotHip: {fileID: 0}
-      m_ChestHeight: 1
-      m_TurnRotSpeed: 0
-      m_JumpForceVertical: 4
-      m_OpenSlopeMovement: 1
-      m_OpenPlatformMovement: 0
-      m_CanClimb: 0
-    m_SkillConfig: {fileID: 11400000, guid: b550d3f38701e6346a27257ad819b2f9, type: 2}
-    m_WeaponPrefabs:
-    - m_WeaponPrefabResPath: Weapon/MiaoDao_QiYunChuXue
-      m_WeaponParentInfo:
-        m_ArmBone: {fileID: 3538113461144303768}
-        m_ArmBoneType: 24
-        m_ArmPos: {x: 0, y: 0, z: 0}
-        m_ArmRot: {x: 0, y: 0, z: 0}
-      m_WeaponObj: {fileID: 0}
-    m_AIInfo:
-      m_WarningRange: 30
-    m_Nodes:
-    - m_Type: 2
-      m_NodeTrans: {fileID: 6721398770134152805}
-    - m_Type: 24
-      m_NodeTrans: {fileID: 6153310854026616086}
-    - m_Type: 23
-      m_NodeTrans: {fileID: 4128014584909223765}
-    - m_Type: 26
-      m_NodeTrans: {fileID: 9142087534230198395}
-  m_CharacterInfo:
-    m_ClothInfo:
-      m_Enable: 1
-      m_DefaultClothes: 0100000002000000030000000400000005000000
-      m_DefaultSMR:
-      - {fileID: 3858999333120223648}
-    m_IKInfo:
-      m_Enable: 0
-      m_HipsPositionAdjustmentSpeed: 4
-      m_HipsPositionOffset: 0
-      m_FootWeightInactiveAdjustmentSpeed: 2
-      m_FootWeightActiveAdjustmentSpeed: 10
-      m_FootOffsetAdjustment: 0.005
-      m_HighHeelsHeight: 0
-    m_ExpressionInfo:
-      m_Enable: 0
-      m_FaceSMRs:
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      - {fileID: 0}
-      m_BlendShapeIndex_Blink: 3
-      m_BlendShapeIndex_OpenMouth: 0
-    m_SpeedWalk: 1.6
-    m_SpeedRun: 4
-    m_SpeedSprint: 7
-    m_SpeedDefenseWalk: 1.2
+  m_Nodes:
+  - m_Type: 0
+    m_NodeTrans: {fileID: 5646699832030929795}
+  - m_Type: 2
+    m_NodeTrans: {fileID: 6721398770134152805}
+  - m_Type: 3
+    m_NodeTrans: {fileID: 82183521129402392}
+  - m_Type: 4
+    m_NodeTrans: {fileID: 2970377981798203331}
+  - m_Type: 5
+    m_NodeTrans: {fileID: 147354703950379616}
+  - m_Type: 6
+    m_NodeTrans: {fileID: 226361628000857102}
+  - m_Type: 7
+    m_NodeTrans: {fileID: 1567197800681888251}
+  - m_Type: 8
+    m_NodeTrans: {fileID: 9092198076156099710}
+  - m_Type: 9
+    m_NodeTrans: {fileID: 463770631492553473}
+  - m_Type: 10
+    m_NodeTrans: {fileID: 7563072371803645107}
+  - m_Type: 11
+    m_NodeTrans: {fileID: 6084486531391296732}
+  - m_Type: 12
+    m_NodeTrans: {fileID: 7903334174093902849}
+  - m_Type: 13
+    m_NodeTrans: {fileID: 4854061436501696517}
+  - m_Type: 14
+    m_NodeTrans: {fileID: 4202666867125308536}
+  - m_Type: 17
+    m_NodeTrans: {fileID: 3593837144281044213}
+  - m_Type: 18
+    m_NodeTrans: {fileID: 1486729396083508488}
+  - m_Type: 19
+    m_NodeTrans: {fileID: 8335914210516004594}
+  - m_Type: 20
+    m_NodeTrans: {fileID: 1746245036509826181}
+  - m_Type: 21
+    m_NodeTrans: {fileID: 4032159946473639099}
+  - m_Type: 22
+    m_NodeTrans: {fileID: 3465218320194182201}
+  - m_Type: 23
+    m_NodeTrans: {fileID: 4128014584909223765}
+  - m_Type: 24
+    m_NodeTrans: {fileID: 6153310854026616086}
+  - m_Type: 26
+    m_NodeTrans: {fileID: 9142087534230198395}
+  - m_Type: 28
+    m_NodeTrans: {fileID: 4495722074892364609}
+  - m_Type: 29
+    m_NodeTrans: {fileID: 3538113461144303768}
+  m_CharacterConfig: {fileID: 11400000, guid: 41760a7c584ae7a448c89dfbc23da5e2, type: 2}
+  m_DefaultSMR:
+  - {fileID: 3858999333120223648}
 --- !u!114 &411124493129723456
 MonoBehaviour:
   m_ObjectHideFlags: 0

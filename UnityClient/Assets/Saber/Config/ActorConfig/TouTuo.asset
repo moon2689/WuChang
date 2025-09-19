@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1fdc80cd6054202aeeab0553142a1fd, type: 3}
+  m_Name: TouTuo
+  m_EditorClassIdentifier: 
+  m_BaseActorInfo:
+    m_StatsInfo:
+      m_MaxHp: 400
+      m_DefaultHpRecSpeed: 0
+      m_MaxStamina: 100
+      m_MaxPower: 3
+      m_Resilience: 1
+      m_UnbalanceValue: 100
+    m_PhysicInfo:
+      m_Mass: 90
+      m_Height: 2.5
+      m_HipHeight: 0.3
+      m_Radius: 0.4
+      m_CapsuleOffsetZ: 0
+      m_GroundOffset: 0
+      m_IsWalkingUpright: 1
+      m_IsBodyHuge: 0
+      m_PhysicMaterialType: 0
+      m_ChestHeight: 1
+      m_TurnRotSpeed: 2
+      m_JumpForceVertical: 10
+      m_OpenSlopeMovement: 0
+      m_OpenPlatformMovement: 0
+      m_CanClimb: 0
+    m_SkillConfig: {fileID: 11400000, guid: c0752ecea1cbd4d4cb36ac2a2c88c8c4, type: 2}
+    m_WeaponPrefabs:
+    - m_WeaponPrefabResPath: 
+      m_ArmBoneType: 29
+    m_AIInfo:
+      m_WarningRange: 30
+  m_MonsterInfo:
+    m_DefaultAI: 1
+    m_MoveByRootMotion: 0
+    m_SpeedWalk: 1
+    m_SpeedRun: 2
+    m_SpeedSprint: 0
+    m_FootstepClips: []
+    m_PlaySoundWhenIdle: 0
+    m_IdleSoundClips: []
+    m_CanDodge: 0
+    m_CanDefense: 0

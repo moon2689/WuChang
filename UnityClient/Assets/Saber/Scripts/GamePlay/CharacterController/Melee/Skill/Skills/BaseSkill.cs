@@ -56,6 +56,13 @@ namespace Saber.CharacterController
                     return false;
                 }
 
+                if (SkillConfig.m_CostPower > 0 &&
+                    !SkillConfig.m_CanTriggerWhenPowerNotEnough &&
+                    Actor.CStats.CurrentPower < SkillConfig.m_CostPower)
+                {
+                    return false;
+                }
+
                 ETriggerCondition condition = SkillConfig.m_TriggerCondition;
                 switch (condition)
                 {

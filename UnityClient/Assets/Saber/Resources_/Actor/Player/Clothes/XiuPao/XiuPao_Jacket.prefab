@@ -3700,6 +3700,7 @@ GameObject:
   m_Component:
   - component: {fileID: 380408552766522283}
   - component: {fileID: 5391662098421026261}
+  - component: {fileID: 580828362975089982}
   m_Layer: 0
   m_Name: MCLingJian
   m_TagString: Untagged
@@ -4831,6 +4832,27 @@ MonoBehaviour:
   localInertiaProperty: 0
   windInfluenceProperty: 0
   blendWeightProperty: 0
+--- !u!114 &580828362975089982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8282452166055408233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c2731c81a14a94b1082cfe3c6fc324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Head: 0
+  m_UpperChest: 1
+  m_UpperBody: 1
+  m_UpperArm: 0
+  m_LowerArm: 0
+  m_Hip: 1
+  m_ThighLeg: 1
+  m_CalfLeg: 0
+  m_Foot: 0
 --- !u!1 &8687686926253600470
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,7 +30,6 @@ namespace Saber.UI
         private IHandler m_Handler;
 
 
-
         public bool ActiveRoot
         {
             set => m_Root.SetActive(value);
@@ -124,10 +123,10 @@ namespace Saber.UI
             m_Handler.OnClickQuit();
         }
 
-        protected override void OnDestroy()
+        public override void Destroy()
         {
+            base.Destroy();
             GameApp.Entry.Game.Audio.Play2DSound("Sound/UI/ActorInfoWndClose");
-            base.OnDestroy();
         }
 
 #if UNITY_EDITOR

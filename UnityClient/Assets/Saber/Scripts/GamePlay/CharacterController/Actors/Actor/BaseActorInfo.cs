@@ -16,28 +16,6 @@ namespace Saber.CharacterController
         public SkillConfig m_SkillConfig;
         public WeaponPrefab[] m_WeaponPrefabs;
         public AIInfo m_AIInfo;
-        public List<CharacterNode> m_Nodes;
-
-        private Dictionary<ENodeType, Transform> m_DicNodes;
-
-        public Transform GetNode(ENodeType nodeType)
-        {
-            if (m_DicNodes == null)
-            {
-                m_DicNodes = new();
-                foreach (var n in m_Nodes)
-                {
-                    m_DicNodes.Add(n.m_Type, n.m_NodeTrans);
-                }
-            }
-
-            m_DicNodes.TryGetValue(nodeType, out var t);
-            if (t == null)
-            {
-                Debug.LogError($"Node is null,type:{nodeType}");
-            }
-            return t;
-        }
     }
 
     [Serializable]
@@ -80,5 +58,8 @@ namespace Saber.CharacterController
 
         Tail,
         YuMao,
+        BackSocket,
+        WeaponLeftHand,
+        WeaponRightHand,
     }
 }

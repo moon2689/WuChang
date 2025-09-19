@@ -22,6 +22,7 @@ namespace Saber.UI
         private int m_SliderCount;
         private float m_HPOfSmoothSlider;
         private float m_TimerHealthSmoothChange;
+        private float m_OldHpRatio;
 
         bool IsShow
         {
@@ -119,6 +120,7 @@ namespace Saber.UI
 
             m_TextName.text = m_LockEnemy.BaseInfo.m_Name;
             m_HPOfSmoothSlider = m_LockEnemy.CStats.CurrentHp;
+            m_OldHpRatio = m_LockEnemy.CStats.CurrentHPRatio;
         }
 
         void UpdateSliders()
@@ -148,6 +150,11 @@ namespace Saber.UI
                 else
                 {
                     m_TimerHealthSmoothChange += Time.deltaTime;
+                    if (m_OldHpRatio != m_LockEnemy.CStats.CurrentHPRatio)
+                    {
+                        m_TimerHealthSmoothChange = 0;
+                        m_OldHpRatio = m_LockEnemy.CStats.CurrentHPRatio;
+                    }
                 }
             }
             else

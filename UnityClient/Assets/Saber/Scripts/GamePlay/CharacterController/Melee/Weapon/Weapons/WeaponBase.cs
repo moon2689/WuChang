@@ -14,17 +14,16 @@ namespace Saber.CharacterController
         public Transform m_PosStart;
         public Transform m_PosEnd;
 
-        private WeaponParentInfo m_WeaponParentInfo;
+        private WeaponPrefab m_WeaponInfo;
         private DamageInfo m_CurDmgInfo = new();
         protected WeaponDamageSetting m_WeaponDamageSetting;
 
         public SActor Actor { get; private set; }
         public EWeaponType WeaponType => m_WeaponType;
-        public bool ResetLocation { get; set; }
         public WeaponTrail[] WeaponTrails => m_WeaponTrails;
 
 
-        public ENodeType WeaponBone => m_WeaponParentInfo.m_ArmBoneType;
+        public ENodeType WeaponBone => m_WeaponInfo.m_ArmBoneType;
 
 
         private void Awake()
@@ -32,10 +31,10 @@ namespace Saber.CharacterController
             gameObject.SetRenderingLayerRecursive(ERenderingLayers.Actor);
         }
 
-        public void Init(SActor actor, WeaponParentInfo weaponParentInfo)
+        public void Init(SActor actor, WeaponPrefab weaponInfo)
         {
             Actor = actor;
-            m_WeaponParentInfo = weaponParentInfo;
+            m_WeaponInfo = weaponInfo;
         }
 
         public virtual void ToggleDamage(WeaponDamageSetting damage, bool enable)
@@ -50,18 +49,25 @@ namespace Saber.CharacterController
             DamageHelper.TryHit(hurtBox, this.Actor, m_WeaponDamageSetting, m_CurDmgInfo);
         }
 
-        public void ResetParent()
+        public void EquipWeapon()
         {
-            if (!ResetLocation)
+            Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+            if (rb)
             {
-                return;
+                Destroy(rb);
             }
 
-            Transform parent = m_WeaponParentInfo.m_ArmBone;
-            transform.parent = parent;
-            transform.localPosition = m_WeaponParentInfo.m_ArmPos;
-            transform.localRotation = Quaternion.Euler(m_WeaponParentInfo.m_ArmRot);
-            transform.localScale = new Vector3(1f / parent.lossyScale.x, 1f / parent.lossyScale.y, 1f / parent.lossyScale.z);
+            var c = gameObject.GetComponent<Collider>();
+            if (c)
+            {
+                c.enabled = false;
+            }
+
+            Transform parent = Actor.GetNodeTransform(m_WeaponInfo.m_ArmBoneType);
+            transform.SetParent(parent);
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.identity;
+            transform.localScale = Vector3.one;
         }
 
         protected virtual void LateUpdate()
@@ -82,6 +88,20 @@ namespace Saber.CharacterController
             {
                 m_WeaponTrails[i].Hide();
             }
+        }
+
+        public void FallToGround()
+        {
+            var c = gameObject.GetComponent<Collider>();
+            c.enabled = true;
+
+            Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+            if (!rb)
+                rb = gameObject.AddComponent<Rigidbody>();
+            rb.mass = 3;
+            rb.useGravity = true;
+            rb.isKinematic = false;
+            transform.SetParent(null);
         }
     }
 }

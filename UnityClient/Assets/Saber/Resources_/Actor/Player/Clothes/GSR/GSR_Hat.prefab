@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6773941220075998405}
   - component: {fileID: 2276832694465025610}
+  - component: {fileID: 5962474353014153001}
   m_Layer: 0
   m_Name: MCHair
   m_TagString: Untagged
@@ -397,24 +398,24 @@ MonoBehaviour:
   serializeData2:
     selectionData:
       positions:
-      - x: -0.008506421
-        y: 1.8099902
-        z: -0.103530094
-      - x: -0.013730571
-        y: 1.8245351
-        z: -0.13833725
-      - x: -0.039551497
-        y: 1.7722421
-        z: -0.18321544
-      - x: -0.033858478
-        y: 1.6892738
-        z: -0.1897645
-      - x: -0.016580388
-        y: 1.6133109
-        z: -0.19016369
-      - x: -0.039126836
-        y: 1.5465428
-        z: -0.2196585
+      - x: -0.00850642
+        y: 1.8099903
+        z: -0.10353014
+      - x: -0.013730596
+        y: 1.824535
+        z: -0.13833731
+      - x: -0.03955154
+        y: 1.7722423
+        z: -0.18321572
+      - x: -0.033858586
+        y: 1.6892737
+        z: -0.18976487
+      - x: -0.016580567
+        y: 1.6133108
+        z: -0.19016404
+      - x: -0.039127022
+        y: 1.5465426
+        z: -0.21965887
       attributes:
       - Value: 1
       - Value: 2
@@ -422,7 +423,7 @@ MonoBehaviour:
       - Value: 2
       - Value: 2
       - Value: 2
-      maxConnectionDistance: 0.08342079
+      maxConnectionDistance: 0.08342115
       userEdit: 0
     preBuildData:
       enabled: 0
@@ -461,6 +462,27 @@ MonoBehaviour:
   localInertiaProperty: 0
   windInfluenceProperty: 0
   blendWeightProperty: 0
+--- !u!114 &5962474353014153001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5550664999336175909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c2731c81a14a94b1082cfe3c6fc324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Head: 1
+  m_UpperChest: 0
+  m_UpperBody: 0
+  m_UpperArm: 0
+  m_LowerArm: 0
+  m_Hip: 0
+  m_ThighLeg: 0
+  m_CalfLeg: 0
+  m_Foot: 0
 --- !u!1001 &8005059261155817403
 PrefabInstance:
   m_ObjectHideFlags: 0

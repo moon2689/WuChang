@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c26fa550786f40a89e43ea13fdfd87f3, type: 3}
+  m_Name: WuChang
+  m_EditorClassIdentifier: 
+  m_BaseActorInfo:
+    m_StatsInfo:
+      m_MaxHp: 30
+      m_DefaultHpRecSpeed: 0
+      m_MaxStamina: 100
+      m_MaxPower: 5
+      m_Resilience: 0
+      m_UnbalanceValue: 100
+    m_PhysicInfo:
+      m_Mass: 50
+      m_Height: 1.6
+      m_HipHeight: 0.3
+      m_Radius: 0.4
+      m_CapsuleOffsetZ: 0
+      m_GroundOffset: 0
+      m_IsWalkingUpright: 1
+      m_IsBodyHuge: 0
+      m_PhysicMaterialType: 0
+      m_ChestHeight: 1
+      m_TurnRotSpeed: 0
+      m_JumpForceVertical: 4
+      m_OpenSlopeMovement: 1
+      m_OpenPlatformMovement: 0
+      m_CanClimb: 0
+    m_SkillConfig: {fileID: 11400000, guid: b550d3f38701e6346a27257ad819b2f9, type: 2}
+    m_WeaponPrefabs:
+    - m_WeaponPrefabResPath: Weapon/MiaoDao_QiYunChuXue
+      m_ArmBoneType: 29
+    m_AIInfo:
+      m_WarningRange: 30
+  m_CharacterInfo:
+    m_ClothInfo:
+      m_Enable: 1
+      m_DefaultClothes: 0100000002000000030000000400000005000000
+    m_IKInfo:
+      m_Enable: 0
+      m_HipsPositionAdjustmentSpeed: 4
+      m_HipsPositionOffset: 0
+      m_FootWeightInactiveAdjustmentSpeed: 2
+      m_FootWeightActiveAdjustmentSpeed: 10
+      m_FootOffsetAdjustment: 0.005
+      m_HighHeelsHeight: 0
+    m_ExpressionInfo:
+      m_Enable: 0
+      m_FaceSMRs:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      m_BlendShapeIndex_Blink: 3
+      m_BlendShapeIndex_OpenMouth: 0
+    m_SpeedWalk: 1.6
+    m_SpeedRun: 4
+    m_SpeedSprint: 7
+    m_SpeedDefenseWalk: 1.2

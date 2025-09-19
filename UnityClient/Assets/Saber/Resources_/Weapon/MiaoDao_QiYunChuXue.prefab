@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 5623319764368006486}
   - component: {fileID: 283841385127477590}
   - component: {fileID: 8888997597136637479}
+  - component: {fileID: 9145195238632013802}
   m_Layer: 0
   m_Name: MiaoDao_QiYunChuXue
   m_TagString: Untagged
@@ -217,3 +218,24 @@ MonoBehaviour:
   m_PosStart: {fileID: 6484838340881086570}
   m_PosEnd: {fileID: 2784682636619762956}
   m_RayMinDistanceInterval: 0.5
+--- !u!65 &9145195238632013802
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7893538542492390399}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.12634893, y: 0.09329435, z: 1.7366076}
+  m_Center: {x: 0.02569563, y: -0.0006030649, z: 0.6166949}

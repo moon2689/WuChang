@@ -27,8 +27,6 @@ namespace Saber.UI
         private IHandler m_Handler;
 
 
-        bool IsPowerEnough => GameApp.Entry.Game.Player.CStats.CurrentPower >= m_SkillObj.SkillConfig.m_CostPower;
-
         public void Init(ESkillType type, IHandler handler)
         {
             m_Type = type;
@@ -73,9 +71,10 @@ namespace Saber.UI
 
         private void OnPowerChanged()
         {
-            bool powerEnough = IsPowerEnough;
-            m_Icon.SetActive(powerEnough);
-            m_IconGray.SetActive(!powerEnough);
+            bool canTrigger = m_SkillObj.SkillConfig.m_CanTriggerWhenPowerNotEnough ||
+                              GameApp.Entry.Game.Player.CStats.CurrentPower >= m_SkillObj.SkillConfig.m_CostPower;
+            m_Icon.SetActive(canTrigger);
+            m_IconGray.SetActive(!canTrigger);
         }
 
         protected override void Awake()

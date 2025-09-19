@@ -18,20 +18,7 @@ namespace Saber.CharacterController
     {
         /// <summary>武器prefab</summary>
         public string m_WeaponPrefabResPath;
-
-        public WeaponParentInfo m_WeaponParentInfo;
-
-        /// <summary>武器实例化对象</summary>
-        public WeaponBase m_WeaponObj;
-    }
-
-    [Serializable]
-    public class WeaponParentInfo
-    {
-        public Transform m_ArmBone;
         public ENodeType m_ArmBoneType;
-        public Vector3 m_ArmPos;
-        public Vector3 m_ArmRot;
     }
 
     // 武器类型

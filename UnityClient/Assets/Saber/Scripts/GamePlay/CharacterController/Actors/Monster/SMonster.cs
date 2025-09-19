@@ -8,12 +8,14 @@ namespace Saber.CharacterController
 {
     public class SMonster : SActor
     {
-        public MonsterInfo m_MonsterInfo;
+        [SerializeField] public MonsterConfig m_MonsterConfig;
 
         private MonsterStateMachine m_CStates;
         // private Coroutine m_CoroutineDamageEffect;
 
 
+        public override BaseActorInfo m_BaseActorInfo => m_MonsterConfig.m_BaseActorInfo;
+        public MonsterInfo m_MonsterInfo => m_MonsterConfig.m_MonsterInfo;
         public override ActorStateMachine CStateMachine
         {
             get

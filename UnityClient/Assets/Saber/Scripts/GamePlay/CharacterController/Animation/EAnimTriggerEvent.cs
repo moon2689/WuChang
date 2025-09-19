@@ -21,6 +21,7 @@ namespace Saber.CharacterController
         ExecuteDamage,
         ShowWeapon,
         HideWeapon,
+        WeaponFallToGround,
     }
 
     [Serializable]

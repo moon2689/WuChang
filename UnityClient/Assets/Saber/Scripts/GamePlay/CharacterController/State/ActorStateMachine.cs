@@ -329,9 +329,9 @@ namespace Saber.CharacterController
         }
         */
 
-        private bool Die()
+        public bool Die(string specialAnim = null)
         {
-            return TryEnterState(EStateType.Die);
+            return TryEnterState<Die>(EStateType.Die, die => die.SpecialAnim = specialAnim);
         }
 
         public virtual bool Dodge(Vector3 axis)

@@ -10,7 +10,8 @@ namespace Saber.CharacterController
 
         public event Action<bool> Event_OnGrounded;
 
-
+        private Transform m_BoneChest;
+        private Transform m_BoneHips;
         private RaycastHit m_RaycastHitChest, m_RaycastHitHip;
 
         private bool m_Grounded;
@@ -101,63 +102,8 @@ namespace Saber.CharacterController
         }
 
         /// <summary>Main pivot Point is the Pivot Chest Position, if not the Pivot Hip Position one</summary>
-        Vector3 PivotChest
-        {
-            get
-            {
-                Vector3 pivotPoint;
-                if (m_PhysicInfo.m_IsWalkingUpright)
-                {
-                    if (m_PhysicInfo.m_PivotChest)
-                    {
-                        pivotPoint = m_PhysicInfo.m_PivotChest.position;
-                    }
-                    else if (m_PhysicInfo.m_PivotHip)
-                    {
-                        pivotPoint = m_PhysicInfo.m_PivotHip.position;
-                    }
-                    else
-                    {
-                        pivotPoint = Actor.transform.TransformPoint(new Vector3(0, CenterHeight));
-                    }
-                }
-                else
-                {
-                    pivotPoint = m_PhysicInfo.m_PivotChest.position;
-                }
-
-                return pivotPoint + DeltaVelocity;
-            }
-        }
-
-        Vector3 PivotHip
-        {
-            get
-            {
-                Vector3 pivotPoint;
-                if (m_PhysicInfo.m_IsWalkingUpright)
-                {
-                    if (m_PhysicInfo.m_PivotHip)
-                    {
-                        pivotPoint = m_PhysicInfo.m_PivotHip.position;
-                    }
-                    else if (m_PhysicInfo.m_PivotChest)
-                    {
-                        pivotPoint = m_PhysicInfo.m_PivotChest.position;
-                    }
-                    else
-                    {
-                        pivotPoint = Actor.transform.TransformPoint(new Vector3(0, CenterHeight));
-                    }
-                }
-                else
-                {
-                    pivotPoint = m_PhysicInfo.m_PivotHip.position;
-                }
-
-                return pivotPoint + DeltaVelocity;
-            }
-        }
+        Vector3 PivotChest => m_BoneChest.position + DeltaVelocity;
+        Vector3 PivotHip => m_BoneHips.position + DeltaVelocity;
 
         private Vector3 PivotMain => PivotHip;
 

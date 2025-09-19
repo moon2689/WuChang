@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 98002580106035760}
   - component: {fileID: 8784066512400581422}
+  - component: {fileID: 3006789239488279481}
   m_Layer: 0
   m_Name: MCHair
   m_TagString: Untagged
@@ -461,6 +462,27 @@ MonoBehaviour:
   localInertiaProperty: 0
   windInfluenceProperty: 0
   blendWeightProperty: 0
+--- !u!114 &3006789239488279481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4665435156580769351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c2731c81a14a94b1082cfe3c6fc324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Head: 1
+  m_UpperChest: 0
+  m_UpperBody: 0
+  m_UpperArm: 0
+  m_LowerArm: 0
+  m_Hip: 0
+  m_ThighLeg: 0
+  m_CalfLeg: 0
+  m_Foot: 0
 --- !u!1001 &4123823197226767390
 PrefabInstance:
   m_ObjectHideFlags: 0

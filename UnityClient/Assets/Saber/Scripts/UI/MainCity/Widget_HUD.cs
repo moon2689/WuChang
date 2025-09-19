@@ -24,6 +24,7 @@ namespace Saber.UI
 
         private SActor m_Actor;
         private List<GameObject> m_PowerPoints = new();
+        private float m_OldHpRatio;
 
 
         void Init()
@@ -31,6 +32,7 @@ namespace Saber.UI
             m_Actor.Event_OnDead += OnDead;
             m_Actor.Event_OnDamage += EnableDamageSprite;
             m_ImageDamage.color = new Color(0f, 0f, 0f, 0f);
+            m_OldHpRatio = m_Actor.CStats.CurrentHPRatio;
 
             // icon
             //m_playerIcon.texture = m_Actor.BaseInfo.LoadIcon();
@@ -96,6 +98,11 @@ namespace Saber.UI
                 else
                 {
                     m_TimerHealthSmoothChange += Time.deltaTime;
+                    if (m_OldHpRatio != m_Actor.CStats.CurrentHPRatio)
+                    {
+                        m_TimerHealthSmoothChange = 0;
+                        m_OldHpRatio = m_Actor.CStats.CurrentHPRatio;
+                    }
                 }
             }
             else

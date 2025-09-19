@@ -1957,6 +1957,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7605038511718730666}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &3002544194937748284 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4621159626225086614, guid: 3470cd10712eb3148a5c5463906ad250,
+    type: 3}
+  m_PrefabInstance: {fileID: 7605038511718730666}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3041687127422127015 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4342393183440289779, guid: 3470cd10712eb3148a5c5463906ad250,
@@ -2047,63 +2053,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c8216295ab14f49a5f4b78f3536831d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BaseActorInfo:
-    m_StatsInfo:
-      m_MaxHp: 500
-      m_DefaultHpRecSpeed: 0
-      m_MaxStamina: 100
-      m_MaxPower: 3
-      m_Resilience: 1
-      m_UnbalanceValue: 100
-    m_PhysicInfo:
-      m_Mass: 90
-      m_Height: 2.5
-      m_HipHeight: 0.3
-      m_Radius: 0.4
-      m_CapsuleOffsetZ: 0
-      m_GroundOffset: 0
-      m_IsWalkingUpright: 1
-      m_IsBodyHuge: 0
-      m_PhysicMaterialType: 0
-      m_PivotChest: {fileID: 0}
-      m_PivotHip: {fileID: 0}
-      m_ChestHeight: 1
-      m_TurnRotSpeed: 2
-      m_JumpForceVertical: 10
-      m_OpenSlopeMovement: 0
-      m_OpenPlatformMovement: 0
-      m_CanClimb: 0
-    m_SkillConfig: {fileID: 11400000, guid: c0752ecea1cbd4d4cb36ac2a2c88c8c4, type: 2}
-    m_WeaponPrefabs:
-    - m_WeaponPrefabResPath: 
-      m_WeaponParentInfo:
-        m_ArmBone: {fileID: 6353741421630070912}
-        m_ArmBoneType: 24
-        m_ArmPos: {x: 0, y: 0, z: 0}
-        m_ArmRot: {x: 0, y: 0, z: 0}
-      m_WeaponObj: {fileID: 2468409911873757604}
-    m_AIInfo:
-      m_WarningRange: 30
-    m_Nodes:
-    - m_Type: 1
-      m_NodeTrans: {fileID: 7714084900097439172}
-    - m_Type: 2
-      m_NodeTrans: {fileID: 4993209784316434342}
-    - m_Type: 23
-      m_NodeTrans: {fileID: 2370534382926529002}
-  m_MonsterInfo:
-    m_DefaultAI: 1
-    m_MoveByRootMotion: 0
-    m_SpeedWalk: 1
-    m_SpeedRun: 2
-    m_SpeedSprint: 0
-    m_FootstepType: 0
-    m_FootstepClips: []
-    m_PlaySoundWhenIdle: 0
-    m_IdleSoundClips: []
-    m_CanDodge: 0
-    m_CanDefense: 0
-    m_HitRecType: 0
+  m_Nodes:
+  - m_Type: 0
+    m_NodeTrans: {fileID: 7926404917484612673}
+  - m_Type: 2
+    m_NodeTrans: {fileID: 4993209784316434342}
+  - m_Type: 5
+    m_NodeTrans: {fileID: 7714084900097439172}
+  - m_Type: 3
+    m_NodeTrans: {fileID: 3220445952843361499}
+  - m_Type: 1
+    m_NodeTrans: {fileID: 3002544194937748284}
+  - m_Type: 27
+    m_NodeTrans: {fileID: 8285656910286810862}
+  - m_Type: 29
+    m_NodeTrans: {fileID: 6353741421630070912}
+  m_MonsterConfig: {fileID: 11400000, guid: a0afd0131a45e60458e8bcdf79d940be, type: 2}
 --- !u!114 &6738783969697482087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2580,6 +2545,12 @@ Transform:
 --- !u!4 &7926404917484612673 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3470cd10712eb3148a5c5463906ad250,
+    type: 3}
+  m_PrefabInstance: {fileID: 7605038511718730666}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8285656910286810862 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1978794599292790084, guid: 3470cd10712eb3148a5c5463906ad250,
     type: 3}
   m_PrefabInstance: {fileID: 7605038511718730666}
   m_PrefabAsset: {fileID: 0}

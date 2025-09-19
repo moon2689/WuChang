@@ -57,7 +57,7 @@ namespace Saber.CharacterController
                 new Vector3(0, hipHeight + physicInfo.m_Height * 0.5f, physicInfo.m_CapsuleOffsetZ);
 
             GameApp.Entry.Asset.LoadPhysicMaterial(physicInfo.m_PhysicMaterialType, pm => m_CapsuleCollider.sharedMaterial = pm);
-            
+
             if (physicInfo.m_IsBodyHuge)
             {
                 m_CapsuleCollider.excludeLayers = 1 << EStaticLayers.Actor.GetLayer();
@@ -70,6 +70,9 @@ namespace Saber.CharacterController
             m_LastPosition = actor.transform.position;
 
             m_Active = true;
+
+            m_BoneChest = Actor.GetNodeTransform(ENodeType.Chest);
+            m_BoneHips = Actor.GetNodeTransform(ENodeType.Hips);
         }
 
         public void Active(bool active)

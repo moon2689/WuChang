@@ -17,13 +17,11 @@ MonoBehaviour:
   PlayerID: 1
   PlayerStartClothes: 06000000070000000800000009000000
   StartSceneID: 1
+  PlayerRebirthDelaySeconds: 8
   DodgeCostStamina: 20
   IKBoneForceOnHit: 3
   RecoverUnbalanceValueDelaySeconds: 4
   RecoverUnbalanceSpeed: 10
-  PerfectDodgeShaEffCount: 3
-  PerfectDodgeShaInterval: 0.2
-  PerfectDodgeShaHoldTime: 0.5
   MaxHPPotionCount: 5
   HPPotionRecoverRate: 0.5
   m_VoiceTired:
@@ -33,10 +31,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0033e1e4b1d3e0d43aa3c336b531f70b, type: 3}
   m_SoundWeaponHitGround:
   - {fileID: 8300000, guid: 8db4e869274f0584ab4f9bde3185f7f3, type: 3}
-  m_SoundSharpWeaponHitBody:
-  - {fileID: 8300000, guid: 9f4f6e50341ad8d4fbadbbfbe062d61f, type: 3}
-  m_SoundFistHitBody: []
-  m_SoundClawHitBody: []
   m_EffectBlood:
   - {fileID: 2656253210798625995, guid: 2655b917cfc95e34d857e8c69bf28183, type: 3}
   - {fileID: 7418544422921942892, guid: 750af0a5d4982784bbe12e5220fa1785, type: 3}

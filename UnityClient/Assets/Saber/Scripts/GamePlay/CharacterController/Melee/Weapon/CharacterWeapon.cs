@@ -42,24 +42,15 @@ namespace Saber.CharacterController
                     await GameApp.Entry.Asset.LoadGameObject(prefabInfo.m_WeaponPrefabResPath, go =>
                     {
                         m_CurWeapons[i] = go.GetComponent<WeaponBase>();
-                        prefabInfo.m_WeaponObj = m_CurWeapons[i];
-                        m_CurWeapons[i].ResetLocation = true;
                     }).Task;
-                }
-                else if (prefabInfo.m_WeaponObj)
-                {
-                    m_CurWeapons[i] = prefabInfo.m_WeaponObj.GetComponent<WeaponBase>();
-                    m_CurWeapons[i].ResetLocation = false;
                 }
                 else
                 {
-                    Transform armTrans = prefabInfo.m_WeaponParentInfo.m_ArmBone;
+                    Transform armTrans = m_Actor.GetNodeTransform(prefabInfo.m_ArmBoneType);
                     WeaponBase weaponBase = armTrans.GetComponentInChildren<WeaponBase>();
                     if (weaponBase)
                     {
                         m_CurWeapons[i] = weaponBase;
-                        m_CurWeapons[i].ResetLocation = false;
-                        prefabInfo.m_WeaponObj = weaponBase;
                     }
                     else
                     {
@@ -67,24 +58,34 @@ namespace Saber.CharacterController
                     }
                 }
 
-                m_CurWeapons[i].Init(m_Actor, prefabInfo.m_WeaponParentInfo);
+                m_CurWeapons[i].Init(m_Actor, prefabInfo);
             }
 
-            ResetParent();
+            EquipWeapons();
         }
 
-        private void ResetParent()
+        private void EquipWeapons()
         {
             for (int i = 0; i < m_CurWeapons.Length; i++)
             {
                 if (m_CurWeapons[i] != null)
-                    m_CurWeapons[i].ResetParent();
+                    m_CurWeapons[i].EquipWeapon();
             }
         }
 
         public WeaponBase GetWeaponByPos(ENodeType bone)
         {
-            return Array.Find(m_CurWeapons, w => w.WeaponBone == bone);
+            WeaponBase w = Array.Find(m_CurWeapons, w => w.WeaponBone == bone);
+            if (bone == ENodeType.RightHand)
+            {
+                w = Array.Find(m_CurWeapons, w => w.WeaponBone == ENodeType.WeaponRightHand);
+            }
+            else if (bone == ENodeType.LeftHand)
+            {
+                w = Array.Find(m_CurWeapons, w => w.WeaponBone == ENodeType.WeaponLeftHand);
+            }
+
+            return w;
         }
 
         public void ToggleDamage(WeaponDamageSetting damage, bool enable)
@@ -114,6 +115,19 @@ namespace Saber.CharacterController
             {
                 if (m_CurWeapons[i] != null)
                     m_CurWeapons[i].gameObject.SetActive(show);
+            }
+
+            if (show)
+            {
+                EquipWeapons();
+            }
+        }
+
+        public void WeaponFallToGround()
+        {
+            foreach (var w in CurWeapons)
+            {
+                w.FallToGround();
             }
         }
     }

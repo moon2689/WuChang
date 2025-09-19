@@ -12,8 +12,17 @@ namespace Saber.Config
     public class ClothInfo : ScriptableObject
     {
         public ClothItemInfo[] m_Clothes;
+        public ClothClassify[] m_Classfies;
 
         private Dictionary<int, ClothItemInfo> m_DicClothes;
+
+        public void Init()
+        {
+            foreach (var c in m_Clothes)
+            {
+                c.Classify = m_Classfies.FirstOrDefault(a => a.m_ID == c.m_ClassifyID);
+            }
+        }
 
         public ClothItemInfo GetClothByID(int id)
         {
@@ -43,21 +52,32 @@ namespace Saber.Config
         public bool m_IsActive = true;
         public string m_Name;
         public EClothType m_ClothType;
-        public string m_Classify;
+        public int m_ClassifyID;
 
-        public string PrefabName => $"{m_Classify}_{m_ClothType}";
+        public ClothClassify Classify { get; set; }
+
+        public string PrefabName => $"{Classify.m_ResName}_{m_ClothType}";
 
         public AssetHandle LoadGameObject(Action<GameObject> onLoaded)
         {
-            string res = $"Actor/Player/Clothes/{m_Classify}/{PrefabName}";
+            string res = $"Actor/Player/Clothes/{Classify.m_ResName}/{PrefabName}";
             return GameApp.Entry.Asset.LoadGameObject(res, onLoaded);
         }
 
         public AssetHandle LoadIcon(Action<Texture2D> onLoaded)
         {
-            string res = $"Actor/Player/Clothes/{m_Classify}/Icon_{PrefabName}";
+            string res = $"Actor/Player/Clothes/{Classify.m_ResName}/Icon_{PrefabName}";
             return GameApp.Entry.Asset.LoadAsset(res, onLoaded);
         }
+    }
+
+
+    [Serializable]
+    public class ClothClassify
+    {
+        public int m_ID;
+        public string m_ResName;
+        public string m_Name;
     }
 
     [Serializable]

@@ -595,7 +595,7 @@ namespace Saber.World
         /// <summary>死亡后重生，回到上次存档点</summary>
         IEnumerator RebirthPlayerItor()
         {
-            yield return new WaitForSeconds(8);
+            yield return new WaitForSeconds(GameApp.Entry.Config.GameSetting.PlayerRebirthDelaySeconds);
 
             m_Player.Rebirth();
             yield return null;

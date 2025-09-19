@@ -40,6 +40,7 @@ namespace Saber.CharacterController
 
         public float CostStrength = 5;
         public int m_CostPower;
+        public bool m_CanTriggerWhenPowerNotEnough;
         public int m_PowerAddWhenHitted;
         public float m_CDSeconds;
         public ESkillType m_SkillType;
