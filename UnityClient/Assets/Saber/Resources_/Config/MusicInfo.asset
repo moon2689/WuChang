@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: MusicInfo
   m_EditorClassIdentifier: 
   m_BGMs:
-  - Sound/BGM/Chap1Explore
   - Sound/BGM/Chap3Explore
   - Sound/BGM/Chap4Explore
   - Sound/BGM/Chap5Explore
