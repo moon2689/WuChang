@@ -1,4 +1,4 @@
-Shader "Saber/WuChang/Skin"
+Shader "Saber/WuChang/Skin Lit"
 {
     Properties
     {
@@ -72,7 +72,7 @@ Shader "Saber/WuChang/Skin"
             // -------------------------------------
             // Universal Pipeline keywords
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
-            //#pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
+            #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
             #pragma multi_compile _ EVALUATE_SH_MIXED EVALUATE_SH_VERTEX
             #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
             #pragma multi_compile_fragment _ _REFLECTION_PROBE_BLENDING
@@ -257,4 +257,4 @@ Shader "Saber/WuChang/Skin"
     FallBack "Hidden/Universal Render Pipeline/FallbackError"
     //CustomEditor "UnityEditor.Rendering.Universal.ShaderGUI.LitShader"
 }
-//11
+//1

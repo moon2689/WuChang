@@ -3,6 +3,7 @@ using System.Collections;
 using Saber.Frame;
 using Saber.CharacterController;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Saber.UI
@@ -64,7 +65,7 @@ namespace Saber.UI
             m_ToUpdateCD = true;
         }
 
-        private void OnClickSkill()
+        private void OnClickSkill(BaseEventData arg0)
         {
             m_Handler.OnClickSkillButton(m_SkillObj.SkillConfig.m_SkillType);
         }
@@ -80,7 +81,8 @@ namespace Saber.UI
         protected override void Awake()
         {
             base.Awake();
-            m_Button.onClick.AddListener(OnClickSkill);
+            // m_Button.onClick.AddListener(OnClickSkill);
+            m_Button.AddEvent(EventTriggerType.PointerDown, OnClickSkill);
         }
 
         protected override void OnDestroy()

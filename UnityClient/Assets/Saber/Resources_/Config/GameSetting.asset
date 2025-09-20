@@ -17,7 +17,7 @@ MonoBehaviour:
   PlayerID: 1
   PlayerStartClothes: 06000000070000000800000009000000
   StartSceneID: 1
-  PlayerRebirthDelaySeconds: 8
+  PlayerRebirthDelaySeconds: 5
   DodgeCostStamina: 20
   IKBoneForceOnHit: 3
   RecoverUnbalanceValueDelaySeconds: 4
@@ -27,6 +27,24 @@ MonoBehaviour:
   m_VoiceTired:
   - {fileID: 8300000, guid: a839d3f8dfd4a984ea10cb68a6f435dd, type: 3}
   - {fileID: 8300000, guid: e2202e4466a37e14f84e86f07ad2a8b2, type: 3}
+  m_SoundFootStepWater:
+  - {fileID: 8300000, guid: f8b9fc04a189b47428037d63ae9397c4, type: 3}
+  - {fileID: 8300000, guid: afe998658945e0642b02b645dd247ea0, type: 3}
+  - {fileID: 8300000, guid: 138d675fd417ccd4aae11abe3b07db33, type: 3}
+  - {fileID: 8300000, guid: c6a1af435dccc364893fbab7fb7eb2b4, type: 3}
+  - {fileID: 8300000, guid: 42f29bb3d153e86469b5b015e1a501e2, type: 3}
+  m_SoundFootStepGround:
+  - {fileID: 8300000, guid: 8b15d78905f8aee4682c729cf4b7b65c, type: 3}
+  - {fileID: 8300000, guid: df48724b2f5ecf743b506fd2ae3079d7, type: 3}
+  - {fileID: 8300000, guid: f1f691b5bfb43404597fef694c428ff7, type: 3}
+  - {fileID: 8300000, guid: be0fca40888c937428606fd02690880d, type: 3}
+  - {fileID: 8300000, guid: ac62c0156d62cef45b8af86aae01de9e, type: 3}
+  m_SoundFootStepSnow:
+  - {fileID: 8300000, guid: 9abe0378fd87e2a4eb3cd96384e8bdfd, type: 3}
+  - {fileID: 8300000, guid: 2554fc31605ff9546a92c04cfff7008b, type: 3}
+  - {fileID: 8300000, guid: 1882b9788a8e97f4bb8a489fe460f414, type: 3}
+  - {fileID: 8300000, guid: a8cbdd780baad1440b3a952fdd085c64, type: 3}
+  - {fileID: 8300000, guid: 8edc9bc0dc6f4ce488b0a6a5cb32d1aa, type: 3}
   m_SoundSwordHitSword:
   - {fileID: 8300000, guid: 0033e1e4b1d3e0d43aa3c336b531f70b, type: 3}
   m_SoundWeaponHitGround:

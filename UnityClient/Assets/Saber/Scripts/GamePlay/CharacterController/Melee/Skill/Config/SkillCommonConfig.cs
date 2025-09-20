@@ -20,11 +20,11 @@ namespace Saber.CharacterController
 
         [Header("音效")] public AudioClip[] m_MiaoDaoHitBodySound;
         public AudioClip[] m_YueYaChanHitBodySound;
+        public AudioClip[] m_SwordHitBodySound;
         public AudioClip m_SoundAddYuMao;
         public AudioClip m_SoundUseYuMao;
-        
-        [Header("特效")]
-        public GameObject m_EffectAddYuMao;
+
+        [Header("特效")] public GameObject m_EffectAddYuMao;
 
         private AudioClip GetRandomSound(AudioClip[] clips)
         {
@@ -46,6 +46,10 @@ namespace Saber.CharacterController
             else if (weaponType == EWeaponType.YueYaChan)
             {
                 return GetRandomSound(m_YueYaChanHitBodySound);
+            }
+            else if (weaponType == EWeaponType.Sword)
+            {
+                return GetRandomSound(m_SwordHitBodySound);
             }
             else
             {

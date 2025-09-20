@@ -31,7 +31,7 @@ HairBRDFData InitHairBRDF(float3 hairStrandDirWS, half anosio)
     HairBRDFData data = (HairBRDFData)0;
     data.hairStrandDirectionWS = hairStrandDirWS;
     data.specularShininess1 = _SpecularShininess1;
-    data.specularTint1 = _SpecularTint1;
+    data.specularTint1 = _SpecularTint1.xyz;
     data.specularShift1 = _SpecularShiftOffset1 + anosio;
     return data;
 }

@@ -1,4 +1,4 @@
-Shader "KriptoFX/BFX/BFX_Decal_Plane"
+Shader "Saber/KriptoFX/BFX/BFX_Decal_Plane"
 {
 	Properties
 	{

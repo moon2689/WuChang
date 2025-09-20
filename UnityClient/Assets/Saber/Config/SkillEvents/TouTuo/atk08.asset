@@ -42,6 +42,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 88f1375209f525643883f78558b3a70e, type: 3}
   m_Volume: 1
+  m_TriggerProbability: 100
 --- !u!114 &-1283097458895215090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,7 +142,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 1112680314797684732}
   - EventTime: 0
-    EventRange: {x: 0.6657534, y: 0.68767124}
+    EventRange: {x: 0.66849315, y: 0.68767124}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -150,7 +151,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -38444910902736433}
   - EventTime: 0
-    EventRange: {x: 0.6356164, y: 0.6657534}
+    EventRange: {x: 0.6438356, y: 0.66849315}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -158,7 +159,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 5397194558274905498}
-  - EventTime: 0.6630137
+  - EventTime: 0.6657534
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -201,6 +202,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: daa319df504eb434d9fb7f4d5a76922b, type: 3}
   m_Volume: 1
+  m_TriggerProbability: 100
 --- !u!114 &3756133580940433856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +219,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 2d0dd65fb5c07df429978c0c63cd4c86, type: 3}
   m_Volume: 1
+  m_TriggerProbability: 100
 --- !u!114 &4623030059520218540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,3 +276,4 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: a45bd77c64090df48be83a5df18f7316, type: 3}
   m_Volume: 1
+  m_TriggerProbability: 100

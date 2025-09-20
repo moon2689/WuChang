@@ -1,4 +1,4 @@
-Shader "Custom/TestSurfaceShader"
+Shader "Saber/Particles/TestSurfaceShader"
 {
     Properties
     {

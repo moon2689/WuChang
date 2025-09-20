@@ -1,4 +1,4 @@
-Shader "Toon/Toon with Cubemap - Swords" {
+Shader "Saber/Toon/Toon with Cubemap - Swords" {
 	Properties {
 		_MainTex ("Base (RGB) Refl. strength (A)", 2D) = "white" {}
 		_Ramp ("Toon Ramp (RGB)", 2D) = "gray" {}

@@ -1,4 +1,4 @@
-Shader "ChargeOrb"
+Shader "Saber/Particles/ChargeOrb"
 {
     Properties
     {

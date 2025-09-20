@@ -117,7 +117,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -2583448522427568428}
   - EventTime: 0
-    EventRange: {x: 0.4848485, y: 0.56060606}
+    EventRange: {x: 0.5367965, y: 0.56060606}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -152,6 +152,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 7409707976918256963}
+  - EventTime: 0
+    EventRange: {x: 0.35930735, y: 0.3961039}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 8856162081216110570}
 --- !u!114 &214150762797873696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,6 +222,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: b62680160659f1543a47fe48799222e2, type: 3}
   m_Volume: 1
+  m_TriggerProbability: 100
 --- !u!114 &8525538282336096255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +234,32 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e82fd648527146e59cbfa2687416bd83, type: 3}
   m_Name: PerfectDodge
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: 2902985be43994742a7534bd5c1ebd16,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 1.5052149, z: 2.0348473}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 1
+  ColliderOffset: {x: 0, y: 0, z: 0.08105326}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 2.1109076
+  Height: 1
+--- !u!114 &8856162081216110570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e82fd648527146e59cbfa2687416bd83, type: 3}
+  m_Name: PerfectDodge2
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:

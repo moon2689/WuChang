@@ -91,7 +91,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0.3594041, y: 0.46368715}
+    EventRange: {x: 0.3594041, y: 0.5325885}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -118,7 +118,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 5581594229472372247}
   - EventTime: 0
-    EventRange: {x: 0.48417133, y: 0.547486}
+    EventRange: {x: 0.5251397, y: 0.547486}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -136,7 +136,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -6974220687102563831}
   - EventTime: 0
-    EventRange: {x: 0, y: 0.10614525}
+    EventRange: {x: 0, y: 0.10242086}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Name: AlignToEnemy
   m_EditorClassIdentifier: 
   IsActive: 1
-  m_RotateSpeed: 1080
+  m_RotateSpeed: 360
 --- !u!114 &4994669248576957424
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,10 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using CombatEditor;
 using RootMotion.FinalIK;
 using Saber.CharacterController;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.Animations;
 
 public static class WuChangTools
 {
@@ -914,5 +916,94 @@ public static class WuChangTools
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
         Debug.Log("All done");
+    }
+
+    [MenuItem("Saber/WUCH/Skill/根据Animator skill信息，填充技能配置文件")]
+    static void GenerateSkillItemsByAnimator()
+    {
+        GameObject obj = Selection.activeObject as GameObject;
+        if (obj == null)
+        {
+            return;
+        }
+
+        SActor actor = obj.GetComponent<SActor>();
+        if (actor == null)
+        {
+            return;
+        }
+
+        Animator animator = obj.GetComponent<Animator>();
+        if (animator == null)
+        {
+            return;
+        }
+
+        List<string> clipsNames = GetSkillAnimClipNames(animator);
+        SkillItem[] oldSkills = actor.SkillConfigs.m_SkillItems;
+        List<SkillItem> newSkills = new();
+        newSkills.AddRange(oldSkills);
+
+        foreach (var clipName in clipsNames)
+        {
+            if (newSkills.Any(a => a.m_AnimStates.FirstOrDefault().m_Name == clipName))
+            {
+                continue;
+            }
+
+            SkillAnimStateMachine newAnimState = new()
+            {
+                m_Name = clipName,
+            };
+            SkillItem skillItem = new SkillItem()
+            {
+                m_ID = newSkills.Count + 1,
+                m_AnimStates = new SkillAnimStateMachine[1] { newAnimState },
+                CostStrength = 5,
+                m_SkillType = ESkillType.LightAttack,
+                m_TriggerCondition = ETriggerCondition.InGround,
+                UseGravityWhenInAir = false,
+                m_FirstSkillOfCombo = true,
+                m_ChainSkills = new ChainSkill[0],
+                m_AIPramAttackDistance = new RangedFloat(0f, 3f),
+            };
+            newSkills.Add(skillItem);
+            
+            Debug.Log($"Add skill item:{clipName}");
+        }
+
+        actor.SkillConfigs.m_SkillItems = newSkills.ToArray();
+        EditorUtility.SetDirty(actor.SkillConfigs);
+        AssetDatabase.SaveAssets();
+        Debug.Log("Done");
+    }
+
+    private static List<string> GetSkillAnimClipNames(Animator animator)
+    {
+        if (animator == null)
+            return null;
+        AnimatorController ac = animator.runtimeAnimatorController as AnimatorController;
+        var sm = ac.layers[0].stateMachine;
+        ChildAnimatorState[] skillAnimStates = null;
+        for (int i = 0; i < sm.stateMachines.Length; i++)
+        {
+            var stateMachine = sm.stateMachines[i].stateMachine;
+            if (stateMachine.name.Equals("skill", StringComparison.OrdinalIgnoreCase))
+            {
+                skillAnimStates = stateMachine.states;
+                break;
+            }
+        }
+
+        List<string> clipsNames = new List<string>();
+        if (skillAnimStates != null)
+        {
+            for (int i = 0; i < skillAnimStates.Length; i++)
+            {
+                clipsNames.Add(skillAnimStates[i].state.motion.name);
+            }
+        }
+
+        return clipsNames;
     }
 }

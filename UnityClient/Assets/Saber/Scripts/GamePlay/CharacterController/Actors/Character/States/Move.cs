@@ -4,7 +4,6 @@ namespace Saber.CharacterController
 {
     public class Move : ActorStateBase, ISkillCanTrigger
     {
-        private ActorFootstep[] m_ActorFootstep;
         private string m_EndAnim;
         private SCharacter m_Character;
 
@@ -14,8 +13,8 @@ namespace Saber.CharacterController
             get
             {
                 bool canEnter = Actor.CPhysic.Grounded &&
-                       Actor.MoveSpeedV != EMoveSpeedV.None &&
-                       Actor.MovementAxisMagnitude > 0;
+                                Actor.MoveSpeedV != EMoveSpeedV.None &&
+                                Actor.MovementAxisMagnitude > 0;
                 if (!canEnter)
                 {
                     return false;
@@ -48,12 +47,6 @@ namespace Saber.CharacterController
         private bool IsMoveFree => Actor.AI.LockingEnemy == null || Actor.MoveSpeedV == EMoveSpeedV.Sprint;
 
 
-        public override void Init(ActorStateMachine parent)
-        {
-            base.Init(parent);
-            m_ActorFootstep = Actor.GetComponentsInChildren<ActorFootstep>();
-        }
-
         public Move() : base(EStateType.Move)
         {
         }
@@ -66,11 +59,6 @@ namespace Saber.CharacterController
             Actor.CAnim.ResetSmoothFloat(EAnimatorParams.Vertical, 0);
 
             Actor.UpdateMovementAxisAnimatorParams = false;
-
-            for (int i = 0; i < m_ActorFootstep.Length; i++)
-            {
-                m_ActorFootstep[i].ActiveSelf = true;
-            }
         }
 
         private bool TryEndMove()
@@ -252,11 +240,6 @@ namespace Saber.CharacterController
             m_EndAnim = null;
 
             Actor.UpdateMovementAxisAnimatorParams = true;
-
-            for (int i = 0; i < m_ActorFootstep.Length; i++)
-            {
-                m_ActorFootstep[i].ActiveSelf = false;
-            }
         }
 
         bool ISkillCanTrigger.CanTriggerSkill(SkillItem skill)

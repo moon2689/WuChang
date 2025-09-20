@@ -10,7 +10,6 @@ namespace Saber.CharacterController
         private SMonster m_Monster;
 
         private AudioPlayer m_AudioPlayer;
-        //private ActorFootstep[] m_ActorFootstep;
 
 
         private SMonster Monster => m_Monster ??= (SMonster)Actor;
@@ -21,12 +20,6 @@ namespace Saber.CharacterController
         {
         }
 
-        // public override void Init(ActorStateMachine parent)
-        // {
-        //     base.Init(parent);
-        //     m_ActorFootstep = Actor.GetComponentsInChildren<ActorFootstep>();
-        // }
-
         public override void Enter()
         {
             base.Enter();
@@ -35,11 +28,6 @@ namespace Saber.CharacterController
             Actor.CAnim.ResetSmoothFloat(EAnimatorParams.Vertical, 0);
 
             //Actor.CAnim.Play("Move", force: true);
-
-            // for (int i = 0; i < m_ActorFootstep.Length; i++)
-            // {
-            //     m_ActorFootstep[i].ActiveSelf = true;
-            // }
         }
 
         /*
@@ -107,13 +95,11 @@ namespace Saber.CharacterController
             }
             else if (curSmoothFloat <= 2)
             {
-                speed = Mathf.Lerp(Monster.m_MonsterInfo.m_SpeedWalk, Monster.m_MonsterInfo.m_SpeedRun,
-                    curSmoothFloat - 1);
+                speed = Mathf.Lerp(Monster.m_MonsterInfo.m_SpeedWalk, Monster.m_MonsterInfo.m_SpeedRun, curSmoothFloat - 1);
             }
             else if (curSmoothFloat <= 3)
             {
-                speed = Mathf.Lerp(Monster.m_MonsterInfo.m_SpeedRun, Monster.m_MonsterInfo.m_SpeedSprint,
-                    curSmoothFloat - 2);
+                speed = Mathf.Lerp(Monster.m_MonsterInfo.m_SpeedRun, Monster.m_MonsterInfo.m_SpeedSprint, curSmoothFloat - 2);
             }
 
             return speed;
@@ -133,11 +119,6 @@ namespace Saber.CharacterController
             base.OnExit();
             Actor.CAnim.SetSmoothFloat(EAnimatorParams.Horizontal, 0);
             Actor.CAnim.SetSmoothFloat(EAnimatorParams.Vertical, 0);
-
-            // for (int i = 0; i < m_ActorFootstep.Length; i++)
-            // {
-            //     m_ActorFootstep[i].ActiveSelf = false;
-            // }
         }
     }
 }

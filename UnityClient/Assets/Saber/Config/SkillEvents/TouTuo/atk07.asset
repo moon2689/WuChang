@@ -58,7 +58,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0, y: 0.3713528}
+    EventRange: {x: 0, y: 0.39522547}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -85,7 +85,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 3490726438768211004}
   - EventTime: 0
-    EventRange: {x: 0.37931034, y: 0.42705572}
+    EventRange: {x: 0.3846154, y: 0.42705572}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -159,6 +159,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 7ed40df31ce78ec4b931d3eaaac628bc, type: 3}
   m_Volume: 1
+  m_TriggerProbability: 100
 --- !u!114 &7186335993112036712
 MonoBehaviour:
   m_ObjectHideFlags: 0

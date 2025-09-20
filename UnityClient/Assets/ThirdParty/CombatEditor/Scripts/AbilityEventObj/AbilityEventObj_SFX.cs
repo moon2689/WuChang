@@ -34,6 +34,8 @@ namespace CombatEditor
 
     public partial class AbilityEventEffect_SFX : AbilityEventEffect
     {
+        private AudioPlayer m_AudioPlayer;
+
         public override void StartEffect()
         {
             base.StartEffect();
@@ -41,9 +43,20 @@ namespace CombatEditor
             {
                 AudioClip clip = EventObj.clips[Random.Range(0, EventObj.clips.Count)];
                 //Actor.PlaySound(clip);
-                GameApp.Entry.Game.Audio.Play3DSound(clip, Actor.transform.position);
+                m_AudioPlayer = GameApp.Entry.Game.Audio.Play3DSound(clip, Actor.transform.position);
             }
         }
+
+        /*
+        protected override void EndEffect()
+        {
+            base.EndEffect();
+            if (m_AudioPlayer != null && m_AudioPlayer.isActiveAndEnabled)
+            {
+                m_AudioPlayer.Stop();
+            }
+        }
+        */
     }
 
     public partial class AbilityEventEffect_SFX : AbilityEventEffect

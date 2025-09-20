@@ -58,7 +58,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 4589896171778382163}
   - EventTime: 0
-    EventRange: {x: 0.24938272, y: 0.34567901}
+    EventRange: {x: 0.31111112, y: 0.34567901}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -172,6 +172,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: b70687f0c77c7b545b491b5cf3e492e5, type: 3}
   m_Volume: 1
+  m_TriggerProbability: 100
 --- !u!114 &6819280195651674835
 MonoBehaviour:
   m_ObjectHideFlags: 0

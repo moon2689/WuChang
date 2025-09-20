@@ -26,12 +26,8 @@ namespace Saber.Director
         protected override IEnumerator EnterAsync()
         {
             // 播放音乐
-            AudioClip bgmStart = GameApp.Entry.Config.MusicInfo.m_LoginBGMStart;
-            GameApp.Entry.Game.Audio.PlayBGM(bgmStart, 1, false, audioPlayer =>
-            {
-                AudioClip bgmLoop = GameApp.Entry.Config.MusicInfo.m_LoginBGMLoop;
-                GameApp.Entry.Game.Audio.PlayBGM(bgmLoop, 1, true, null);
-            });
+            string bgmLogin = GameApp.Entry.Config.MusicInfo.m_LoginMusic;
+            GameApp.Entry.Game.Audio.PlayBGM(bgmLogin, 1, false);
             yield return null;
 
             // 场景

@@ -13,6 +13,7 @@ namespace Saber.CharacterController
     public abstract class SActor : MonoBehaviour, AnimatorLayer.IHandler, ActorBaseStats.IHandler, PlayerCamera.ITarget
     {
         public event Action<SActor> Event_OnDead;
+        public event Action<SActor> Event_OnDeadAnimPlayFinished;
         public event Action<SActor, float> Event_OnDamage;
 
 
@@ -391,6 +392,13 @@ namespace Saber.CharacterController
             this.CStateMachine.CurrentState.OnTriggerAnimClipEvent(str);
         }
 
+        public void OnAnimFootStep()
+        {
+            var sounds = GameApp.Entry.Config.GameSetting.m_SoundFootStepGround;
+            var clip = sounds[UnityEngine.Random.Range(0, sounds.Length)];
+            GameApp.Entry.Game.Audio.Play3DSound(clip, transform.position);
+        }
+
         #endregion
 
         public virtual void ToggleTrailShadowEffect(bool show)
@@ -634,6 +642,11 @@ namespace Saber.CharacterController
             }
 
             return false;
+        }
+
+        public void OnDieAnimPlayFinished()
+        {
+            Event_OnDeadAnimPlayFinished?.Invoke(this);
         }
     }
 }

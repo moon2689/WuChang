@@ -39,10 +39,17 @@ namespace Saber.AI
 
         protected void SwitchCoroutine(IEnumerator routine)
         {
-            //Debug.Log(routine.GetType().Name);
+            // Debug.Log(routine.GetType().Name);
             if (m_MainCoroutine != null)
+            {
                 Actor.StopCoroutine(m_MainCoroutine);
-            m_MainCoroutine = Actor.StartCoroutine(routine);
+                m_MainCoroutine = null;
+            }
+
+            if (!Actor.IsDead)
+            {
+                m_MainCoroutine = Actor.StartCoroutine(routine);
+            }
         }
 
         protected bool TryLockEnemy(out EFoundEnemyType foundType)
@@ -140,6 +147,12 @@ namespace Saber.AI
 
         protected override void OnDead(SActor owner)
         {
+            if (m_MainCoroutine != null)
+            {
+                Actor.StopCoroutine(m_MainCoroutine);
+                m_MainCoroutine = null;
+            }
+
             LockingEnemy = null;
         }
     }

@@ -1,6 +1,7 @@
 using System;
 using Saber.Frame;
 using System.Collections;
+using System.IO;
 using Saber.Config;
 using Saber.World;
 using UnityEngine;
@@ -39,9 +40,15 @@ namespace Saber.Director
         {
             if (isFightingBoss)
             {
-                AudioClip clip = GameApp.Entry.Config.MusicInfo.m_BattleCommon;
-                if (GameApp.Entry.Game.Audio.CurBGMName != clip.name)
-                    GameApp.Entry.Game.Audio.PlayBGM(clip, 0.5f, true, null);
+                string bossBGM = GameApp.Entry.Game.World.CurrentFightingBoss.BaseInfo.m_BossBattleMusic;
+                if (string.IsNullOrEmpty(bossBGM))
+                {
+                    bossBGM = GameApp.Entry.Config.MusicInfo.m_CommonBattleMusic;
+                }
+
+                string bgmName = Path.GetFileNameWithoutExtension(bossBGM);
+                if (GameApp.Entry.Game.Audio.CurBGMName != bgmName)
+                    GameApp.Entry.Game.Audio.PlayBGM(bossBGM, 0.5f, true, null);
             }
             else
             {
@@ -100,7 +107,7 @@ namespace Saber.Director
 
         void PlayRandomBGM()
         {
-            AudioClip clip = GameApp.Entry.Config.MusicInfo.GetRandomExploreMusic();
+            string clip = GameApp.Entry.Config.MusicInfo.GetRandomBGM();
             GameApp.Entry.Game.Audio.PlayBGM(clip, 0.5f, false, null);
         }
     }

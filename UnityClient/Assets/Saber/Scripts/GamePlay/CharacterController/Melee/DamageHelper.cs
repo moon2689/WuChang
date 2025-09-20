@@ -237,7 +237,8 @@ namespace Saber.CharacterController
             bool showBlood = false;
 
             if (curDmgInfo.DamagingWeaponType == EWeaponType.MiaoDao ||
-                curDmgInfo.DamagingWeaponType == EWeaponType.YueYaChan)
+                curDmgInfo.DamagingWeaponType == EWeaponType.YueYaChan||
+                curDmgInfo.DamagingWeaponType == EWeaponType.Sword)
             {
                 prefabHit = GameApp.Entry.Config.GameSetting.GetRandomEffectPrefab_SharpWeaponHitBody();
                 showBlood = true;

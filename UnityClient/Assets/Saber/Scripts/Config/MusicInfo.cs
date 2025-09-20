@@ -8,17 +8,14 @@ namespace Saber.Config
     [CreateAssetMenu(menuName = "Saber/Music Info", fileName = "MusicInfo", order = 8)]
     public class MusicInfo : ScriptableObject
     {
-        public AudioClip m_LoginBGMStart;
-        public AudioClip m_LoginBGMLoop;
-        
-        public AudioClip m_BattleCommon;
-        public AudioClip[] m_ExploreMusics;
+        public string[] m_BGMs;
+        public string m_LoginMusic;
+        public string m_CommonBattleMusic;
 
-
-        public AudioClip GetRandomExploreMusic()
+        public string GetRandomBGM()
         {
-            int index = UnityEngine.Random.Range(0, m_ExploreMusics.Length);
-            return m_ExploreMusics[index];
+            int index = UnityEngine.Random.Range(0, m_BGMs.Length);
+            return m_BGMs[index];
         }
     }
 }

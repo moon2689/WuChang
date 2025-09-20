@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Saber.CharacterController;
+using Saber.Config;
 using UnityEngine;
 
 namespace Saber.AI
@@ -11,7 +12,7 @@ namespace Saber.AI
         public Action<SActor, SActor> OnSetLockingEnemy;
 
         private SActor m_LockingEnemy;
-        
+
         public SActor Actor { get; private set; }
 
         public SActor LockingEnemy

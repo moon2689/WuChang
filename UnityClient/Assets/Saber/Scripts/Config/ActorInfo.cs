@@ -20,6 +20,7 @@ namespace Saber.Config
         public string m_Name;
         public EActorType m_ActorType;
         public string m_PrefabName;
+        public string m_BossBattleMusic;
 
         public AssetHandle LoadIcon(Action<Texture2D> onLoaded)
         {

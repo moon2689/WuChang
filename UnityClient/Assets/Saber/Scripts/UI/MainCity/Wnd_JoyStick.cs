@@ -85,7 +85,8 @@ namespace Saber.UI
             m_joystick.Init(this);
             m_moveCamera.Init(this);
 
-            m_btnAttackA.onClick.AddListener(OnClickAttack1);
+            //m_btnAttackA.onClick.AddListener(OnClickAttack1);
+            m_btnAttackA.AddEvent(EventTriggerType.PointerDown, OnClickAttack1);
             m_ButtonHeavyAttack.AddEvent(EventTriggerType.PointerDown, OnPressDownHeavyAttack);
             m_ButtonHeavyAttack.AddEvent(EventTriggerType.PointerUp, OnPressUpHeavyAttack);
             m_btnLockOn.onClick.AddListener(OnClickLockOn);
@@ -170,7 +171,7 @@ namespace Saber.UI
             ActiveButtonInteract = false;
         }
 
-        private void OnClickAttack1()
+        private void OnClickAttack1(BaseEventData arg0)
         {
             Handler?.OnClickLightAttack();
         }
@@ -232,7 +233,8 @@ namespace Saber.UI
         {
             if (Input.GetKeyDown(KeyCode.J))
             {
-                m_btnAttackA.OnSubmit(null);
+                //m_btnAttackA.OnSubmit(null);
+                m_btnAttackA.TriggerEvent(EventTriggerType.PointerDown);
             }
 
             if (Input.GetKeyDown(KeyCode.L))
@@ -245,9 +247,14 @@ namespace Saber.UI
                 m_ButtonHeavyAttack.TriggerEvent(EventTriggerType.PointerUp);
             }
 
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                m_ButtonSkill1.m_Button.TriggerEvent(EventTriggerType.PointerDown);
+            }
+
             if (Input.GetKeyDown(KeyCode.I))
             {
-                m_ButtonSkill1.m_Button.OnSubmit(null);
+                m_ButtonSkill2.m_Button.TriggerEvent(EventTriggerType.PointerDown);
             }
 
             if (Input.GetKeyDown(KeyCode.Tab))

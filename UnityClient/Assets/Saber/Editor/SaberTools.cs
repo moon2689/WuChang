@@ -202,7 +202,7 @@ public static class SaberTools
         string path = AssetDatabase.GetAssetPath(Selection.activeObject);
         string ext = Path.GetExtension(path);
 
-        string[] words = path.Split("Resources/");
+        string[] words = path.Split("Resources_/");
         string target = words[1].Substring(0, words[1].Length - ext.Length);
 
         Debug.Log(target);

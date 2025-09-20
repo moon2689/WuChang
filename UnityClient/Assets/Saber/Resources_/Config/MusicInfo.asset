@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de34a68c950caa747ad4ff90249e4b3b, type: 3}
   m_Name: MusicInfo
   m_EditorClassIdentifier: 
-  m_LoginBGMStart: {fileID: 8300000, guid: e1f48449719604b43866895b4f6067cf, type: 3}
-  m_LoginBGMLoop: {fileID: 8300000, guid: 3074cda6a3c6a2d4fbd6f6bacc9e8195, type: 3}
-  m_BattleCommon: {fileID: 8300000, guid: 4742d6e9407dc6047acc90c0aa89353d, type: 3}
-  m_ExploreMusics:
-  - {fileID: 8300000, guid: 8f02d07f7d4a6d74a9f1ed1fa41b5409, type: 3}
-  - {fileID: 8300000, guid: 2c0af3fefb759d44dbf7dcac59ba0869, type: 3}
-  - {fileID: 8300000, guid: f0ec09751b2a7d749b7ed0ab6bf1c21a, type: 3}
-  - {fileID: 8300000, guid: 2ebd0fa6a5ee16e479735048fad2b508, type: 3}
-  - {fileID: 8300000, guid: 43acba4071aa4f74f80f5af819b00b57, type: 3}
-  - {fileID: 8300000, guid: 3074cda6a3c6a2d4fbd6f6bacc9e8195, type: 3}
-  - {fileID: 8300000, guid: db09f7fbf24391043bb8e755288ddb1d, type: 3}
+  m_BGMs:
+  - Sound/BGM/Chap1Explore
+  - Sound/BGM/Chap3Explore
+  - Sound/BGM/Chap4Explore
+  - Sound/BGM/Chap5Explore
+  - Sound/BGM/MusicStory
+  - Sound/BGM/Bgm1
+  - Sound/BGM/Bgm2
+  m_LoginMusic: Sound/BGM/Login
+  m_CommonBattleMusic: Sound/BGM/BattleCommon

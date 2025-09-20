@@ -1,4 +1,4 @@
-Shader "KriptoFX/BFX/BFX_Decal"
+Shader "Saber/KriptoFX/BFX/BFX_Decal"
 {
 	Properties
 	{

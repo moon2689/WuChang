@@ -15,16 +15,16 @@ namespace Saber
 
 
         static AudioManager s_instance;
-        
 
-        public bool IsBGMPlaying =>
-            m_curBGMPlayer != null && m_curBGMPlayer.Actived && m_curBGMPlayer.AudioSource.isPlaying;
+
+        public bool IsBGMPlaying => !string.IsNullOrEmpty(CurBGMName);
 
         public string CurBGMName
         {
             get
             {
-                if (m_curBGMPlayer != null && m_curBGMPlayer.Actived && m_curBGMPlayer.Clip != null)
+                if (m_curBGMPlayer != null && m_curBGMPlayer.Actived &&
+                    m_curBGMPlayer.Clip != null && m_curBGMPlayer.AudioSource.isPlaying)
                 {
                     return m_curBGMPlayer.Clip.name;
                 }
@@ -144,7 +144,6 @@ namespace Saber
             if (m_curBGMPlayer != null)
             {
                 m_curBGMPlayer.Stop();
-                m_curBGMPlayer = null;
             }
         }
 

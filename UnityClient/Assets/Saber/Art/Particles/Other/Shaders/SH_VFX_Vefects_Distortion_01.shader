@@ -1,6 +1,6 @@
 // Made with Amplify Shader Editor v1.9.6.3
 // Available at the Unity Asset Store - http://u3d.as/y3X 
-Shader "Vefects/SH_VFX_Vefects_Distortion_01"
+Shader "Saber/Vefects/SH_VFX_Vefects_Distortion_01"
 {
 	Properties
 	{

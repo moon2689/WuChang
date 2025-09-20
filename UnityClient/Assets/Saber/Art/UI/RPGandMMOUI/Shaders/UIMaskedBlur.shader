@@ -3,7 +3,7 @@
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 // Based on cician's shader from: https://forum.unity3d.com/threads/simple-optimized-blur-shader.185327/#post-1267642
 
-Shader "Custom/MaskedUIBlur"
+Shader "Saber/UI/MaskedUIBlur"
 {
 	Properties
 	{

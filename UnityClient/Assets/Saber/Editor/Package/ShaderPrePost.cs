@@ -24,7 +24,27 @@ public class ShaderPrePost : IPreprocessShaders
 
         string shaderName = shader.name;
 
-        if (shaderName == "Saber/Universal Render Pipeline/Lit")
+        if (shaderName == "Universal Render Pipeline/Lit")
+        {
+            for (int i = data.Count - 1; i >= 0; --i)
+            {
+                bool validSV =
+                    IsSVContainsAllKeyword(shaderSV[i],
+                        "_MAIN_LIGHT_SHADOWS",
+                        "_ADDITIONAL_LIGHTS")
+                    &&
+                    !IsSVContainsAnyKeyword(shaderSV[i],
+                        "_ADDITIONAL_LIGHT_SHADOWS",
+                        "_PARALLAXMAP",
+                        "LOD_FADE_CROSSFADE",
+                        "_DETAIL_MULX2",
+                        "_LIGHT_COOKIES");
+
+                if (!validSV)
+                    data.RemoveAt(i);
+            }
+        }
+        else if (shaderName == "Saber/Universal Render Pipeline/Lit")
         {
             for (int i = data.Count - 1; i >= 0; --i)
             {
@@ -219,6 +239,84 @@ public class ShaderPrePost : IPreprocessShaders
                     data.RemoveAt(i);
             }
         }
+        else if (shaderName == "Saber/WuChang/Common Lit")
+        {
+            for (int i = data.Count - 1; i >= 0; --i)
+            {
+                bool validSV = !IsSVContainsAnyKeyword(shaderSV[i],
+                    "_ADDITIONAL_LIGHT_SHADOWS",
+                    "_LIGHT_COOKIES",
+                    "DYNAMICLIGHTMAP_ON",
+                    "_DBUFFER_MRT3",
+                    "LOD_FADE_CROSSFADE",
+                    "LIGHTMAP_ON");
+
+                if (!validSV)
+                    data.RemoveAt(i);
+            }
+        }
+        else if (shaderName == "Saber/WuChang/Eye Lit")
+        {
+            for (int i = data.Count - 1; i >= 0; --i)
+            {
+                bool validSV = !IsSVContainsAnyKeyword(shaderSV[i],
+                    "_ADDITIONAL_LIGHT_SHADOWS",
+                    "_LIGHT_COOKIES",
+                    "DYNAMICLIGHTMAP_ON",
+                    "_DBUFFER_MRT3",
+                    "LOD_FADE_CROSSFADE",
+                    "LIGHTMAP_ON");
+
+                if (!validSV)
+                    data.RemoveAt(i);
+            }
+        }
+        else if (shaderName == "Saber/WuChang/Hair Lit")
+        {
+            for (int i = data.Count - 1; i >= 0; --i)
+            {
+                bool validSV = !IsSVContainsAnyKeyword(shaderSV[i],
+                    "_ADDITIONAL_LIGHT_SHADOWS",
+                    "_LIGHT_COOKIES",
+                    "DYNAMICLIGHTMAP_ON",
+                    "_DBUFFER_MRT3",
+                    "LOD_FADE_CROSSFADE",
+                    "LIGHTMAP_ON");
+
+                if (!validSV)
+                    data.RemoveAt(i);
+            }
+        }
+        else if (shaderName == "Saber/WuChang/Skin Lit")
+        {
+            for (int i = data.Count - 1; i >= 0; --i)
+            {
+                bool validSV = !IsSVContainsAnyKeyword(shaderSV[i],
+                    "_ADDITIONAL_LIGHT_SHADOWS",
+                    "_LIGHT_COOKIES",
+                    "DYNAMICLIGHTMAP_ON",
+                    "_DBUFFER_MRT3",
+                    "LOD_FADE_CROSSFADE",
+                    "LIGHTMAP_ON");
+
+                if (!validSV)
+                    data.RemoveAt(i);
+            }
+        }
+        else if (shaderName == "Saber/WuChang/Terrain Lit Simple")
+        {
+            for (int i = data.Count - 1; i >= 0; --i)
+            {
+                bool validSV = !IsSVContainsAnyKeyword(shaderSV[i],
+                    "_ADDITIONAL_LIGHT_SHADOWS",
+                    "_LIGHT_COOKIES",
+                    "_DBUFFER_MRT3",
+                    "LOD_FADE_CROSSFADE");
+
+                if (!validSV)
+                    data.RemoveAt(i);
+            }
+        }
 
 
         if (data.Count > 100)
@@ -273,12 +371,11 @@ public class ShaderPrePost : IPreprocessShaders
             }
         }
 
-        string shaderName2 = Path.GetFileNameWithoutExtension(shaderName);
+        string shaderName2 = shaderName.Replace("/", "_"); //Path.GetFileNameWithoutExtension(shaderName);
         string dir = $"Assets/_Debug/ShaderPrePost";
         if (!Directory.Exists(dir))
             Directory.CreateDirectory(dir);
-        string path =
-            $"{dir}/log_{shaderName2}_{DateTime.Now.Month}_{DateTime.Now.Day}_{DateTime.Now.Hour}_{DateTime.Now.Minute}.txt";
+        string path = $"{dir}/log_{shaderName2}_{DateTime.Now.Month}_{DateTime.Now.Day}_{DateTime.Now.Hour}_{DateTime.Now.Minute}.txt";
         File.WriteAllText(path, sb.ToString());
     }
 }

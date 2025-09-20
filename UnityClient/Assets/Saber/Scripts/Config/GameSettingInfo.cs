@@ -23,6 +23,9 @@ namespace Saber.Config
         public int MaxHPPotionCount = 5;
         public float HPPotionRecoverRate = 0.5f;
         public AudioClip[] m_VoiceTired;
+        public AudioClip[] m_SoundFootStepWater;
+        public AudioClip[] m_SoundFootStepGround;
+        public AudioClip[] m_SoundFootStepSnow;
 
         [Header("Melee")] public AudioClip[] m_SoundSwordHitSword;
         public AudioClip[] m_SoundWeaponHitGround;

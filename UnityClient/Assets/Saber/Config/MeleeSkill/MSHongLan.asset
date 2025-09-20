@@ -1,0 +1,799 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c21540f300c0c4eaa3632fff526654, type: 3}
+  m_Name: MSHongLan
+  m_EditorClassIdentifier: 
+  m_WeaponStyle: 0
+  m_SkillItems:
+  - m_ID: 1
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: atk01
+      m_EventData: {fileID: 11400000, guid: 4902a6274d391fa4f9ab4a22e4d8cc34, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 2
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 2
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: atk02
+      m_EventData: {fileID: 11400000, guid: c016ad0ec6322ae49b0d5fe6a0e29b50, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 3
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: atk03
+      m_EventData: {fileID: 11400000, guid: a95df3fbedc056f4e86529a693fc0ffe, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 10
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 4
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: atk04a
+      m_EventData: {fileID: 11400000, guid: 716a9ba4c16b61b469d1e4633d09e8c7, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills:
+    - m_SkillID: 5
+      m_BlendTime: 0.1
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 5
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 5
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: atk04b
+      m_EventData: {fileID: 11400000, guid: e6f2d2a8cfbd0b0458afb8305aee0861, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkills:
+    - m_SkillID: 6
+      m_BlendTime: 0.1
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 5
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 6
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: atk04c
+      m_EventData: {fileID: 11400000, guid: 419453030c690c94fb68b49370ce3539, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkills:
+    - m_SkillID: 7
+      m_BlendTime: 0.1
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 5
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 7
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: atk04d
+      m_EventData: {fileID: 11400000, guid: 297701841a38f5542983a3690d3cc3c1, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 5
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 8
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: atk05
+      m_EventData: {fileID: 11400000, guid: 287237b461fe82043906680d95da8167, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 2
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 9
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: atk06
+      m_EventData: {fileID: 11400000, guid: 8e9756abca4480a498bce1a12556bb91, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 2
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 10
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: atk06s
+      m_EventData: {fileID: 11400000, guid: 699fc646913b33944b823a248b72fa51, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 2
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 11
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: atk07
+      m_EventData: {fileID: 11400000, guid: 3eec15e156d188c4fa67516780629c54, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 2
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 12
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: atk08
+      m_EventData: {fileID: 11400000, guid: 1bc4421ca9f4dde4aa8d8b3e2b9dac54, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 2
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 13
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: atk09
+      m_EventData: {fileID: 11400000, guid: 10219800151f9584fa9e17a592167cca, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 2
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 14
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk12_sd3
+      m_EventData: {fileID: 11400000, guid: bd8a71537dcb34d4f9aeefb3f65e9221, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 2
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 15
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk10_a_a
+      m_EventData: {fileID: 11400000, guid: c8df57eeab4737f43a05af3e66dd7e22, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 2
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 16
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk10_a_a_no_before
+      m_EventData: {fileID: 11400000, guid: 6b5aed2df2077d34a919a002f6122d8d, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 2
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 17
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk10_b_a
+      m_EventData: {fileID: 11400000, guid: 0f1b8f242f624604587b2b14044958e0, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 2
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 18
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk10_c_a
+      m_EventData: {fileID: 11400000, guid: 5c216f69894248649b49750d07812c50, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 2
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 19
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk10_c_fast
+      m_EventData: {fileID: 11400000, guid: dcca347cdb18e464888ae5d798027ad3, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 2
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 20
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk11_a_A
+      m_EventData: {fileID: 11400000, guid: 71c7d2924c7bcd5408d09c13d5012915, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 2
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 21
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk11_a_B
+      m_EventData: {fileID: 11400000, guid: d4b8f6d552a67a34db495646a9f78ae6, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 2
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 22
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk11_b_A
+      m_EventData: {fileID: 11400000, guid: f7aa2754fb49d894bb21342cec4ddf1f, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 2
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 23
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk11_b_B
+      m_EventData: {fileID: 11400000, guid: ca6b6364293bad2498564965e1756274, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 24
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk11_c_A
+      m_EventData: {fileID: 11400000, guid: efb7ea066bf311247a3ec35c19a7f1d3, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 25
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk11_c_B
+      m_EventData: {fileID: 11400000, guid: c7d166bf5537adc42858c029bc1217a8, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 26
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk12_a_a
+      m_EventData: {fileID: 11400000, guid: 6d7a9aa70dbdf2545a5a86dee33019e1, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 27
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk12_a_b
+      m_EventData: {fileID: 11400000, guid: fffecd0a5322b20498cf4afdfc57a954, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 28
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk12_b_a
+      m_EventData: {fileID: 11400000, guid: 62a921ff86da4f9409abf6283523573e, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 29
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk12_b_b
+      m_EventData: {fileID: 11400000, guid: 945f8573a49ff3b4385a9adc8c64b09a, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 30
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk13_a_a
+      m_EventData: {fileID: 11400000, guid: d5e03dff618379344a0d6e17ad2a2e63, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 31
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk13_a_b
+      m_EventData: {fileID: 11400000, guid: 06f0e19274fa3dc4e84093af094204da, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 32
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk14
+      m_EventData: {fileID: 11400000, guid: 4e300fe6ab7835548bbc12ae99fb1b57, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 33
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk15_a
+      m_EventData: {fileID: 11400000, guid: e6c450fdbc42c754fa7d80df54be17f3, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 34
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk15_b
+      m_EventData: {fileID: 11400000, guid: 22dc883d61d248f48aa7cc4430b4eb13, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 35
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk16
+      m_EventData: {fileID: 11400000, guid: 7182e4c32acec5b42bd6d2c01acf77e0, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 36
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk_17
+      m_EventData: {fileID: 11400000, guid: 5964cff5cabc89c4d915fd898707d80c, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 37
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk_18
+      m_EventData: {fileID: 11400000, guid: c0b1c7cdfcfcaa84496accfe88881fcb, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_Resilience: 1
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0

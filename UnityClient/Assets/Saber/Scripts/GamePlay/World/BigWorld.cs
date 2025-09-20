@@ -78,7 +78,7 @@ namespace Saber.World
         //public Vector3 Date => m_AzureTime != null ? m_AzureTime.GetDate() : Vector3.zero;
 
         public Light MainLight { get; private set; }
-        public bool IsFightingBoss { get; private set; }
+        public SActor CurrentFightingBoss { get; private set; }
 
 
         #region Load
@@ -440,13 +440,13 @@ namespace Saber.World
         {
             int enemyID = id > 0 ? id : bornPoint.m_ID;
 
-            EAIType aiType = GameApp.Entry.Config.TestGame.EnemyAI != EAIType.None ? GameApp.Entry.Config.TestGame.EnemyAI : bornPoint.m_AIType;
+            EAIType aiType = GameApp.Entry.Config.TestGame.DebugFight ? GameApp.Entry.Config.TestGame.EnemyAI : bornPoint.m_AIType;
             EnemyAIBase ai = aiType.CreateEnemyAI();
             var camp = EActorCamp.Monster;
             Vector3 pos = bornPoint.GetFixedBornPos(out var rot);
             SActor.Create(enemyID, pos, rot, ai, camp, actor =>
             {
-                actor.Event_OnDead += OnOtherActorDead;
+                actor.Event_OnDeadAnimPlayFinished += OnOtherActorDead;
                 bornPoint.Actor = actor;
                 ai.OnSetLockingEnemy = OnActorSetLockingEnemy;
             });
@@ -515,7 +515,7 @@ namespace Saber.World
 
                 yield return SActor.Create(id, playerPos, playerRot, ai, EActorCamp.Player, actor => m_Player = actor);
                 m_Player.name += "(Player)";
-                m_Player.Event_OnDead += OnPlayerDead;
+                m_Player.Event_OnDeadAnimPlayFinished += OnPlayerDead;
 
                 GameObject.DontDestroyOnLoad(m_Player.gameObject);
                 yield return null;
@@ -566,10 +566,33 @@ namespace Saber.World
         {
             if (owner.BaseInfo.m_ActorType == EActorType.Boss)
             {
-                IsFightingBoss = enemy == m_Player;
+                OnBeginBossFighting(enemy == m_Player ? owner : null);
             }
+        }
 
-            Event_OnStartOrEndFightingBoss?.Invoke(IsFightingBoss);
+        void OnBeginBossFighting(SActor isFightingBoss)
+        {
+            CurrentFightingBoss = isFightingBoss;
+            Event_OnStartOrEndFightingBoss?.Invoke(CurrentFightingBoss);
+
+            foreach (var p in m_ScenePoints)
+            {
+                if (p.m_PointType == EScenePointType.Idol)
+                {
+                    p.IdolObj.gameObject.SetActive(!isFightingBoss);
+                }
+                else if (p.m_PointType == EScenePointType.Portal)
+                {
+                    p.PortalObj.gameObject.SetActive(!isFightingBoss);
+                }
+                else if (p.m_PointType == EScenePointType.MonsterBornPosition)
+                {
+                    if (p.Actor != CurrentFightingBoss)
+                    {
+                        p.Actor.gameObject.SetActive(!isFightingBoss);
+                    }
+                }
+            }
         }
 
         public void SetFilmEffect(bool open)

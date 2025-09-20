@@ -1,9 +1,13 @@
+using System;
 using UnityEngine;
 
 namespace Saber.CharacterController
 {
     public class Die : ActorStateBase
     {
+        private string m_CurAnim;
+        private bool m_DieEndEventTriggered;
+
         public override bool ApplyRootMotionSetWhenEnter => true;
 
         public override bool CanEnter => Actor.IsDead;
@@ -17,9 +21,21 @@ namespace Saber.CharacterController
         public override void Enter()
         {
             base.Enter();
-            string anim = !string.IsNullOrEmpty(SpecialAnim) ? SpecialAnim : "Die";
-            Actor.CAnim.Play(anim, force: true);
+            m_CurAnim = !string.IsNullOrEmpty(SpecialAnim) ? SpecialAnim : "Die";
+            Actor.CAnim.Play(m_CurAnim, force: true);
             Actor.CPhysic.UseGravity = true;
+            m_DieEndEventTriggered = false;
+        }
+
+        public override void OnStay()
+        {
+            base.OnStay();
+
+            if (!m_DieEndEventTriggered && !Actor.CAnim.IsPlayingOrWillPlay(m_CurAnim, 0.8f))
+            {
+                m_DieEndEventTriggered = true;
+                Actor.OnDieAnimPlayFinished();
+            }
         }
 
         protected override void OnExit()

@@ -6,8 +6,6 @@ namespace Saber.CharacterController
 {
     public class MonsterRootMotionMove : ActorStateBase
     {
-        private ActorFootstep[] m_ActorFootstep;
-
         public override bool ApplyRootMotionSetWhenEnter => true;
 
         public override bool CanEnter
@@ -25,21 +23,10 @@ namespace Saber.CharacterController
         {
         }
 
-        public override void Init(ActorStateMachine parent)
-        {
-            base.Init(parent);
-            m_ActorFootstep = Actor.GetComponentsInChildren<ActorFootstep>();
-        }
-
         public override void Enter()
         {
             base.Enter();
             Actor.CAnim.Play("Move");
-
-            for (int i = 0; i < m_ActorFootstep.Length; i++)
-            {
-                m_ActorFootstep[i].ActiveSelf = true;
-            }
         }
 
         public override void OnStay()
@@ -64,11 +51,6 @@ namespace Saber.CharacterController
             base.OnExit();
             Actor.CAnim.SetSmoothFloat(EAnimatorParams.Horizontal, 0);
             Actor.CAnim.SetSmoothFloat(EAnimatorParams.Vertical, 0);
-
-            for (int i = 0; i < m_ActorFootstep.Length; i++)
-            {
-                m_ActorFootstep[i].ActiveSelf = false;
-            }
         }
     }
 }

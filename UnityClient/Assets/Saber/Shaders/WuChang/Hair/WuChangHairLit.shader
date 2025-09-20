@@ -91,20 +91,19 @@ Shader "Saber/WuChang/Hair Lit"
             #pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
             #pragma multi_compile_fragment _ _LIGHT_LAYERS
             #pragma multi_compile_fragment _ _LIGHT_COOKIES
-            //#pragma multi_compile _ _FORWARD_PLUS
+            #pragma multi_compile _ _FORWARD_PLUS
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RenderingLayers.hlsl"
 
 
             // -------------------------------------
             // Unity defined keywords
-            // #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
-            // #pragma multi_compile _ SHADOWS_SHADOWMASK
-            // #pragma multi_compile _ DIRLIGHTMAP_COMBINED
-            // #pragma multi_compile _ LIGHTMAP_ON
-            // #pragma multi_compile _ DYNAMICLIGHTMAP_ON
-            // #pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
+            #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
+            #pragma multi_compile _ SHADOWS_SHADOWMASK
+            #pragma multi_compile _ DIRLIGHTMAP_COMBINED
+            #pragma multi_compile _ LIGHTMAP_ON
+            #pragma multi_compile _ DYNAMICLIGHTMAP_ON
+            #pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
             #pragma multi_compile_fog
-            #pragma multi_compile_fragment _ DEBUG_DISPLAY
 
             //--------------------------------------
             // GPU Instancing
@@ -318,3 +317,4 @@ Shader "Saber/WuChang/Hair Lit"
     FallBack "Hidden/Universal Render Pipeline/FallbackError"
     //CustomEditor "UnityEditor.Rendering.Universal.ShaderGUI.LitShader"
 }
+//1

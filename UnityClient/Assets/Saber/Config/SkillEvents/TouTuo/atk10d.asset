@@ -134,7 +134,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -2562834798731642743}
   - EventTime: 0
-    EventRange: {x: 0.14736842, y: 0.2}
+    EventRange: {x: 0.1614035, y: 0.2}
     EventMultiRange:
     - 0.2
     - 0.4

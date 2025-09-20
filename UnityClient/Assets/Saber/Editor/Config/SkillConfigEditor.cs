@@ -108,7 +108,7 @@ public class SkillConfigEditor : EditorBase
                 UseGravityWhenInAir = false,
                 m_FirstSkillOfCombo = false,
                 m_ChainSkills = new ChainSkill[0],
-                m_AIPramAttackDistance = new RangedFloat(0f, 2f),
+                m_AIPramAttackDistance = new RangedFloat(0f, 3f),
             };
             skillItem.m_AnimStates[0] = new SkillAnimStateMachine()
             {

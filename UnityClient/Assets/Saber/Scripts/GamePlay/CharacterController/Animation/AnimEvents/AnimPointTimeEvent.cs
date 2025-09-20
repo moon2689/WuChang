@@ -4,7 +4,7 @@ namespace Saber.CharacterController
 {
     public abstract class AnimPointTimeEvent : AnimEventBase
     {
-        [Range(0, 1)] public float m_TriggerTime = 0.5f;
+        [Range(0, 1)] public float m_TriggerTime;
         private bool m_Triggered;
         private bool m_InTransition;
 
