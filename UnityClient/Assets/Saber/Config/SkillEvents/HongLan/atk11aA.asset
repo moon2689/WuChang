@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: DynamicTrail
   m_EditorClassIdentifier: 
   IsActive: 1
-  m_WeaponBone: 24
+  m_WeaponBone: 29
   m_NotTriggerWhenPowerEnough: 0
 --- !u!114 &-7468901874159222311
 MonoBehaviour:
@@ -74,7 +74,7 @@ MonoBehaviour:
   Radius: 1
   Height: 1
   m_WeaponDamageSetting:
-    m_WeaponBone: 24
+    m_WeaponBone: 29
     m_DamageValue: 5
     m_ImpactForce: 1
     m_HitRecover: 0
@@ -124,7 +124,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0, y: 0.2654321}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -160,7 +160,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -8675115534028236764}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.24691358, y: 0.44444445}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -171,14 +171,14 @@ MonoBehaviour:
   - EventTime: 0
     EventRange: {x: 0, y: 1}
     EventMultiRange:
-    - 0.2
-    - 0.4
+    - 0.19753087
+    - 0.40123457
     - 0.6
     - 0.8
     Previewable: 0
     Obj: {fileID: -9072523982377843432}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.2777778, y: 0.3148148}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -187,7 +187,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -7468901874159222311}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.22839506, y: 0.2777778}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -195,7 +195,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 3393794982599333336}
-  - EventTime: 0
+  - EventTime: 0.27160493
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -204,7 +204,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 18171695277528868}
-  - EventTime: 0
+  - EventTime: 0.086419754
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
   m_Name: CanExit
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
 --- !u!114 &3393794982599333336
 MonoBehaviour:
   m_ObjectHideFlags: 0

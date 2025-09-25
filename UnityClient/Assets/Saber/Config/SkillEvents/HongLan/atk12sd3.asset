@@ -40,7 +40,7 @@ MonoBehaviour:
   Radius: 1
   Height: 1
   m_WeaponDamageSetting:
-    m_WeaponBone: 24
+    m_WeaponBone: 29
     m_DamageValue: 5
     m_ImpactForce: 1
     m_HitRecover: 0
@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
   m_Name: CanExit
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
 --- !u!114 &-4032681986454683258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Name: DynamicTrail
   m_EditorClassIdentifier: 
   IsActive: 1
-  m_WeaponBone: 24
+  m_WeaponBone: 29
   m_NotTriggerWhenPowerEnough: 0
 --- !u!114 &-2127672936423072555
 MonoBehaviour:
@@ -112,7 +112,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0, y: 0.09538461}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -120,7 +120,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 7221392354521865354}
-  - EventTime: 0
+  - EventTime: 0.95692307
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -130,7 +130,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -6607186194863448169}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.59076923, y: 0.60923076}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -138,7 +138,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -8722895653235466034}
-  - EventTime: 0
+  - EventTime: 0.44615385
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -148,7 +148,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 2757808024051083676}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.39076924, y: 0.5876923}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -166,7 +166,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 6913452163756593797}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.4953846, y: 0.51384616}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -175,7 +175,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -7154675694283737129}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.45846155, y: 0.4953846}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -183,7 +183,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 4256733436796213739}
-  - EventTime: 0
+  - EventTime: 0.4923077
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -192,7 +192,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 7773537591753171860}
-  - EventTime: 0
+  - EventTime: 0.055384614
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb9d103b2e74362b49578d9f2b35094, type: 3}
   m_Name: ComboTime
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
 --- !u!114 &-4232778479212835981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0, y: 0.18411553}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -76,7 +76,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -8086012850470580048}
-  - EventTime: 0
+  - EventTime: 0.090252705
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -97,14 +97,14 @@ MonoBehaviour:
   - EventTime: 0
     EventRange: {x: 0, y: 1}
     EventMultiRange:
-    - 0.2
-    - 0.4
+    - 0.19855596
+    - 0.40072203
     - 0.6
     - 0.8
     Previewable: 0
     Obj: {fileID: 1003579844746450688}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.12274368, y: 0.14440434}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -113,7 +113,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 6054430322318504935}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.090252705, y: 0.12274368}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -130,7 +130,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 8869762189036398883}
-  - EventTime: 0
+  - EventTime: 0.050541516
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -185,8 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b781d06c00f873041aca107545370fa8, type: 3}
   m_Name: DynamicTrail
   m_EditorClassIdentifier: 
-  IsActive: 1
-  m_WeaponBone: 24
+  IsActive: 0
+  m_WeaponBone: 29
   m_NotTriggerWhenPowerEnough: 0
 --- !u!114 &6054430322318504935
 MonoBehaviour:
@@ -215,7 +215,7 @@ MonoBehaviour:
   Radius: 1
   Height: 1
   m_WeaponDamageSetting:
-    m_WeaponBone: 24
+    m_WeaponBone: 29
     m_DamageValue: 5
     m_ImpactForce: 1
     m_HitRecover: 0
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
   m_Name: CanExit
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
 --- !u!114 &8869762189036398883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636e08a368debe04987b09e239810343, type: 3}
   m_Name: TanDao
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   ObjData:
     TargetObj: {fileID: 2557966978344939087, guid: 2902985be43994742a7534bd5c1ebd16,
       type: 3}

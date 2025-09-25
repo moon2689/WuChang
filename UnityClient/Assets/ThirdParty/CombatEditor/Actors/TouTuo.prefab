@@ -52,8 +52,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 9f32668fb58c25348b74572d1e8affb5, type: 2}
     - {fileID: 11400000, guid: fa8415e43eb5c4b4c92f96ee20af4513, type: 2}
     - {fileID: 11400000, guid: cee2ab16265c9734aaa4b9c00b1a48d8, type: 2}
-    - {fileID: 11400000, guid: 4c5cb23f19ea2b546b8d4ea971e6c781, type: 2}
-    - {fileID: 11400000, guid: c0f7dbd4901120542b03fd44d2252e78, type: 2}
     - {fileID: 11400000, guid: e27e04afedfc8524fa43d93c6232518b, type: 2}
     - {fileID: 11400000, guid: 7f3539b656d474646809c208d138c172, type: 2}
     - {fileID: 11400000, guid: 6d921c8c464246e439678b4827b7e522, type: 2}
@@ -62,7 +60,6 @@ MonoBehaviour:
     Label: atk7-13
     CombatObjs:
     - {fileID: 11400000, guid: 9fad0fc081a9d8c4bbf35948c409b58c, type: 2}
-    - {fileID: 11400000, guid: c3d09313d2d7093408010cc6d6a3fa1a, type: 2}
     - {fileID: 11400000, guid: d970ff827e23b8d48a839563bb63d487, type: 2}
     - {fileID: 11400000, guid: 1e789aca985afc142b8cf41638124dc6, type: 2}
     - {fileID: 11400000, guid: 818ba81e92435bb4d87f173e2dd71c48, type: 2}

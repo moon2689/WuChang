@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BaseActorInfo:
     m_StatsInfo:
-      m_MaxHp: 400
+      m_MaxHp: 500
       m_DefaultHpRecSpeed: 0
       m_MaxStamina: 100
       m_MaxPower: 3

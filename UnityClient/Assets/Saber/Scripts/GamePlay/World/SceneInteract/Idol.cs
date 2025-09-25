@@ -24,7 +24,7 @@ namespace Saber.World
 
         public int SceneID => m_SceneID;
         public int ID => Point.m_ID;
-        public ScenePoint Point { get; private set; }
+        public ScenePointIdol Point { get; private set; }
 
         public bool IsFired => GameApp.Entry.Game.ProgressMgr.IsIdolFired(m_SceneID, ID);
 
@@ -32,7 +32,7 @@ namespace Saber.World
         public void Init(int sceneID, ScenePoint scenePoint, Transform parent, IHandler handler)
         {
             m_SceneID = sceneID;
-            Point = scenePoint;
+            Point = (ScenePointIdol)scenePoint;
             m_IHandler = handler;
 
             transform.SetParent(parent);
@@ -40,8 +40,6 @@ namespace Saber.World
             transform.rotation = scenePoint.transform.rotation;
 
             RefreshFire();
-
-            scenePoint.IdolObj = this;
         }
 
         public void RefreshFire()

@@ -30,20 +30,20 @@ MonoBehaviour:
     TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
       type: 3}
     controlType: 0
-    Offset: {x: 0, y: 0.75898385, z: 1.1384761}
+    Offset: {x: 0.41527864, y: 0.75898385, z: 1.1384758}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 0
-  ColliderOffset: {x: 0, y: 0, z: 0}
+  ColliderOffset: {x: 0, y: 0, z: 0.01487112}
   ColliderSize: {x: 1, y: 1, z: 1}
-  Radius: 1
+  Radius: 1.3609371
   Height: 1
   m_WeaponDamageSetting:
-    m_WeaponBone: 24
+    m_WeaponBone: 29
     m_DamageValue: 5
     m_ImpactForce: 1
-    m_HitRecover: 3
+    m_HitRecover: 5
     m_ForceWhenGround: {x: 0, y: 0}
 --- !u!114 &-6910067242901494720
 MonoBehaviour:
@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Name: DynamicTrail
   m_EditorClassIdentifier: 
   IsActive: 1
-  m_WeaponBone: 24
+  m_WeaponBone: 29
   m_NotTriggerWhenPowerEnough: 0
 --- !u!114 &-1917561206361456445
 MonoBehaviour:
@@ -117,7 +117,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0.23030303, y: 0.43636364}
+    EventRange: {x: 0.35151514, y: 0.4121212}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -171,7 +171,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 914429853719113662}
   - EventTime: 0
-    EventRange: {x: 0.4121212, y: 0.43636364}
+    EventRange: {x: 0.4, y: 0.43636364}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -206,6 +206,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 3224342572532858287}
+  - EventTime: 0
+    EventRange: {x: 0, y: 0.18181819}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 5293333948448403893}
 --- !u!114 &914429853719113662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,6 +245,20 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e821b29b49e89264ba999f689fe7ac18, type: 3}
   m_Volume: 1
   m_TriggerProbability: 90
+--- !u!114 &5293333948448403893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f29d956cd14f76ae2ff6fbffccde20, type: 3}
+  m_Name: AlignToEnemy2
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_RotateSpeed: 1080
 --- !u!114 &5313920333813235060
 MonoBehaviour:
   m_ObjectHideFlags: 0

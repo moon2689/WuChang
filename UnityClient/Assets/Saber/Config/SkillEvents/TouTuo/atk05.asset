@@ -27,7 +27,8 @@ MonoBehaviour:
   Radius: 1.6410688
   Height: 1
   m_WeaponDamageSetting:
-    m_WeaponBone: 24
+    m_HitType: 0
+    m_WeaponBone: 29
     m_DamageValue: 5
     m_ImpactForce: 2
     m_HitRecover: 2
@@ -161,6 +162,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 8856162081216110570}
+  - EventTime: 0
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.31601733
+    - 0.65584415
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 2233149856668732696}
 --- !u!114 &214150762797873696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +182,19 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bfb9d103b2e74362b49578d9f2b35094, type: 3}
   m_Name: ComboTime
+  m_EditorClassIdentifier: 
+  IsActive: 1
+--- !u!114 &2233149856668732696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b6cfcfadd54440b975c2de0758518c, type: 3}
+  m_Name: AttackStates
   m_EditorClassIdentifier: 
   IsActive: 1
 --- !u!114 &7409707976918256963
@@ -201,7 +224,8 @@ MonoBehaviour:
   Radius: 1.6410688
   Height: 1
   m_WeaponDamageSetting:
-    m_WeaponBone: 24
+    m_HitType: 0
+    m_WeaponBone: 29
     m_DamageValue: 5
     m_ImpactForce: 2
     m_HitRecover: 0

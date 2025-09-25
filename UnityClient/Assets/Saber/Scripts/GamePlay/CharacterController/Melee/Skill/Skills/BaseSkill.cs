@@ -16,6 +16,7 @@ namespace Saber.CharacterController
         private bool m_AnimParamToGounedTriggered;
         private bool m_InComboTime;
         private bool m_PowerAdded;
+        private EAttackStates m_CurrentAttackState;
 
 
         public event Action OnSkillTrigger;
@@ -97,13 +98,33 @@ namespace Saber.CharacterController
                     return true;
                 }
 
+                if (GameApp.Entry.Config.TestGame.DebugFight)
+                {
+                    return true;
+                }
+
                 return Time.time - m_LastTriggerTime > SkillConfig.m_CDSeconds;
             }
         }
 
         public bool ComboTimePassed { get; set; }
         public bool CanExit { get; set; }
-        public EAttackStates CurrentAttackState { get; set; }
+
+        public EAttackStates CurrentAttackState
+        {
+            get => m_CurrentAttackState;
+            set
+            {
+                m_CurrentAttackState = value;
+                Actor.CurrentResilience = value switch
+                {
+                    EAttackStates.BeforeAttack => SkillConfig.m_ResilienceBeforeAttack,
+                    EAttackStates.Attacking => SkillConfig.m_ResilienceAttacking,
+                    EAttackStates.AfterAttack => SkillConfig.m_ResilienceAfterAttack,
+                    _ => throw new InvalidOperationException($"Unknown attack state:{value}"),
+                };
+            }
+        }
 
         public float CDProgress
         {

@@ -39,7 +39,7 @@ MonoBehaviour:
   m_Name: DynamicTrail
   m_EditorClassIdentifier: 
   IsActive: 1
-  m_WeaponBone: 24
+  m_WeaponBone: 29
   m_NotTriggerWhenPowerEnough: 0
 --- !u!114 &-7517805788406994823
 MonoBehaviour:
@@ -68,7 +68,7 @@ MonoBehaviour:
   Radius: 1
   Height: 1
   m_WeaponDamageSetting:
-    m_WeaponBone: 24
+    m_WeaponBone: 29
     m_DamageValue: 5
     m_ImpactForce: 1
     m_HitRecover: 0

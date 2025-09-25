@@ -6525,7 +6525,7 @@ MonoBehaviour:
     stablizationTimeAfterReset: 0.1
     blendWeight: 1
     damping:
-      value: 0.6
+      value: 0.8
       useCurve: 0
       curve:
         serializedVersion: 2
@@ -6639,7 +6639,7 @@ MonoBehaviour:
     angleRestorationConstraint:
       useAngleRestoration: 1
       stiffness:
-        value: 0.5
+        value: 0.8
         useCurve: 1
         curve:
           serializedVersion: 2

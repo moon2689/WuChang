@@ -66,7 +66,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   m_WeaponDamageSetting:
-    m_WeaponBone: 24
+    m_HitType: 0
+    m_WeaponBone: 29
     m_DamageValue: 5
     m_ImpactForce: 2
     m_HitRecover: 0
@@ -171,14 +172,14 @@ MonoBehaviour:
   - EventTime: 0
     EventRange: {x: 0, y: 1}
     EventMultiRange:
-    - 0.2
-    - 0.4
+    - 0.352
+    - 0.708
     - 0.6
     - 0.8
     Previewable: 0
     Obj: {fileID: -5421006323758693610}
   - EventTime: 0
-    EventRange: {x: 0.372, y: 0.436}
+    EventRange: {x: 0.356, y: 0.436}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -322,7 +323,7 @@ MonoBehaviour:
   m_Name: DynamicTrail
   m_EditorClassIdentifier: 
   IsActive: 1
-  m_WeaponBone: 24
+  m_WeaponBone: 29
   m_NotTriggerWhenPowerEnough: 1
 --- !u!114 &7478752866948403623
 MonoBehaviour:
@@ -365,7 +366,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   m_WeaponDamageSetting:
-    m_WeaponBone: 24
+    m_HitType: 0
+    m_WeaponBone: 29
     m_DamageValue: 5
     m_ImpactForce: 2
     m_HitRecover: 0

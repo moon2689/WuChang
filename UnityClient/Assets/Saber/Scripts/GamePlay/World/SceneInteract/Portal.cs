@@ -17,7 +17,7 @@ namespace Saber.World
 
         private IHandler m_IHandler;
 
-        public ScenePoint Point { get; private set; }
+        public ScenePointPortal Point { get; private set; }
         public int TargetSceneID => Point.m_TargetSceneID;
         public int TargetPortalID => Point.m_TargetPortalID;
 
@@ -25,11 +25,10 @@ namespace Saber.World
         public void Init(ScenePoint point, Transform parent, IHandler handler)
         {
             m_IHandler = handler;
-            Point = point;
+            Point = (ScenePointPortal)point;
             transform.SetParent(parent);
             transform.position = point.transform.position;
             transform.rotation = point.transform.rotation;
-            point.PortalObj = this;
         }
 
         protected override void OnPlayerEnter()

@@ -50,7 +50,9 @@ namespace Saber.CharacterController
         public bool m_FirstSkillOfCombo;
         public ChainSkill[] m_ChainSkills;
 
-        public EResilience m_Resilience = EResilience.Level1;
+        public EResilience m_ResilienceBeforeAttack = EResilience.Level2;
+        public EResilience m_ResilienceAttacking = EResilience.Level2;
+        public EResilience m_ResilienceAfterAttack = EResilience.Level1;
 
         public RangedFloat m_AIPramAttackDistance;
         public int m_GroupID;
@@ -115,10 +117,10 @@ namespace Saber.CharacterController
 
     public enum EResilience
     {
-        Level0,
         Level1,
         Level2,
         Level3,
         Level4,
+        Level5,
     }
 }

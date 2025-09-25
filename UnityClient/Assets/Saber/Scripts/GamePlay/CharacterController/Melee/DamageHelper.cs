@@ -82,12 +82,6 @@ namespace Saber.CharacterController
 
             //Debug.Log($"Do damage,hurt:{hurtBox.name}, actor:{actor}", hurtBox);
 
-            var weapon = actor.GetWeaponByPos(damageSetting.m_WeaponBone);
-            if (weapon == null)
-            {
-                Debug.LogError($"No weapon in bone:{damageSetting.m_WeaponBone}");
-            }
-
             curDmgInfo.Attacker = actor;
             /*
             curDmgInfo.DamagePosition = GetDamagePos(actor, hurtBox, damageSetting, out Vector3 waveDir,
@@ -96,8 +90,20 @@ namespace Saber.CharacterController
             */
             curDmgInfo.DamageConfig = damageSetting;
             curDmgInfo.DamageValue = damageSetting.m_DamageValue * UnityEngine.Random.Range(0.8f, 1.2f);
-            curDmgInfo.DamagingWeaponType = weapon.WeaponType;
+            curDmgInfo.HitType = damageSetting.m_HitType;
             curDmgInfo.m_HurtBox = hurtBox;
+
+            if (curDmgInfo.HitType == EHitType.Weapon)
+            {
+                var weapon = actor.GetWeaponByPos(damageSetting.m_WeaponBone);
+                if (weapon == null)
+                {
+                    Debug.LogError($"No weapon in bone:{damageSetting.m_WeaponBone}");
+                }
+
+                curDmgInfo.DamagingWeaponType = weapon.WeaponType;
+            }
+
             //curDmgInfo.Time = Time.time;
 
             // SDebug.DrawWireSphere(curDmgInfo.DmgPos, Color.red, 0.2f, 10);
@@ -218,15 +224,13 @@ namespace Saber.CharacterController
 
         static void PlayDefenseEffect(SActor enemy, DamageInfo curDmgInfo)
         {
-            if (curDmgInfo.DamagingWeaponType == EWeaponType.Boxing)
+            if (curDmgInfo.HitType == EHitType.Weapon)
             {
-                GameApp.Entry.Game.Effect.CreateEffect("Particles/FistLight", curDmgInfo.DamagePosition,
-                    Quaternion.identity, 1f);
+                GameApp.Entry.Game.Effect.CreateEffect("Particles/SwordHitSword", curDmgInfo.DamagePosition, Quaternion.identity, 1f);
             }
             else
             {
-                GameApp.Entry.Game.Effect.CreateEffect("Particles/SwordHitSword", curDmgInfo.DamagePosition,
-                    Quaternion.identity, 1f);
+                GameApp.Entry.Game.Effect.CreateEffect("Particles/FistLight", curDmgInfo.DamagePosition, Quaternion.identity, 1f);
             }
         }
 
@@ -236,26 +240,41 @@ namespace Saber.CharacterController
             GameObject prefabHit = null;
             bool showBlood = false;
 
-            if (curDmgInfo.DamagingWeaponType == EWeaponType.MiaoDao ||
-                curDmgInfo.DamagingWeaponType == EWeaponType.YueYaChan||
-                curDmgInfo.DamagingWeaponType == EWeaponType.Sword)
+            if (curDmgInfo.HitType == EHitType.Weapon)
             {
-                prefabHit = GameApp.Entry.Config.GameSetting.GetRandomEffectPrefab_SharpWeaponHitBody();
-                showBlood = true;
+                if (curDmgInfo.DamagingWeaponType == EWeaponType.MiaoDao ||
+                    curDmgInfo.DamagingWeaponType == EWeaponType.YueYaChan ||
+                    curDmgInfo.DamagingWeaponType == EWeaponType.Sword)
+                {
+                    prefabHit = GameApp.Entry.Config.SkillCommon.GetRandomEffectPrefab_SharpWeaponHitBody();
+                    showBlood = true;
+                }
+                else
+                {
+                    Debug.LogError($"Unknown damage weapon type:{curDmgInfo.DamagingWeaponType}");
+                }
+            }
+            else if (curDmgInfo.HitType == EHitType.Boxing || curDmgInfo.HitType == EHitType.Leg)
+            {
+                prefabHit = GameApp.Entry.Config.SkillCommon.GetRandomEffectPrefab_BoxingHitBody();
+            }
+            else if (curDmgInfo.HitType == EHitType.Magic)
+            {
+                prefabHit = GameApp.Entry.Config.SkillCommon.GetRandomCommonEffectPrefab_MagicHitBody();
             }
             else
             {
-                Debug.LogError($"Unknown damage weapon type:{curDmgInfo.DamagingWeaponType}");
+                Debug.LogError($"Unknown damage hit type:{curDmgInfo.HitType}");
             }
+
+            Quaternion hitDir = Quaternion.LookRotation(curDmgInfo.DamageDirection);
+            Vector3 hitPos = curDmgInfo.DamagePosition;
+            //SDebug.DrawArrow(hitPos, curDmgInfo.DamageDirection.normalized, Color.red, 3);
 
             if (prefabHit)
             {
-                Vector3 camForward = GameApp.Entry.Game.PlayerCamera.transform.forward;
-                Vector3 project = Vector3.ProjectOnPlane(curDmgInfo.DamageDirection, camForward);
-                Quaternion rot = project != Vector3.zero ? Quaternion.LookRotation(project) : Quaternion.identity;
-                Vector3 pos = curDmgInfo.DamagePosition;
                 // SDebug.DrawArrow(curDmgInfo.DamagePosition, curDmgInfo.DamageDirection, Color.green, 3);
-                GameApp.Entry.Game.Effect.CreateEffect(prefabHit, null, pos, rot, 3f);
+                GameApp.Entry.Game.Effect.CreateEffect(prefabHit, null, hitPos, hitDir, 0.6f);
             }
 
             enemy.OnPlayDamageEffect(curDmgInfo.DamagePosition);
@@ -263,11 +282,8 @@ namespace Saber.CharacterController
             // blood
             if (showBlood)
             {
-                GameObject prefabBlood = GameApp.Entry.Config.GameSetting.GetRandomEffectPrefab_Blood();
-                Vector3 project = Vector3.ProjectOnPlane(curDmgInfo.DamageDirection, actor.transform.forward);
-                // SDebug.DrawArrow(curDmgInfo.DmgPos, project, Color.red, 3);
-                Quaternion rot = project != Vector3.zero ? Quaternion.LookRotation(project) : actor.transform.rotation;
-                GameApp.Entry.Game.Effect.CreateEffect(prefabBlood, null, curDmgInfo.DamagePosition, rot, 30f);
+                GameObject prefabBlood = GameApp.Entry.Config.SkillCommon.GetRandomEffectPrefab_Blood();
+                GameApp.Entry.Game.Effect.CreateEffect(prefabBlood, null, hitPos, hitDir, 0.6f);
             }
 
             /*
@@ -291,16 +307,25 @@ namespace Saber.CharacterController
 
         static void PlayHitSound(SActor actor, bool block, HurtBox hurtBox, DamageInfo curDmgInfo)
         {
-            EWeaponType weaponType = curDmgInfo.DamagingWeaponType;
-
-            AudioClip sound;
+            AudioClip sound = null;
             if (block)
             {
-                sound = GameApp.Entry.Config.GameSetting.GetRandomSound_SwordHitSword();
+                sound = GameApp.Entry.Config.SkillCommon.GetRandomSound_SwordHitSword();
             }
             else
             {
-                sound = GameApp.Entry.Config.SkillCommon.GetRandomHitBodySound(weaponType);
+                if (curDmgInfo.HitType == EHitType.Weapon)
+                {
+                    sound = GameApp.Entry.Config.SkillCommon.GetRandomHitBodySound(curDmgInfo.DamagingWeaponType);
+                }
+                else if (curDmgInfo.HitType == EHitType.Boxing || curDmgInfo.HitType == EHitType.Leg)
+                {
+                    sound = GameApp.Entry.Config.SkillCommon.GetRandomBoxingHitBodySound();
+                }
+                else if (curDmgInfo.HitType == EHitType.Magic)
+                {
+                    sound = GameApp.Entry.Config.SkillCommon.GetRandomMagicHitBodyCommonSound();
+                }
             }
 
             if (sound != null)
@@ -309,7 +334,7 @@ namespace Saber.CharacterController
             }
             else
             {
-                Debug.LogError($"Hit sound is null, block:{block}, weapon type:{weaponType}");
+                Debug.LogError($"Hit sound is null, block:{block}, hit type:{curDmgInfo.HitType}");
             }
         }
     }

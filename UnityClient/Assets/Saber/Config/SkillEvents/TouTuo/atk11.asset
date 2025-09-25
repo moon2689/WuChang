@@ -27,6 +27,7 @@ MonoBehaviour:
   Radius: 4.008114
   Height: 1
   m_WeaponDamageSetting:
+    m_HitType: 3
     m_WeaponBone: 24
     m_DamageValue: 20
     m_ImpactForce: 2
@@ -49,6 +50,20 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4dfe4ab84ce5d924ba632f2c492fe80e, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
+--- !u!114 &-7184187298711641453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f29d956cd14f76ae2ff6fbffccde20, type: 3}
+  m_Name: AlignToEnemy5
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_RotateSpeed: 360
 --- !u!114 &-6183101167938090822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,6 +159,7 @@ MonoBehaviour:
   Radius: 1.9429123
   Height: 7.7652607
   m_WeaponDamageSetting:
+    m_HitType: 3
     m_WeaponBone: 24
     m_DamageValue: 3
     m_ImpactForce: 1
@@ -468,6 +484,33 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -8458792543140055454}
+  - EventTime: 0
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.11290322
+    - 0.84193546
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 6764882865653719155}
+  - EventTime: 0
+    EventRange: {x: 0.6215054, y: 0.7387097}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -7184187298711641453}
+  - EventTime: 0
+    EventRange: {x: 0.71075267, y: 0.7387097}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 7996214840466087599}
 --- !u!114 &268887344374314072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,6 +566,7 @@ MonoBehaviour:
   Radius: 1.9429123
   Height: 7.7652607
   m_WeaponDamageSetting:
+    m_HitType: 3
     m_WeaponBone: 24
     m_DamageValue: 3
     m_ImpactForce: 1
@@ -555,6 +599,7 @@ MonoBehaviour:
   Radius: 1.9429123
   Height: 7.7652607
   m_WeaponDamageSetting:
+    m_HitType: 3
     m_WeaponBone: 24
     m_DamageValue: 3
     m_ImpactForce: 1
@@ -613,11 +658,25 @@ MonoBehaviour:
   Radius: 1.9429123
   Height: 7.7652607
   m_WeaponDamageSetting:
+    m_HitType: 3
     m_WeaponBone: 24
     m_DamageValue: 3
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
+--- !u!114 &6764882865653719155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b6cfcfadd54440b975c2de0758518c, type: 3}
+  m_Name: AttackStates
+  m_EditorClassIdentifier: 
+  IsActive: 1
 --- !u!114 &7530844690103838641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,8 +704,42 @@ MonoBehaviour:
   Radius: 1.6410688
   Height: 1
   m_WeaponDamageSetting:
-    m_WeaponBone: 24
+    m_HitType: 0
+    m_WeaponBone: 29
     m_DamageValue: 5
+    m_ImpactForce: 1
+    m_HitRecover: 0
+    m_ForceWhenGround: {x: 0, y: 0}
+--- !u!114 &7996214840466087599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
+  m_Name: hitFire5
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: 40d3894bcad010b4dafd0e1b2409d678,
+      type: 3}
+    controlType: 0
+    Offset: {x: -0.17509845, y: 0.7538898, z: 3.181737}
+    Rot: {x: 0.70358765, y: 0, z: 0, w: 0.7106085}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 1
+  ColliderOffset: {x: 0, y: 0.8252592, z: 0}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 1.9429123
+  Height: 7.7652607
+  m_WeaponDamageSetting:
+    m_HitType: 3
+    m_WeaponBone: 24
+    m_DamageValue: 3
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}

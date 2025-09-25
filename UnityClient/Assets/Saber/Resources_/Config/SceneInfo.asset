@@ -20,11 +20,11 @@ MonoBehaviour:
     m_OpenPostprocess: 1
     m_ShadowDistance: 50
     m_Idols:
-    - m_ID: 1
-      m_Name: "\u5403\u4EBA\u5934\u4F57\u5904"
     - m_ID: 2
       m_Name: "\u7EA2\u5C9A\u5904"
-    m_Portals: 01000000
+    - m_ID: 1
+      m_Name: "\u5403\u4EBA\u5934\u4F57\u5904"
+    m_Portals: 
   - m_Name: mep cave
     m_ID: 2
     m_ResName: MEPCave

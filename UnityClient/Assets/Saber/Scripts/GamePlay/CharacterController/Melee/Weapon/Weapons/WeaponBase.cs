@@ -22,8 +22,8 @@ namespace Saber.CharacterController
         public EWeaponType WeaponType => m_WeaponType;
         public WeaponTrail[] WeaponTrails => m_WeaponTrails;
 
-
         public ENodeType WeaponBone => m_WeaponInfo.m_ArmBoneType;
+        public Vector3 MiddlePos => (m_PosStart.position + m_PosEnd.position) / 2f;
 
 
         private void Awake()

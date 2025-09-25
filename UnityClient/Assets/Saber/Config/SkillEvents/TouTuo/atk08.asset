@@ -26,6 +26,19 @@ MonoBehaviour:
   ColliderSize: {x: 1, y: 1, z: 1}
   Radius: 1.8198113
   Height: 1
+--- !u!114 &-3214150064000789180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b6cfcfadd54440b975c2de0758518c, type: 3}
+  m_Name: AttackStates
+  m_EditorClassIdentifier: 
+  IsActive: 1
 --- !u!114 &-3053088644520981448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,7 +96,8 @@ MonoBehaviour:
   Radius: 1.7033628
   Height: 1
   m_WeaponDamageSetting:
-    m_WeaponBone: 24
+    m_HitType: 0
+    m_WeaponBone: 29
     m_DamageValue: 5
     m_ImpactForce: 2
     m_HitRecover: 5
@@ -186,6 +200,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 6704305838054549669}
+  - EventTime: 0
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.39178082
+    - 0.74246573
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -3214150064000789180}
 --- !u!114 &1112680314797684732
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -29,7 +29,9 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
     m_ChainSkills: []
-    m_Resilience: 2
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
+    m_ResilienceAfterAttack: 1
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 4
@@ -58,7 +60,9 @@ MonoBehaviour:
       m_BlendTime: 0.5
     - m_SkillID: 15
       m_BlendTime: 0.5
-    m_Resilience: 2
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
+    m_ResilienceAfterAttack: 1
     m_AIPramAttackDistance:
       minValue: 3
       maxValue: 10
@@ -79,7 +83,9 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
     m_ChainSkills: []
-    m_Resilience: 2
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
+    m_ResilienceAfterAttack: 1
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 4
@@ -102,7 +108,9 @@ MonoBehaviour:
     m_ChainSkills:
     - m_SkillID: 15
       m_BlendTime: 0.5
-    m_Resilience: 2
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
+    m_ResilienceAfterAttack: 1
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 2
@@ -131,7 +139,9 @@ MonoBehaviour:
       m_BlendTime: 0.5
     - m_SkillID: 15
       m_BlendTime: 0.5
-    m_Resilience: 2
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 3
+    m_ResilienceAfterAttack: 1
     m_AIPramAttackDistance:
       minValue: 3
       maxValue: 5
@@ -160,7 +170,9 @@ MonoBehaviour:
       m_BlendTime: 0.5
     - m_SkillID: 15
       m_BlendTime: 0.5
-    m_Resilience: 2
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 3
+    m_ResilienceAfterAttack: 1
     m_AIPramAttackDistance:
       minValue: 5
       maxValue: 7
@@ -189,7 +201,9 @@ MonoBehaviour:
       m_BlendTime: 0.5
     - m_SkillID: 15
       m_BlendTime: 0.5
-    m_Resilience: 2
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 3
+    m_ResilienceAfterAttack: 1
     m_AIPramAttackDistance:
       minValue: 7
       maxValue: 9
@@ -210,7 +224,9 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
     m_ChainSkills: []
-    m_Resilience: 2
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
+    m_ResilienceAfterAttack: 1
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 4
@@ -233,7 +249,9 @@ MonoBehaviour:
     m_ChainSkills:
     - m_SkillID: 14
       m_BlendTime: 0.5
-    m_Resilience: 2
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
+    m_ResilienceAfterAttack: 1
     m_AIPramAttackDistance:
       minValue: 3
       maxValue: 10
@@ -254,7 +272,9 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
     m_ChainSkills: []
-    m_Resilience: 2
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
+    m_ResilienceAfterAttack: 1
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 3
@@ -277,7 +297,9 @@ MonoBehaviour:
     m_ChainSkills:
     - m_SkillID: 16
       m_BlendTime: 0.1
-    m_Resilience: 2
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
+    m_ResilienceAfterAttack: 1
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 4
@@ -300,7 +322,9 @@ MonoBehaviour:
     m_ChainSkills:
     - m_SkillID: 17
       m_BlendTime: 0.1
-    m_Resilience: 2
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
+    m_ResilienceAfterAttack: 1
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 8
@@ -323,7 +347,9 @@ MonoBehaviour:
     m_ChainSkills:
     - m_SkillID: 18
       m_BlendTime: 0.1
-    m_Resilience: 2
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
+    m_ResilienceAfterAttack: 1
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 8
@@ -350,7 +376,9 @@ MonoBehaviour:
       m_BlendTime: 0.5
     - m_SkillID: 11
       m_BlendTime: 0.5
-    m_Resilience: 2
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
+    m_ResilienceAfterAttack: 1
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 8
@@ -365,15 +393,17 @@ MonoBehaviour:
     m_CostPower: 0
     m_CanTriggerWhenPowerNotEnough: 0
     m_PowerAddWhenHitted: 0
-    m_CDSeconds: 60
+    m_CDSeconds: 30
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 3
+    m_ResilienceBeforeAttack: 3
+    m_ResilienceAttacking: 3
+    m_ResilienceAfterAttack: 1
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 5
+      maxValue: 8
     m_GroupID: 0
     m_AITriggerCondition: 1

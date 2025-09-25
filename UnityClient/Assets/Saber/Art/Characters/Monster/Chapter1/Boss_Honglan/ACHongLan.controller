@@ -1429,7 +1429,7 @@ AnimatorStateMachine:
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
-  m_EntryPosition: {x: 50, y: 120, z: 0}
+  m_EntryPosition: {x: 50, y: -40, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -7490703537608408934}
@@ -2250,8 +2250,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RangeTime:
-    minValue: 0.36
-    maxValue: 0.6
+    minValue: 0.16
+    maxValue: 0.5
   m_EventType: 2
 --- !u!1101 &4377188776013807761
 AnimatorStateTransition:
@@ -2888,7 +2888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TriggerTime: 0
   m_Clips:
-  - {fileID: 8300000, guid: e92a2c62bdba0f942a3534adf225de11, type: 3}
+  - {fileID: 8300000, guid: c0436cb005a3c9d4c83e59a9c61799dc, type: 3}
   m_Volume: 1
   m_TriggerProbability: 60
 --- !u!1102 &9056281403131475037

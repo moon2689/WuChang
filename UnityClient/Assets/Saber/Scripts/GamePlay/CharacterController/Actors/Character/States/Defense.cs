@@ -122,7 +122,14 @@ namespace Saber.CharacterController
                 m_CurState = EState.TanDao;
                 m_TimerCanTanFan = 0;
                 Actor.AddYuMao(1);
+                GameApp.Entry.Unity.DoDelayAction(0.1f, ShowTanFanEffect);
             }
+        }
+
+        void ShowTanFanEffect()
+        {
+            Vector3 pos = Actor.CMelee.CWeapon.CurWeapons[0].MiddlePos;
+            GameApp.Entry.Game.Effect.CreateEffect("Particles/SwordHitSword", pos, Quaternion.identity, 0.6f);
         }
 
         public override void OnStay()

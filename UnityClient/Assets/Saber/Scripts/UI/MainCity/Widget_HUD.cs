@@ -9,22 +9,19 @@ namespace Saber.UI
 {
     public class Widget_HUD : WidgetBase
     {
-        [SerializeField] private UIProgressBar m_BarHealth;
+        [SerializeField] private Widget_HPBar m_HpBar;
         [SerializeField] private Text m_HealthText;
-        [SerializeField] private Image m_ImageHealthSmooth;
-        [SerializeField] private UIProgressBar m_BarStamina;
+        [SerializeField] private Image m_ImageStamina;
         [SerializeField] private Text m_StaminaText;
 
         [SerializeField] private Image m_ImageDamage;
         [SerializeField] private GameObject m_PowerPoint;
         [SerializeField] private Transform m_PowerPointParent;
 
-        private float m_TimerHealthSmoothChange;
         //[SerializeField] private RawImage m_playerIcon;
 
         private SActor m_Actor;
         private List<GameObject> m_PowerPoints = new();
-        private float m_OldHpRatio;
 
 
         void Init()
@@ -32,7 +29,8 @@ namespace Saber.UI
             m_Actor.Event_OnDead += OnDead;
             m_Actor.Event_OnDamage += EnableDamageSprite;
             m_ImageDamage.color = new Color(0f, 0f, 0f, 0f);
-            m_OldHpRatio = m_Actor.CStats.CurrentHPRatio;
+            m_HpBar.Init(m_Actor.CStats.MaxHp, m_Actor.CStats.CurrentHp);
+            //m_OldHpRatio = m_Actor.CStats.CurrentHPRatio;
 
             // icon
             //m_playerIcon.texture = m_Actor.BaseInfo.LoadIcon();
@@ -76,43 +74,11 @@ namespace Saber.UI
 
         void UpdateSliders()
         {
-            m_BarHealth.fillAmount = m_Actor.CStats.CurrentHPRatio;
-            m_BarStamina.fillAmount = m_Actor.CStats.CurrentStaminaRatio;
+            m_HpBar.CurHp = m_Actor.CStats.CurrentHp;
+            m_ImageStamina.fillAmount = m_Actor.CStats.CurrentStamina / m_Actor.CStats.MaxStamina;
 
             m_HealthText.text = m_Actor.CStats.CurrentHPInt.ToString();
             m_StaminaText.text = m_Actor.CStats.CurrentStaminaInt.ToString();
-
-            // 第二血条延迟，平滑跟随
-            if (m_ImageHealthSmooth.fillAmount > m_BarHealth.fillAmount)
-            {
-                if (m_TimerHealthSmoothChange > 1.5f)
-                {
-                    float target = m_ImageHealthSmooth.fillAmount - 0.5f * Time.deltaTime;
-                    if (target < m_BarHealth.fillAmount)
-                    {
-                        target = m_BarHealth.fillAmount;
-                    }
-
-                    m_ImageHealthSmooth.fillAmount = target;
-                }
-                else
-                {
-                    m_TimerHealthSmoothChange += Time.deltaTime;
-                    if (m_OldHpRatio != m_Actor.CStats.CurrentHPRatio)
-                    {
-                        m_TimerHealthSmoothChange = 0;
-                        m_OldHpRatio = m_Actor.CStats.CurrentHPRatio;
-                    }
-                }
-            }
-            else
-            {
-                m_TimerHealthSmoothChange = 0;
-                if (m_ImageHealthSmooth.fillAmount < m_BarHealth.fillAmount)
-                {
-                    m_ImageHealthSmooth.fillAmount = m_BarHealth.fillAmount;
-                }
-            }
         }
 
         void RefreshPowerPoints()

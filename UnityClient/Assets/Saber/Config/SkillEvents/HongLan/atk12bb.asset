@@ -88,7 +88,7 @@ MonoBehaviour:
   Radius: 1
   Height: 1
   m_WeaponDamageSetting:
-    m_WeaponBone: 24
+    m_WeaponBone: 29
     m_DamageValue: 5
     m_ImpactForce: 1
     m_HitRecover: 0
@@ -124,7 +124,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0, y: 0.058558557}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -132,7 +132,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -5823945437968610990}
-  - EventTime: 0
+  - EventTime: 0.8603604
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -142,7 +142,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 4882256431293885167}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.43243244, y: 0.45495495}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -150,7 +150,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 2761599793677208946}
-  - EventTime: 0
+  - EventTime: 0.14864865
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -160,7 +160,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 7516729340875127812}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.24774775, y: 0.4144144}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -171,14 +171,14 @@ MonoBehaviour:
   - EventTime: 0
     EventRange: {x: 0, y: 1}
     EventMultiRange:
-    - 0.2
-    - 0.4
+    - 0.1981982
+    - 0.4009009
     - 0.6
     - 0.8
     Previewable: 0
     Obj: {fileID: -833844610028102267}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.2792793, y: 0.3018018}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -187,7 +187,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -4407364539374194267}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.25675675, y: 0.2792793}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -195,7 +195,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -6334619812214671544}
-  - EventTime: 0
+  - EventTime: 0.27477476
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -204,7 +204,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 3345991415486845832}
-  - EventTime: 0
+  - EventTime: 0.08108108
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -213,6 +213,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -7409954037395642871}
+  - EventTime: 0
+    EventRange: {x: 0.17567568, y: 0.27477476}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 8528691154801727372}
 --- !u!114 &1741702094966261046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +235,7 @@ MonoBehaviour:
   m_Name: DynamicTrail
   m_EditorClassIdentifier: 
   IsActive: 1
-  m_WeaponBone: 24
+  m_WeaponBone: 29
   m_NotTriggerWhenPowerEnough: 0
 --- !u!114 &2761599793677208946
 MonoBehaviour:
@@ -299,3 +308,17 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 67af835e4a5a4e9479066e8623522f80, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
+--- !u!114 &8528691154801727372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f29d956cd14f76ae2ff6fbffccde20, type: 3}
+  m_Name: AlignToEnemy2
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_RotateSpeed: 1080

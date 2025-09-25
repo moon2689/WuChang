@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
   m_Name: CreateHitBox
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   ObjData:
     TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
       type: 3}
@@ -230,7 +230,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -6615717095479200397}
-  - EventTime: 0.05625
+  - EventTime: 0.3625
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2

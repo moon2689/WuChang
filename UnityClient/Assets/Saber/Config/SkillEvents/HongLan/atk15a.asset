@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82fd648527146e59cbfa2687416bd83, type: 3}
   m_Name: PerfectDodge
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   ObjData:
     TargetObj: {fileID: 2557966978344939087, guid: 2902985be43994742a7534bd5c1ebd16,
       type: 3}
@@ -38,7 +38,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b781d06c00f873041aca107545370fa8, type: 3}
   m_Name: DynamicTrail
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   m_WeaponBone: 24
   m_NotTriggerWhenPowerEnough: 0
 --- !u!114 &-6744021912599032616
@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
   m_Name: CreateHitBox
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   ObjData:
     TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
       type: 3}
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636e08a368debe04987b09e239810343, type: 3}
   m_Name: TanDao
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   ObjData:
     TargetObj: {fileID: 2557966978344939087, guid: 2902985be43994742a7534bd5c1ebd16,
       type: 3}
@@ -183,7 +183,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0, y: 0.1}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -191,7 +191,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 3614796615857510757}
-  - EventTime: 0
+  - EventTime: 0.35581395
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -201,7 +201,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 469000227826483727}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.51627904, y: 0.53488374}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -209,7 +209,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -6171714686200062941}
-  - EventTime: 0
+  - EventTime: 0.03255814
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -219,7 +219,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -6744021912599032616}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.10697675, y: 0.23488373}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -237,7 +237,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -1440358671898143020}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.1372093, y: 0.17906977}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -246,7 +246,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -5725831958614033140}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.08139535, y: 0.1255814}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -254,7 +254,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -9070463859073033607}
-  - EventTime: 0
+  - EventTime: 0.13953489
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -263,7 +263,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -1284581719261782262}
-  - EventTime: 0
+  - EventTime: 0.07906977
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
   m_Name: CanExit
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
 --- !u!114 &3614796615857510757
 MonoBehaviour:
   m_ObjectHideFlags: 0

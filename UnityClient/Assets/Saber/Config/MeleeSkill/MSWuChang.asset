@@ -38,6 +38,9 @@ MonoBehaviour:
     - m_SkillID: 12
       m_BlendTime: 0.1
     m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 2
@@ -67,6 +70,9 @@ MonoBehaviour:
     - m_SkillID: 12
       m_BlendTime: 0.1
     m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -96,6 +102,9 @@ MonoBehaviour:
     - m_SkillID: 12
       m_BlendTime: 0.1
     m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -125,6 +134,9 @@ MonoBehaviour:
     - m_SkillID: 12
       m_BlendTime: 0.1
     m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -154,6 +166,9 @@ MonoBehaviour:
     - m_SkillID: 12
       m_BlendTime: 0.1
     m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -183,6 +198,9 @@ MonoBehaviour:
     - m_SkillID: 12
       m_BlendTime: 0.1
     m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -212,6 +230,9 @@ MonoBehaviour:
     - m_SkillID: 12
       m_BlendTime: 0.1
     m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -241,6 +262,9 @@ MonoBehaviour:
     - m_SkillID: 12
       m_BlendTime: 0.1
     m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -264,6 +288,9 @@ MonoBehaviour:
     - m_SkillID: 1
       m_BlendTime: 0.1
     m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 2
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -287,35 +314,35 @@ MonoBehaviour:
     - m_SkillID: 3
       m_BlendTime: 0.1
     m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 11
-    m_SkillName: 
+    m_SkillName: "\u5F39\u5200\u540E\u8F7B\u51FB"
     m_AnimStates:
-    - m_Name: LightAttack3_2
-      m_EventData: {fileID: 11400000, guid: 1ebe61dfe1d1f74439547d6c96c82dff, type: 2}
+    - m_Name: TanFanCounterAttack
+      m_EventData: {fileID: 11400000, guid: 4227e619cbfdcfb44a1af50803038e51, type: 2}
     CostStrength: 10
     m_CostPower: 0
     m_CanTriggerWhenPowerNotEnough: 0
     m_PowerAddWhenHitted: 0
     m_CDSeconds: 0
     m_SkillType: 0
-    m_TriggerCondition: 0
+    m_TriggerCondition: 5
     UseGravityWhenInAir: 0
-    m_FirstSkillOfCombo: 0
+    m_FirstSkillOfCombo: 1
     m_ChainSkills:
-    - m_SkillID: 4
-      m_BlendTime: 0.1
-    - m_SkillID: 9
-      m_BlendTime: 0.1
-    - m_SkillID: 10
-      m_BlendTime: 0.1
-    - m_SkillID: 12
+    - m_SkillID: 5
       m_BlendTime: 0.1
     m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -339,6 +366,9 @@ MonoBehaviour:
     - m_SkillID: 13
       m_BlendTime: 0.1
     m_Resilience: 2
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 2
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -362,6 +392,9 @@ MonoBehaviour:
     - m_SkillID: 5
       m_BlendTime: 0.1
     m_Resilience: 2
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 2
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
@@ -381,29 +414,9 @@ MonoBehaviour:
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
     m_Resilience: 1
-    m_AIPramAttackDistance:
-      minValue: 0.5
-      maxValue: 2
-    m_GroupID: 0
-    m_AITriggerCondition: 0
-  - m_ID: 15
-    m_SkillName: "\u5F39\u5200\u540E\u8F7B\u51FB"
-    m_AnimStates:
-    - m_Name: TanFanCounterAttack
-      m_EventData: {fileID: 11400000, guid: 4227e619cbfdcfb44a1af50803038e51, type: 2}
-    CostStrength: 10
-    m_CostPower: 0
-    m_CanTriggerWhenPowerNotEnough: 0
-    m_PowerAddWhenHitted: 0
-    m_CDSeconds: 0
-    m_SkillType: 0
-    m_TriggerCondition: 5
-    UseGravityWhenInAir: 0
-    m_FirstSkillOfCombo: 1
-    m_ChainSkills:
-    - m_SkillID: 5
-      m_BlendTime: 0.1
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2

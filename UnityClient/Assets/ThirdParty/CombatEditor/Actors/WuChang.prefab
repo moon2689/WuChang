@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SelectedAbility: {fileID: 0}
   CombatDatas:
-  - IsFolded: 1
+  - IsFolded: 0
     Label: Attack
     CombatObjs:
     - {fileID: 11400000, guid: 21b6efb740c967b408e60b0d1419bfcf, type: 2}
@@ -59,7 +59,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f143ae5855760874eb7499c702326f41, type: 2}
     - {fileID: 11400000, guid: 45e3bb3cea5dd0248b0d833ef1fd8c40, type: 2}
     - {fileID: 11400000, guid: 3c42489d62b488743bdd7fe23ed63b33, type: 2}
-    - {fileID: 11400000, guid: 1ebe61dfe1d1f74439547d6c96c82dff, type: 2}
   - IsFolded: 1
     Label: Skill
     CombatObjs:

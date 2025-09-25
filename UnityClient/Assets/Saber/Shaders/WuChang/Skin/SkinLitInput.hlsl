@@ -14,6 +14,7 @@ half4 _SSSColor;
 half _DetailNormalMapScale;
 float4 _DetailNormalMap_ST;
 float _NormalMapMipCount;
+half _Smoothness;
 CBUFFER_END
 
 TEXTURE2D(_ParallaxMap);        SAMPLER(sampler_ParallaxMap);
@@ -35,7 +36,7 @@ SurfaceData InitializeStandardLitSurfaceData(float2 uv)
     surfaceData.alpha = baseMap.a * _BaseColor.a;
     surfaceData.metallic = half(0.0);
     surfaceData.specular = half3(0.0, 0.0, 0.0);
-    surfaceData.smoothness = 1 - maskMap.r;
+    surfaceData.smoothness = (1 - maskMap.r) * _Smoothness;
     //surfaceData.normalTS = normalTS;
     surfaceData.occlusion = 1;;
     surfaceData.emission = half(0.0);

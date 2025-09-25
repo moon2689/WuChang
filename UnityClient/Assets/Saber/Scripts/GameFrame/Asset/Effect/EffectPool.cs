@@ -60,7 +60,7 @@ namespace Saber
                 list.Add(go);
             }
 
-            go.transform.parent = parent;
+            go.transform.SetParent(parent);
             go.transform.position = pos;
             go.transform.rotation = rot;
 

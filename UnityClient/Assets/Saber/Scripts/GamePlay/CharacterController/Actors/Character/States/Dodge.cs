@@ -163,6 +163,11 @@ namespace Saber.CharacterController
 
         bool ISkillCanTrigger.CanTriggerSkill(SkillItem skill)
         {
+            if (m_CanExit)
+            {
+                return true;
+            }
+
             if (!m_CanTriggerSkill)
             {
                 return false;

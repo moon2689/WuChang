@@ -123,7 +123,7 @@ namespace Saber.CharacterController
 
             Vector3 dirToEnemy = Target.transform.position - Actor.transform.position;
             m_IsFromBack = Vector3.Dot(Target.transform.forward, dirToEnemy) > 0;
-            
+
             GameApp.Entry.Game.Audio.Play3DSound(Config.ExecuteStartSound, Actor.transform.position);
         }
 
@@ -150,10 +150,10 @@ namespace Saber.CharacterController
 
                         GameApp.Entry.Game.Audio.Play3DSound(dmgItem.m_Sound, Actor.transform.position);
 
-                        Vector3 pos = Target.transform.position;
-                        pos.y = Actor.CMelee.CWeapon.CurWeapons[0].transform.position.y;
+                        Transform bloodParent = Target.GetNodeTransform(ENodeType.LockUIPos);
                         Quaternion rot = Quaternion.LookRotation(-dirToEnemy);
-                        GameApp.Entry.Game.Effect.CreateEffect(dmgItem.m_Blood, null, pos, rot, 10);
+                        Vector3 pos = bloodParent.position;
+                        GameApp.Entry.Game.Effect.CreateEffect(dmgItem.m_Blood, bloodParent, pos, rot, dmgItem.m_BloodTime);
 
                         Actor.CStats.StaminaRecSpeed = ActorBaseStats.EStaminaRecSpeed.Fast;
 

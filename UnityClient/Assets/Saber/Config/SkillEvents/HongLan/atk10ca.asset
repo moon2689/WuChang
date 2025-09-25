@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
   m_Name: CanExit
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
 --- !u!114 &-8961040531035687677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25,7 +25,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636e08a368debe04987b09e239810343, type: 3}
   m_Name: TanDao
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   ObjData:
     TargetObj: {fileID: 2557966978344939087, guid: 2902985be43994742a7534bd5c1ebd16,
       type: 3}
@@ -52,6 +52,32 @@ MonoBehaviour:
   m_Name: ComboTime
   m_EditorClassIdentifier: 
   IsActive: 1
+--- !u!114 &-7174737564227158369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e82fd648527146e59cbfa2687416bd83, type: 3}
+  m_Name: PerfectDodge2
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: 2902985be43994742a7534bd5c1ebd16,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 0.9221846, z: 0.76564217}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 0
+  ColliderOffset: {x: 0, y: 0, z: -0.0453887}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 1.2312667
+  Height: 1
 --- !u!114 &-6994074228992150506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +118,20 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 67af835e4a5a4e9479066e8623522f80, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
+--- !u!114 &-3551544426321923926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f29d956cd14f76ae2ff6fbffccde20, type: 3}
+  m_Name: AlignToEnemy2
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_RotateSpeed: 1080
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +150,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0, y: 0.244}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -128,7 +168,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -8994248167882655586}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.564, y: 0.584}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -136,7 +176,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -7386580671710670274}
-  - EventTime: 0
+  - EventTime: 0.16
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -164,7 +204,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 7672129676323374792}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.24, y: 0.268}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -173,7 +213,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 8390653463924980905}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.208, y: 0.24}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -199,6 +239,33 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -6994074228992150506}
+  - EventTime: 0
+    EventRange: {x: 0.5, y: 0.524}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 1040022897143632601}
+  - EventTime: 0
+    EventRange: {x: 0.456, y: 0.5}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -7174737564227158369}
+  - EventTime: 0
+    EventRange: {x: 0.344, y: 0.476}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -3551544426321923926}
 --- !u!114 &97583303513950540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,9 +278,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b781d06c00f873041aca107545370fa8, type: 3}
   m_Name: DynamicTrail
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   m_WeaponBone: 24
   m_NotTriggerWhenPowerEnough: 0
+--- !u!114 &1040022897143632601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
+  m_Name: CreateHitBox2
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 0.75898385, z: 1.1384761}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 0
+  ColliderOffset: {x: 0, y: 0, z: 0}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 1
+  Height: 1
+  m_WeaponDamageSetting:
+    m_WeaponBone: 23
+    m_DamageValue: 5
+    m_ImpactForce: 1
+    m_HitRecover: 0
+    m_ForceWhenGround: {x: 0, y: 0}
 --- !u!114 &2660866341392539794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,7 +393,7 @@ MonoBehaviour:
   Radius: 1
   Height: 1
   m_WeaponDamageSetting:
-    m_WeaponBone: 24
+    m_WeaponBone: 23
     m_DamageValue: 5
     m_ImpactForce: 1
     m_HitRecover: 0

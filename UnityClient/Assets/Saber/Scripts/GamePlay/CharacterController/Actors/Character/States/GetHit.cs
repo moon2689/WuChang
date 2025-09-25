@@ -31,9 +31,11 @@ namespace Saber.CharacterController
         private EState m_State;
         private bool m_IsExecuteFromBack;
         private bool m_CanExecuteTimePassed;
+        private bool m_CanExit;
+        private float m_AngleFromAttacker;
 
         public DamageInfo Damage { get; set; }
-        public override bool CanExit => false;
+        public override bool CanExit => m_CanExit;
         public bool CanBeExecute { get; private set; }
 
         public bool IsBlockBrokenWaitExecute => m_State == EState.BlockBroken && !m_CanExecuteTimePassed;
@@ -45,18 +47,18 @@ namespace Saber.CharacterController
         {
             return dmg.DamageConfig.m_HitRecover == EHitRecover.Backstab &&
                    (int)GameApp.Entry.Config.SkillCommon.BackStabPower > (int)hurtedActor.CurrentResilience &&
-                   Vector3.Dot(hurtedActor.GetNodeTransform(ENodeType.BackSocket).right, dmg.Attacker.transform.forward) > 0 ||
+                   Vector3.Dot(hurtedActor.GetNodeTransform(ENodeType.Back).forward, dmg.Attacker.transform.forward) > 0 ||
                    hurtedActor.CStats.CurrentUnbalanceValue <= 0;
         }
 
         string GetDir4()
         {
-            float angleFromAttacker = Vector3.SignedAngle(Damage.Attacker.transform.forward, Actor.transform.forward, Vector3.up);
-            if (angleFromAttacker > -45 && angleFromAttacker <= 45)
+            m_AngleFromAttacker = Vector3.SignedAngle(Damage.Attacker.transform.forward, Actor.transform.forward, Vector3.up);
+            if (m_AngleFromAttacker > -45 && m_AngleFromAttacker <= 45)
                 return "B";
-            else if (angleFromAttacker > 45 && angleFromAttacker <= 135)
+            else if (m_AngleFromAttacker > 45 && m_AngleFromAttacker <= 135)
                 return "R";
-            else if (angleFromAttacker > -135 && angleFromAttacker <= -45)
+            else if (m_AngleFromAttacker > -135 && m_AngleFromAttacker <= -45)
                 return "L";
             else
                 return "F";
@@ -64,8 +66,8 @@ namespace Saber.CharacterController
 
         string GetDir2()
         {
-            float angleFromAttacker = Vector3.SignedAngle(Damage.Attacker.transform.forward, Actor.transform.forward, Vector3.up);
-            return angleFromAttacker > -90 && angleFromAttacker <= 90 ? "B" : "F";
+            m_AngleFromAttacker = Vector3.SignedAngle(Damage.Attacker.transform.forward, Actor.transform.forward, Vector3.up);
+            return m_AngleFromAttacker > -90 && m_AngleFromAttacker <= 90 ? "B" : "F";
         }
 
 
@@ -135,6 +137,7 @@ namespace Saber.CharacterController
 
             CanBeExecute = false;
             m_CanExecuteTimePassed = false;
+            m_CanExit = false;
 
             m_State = m_HurtType switch
             {
@@ -145,6 +148,23 @@ namespace Saber.CharacterController
             if (m_HurtType == EHitRecHurtType.BlockBroken)
             {
                 Actor.CStats.DefaultUnbalanceValue();
+            }
+
+            // 对齐攻击者方向
+            EHitRecover hitRec = Damage.DamageConfig.m_HitRecover;
+            if (hitRec == EHitRecover.StrikeDown || hitRec == EHitRecover.KnockOffLongDis)
+            {
+                Vector3 directionToAttacker = Damage.Attacker.transform.position - Actor.transform.position;
+                directionToAttacker.y = 0;
+                bool isBack = m_AngleFromAttacker > -90 && m_AngleFromAttacker <= 90;
+                if (isBack)
+                {
+                    Actor.transform.rotation = Quaternion.LookRotation(-directionToAttacker);
+                }
+                else
+                {
+                    Actor.transform.rotation = Quaternion.LookRotation(directionToAttacker);
+                }
             }
         }
 
@@ -185,6 +205,15 @@ namespace Saber.CharacterController
                 {
                     m_CanExecuteTimePassed = true;
                 }
+            }
+        }
+
+        public override void OnTriggerAnimEvent(AnimPointTimeEvent eventObj)
+        {
+            base.OnTriggerAnimEvent(eventObj);
+            if (eventObj.EventType == EAnimTriggerEvent.AnimCanExit)
+            {
+                m_CanExit = true;
             }
         }
 

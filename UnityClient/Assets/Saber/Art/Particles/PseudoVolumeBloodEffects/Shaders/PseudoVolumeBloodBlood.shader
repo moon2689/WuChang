@@ -69,7 +69,7 @@ Shader "Saber/Effects/PseudoVolumeBlood"
             {
             	half4 mainTex = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
             	half4 color;
-            	color.rgb = half3(0.7,0,0);
+            	color.rgb = half3(0.5,0,0);
             	color.a = mainTex.a;
             	return color;
             }

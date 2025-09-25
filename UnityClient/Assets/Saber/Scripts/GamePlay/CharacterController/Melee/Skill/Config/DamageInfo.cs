@@ -12,6 +12,7 @@ namespace Saber.CharacterController
         public Vector3 DamagePosition;
         public Vector3 DamageDirection;
         public SActor Attacker;
+        public EHitType HitType;
         public EWeaponType DamagingWeaponType;
         public WeaponDamageSetting DamageConfig;
         public HurtBox m_HurtBox;
@@ -20,11 +21,20 @@ namespace Saber.CharacterController
     [Serializable]
     public class WeaponDamageSetting
     {
-        public ENodeType m_WeaponBone = ENodeType.RightHand;
+        public EHitType m_HitType = EHitType.Weapon;
+        public ENodeType m_WeaponBone = ENodeType.WeaponRightHand;
         public float m_DamageValue = 5;
-        public EImpactForce m_ImpactForce = EImpactForce.Level1;
+        public EImpactForce m_ImpactForce = EImpactForce.Level2;
         public EHitRecover m_HitRecover;
         public Vector2 m_ForceWhenGround;
+    }
+
+    public enum EHitType
+    {
+        Weapon,
+        Boxing,
+        Leg,
+        Magic,
     }
 
     public enum EHitRecover
@@ -36,14 +46,13 @@ namespace Saber.CharacterController
         StunTanDao,
         KnockOffLongDis,
     }
-    
 
     public enum EImpactForce
     {
-        Level0,
         Level1,
         Level2,
         Level3,
         Level4,
+        Level5,
     }
 }

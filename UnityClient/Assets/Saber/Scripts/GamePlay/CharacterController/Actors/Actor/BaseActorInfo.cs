@@ -58,7 +58,7 @@ namespace Saber.CharacterController
 
         Tail,
         YuMao,
-        BackSocket,
+        Back,
         WeaponLeftHand,
         WeaponRightHand,
     }

@@ -111,6 +111,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 8810022985324106312}
+  - EventTime: 0
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.29973474
+    - 0.5039788
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 7067437629285060432}
 --- !u!114 &3490726438768211004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +147,8 @@ MonoBehaviour:
   Radius: 2.800016
   Height: 1
   m_WeaponDamageSetting:
-    m_WeaponBone: 24
+    m_HitType: 0
+    m_WeaponBone: 29
     m_DamageValue: 5
     m_ImpactForce: 2
     m_HitRecover: 5
@@ -160,6 +170,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7ed40df31ce78ec4b931d3eaaac628bc, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
+--- !u!114 &7067437629285060432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b6cfcfadd54440b975c2de0758518c, type: 3}
+  m_Name: AttackStates
+  m_EditorClassIdentifier: 
+  IsActive: 1
 --- !u!114 &7186335993112036712
 MonoBehaviour:
   m_ObjectHideFlags: 0

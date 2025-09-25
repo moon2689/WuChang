@@ -152,7 +152,9 @@ public class SkillConfigEditor : EditorBase
                 item.m_CanTriggerWhenPowerNotEnough = EditorGUILayout.Toggle("能量不足也可释放？", item.m_CanTriggerWhenPowerNotEnough);
         }
 
-        item.m_Resilience = (EResilience)EditorGUILayout.EnumPopup("韧性:", item.m_Resilience);
+        item.m_ResilienceBeforeAttack = (EResilience)EditorGUILayout.EnumPopup("攻击前摇韧性:", item.m_ResilienceBeforeAttack);
+        item.m_ResilienceAttacking = (EResilience)EditorGUILayout.EnumPopup("攻击中韧性:", item.m_ResilienceAttacking);
+        item.m_ResilienceAfterAttack = (EResilience)EditorGUILayout.EnumPopup("攻击后摇韧性:", item.m_ResilienceAfterAttack);
 
         // 动画
         GUILayout.BeginHorizontal();

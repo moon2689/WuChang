@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8173782123579274225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b6cfcfadd54440b975c2de0758518c, type: 3}
+  m_Name: AttackStates
+  m_EditorClassIdentifier: 
+  IsActive: 1
 --- !u!114 &-6813607133163952423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,7 +97,8 @@ MonoBehaviour:
   Radius: 1.6410688
   Height: 1
   m_WeaponDamageSetting:
-    m_WeaponBone: 24
+    m_HitType: 0
+    m_WeaponBone: 29
     m_DamageValue: 5
     m_ImpactForce: 3
     m_HitRecover: 5
@@ -178,6 +192,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -5424265858853347273}
+  - EventTime: 0
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.37616387
+    - 0.6089386
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -8173782123579274225}
 --- !u!114 &1702497988021757906
 MonoBehaviour:
   m_ObjectHideFlags: 0

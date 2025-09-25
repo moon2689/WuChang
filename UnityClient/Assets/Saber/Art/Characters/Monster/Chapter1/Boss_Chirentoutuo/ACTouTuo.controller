@@ -319,8 +319,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RangeTime:
-    minValue: 0.36
-    maxValue: 0.6
+    minValue: 0.16
+    maxValue: 0.5
   m_EventType: 2
 --- !u!1107 &-4587337107835530546
 AnimatorStateMachine:

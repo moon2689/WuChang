@@ -42,13 +42,40 @@ namespace Saber.CharacterController
             */
 
             HurtBox hurtBox = other.GetComponent<HurtBox>();
-            if (hurtBox != null && !m_HurtedActors.Contains(hurtBox.Actor))
+            bool canDoDmg = hurtBox != null && !m_HurtedActors.Contains(hurtBox.Actor);
+            if (!canDoDmg)
             {
-                m_HurtedActors.Add(hurtBox.Actor);
-                var dmgSetting = base.m_EventObj.EventObj.m_WeaponDamageSetting;
-                DamageHelper.TryHit(other, this.Actor, dmgSetting, m_CurDmgInfo);
-                //Debug.LogError($"No EmptyWeapon in bone:{base.m_EventObj.EventObj.m_WeaponDamageSetting.m_WeaponBone}");
+                return;
             }
+
+            m_HurtedActors.Add(hurtBox.Actor);
+
+            m_CurDmgInfo.DamagePosition = other.transform.position;
+            Vector3 dmgDir;
+
+            var dmgSetting = base.m_EventObj.EventObj.m_WeaponDamageSetting;
+            if (dmgSetting.m_HitType == EHitType.Weapon)
+            {
+                var weaponBone = dmgSetting.m_WeaponBone;
+                var weapon = base.Actor.CMelee.CWeapon.GetWeaponByPos(weaponBone);
+                if (weapon == null)
+                {
+                    var eventData = m_EventObj.CurrentSkill.SkillConfig.m_AnimStates[0].m_EventData;
+                    Debug.LogError($"weapon==null,bone:{weaponBone},data:{eventData.name}");
+                }
+
+                dmgDir = other.transform.position - weapon.m_PosEnd.transform.position;
+            }
+            else
+            {
+                dmgDir = other.transform.position - transform.position;
+            }
+
+            dmgDir.Normalize();
+            m_CurDmgInfo.DamageDirection = dmgDir;
+            DamageHelper.TryHit(other, this.Actor, dmgSetting, m_CurDmgInfo);
+
+            //Debug.LogError($"No EmptyWeapon in bone:{base.m_EventObj.EventObj.m_WeaponDamageSetting.m_WeaponBone}");
         }
 
         public override void Hide()

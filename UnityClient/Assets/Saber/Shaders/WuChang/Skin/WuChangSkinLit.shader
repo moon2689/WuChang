@@ -8,6 +8,7 @@ Shader "Saber/WuChang/Skin Lit"
         _BumpMap("Normal Map", 2D) = "bump" {}
         _NormalMapMipCount("Normal Map Mip Count", float) = 11
         _MaskMap("Mask Map(R:,G:,B:,A:)", 2D) = "white" {}
+        _Smoothness("Smoothness", Range(0, 1)) = 1
 
         // sss
         _PreIntegratedSSSMap("PreIntegrated SSS Map", 2D) = "white" {}

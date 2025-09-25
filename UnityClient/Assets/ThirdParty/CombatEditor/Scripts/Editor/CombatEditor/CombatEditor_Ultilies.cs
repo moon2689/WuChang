@@ -199,10 +199,12 @@ namespace CombatEditor
         {
             EditorGUI.DrawRect(new Rect(p1.x - Width / 2, p1.y, Width, (p2 - p1).y), color);
 
+            /*
             // 当前帧秒数
             float curSeconds = m_AnimClipLength * m_CurrentFrame / m_AnimFrameCount;
             string label = $"{curSeconds:f2}s";
             EditorGUI.LabelField(new Rect(p1.x - Width / 2, p1.y, 300, 100), label);
+            */
         }
 
         public void UpdateAsset(Object obj)

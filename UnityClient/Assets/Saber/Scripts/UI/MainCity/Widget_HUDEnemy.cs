@@ -11,18 +11,15 @@ namespace Saber.UI
         private const float k_HPPerSlider = 500;
 
         [SerializeField] private GameObject m_Root;
-        [SerializeField] private Slider m_HealthSlider;
+        [SerializeField] private Widget_HPBar m_HpBar;
         [SerializeField] private Transform m_SliderParent;
         [SerializeField] private Text m_TextName;
         [SerializeField] private float m_SliderSpaceY = 45;
 
         private SActor m_LockEnemy;
-        private List<Slider> m_Sliders = new();
-        private List<Slider> m_SmoothSliders = new();
+        private List<Widget_HPBar> m_HpBars = new();
         private int m_SliderCount;
         private float m_HPOfSmoothSlider;
-        private float m_TimerHealthSmoothChange;
-        private float m_OldHpRatio;
 
         bool IsShow
         {
@@ -33,7 +30,7 @@ namespace Saber.UI
         protected override void Start()
         {
             base.Start();
-            m_HealthSlider.gameObject.SetActive(false);
+            m_HpBar.gameObject.SetActive(false);
         }
 
         SActor GetLockEnemy()
@@ -74,29 +71,25 @@ namespace Saber.UI
             m_SliderCount = Mathf.CeilToInt(m_LockEnemy.CStats.MaxHp / k_HPPerSlider);
             for (int i = 0; i < m_SliderCount; i++)
             {
-                Slider slider, smoothSlider;
-                if (i < m_Sliders.Count)
+                Widget_HPBar hpBar;
+                if (i < m_HpBars.Count)
                 {
-                    slider = m_Sliders[i];
-                    smoothSlider = m_SmoothSliders[i];
+                    hpBar = m_HpBars[i];
                 }
                 else
                 {
-                    GameObject go = GameObject.Instantiate(m_HealthSlider.gameObject);
+                    GameObject go = GameObject.Instantiate(m_HpBar.gameObject);
                     go.SetActive(true);
                     go.transform.SetParent(m_SliderParent);
                     go.transform.localPosition = new Vector3(0, -m_SliderSpaceY * i);
                     go.transform.localScale = Vector3.one;
                     go.name = i.ToString();
 
-                    slider = go.GetComponent<Slider>();
-                    m_Sliders.Add(slider);
-
-                    smoothSlider = go.transform.Find("SmoothSliderHealth").GetComponent<Slider>();
-                    m_SmoothSliders.Add(smoothSlider);
+                    hpBar = go.GetComponent<Widget_HPBar>();
+                    m_HpBars.Add(hpBar);
                 }
 
-                RectTransform rectTransform = slider.GetComponent<RectTransform>();
+                RectTransform rectTransform = hpBar.GetComponent<RectTransform>();
                 float thisSliderMaxHP;
                 if (i == m_SliderCount - 1)
                 {
@@ -108,19 +101,17 @@ namespace Saber.UI
                     thisSliderMaxHP = k_HPPerSlider;
                 }
 
-                slider.maxValue = thisSliderMaxHP;
-                smoothSlider.maxValue = thisSliderMaxHP;
+                hpBar.Init(thisSliderMaxHP, thisSliderMaxHP);
                 rectTransform.sizeDelta = new Vector2(thisSliderMaxHP * 3, rectTransform.sizeDelta.y);
             }
 
-            for (int i = m_SliderCount; i < m_Sliders.Count; i++)
+            for (int i = m_SliderCount; i < m_HpBars.Count; i++)
             {
-                m_Sliders[i].gameObject.SetActive(false);
+                m_HpBars[i].gameObject.SetActive(false);
             }
 
             m_TextName.text = m_LockEnemy.BaseInfo.m_Name;
             m_HPOfSmoothSlider = m_LockEnemy.CStats.CurrentHp;
-            m_OldHpRatio = m_LockEnemy.CStats.CurrentHPRatio;
         }
 
         void UpdateSliders()
@@ -128,50 +119,10 @@ namespace Saber.UI
             float currentHP = m_LockEnemy.CStats.CurrentHp;
             for (int i = 0; i < m_SliderCount; i++)
             {
-                Slider slider = m_Sliders[i];
+                Widget_HPBar hpBar = m_HpBars[i];
                 float hpThisSlider = currentHP - k_HPPerSlider * i;
                 hpThisSlider = Mathf.Clamp(hpThisSlider, 0, k_HPPerSlider);
-                slider.value = hpThisSlider;
-            }
-
-            // 第二血条延迟，平滑跟随
-            if (m_HPOfSmoothSlider > currentHP)
-            {
-                if (m_TimerHealthSmoothChange > 1.5f)
-                {
-                    float target = m_HPOfSmoothSlider - 10 * Time.deltaTime;
-                    if (target < currentHP)
-                    {
-                        target = currentHP;
-                    }
-
-                    m_HPOfSmoothSlider = target;
-                }
-                else
-                {
-                    m_TimerHealthSmoothChange += Time.deltaTime;
-                    if (m_OldHpRatio != m_LockEnemy.CStats.CurrentHPRatio)
-                    {
-                        m_TimerHealthSmoothChange = 0;
-                        m_OldHpRatio = m_LockEnemy.CStats.CurrentHPRatio;
-                    }
-                }
-            }
-            else
-            {
-                m_TimerHealthSmoothChange = 0;
-                if (m_HPOfSmoothSlider < currentHP)
-                {
-                    m_HPOfSmoothSlider = currentHP;
-                }
-            }
-
-            for (int i = 0; i < m_SliderCount; i++)
-            {
-                Slider slider = m_SmoothSliders[i];
-                float hpThisSlider = m_HPOfSmoothSlider - k_HPPerSlider * i;
-                hpThisSlider = Mathf.Clamp(hpThisSlider, 0, k_HPPerSlider);
-                slider.value = hpThisSlider;
+                hpBar.CurHp = hpThisSlider;
             }
         }
     }

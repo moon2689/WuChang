@@ -210,10 +210,8 @@ namespace Saber.AI
                     skill.InRange(m_DistanceToEnemy))
                 {
                     m_ListSkills.Add(skill);
-                    break;
                 }
             }
-
 
             if (m_ListSkills.Count > 0)
             {

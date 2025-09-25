@@ -29,7 +29,9 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 2
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 3
@@ -50,7 +52,9 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 3
@@ -71,7 +75,9 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 10
@@ -94,7 +100,9 @@ MonoBehaviour:
     m_ChainSkills:
     - m_SkillID: 5
       m_BlendTime: 0.1
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 5
@@ -117,7 +125,9 @@ MonoBehaviour:
     m_ChainSkills:
     - m_SkillID: 6
       m_BlendTime: 0.1
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 5
@@ -140,7 +150,9 @@ MonoBehaviour:
     m_ChainSkills:
     - m_SkillID: 7
       m_BlendTime: 0.1
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 5
@@ -159,9 +171,11 @@ MonoBehaviour:
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
-    m_FirstSkillOfCombo: 1
+    m_FirstSkillOfCombo: 0
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 5
@@ -182,10 +196,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 2
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 9
@@ -203,10 +219,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 2
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 10
@@ -224,10 +242,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 2
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 11
@@ -245,10 +265,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 2
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 12
@@ -266,10 +288,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 2
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 13
@@ -287,10 +311,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 2
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 14
@@ -308,10 +334,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 2
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 15
@@ -329,10 +357,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 2
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 16
@@ -350,10 +380,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 2
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 17
@@ -371,10 +403,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 2
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 18
@@ -392,10 +426,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 2
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 19
@@ -413,10 +449,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 2
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 20
@@ -434,10 +472,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 2
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 21
@@ -455,10 +495,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 2
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 22
@@ -476,10 +518,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 2
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 23
@@ -497,10 +541,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 3
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 24
@@ -518,10 +564,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 3
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 25
@@ -539,10 +587,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 3
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 26
@@ -560,10 +610,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 3
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 27
@@ -581,10 +633,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 3
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 28
@@ -602,10 +656,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 3
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 29
@@ -623,10 +679,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 3
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 30
@@ -644,10 +702,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 3
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 31
@@ -665,10 +725,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 3
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 32
@@ -686,10 +748,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 3
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 33
@@ -707,10 +771,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 3
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 34
@@ -728,10 +794,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 3
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 35
@@ -749,10 +817,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 3
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 36
@@ -770,10 +840,12 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 3
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0
   - m_ID: 37
@@ -791,9 +863,11 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 3
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0

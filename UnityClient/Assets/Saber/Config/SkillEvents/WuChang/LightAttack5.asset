@@ -115,8 +115,8 @@ MonoBehaviour:
   - EventTime: 0
     EventRange: {x: 0, y: 1}
     EventMultiRange:
-    - 0.19786096
-    - 0.40106952
+    - 0.23529412
+    - 0.5026738
     - 0.6
     - 0.8
     Previewable: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
       type: 3}
     controlType: 0
     Offset: {x: 0.013333712, y: 1.0035084, z: -0.19291718}
-    Rot: {x: 0.018303366, y: -0.049633827, z: -0.12364394, w: -0.9909156}
+    Rot: {x: 0.018303374, y: -0.04963378, z: -0.12364393, w: -0.9909156}
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 1
@@ -209,7 +209,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   m_WeaponDamageSetting:
-    m_WeaponBone: 24
+    m_HitType: 0
+    m_WeaponBone: 29
     m_DamageValue: 5
     m_ImpactForce: 1
     m_HitRecover: 0

@@ -13,8 +13,8 @@ namespace Saber.CharacterController
     {
         private SActor m_Actor;
         private WeaponBase[] m_CurWeapons;
+        private Dictionary<ENodeType, WeaponBase> m_DicWeapons;
 
-        public WeaponBase this[int index] => m_CurWeapons[index];
         public WeaponBase[] CurWeapons => m_CurWeapons;
 
 
@@ -34,20 +34,18 @@ namespace Saber.CharacterController
             }
 
             m_CurWeapons = new WeaponBase[prefabs.Length];
+            m_DicWeapons = new();
             for (int i = 0; i < prefabs.Length; i++)
             {
                 var prefabInfo = prefabs[i];
                 if (prefabInfo.m_WeaponPrefabResPath.IsNotEmpty())
                 {
-                    await GameApp.Entry.Asset.LoadGameObject(prefabInfo.m_WeaponPrefabResPath, go =>
-                    {
-                        m_CurWeapons[i] = go.GetComponent<WeaponBase>();
-                    }).Task;
+                    await GameApp.Entry.Asset.LoadGameObject(prefabInfo.m_WeaponPrefabResPath, go => { m_CurWeapons[i] = go.GetComponent<WeaponBase>(); }).Task;
                 }
                 else
                 {
                     Transform armTrans = m_Actor.GetNodeTransform(prefabInfo.m_ArmBoneType);
-                    WeaponBase weaponBase = armTrans.GetComponentInChildren<WeaponBase>();
+                    WeaponBase weaponBase = armTrans.GetComponentsInTopChildren<WeaponBase>().FirstOrDefault();
                     if (weaponBase)
                     {
                         m_CurWeapons[i] = weaponBase;
@@ -59,6 +57,7 @@ namespace Saber.CharacterController
                 }
 
                 m_CurWeapons[i].Init(m_Actor, prefabInfo);
+                m_DicWeapons.Add(prefabInfo.m_ArmBoneType, m_CurWeapons[i]);
             }
 
             EquipWeapons();
@@ -75,14 +74,10 @@ namespace Saber.CharacterController
 
         public WeaponBase GetWeaponByPos(ENodeType bone)
         {
-            WeaponBase w = Array.Find(m_CurWeapons, w => w.WeaponBone == bone);
-            if (bone == ENodeType.RightHand)
+            m_DicWeapons.TryGetValue(bone, out var w);
+            if (w == null)
             {
-                w = Array.Find(m_CurWeapons, w => w.WeaponBone == ENodeType.WeaponRightHand);
-            }
-            else if (bone == ENodeType.LeftHand)
-            {
-                w = Array.Find(m_CurWeapons, w => w.WeaponBone == ENodeType.WeaponLeftHand);
+                Debug.LogError($"Weapon is null,bone:{bone},actor:{m_Actor.name}", m_Actor);
             }
 
             return w;

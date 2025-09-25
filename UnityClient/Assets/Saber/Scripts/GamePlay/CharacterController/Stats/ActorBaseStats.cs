@@ -52,7 +52,6 @@ namespace Saber.CharacterController
                     OnDead();
                 }
 
-                CurrentHPRatio = m_CurrentHp / MaxHp;
                 m_Handler.OnHpChange(m_CurrentHp);
             }
         }
@@ -62,11 +61,7 @@ namespace Saber.CharacterController
         public float CurrentStamina
         {
             get => m_CurrentStamina;
-            private set
-            {
-                m_CurrentStamina = Mathf.Clamp(value, 0, MaxStamina);
-                CurrentStaminaRatio = m_CurrentStamina / MaxStamina;
-            }
+            private set => m_CurrentStamina = Mathf.Clamp(value, 0, MaxStamina);
         }
 
         public int CurrentStaminaInt => Mathf.CeilToInt(CurrentStamina);
@@ -103,8 +98,6 @@ namespace Saber.CharacterController
             }
         }
 
-        public float CurrentHPRatio { get; private set; }
-        public float CurrentStaminaRatio { get; private set; }
         public int MaxPower => Actor.StatsInfo.m_MaxPower;
 
         public float CurrentUnbalanceValue
@@ -174,9 +167,9 @@ namespace Saber.CharacterController
                 int speed = StaminaRecSpeed switch
                 {
                     EStaminaRecSpeed.Stop => 0,
-                    EStaminaRecSpeed.Slow => 30,
-                    EStaminaRecSpeed.Medium => 50,
-                    EStaminaRecSpeed.Fast => 80,
+                    EStaminaRecSpeed.Slow => 10,
+                    EStaminaRecSpeed.Medium => 30,
+                    EStaminaRecSpeed.Fast => 50,
                     _ => 0,
                 };
 

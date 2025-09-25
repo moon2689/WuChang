@@ -76,7 +76,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 2752157608424226442}
   - EventTime: 0
-    EventRange: {x: 0.6839506, y: 0.69382715}
+    EventRange: {x: 0.6691358, y: 0.69382715}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -84,6 +84,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -3459543437923040427}
+  - EventTime: 0
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.22962964
+    - 0.45925927
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 6734159672052829731}
 --- !u!114 &2752157608424226442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,7 +146,8 @@ MonoBehaviour:
   Radius: 1.7350078
   Height: 1
   m_WeaponDamageSetting:
-    m_WeaponBone: 24
+    m_HitType: 0
+    m_WeaponBone: 29
     m_DamageValue: 5
     m_ImpactForce: 2
     m_HitRecover: 3
@@ -173,6 +183,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b70687f0c77c7b545b491b5cf3e492e5, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
+--- !u!114 &6734159672052829731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b6cfcfadd54440b975c2de0758518c, type: 3}
+  m_Name: AttackStates
+  m_EditorClassIdentifier: 
+  IsActive: 1
 --- !u!114 &6819280195651674835
 MonoBehaviour:
   m_ObjectHideFlags: 0

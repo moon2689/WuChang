@@ -15,6 +15,7 @@ namespace Saber.AI
         private int m_SkillIndex;
         private List<SkillItem> m_CurSkill = new();
         private int m_ComboSkillIndex;
+        private List<int> m_SkillIDs;
 
         protected override void OnStart()
         {
@@ -25,6 +26,18 @@ namespace Saber.AI
                 m_TestSkillGUI = TestSkillGUI.Create();
                 m_TestSkillGUI.OnClickPrevious = SwitchPreviousSkill;
                 m_TestSkillGUI.OnClickNext = SwitchNextSkill;
+            }
+
+            m_SkillIDs = new(GameApp.Entry.Config.TestGame.TestingSkillID);
+            if (m_SkillIDs.Count == 0)
+            {
+                foreach (var skillItem in Actor.CMelee.SkillConfig.m_SkillItems)
+                {
+                    if (skillItem.m_FirstSkillOfCombo)
+                    {
+                        m_SkillIDs.Add(skillItem.m_ID);
+                    }
+                }
             }
 
             SetCurSkill(0);
@@ -44,17 +57,16 @@ namespace Saber.AI
         {
             m_SkillIndex = index;
 
-            int[] skillIDs = GameApp.Entry.Config.TestGame.TestingSkillID;
-            if (m_SkillIndex >= skillIDs.Length)
+            if (m_SkillIndex >= m_SkillIDs.Count)
             {
                 m_SkillIndex = 0;
             }
             else if (m_SkillIndex < 0)
             {
-                m_SkillIndex = skillIDs.Length - 1;
+                m_SkillIndex = m_SkillIDs.Count - 1;
             }
 
-            int skillID = skillIDs[m_SkillIndex];
+            int skillID = m_SkillIDs[m_SkillIndex];
             SkillItem firstSkill = Actor.CMelee.SkillConfig.GetSkillItemByID(skillID);
             m_CurSkill.Clear();
             m_ComboSkillIndex = 0;
@@ -115,6 +127,15 @@ namespace Saber.AI
                 }
 
                 yield return null;
+            }
+        }
+
+        public override void Release()
+        {
+            base.Release();
+            if (m_TestSkillGUI)
+            {
+                GameObject.Destroy(m_TestSkillGUI.gameObject);
             }
         }
     }

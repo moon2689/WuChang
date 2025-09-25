@@ -352,6 +352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7402276523106960970}
   - component: {fileID: 5188703008282595802}
+  - component: {fileID: 6651654181973645498}
   m_Layer: 0
   m_Name: WPN_HongLan
   m_TagString: Untagged
@@ -390,9 +391,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_WeaponType: 3
-  m_WeaponTrails: []
+  m_WeaponTrails:
+  - {fileID: 6651654181973645498}
   m_PosStart: {fileID: 7970637261457325716}
   m_PosEnd: {fileID: 7081686589197333996}
+--- !u!114 &6651654181973645498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6164087462246362833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbecbb082dc04db39b9bd6e9493a4ac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Base: {fileID: 7970637261457325716}
+  m_Tip: {fileID: 7081686589197333996}
+  m_TrailMaterial: {fileID: 2100000, guid: 52f2b92a701472c48b5074c52333723b, type: 2}
+  m_MaxFrame: 30
+  m_StopMultiplier: 4
+  m_TrailSubs: 2
 --- !u!1 &7917682933433576806
 GameObject:
   m_ObjectHideFlags: 0

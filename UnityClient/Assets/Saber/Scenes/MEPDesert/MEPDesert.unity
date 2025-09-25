@@ -1830,16 +1830,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 219927379}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cab281a6b5c5cd4d91e62cac1fa620c, type: 3}
+  m_Script: {fileID: 11500000, guid: c39736b1d7ac3e6488eb617be2a66e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PointType: 2
   m_ID: 1
   m_PointName: "\u5403\u4EBA\u5934\u4F57\u5904"
-  m_AIType: 0
-  m_TargetSceneID: 0
-  m_TargetSceneName: mep snow
-  m_TargetPortalID: 1
+  m_LinkMonsterPoints:
+  - {fileID: 1279733928}
 --- !u!1 &220466944
 GameObject:
   m_ObjectHideFlags: 0
@@ -5171,16 +5168,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 772215128}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cab281a6b5c5cd4d91e62cac1fa620c, type: 3}
+  m_Script: {fileID: 11500000, guid: df6439bee4aa7df47a3209e399219fd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PointType: 3
-  m_ID: 1
-  m_PointName: p1
-  m_AIType: 0
-  m_TargetSceneID: 2
-  m_TargetSceneName: mep cave
-  m_TargetPortalID: 1
+  m_ID: 0
+  m_PointName: 
+  m_TargetSceneID: 0
+  m_TargetSceneName: 
+  m_TargetPortalID: 0
 --- !u!1 &773186912
 GameObject:
   m_ObjectHideFlags: 0
@@ -6603,16 +6598,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1012223085}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cab281a6b5c5cd4d91e62cac1fa620c, type: 3}
+  m_Script: {fileID: 11500000, guid: c39736b1d7ac3e6488eb617be2a66e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PointType: 2
   m_ID: 2
   m_PointName: "\u7EA2\u5C9A\u5904"
-  m_AIType: 0
-  m_TargetSceneID: 0
-  m_TargetSceneName: mep snow
-  m_TargetPortalID: 1
+  m_LinkMonsterPoints:
+  - {fileID: 1365290429}
 --- !u!1 &1014373843
 GameObject:
   m_ObjectHideFlags: 0
@@ -7531,16 +7523,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1162372712}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cab281a6b5c5cd4d91e62cac1fa620c, type: 3}
+  m_Script: {fileID: 11500000, guid: b02c0b3c2367000498f0f8d6d1ee1ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PointType: 0
   m_ID: 0
   m_PointName: "\u65E0\u5E38"
-  m_AIType: 0
-  m_TargetSceneID: 0
-  m_TargetSceneName: 
-  m_TargetPortalID: 0
 --- !u!1 &1178221789
 GameObject:
   m_ObjectHideFlags: 0
@@ -8335,16 +8322,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1279733926}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cab281a6b5c5cd4d91e62cac1fa620c, type: 3}
+  m_Script: {fileID: 11500000, guid: 599322e0ecf597241ac6d84d17cd13ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PointType: 1
   m_ID: 2
   m_PointName: "\u5403\u4EBA\u5934\u9640"
   m_AIType: 4
-  m_TargetSceneID: 0
-  m_TargetSceneName: 
-  m_TargetPortalID: 0
 --- !u!1 &1281050677
 GameObject:
   m_ObjectHideFlags: 0
@@ -8517,16 +8500,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1365290427}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cab281a6b5c5cd4d91e62cac1fa620c, type: 3}
+  m_Script: {fileID: 11500000, guid: 599322e0ecf597241ac6d84d17cd13ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PointType: 1
   m_ID: 3
   m_PointName: "\u7EA2\u5C9A"
   m_AIType: 4
-  m_TargetSceneID: 0
-  m_TargetSceneName: 
-  m_TargetPortalID: 0
 --- !u!1 &1367650015
 GameObject:
   m_ObjectHideFlags: 0

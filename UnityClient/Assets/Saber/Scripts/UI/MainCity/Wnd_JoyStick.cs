@@ -159,8 +159,8 @@ namespace Saber.UI
             m_TextBtnInteract.text = m_InteractType switch
             {
                 ESceneInteractType.Portal => "进入",
-                ESceneInteractType.ActiveIdol => "膜拜",
-                ESceneInteractType.Rest => "祈福",
+                ESceneInteractType.ActiveIdol => "奉血",
+                ESceneInteractType.Rest => "拜命",
                 _ => throw new InvalidOperationException($"Unknown EInteractType:{m_InteractType}"),
             };
             ActiveButtonInteract = true;

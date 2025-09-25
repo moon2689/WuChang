@@ -53,7 +53,7 @@ namespace Saber.World
         private Wnd_JoyStick m_WndJoyStick;
         private Wnd_Rest m_WndRest;
         private Portal m_CurrentUsingPortalInfo;
-        private Idol m_CurrentStayingIdol;
+        private ScenePointIdol m_CurrentStayingIdol;
         private int m_TransmittingPortalID;
         private int m_TransmittingIdolID;
         private Coroutine m_CoroutineWitchTime;
@@ -79,6 +79,7 @@ namespace Saber.World
 
         public Light MainLight { get; private set; }
         public SActor CurrentFightingBoss { get; private set; }
+        public SceneBaseInfo SceneInfo => m_SceneInfo;
 
 
         #region Load
@@ -126,6 +127,14 @@ namespace Saber.World
             // scene
             yield return LoadScene().StartCoroutine();
 
+            //
+            m_CurrentStayingIdol = null;
+            if (m_LoadType == ELoadType.ToIdol || m_LoadType == ELoadType.ToLastIdol || m_LoadType == ELoadType.ToNearestIdol)
+            {
+                ScenePoint point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.Idol && a.m_ID == m_TransmittingIdolID);
+                m_CurrentStayingIdol = point as ScenePointIdol;
+            }
+
             // player
             yield return CreatePlayer().StartCoroutine();
 
@@ -138,8 +147,8 @@ namespace Saber.World
                 yield return GameApp.Entry.UI.CreateWnd<Wnd_MainCity>(null, this, w => m_WndMainCity = w);
             }
 
-            // effects
-            GameApp.Entry.Config.GameSetting.PreloadEffects();
+            // preload effects
+            GameApp.Entry.Config.SkillCommon.PreloadEffects();
             yield return null;
 
             SetFilmEffect(false);
@@ -180,7 +189,8 @@ namespace Saber.World
             else if (m_LoadType == ELoadType.ToNextSceneByPortal)
             {
                 // 走出传送门动画
-                ScenePoint portalPoint = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.Portal && a.m_ID == m_TransmittingPortalID);
+                ScenePoint portalPoint = m_ScenePoints.FirstOrDefault(a =>
+                    a.m_PointType == EScenePointType.Portal && a.m_ID == m_TransmittingPortalID);
                 GameApp.Entry.Game.PlayerCamera.LookAtTarget(portalPoint.transform.rotation.eulerAngles.y + 150);
                 Vector3 targetPos = portalPoint.transform.position + portalPoint.transform.forward * 1f;
                 yield return GameApp.Entry.Game.PlayerAI.PlayActionMoveToTargetPos(targetPos, null);
@@ -232,19 +242,9 @@ namespace Saber.World
                         continue;
                     }
 
-                    if (scenePoint.PortalObj != null)
-                    {
-                        continue;
-                    }
-
                     ++count;
                     m_WndLoading.Percent = 50 + 10 * count / portalCount;
-                    AssetHandle assetHandle = GameApp.Entry.Asset.LoadGameObject("SceneProp/Portal", portalObj =>
-                    {
-                        portalObj.name = scenePoint.m_ID.ToString();
-                        Portal portal = portalObj.GetComponent<Portal>();
-                        portal.Init(scenePoint, parentPortal.transform, this);
-                    });
+                    AssetHandle assetHandle = scenePoint.Load(parentPortal.transform, this);
                     while (!assetHandle.IsDone)
                     {
                         yield return null;
@@ -277,19 +277,9 @@ namespace Saber.World
                         continue;
                     }
 
-                    if (scenePoint.IdolObj != null)
-                    {
-                        continue;
-                    }
-
                     ++count;
                     m_WndLoading.Percent = 60 + 5 * count / idolCount;
-                    AssetHandle assetHandle = GameApp.Entry.Asset.LoadGameObject("SceneProp/GodStatue", godStatueObj =>
-                    {
-                        godStatueObj.name = scenePoint.m_ID.ToString();
-                        Idol idol = godStatueObj.GetComponent<Idol>();
-                        idol.Init(m_SceneInfo.m_ID, scenePoint, parentStatue.transform, this);
-                    });
+                    AssetHandle assetHandle = scenePoint.Load(parentStatue.transform, this);
                     while (!assetHandle.IsDone)
                     {
                         yield return null;
@@ -404,52 +394,62 @@ namespace Saber.World
             {
                 foreach (var p in m_ScenePoints)
                 {
-                    if (p.m_PointType == EScenePointType.MonsterBornPosition && p.Actor)
-                        p.Actor.Destroy();
+                    if (p.m_PointType == EScenePointType.MonsterBornPosition)
+                        p.Destroy();
                 }
             }
         }
 
         private IEnumerator CreateOtherActors()
         {
-            DestroyOtherActors();
+            foreach (var p in m_ScenePoints)
+            {
+                if (p is ScenePointIdol ip && ip != m_CurrentStayingIdol)
+                {
+                    foreach (var mp in ip.LinkMonsterPoints)
+                        mp.Destroy();
+                }
+            }
+
             yield return null;
 
-            int totalCount = m_ScenePoints.Count(a => a.m_PointType == EScenePointType.MonsterBornPosition);
-            if (totalCount <= 0)
+            if (m_CurrentStayingIdol == null)
             {
                 yield break;
             }
 
             int count = 0;
-            foreach (var scenePoint in m_ScenePoints)
+            foreach (var scenePoint in m_CurrentStayingIdol.LinkMonsterPoints)
             {
-                if (scenePoint.m_PointType != EScenePointType.MonsterBornPosition)
-                {
-                    continue;
-                }
-
                 ++count;
-                CreateActor(scenePoint);
-                m_WndLoading.Percent = 70 + 20 * count / totalCount;
+                yield return CreateActor(scenePoint).StartCoroutine();
+                m_WndLoading.Percent = 70 + 20 * count / m_CurrentStayingIdol.LinkMonsterPoints.Length;
                 yield return null;
             }
         }
 
-        void CreateActor(ScenePoint bornPoint, int id = -1)
+        IEnumerator CreateActor(ScenePointMonster bornPoint)
         {
-            int enemyID = id > 0 ? id : bornPoint.m_ID;
-
-            EAIType aiType = GameApp.Entry.Config.TestGame.DebugFight ? GameApp.Entry.Config.TestGame.EnemyAI : bornPoint.m_AIType;
-            EnemyAIBase ai = aiType.CreateEnemyAI();
-            var camp = EActorCamp.Monster;
-            Vector3 pos = bornPoint.GetFixedBornPos(out var rot);
-            SActor.Create(enemyID, pos, rot, ai, camp, actor =>
+            if (bornPoint.Actor)
             {
-                actor.Event_OnDeadAnimPlayFinished += OnOtherActorDead;
-                bornPoint.Actor = actor;
-                ai.OnSetLockingEnemy = OnActorSetLockingEnemy;
-            });
+                bornPoint.RebirthActor();
+                yield return null;
+            }
+            else
+            {
+                string parentName = "Monsters";
+                GameObject parentMonster = GameObject.Find(parentName);
+                if (!parentMonster)
+                    parentMonster = new GameObject(parentName);
+                AssetHandle assetHandle = bornPoint.Load(parentMonster.transform, this);
+                while (!assetHandle.IsDone)
+                {
+                    yield return null;
+                }
+
+                bornPoint.Actor.Event_OnDeadAnimPlayFinished += OnOtherActorDead;
+                bornPoint.Actor.AI.OnSetLockingEnemy = OnActorSetLockingEnemy;
+            }
         }
 
         private void OnOtherActorDead(SActor obj)
@@ -470,14 +470,6 @@ namespace Saber.World
                     return point.GetFixedBornPos(out rot);
                 }
             }
-            else if (m_LoadType == ELoadType.ToIdol || m_LoadType == ELoadType.ToLastIdol || m_LoadType == ELoadType.ToNearestIdol)
-            {
-                ScenePoint point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.Idol && a.m_ID == m_TransmittingIdolID);
-                if (point != null)
-                {
-                    return point.GetIdolFixedPos(out rot);
-                }
-            }
             else if (m_LoadType == ELoadType.ToNextSceneByPortal)
             {
                 ScenePoint point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.Portal && a.m_ID == m_TransmittingPortalID);
@@ -486,6 +478,10 @@ namespace Saber.World
                     return point.GetFixedBornPos(out rot);
                     //return point.GetPortalFixedPos(out rot);
                 }
+            }
+            else if (m_CurrentStayingIdol != null)
+            {
+                return m_CurrentStayingIdol.GetIdolFixedPos(out rot);
             }
             else
             {
@@ -579,17 +575,17 @@ namespace Saber.World
             {
                 if (p.m_PointType == EScenePointType.Idol)
                 {
-                    p.IdolObj.gameObject.SetActive(!isFightingBoss);
+                    p.SetActive(!isFightingBoss);
                 }
                 else if (p.m_PointType == EScenePointType.Portal)
                 {
-                    p.PortalObj.gameObject.SetActive(!isFightingBoss);
+                    p.SetActive(!isFightingBoss);
                 }
-                else if (p.m_PointType == EScenePointType.MonsterBornPosition)
+                else if (p.m_PointType == EScenePointType.MonsterBornPosition && p is ScenePointMonster monserPoint)
                 {
-                    if (p.Actor != CurrentFightingBoss)
+                    if (monserPoint.Actor != CurrentFightingBoss)
                     {
-                        p.Actor.gameObject.SetActive(!isFightingBoss);
+                        monserPoint.SetActive(!isFightingBoss);
                     }
                 }
             }
@@ -649,38 +645,30 @@ namespace Saber.World
         /// <summary>其它角色复原</summary>
         public void RecorverOtherActors()
         {
-            if (m_SceneInfo == null)
-            {
-                return;
-            }
+            RecorverOtherActorsItor().StartCoroutine();
+        }
 
+        IEnumerator RecorverOtherActorsItor()
+        {
             foreach (var p in m_ScenePoints)
             {
-                if (p.m_PointType != EScenePointType.MonsterBornPosition)
+                if (p is ScenePointIdol ip && ip != m_CurrentStayingIdol)
                 {
-                    continue;
+                    foreach (var mp in ip.LinkMonsterPoints)
+                        mp.Destroy();
                 }
+            }
 
-                var actor = p.Actor;
-                if (actor != null)
-                {
-                    if (actor.IsDead)
-                    {
-                        actor.Rebirth();
-                    }
-                    else
-                    {
-                        actor.CStats.Reset();
-                    }
+            yield return null;
 
-                    Vector3 pos = p.GetFixedBornPos(out var rot);
-                    actor.transform.position = pos;
-                    actor.transform.rotation = rot;
-                }
-                else
-                {
-                    CreateActor(p);
-                }
+            if (m_CurrentStayingIdol == null)
+            {
+                yield break;
+            }
+
+            foreach (var p in m_CurrentStayingIdol.LinkMonsterPoints)
+            {
+                yield return CreateActor(p).StartCoroutine();
             }
         }
 
@@ -752,7 +740,9 @@ namespace Saber.World
                             continue;
                         }
 
-                        if (!scenePoint.IdolObj.IsFired)
+                        ScenePointIdol idolPoint = (ScenePointIdol)scenePoint;
+
+                        if (!idolPoint.IdolObj.IsFired)
                         {
                             continue;
                         }
@@ -881,7 +871,7 @@ namespace Saber.World
             GameApp.Entry.Game.World.SetFilmEffect(false);
 
             GameApp.Entry.Game.PlayerAI.Active = true;
-            GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(m_CurrentStayingIdol);
+            GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(m_CurrentStayingIdol.IdolObj);
 
             m_Player.CStateMachine.PlayAction_IdolRestEnd(() => { m_Player.CMelee.CWeapon.ShowOrHideWeapon(true); });
         }
@@ -910,14 +900,14 @@ namespace Saber.World
             GameApp.Entry.Game.PlayerAI.Active = true;
 
             if (m_CurrentStayingIdol != null &&
-                sceneID == m_CurrentStayingIdol.SceneID &&
-                idolID == m_CurrentStayingIdol.ID)
+                sceneID == m_CurrentStayingIdol.IdolObj.SceneID &&
+                idolID == m_CurrentStayingIdol.IdolObj.ID)
             {
-                GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(m_CurrentStayingIdol);
+                GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(m_CurrentStayingIdol.IdolObj);
                 yield break;
             }
 
-            OnPlayerExit(m_CurrentStayingIdol);
+            OnPlayerExit(m_CurrentStayingIdol.IdolObj);
 
             GameApp.Entry.Game.ProgressMgr.OnGodStatueRest(sceneID, idolID);
 
@@ -1006,13 +996,12 @@ namespace Saber.World
 
         void Idol.IHandler.OnPlayerEnter(Idol idol)
         {
-            m_CurrentStayingIdol = idol;
+            m_CurrentStayingIdol = idol.Point;
             GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(idol);
         }
 
         public void OnPlayerExit(Idol idol)
         {
-            m_CurrentStayingIdol = null;
             GameApp.Entry.Game.PlayerAI.OnPlayerExitGodStatue(idol);
         }
 
@@ -1036,7 +1025,8 @@ namespace Saber.World
         {
             bool wait = true;
             Vector3 idolRestPos = idol.Point.GetIdolFixedPos(out _);
-            bool succeed = m_Player.CStateMachine.SetPosAndForward(idolRestPos, -idol.transform.forward, () => wait = false);
+            bool succeed =
+                m_Player.CStateMachine.SetPosAndForward(idolRestPos, -idol.transform.forward, () => wait = false);
             if (!succeed)
             {
                 GameApp.Entry.UI.ShowTips("当前状态不能执行该操作");

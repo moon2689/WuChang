@@ -11,11 +11,12 @@ namespace Saber.CharacterController
         [SerializeField] float m_RayMinDistanceInterval = 0.5f;
 
         // 射线检测伤害
-        Vector3[] m_LastFrameRayPoint;
+        Vector3[] m_WeaponRayPoints;
         protected RaycastHit[] m_RaycastHit = new RaycastHit[20];
         List<SActor> m_ListRayHurtedActors = new();
         private bool m_EnableRayDamage;
         private float m_ShowHitGroundEffectTime;
+        private bool m_ToCalcFirstFrameRayPoint;
 
         protected float RayInterval { get; private set; }
 
@@ -24,16 +25,8 @@ namespace Saber.CharacterController
         {
             base.ToggleDamage(damage, enable);
             m_EnableRayDamage = enable;
-
             m_ListRayHurtedActors.Clear();
-
-            if (enable)
-            {
-                for (int i = 0; i < m_LastFrameRayPoint.Length; i++)
-                {
-                    m_LastFrameRayPoint[i] = GetRayPointPos(i);
-                }
-            }
+            m_ToCalcFirstFrameRayPoint = true;
         }
 
         void Awake()
@@ -41,7 +34,7 @@ namespace Saber.CharacterController
             float length = Vector3.Distance(m_PosEnd.position, m_PosStart.position);
             int rayPointCount = Mathf.CeilToInt(length / m_RayMinDistanceInterval) + 1;
             RayInterval = length / (rayPointCount - 1);
-            m_LastFrameRayPoint = new Vector3[rayPointCount];
+            m_WeaponRayPoints = new Vector3[rayPointCount];
         }
 
         protected override void LateUpdate()
@@ -50,22 +43,33 @@ namespace Saber.CharacterController
 
             if (m_EnableRayDamage)
             {
-                RayCast();
+                if (m_ToCalcFirstFrameRayPoint)
+                {
+                    m_ToCalcFirstFrameRayPoint = false;
+                    for (int i = 0; i < m_WeaponRayPoints.Length; i++)
+                    {
+                        m_WeaponRayPoints[i] = GetRayPointPos(i);
+                    }
+                }
+                else
+                {
+                    RayCast();
+                }
             }
         }
 
         void RayCast()
         {
-            for (int i = 0; i < m_LastFrameRayPoint.Length; i++)
+            for (int i = 0; i < m_WeaponRayPoints.Length; i++)
             {
-                Vector3 lastFramePos = m_LastFrameRayPoint[i];
+                Vector3 lastFramePos = m_WeaponRayPoints[i];
                 Vector3 nowFramePos = GetRayPointPos(i);
                 if (nowFramePos == lastFramePos)
                 {
                     return;
                 }
 
-                m_LastFrameRayPoint[i] = nowFramePos;
+                m_WeaponRayPoints[i] = nowFramePos;
                 int hits = Raycast(nowFramePos, lastFramePos);
                 Vector3 dir = nowFramePos - lastFramePos;
 
@@ -74,16 +78,10 @@ namespace Saber.CharacterController
                     OnRaycast(m_RaycastHit[j], dir);
                 }
 
-                if (GameApp.Entry.Config.TestGame.DebugFight)
-                {
-                    Debug.DrawRay(lastFramePos, dir, Color.green, 3);
-                }
+                //SDebug.DrawArrow(lastFramePos, dir, Color.white, 3);
             }
 
-            if (GameApp.Entry.Config.TestGame.DebugFight)
-            {
-                Debug.DrawLine(m_PosStart.position, m_PosEnd.position, Color.green, 3);
-            }
+            //Debug.DrawLine(m_PosStart.position, m_PosEnd.position, Color.white, 3);
         }
 
         protected virtual int Raycast(Vector3 nowFramePos, Vector3 lastFramePos)
@@ -98,7 +96,7 @@ namespace Saber.CharacterController
 
         Vector3 GetRayPointPos(int index)
         {
-            float weight = (float)index / (m_LastFrameRayPoint.Length - 1);
+            float weight = (float)index / (m_WeaponRayPoints.Length - 1);
             return Vector3.Lerp(m_PosEnd.position, m_PosStart.position, weight);
         }
 
@@ -121,17 +119,40 @@ namespace Saber.CharacterController
             bool canDoDmg = target != null && target != Actor && !m_ListRayHurtedActors.Contains(target);
             if (canDoDmg)
             {
-                base.DoDamage(hit.point, dir, hb);
+                Vector3 pos = FixDamagePos(other, hit);
+                base.DoDamage(pos, dir, hb);
                 OnDamageDone(target);
-                if (GameApp.Entry.Config.TestGame.DebugFight)
-                {
-                    SDebug.DrawWireSphere(hit.point, 0.1f, Color.red, 3);
-                }
+                //SDebug.DrawWireSphere(hit.point, 0.1f, Color.red, 3);
 
                 return true;
             }
 
             return false;
+        }
+
+        Vector3 FixDamagePos(Collider c, RaycastHit hit)
+        {
+            Vector3 pos = hit.point != Vector3.zero ? hit.point : c.transform.position;
+            // if (hit.point != Vector3.zero)
+            //     return hit.point;
+
+            //Vector3 dir = Actor.transform.position - pos;
+            Vector3 dir = GameApp.Entry.Game.PlayerCamera.transform.position - pos;
+            dir.y = 0;
+            dir.Normalize();
+            float offsetDis = 0.1f;
+            if (c is SphereCollider sphereCollider)
+            {
+                offsetDis += sphereCollider.radius;
+            }
+            else if (c is CapsuleCollider capsuleCollider)
+            {
+                offsetDis += Mathf.Max(capsuleCollider.radius, capsuleCollider.height / 2f);
+            }
+
+            pos += offsetDis * dir;
+
+            return pos;
         }
 
         void CreateEffectHitGround(Vector3 hitPos)
@@ -142,10 +163,10 @@ namespace Saber.CharacterController
             }
 
             m_ShowHitGroundEffectTime = Time.time;
-            GameObject prefabHit = GameApp.Entry.Config.GameSetting.GetRandomEffectPrefab_WeaponHitGround();
+            GameObject prefabHit = GameApp.Entry.Config.SkillCommon.GetRandomEffectPrefab_WeaponHitGround();
             GameApp.Entry.Game.Effect.CreateEffect(prefabHit, null, hitPos, Quaternion.identity, 3f);
 
-            AudioClip sound = GameApp.Entry.Config.GameSetting.GetRandomSound_WeaponHitGround();
+            AudioClip sound = GameApp.Entry.Config.SkillCommon.GetRandomSound_WeaponHitGround();
             GameApp.Entry.Game.Audio.Play3DSound(sound, hitPos);
         }
 

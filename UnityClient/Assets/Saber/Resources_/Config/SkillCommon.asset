@@ -18,15 +18,18 @@ MonoBehaviour:
   - m_DamageTime: 0.14
     m_Damage: 20
     m_Sound: {fileID: 8300000, guid: 00e19d5a9c0e5cb41b2b13f9a06a086a, type: 3}
-    m_Blood: {fileID: 100000, guid: bd1b09ecbf112814399e16be0e5243a9, type: 3}
+    m_Blood: {fileID: 100000, guid: 15bde53d717eb6f4b8990c3f7c160ed3, type: 3}
+    m_BloodTime: 1
   - m_DamageTime: 0.36
     m_Damage: 10
     m_Sound: {fileID: 8300000, guid: 9ca32d6b7191bd64389dd1d0fd21edef, type: 3}
     m_Blood: {fileID: 100000, guid: bd1b09ecbf112814399e16be0e5243a9, type: 3}
+    m_BloodTime: 0.6
   - m_DamageTime: 0.55
     m_Damage: 15
     m_Sound: {fileID: 8300000, guid: 00e19d5a9c0e5cb41b2b13f9a06a086a, type: 3}
-    m_Blood: {fileID: 100000, guid: bd1b09ecbf112814399e16be0e5243a9, type: 3}
+    m_Blood: {fileID: 100000, guid: 15bde53d717eb6f4b8990c3f7c160ed3, type: 3}
+    m_BloodTime: 3
   ExecuteSkillCanExitTime: 0.8
   BackStabPower: 3
   CanTanFanSecondsFromDefenseStart: 0.2
@@ -39,5 +42,23 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 91777d364c2d66e419f7ece084a9db04, type: 3}
   m_SoundAddYuMao: {fileID: 8300000, guid: c5b6e1143e0ab2540816edc0ea0eb844, type: 3}
   m_SoundUseYuMao: {fileID: 8300000, guid: 8d16f5cb71c64e94aa6433a45e571732, type: 3}
+  m_SoundSwordHitSword:
+  - {fileID: 8300000, guid: 0033e1e4b1d3e0d43aa3c336b531f70b, type: 3}
+  m_SoundWeaponHitGround:
+  - {fileID: 8300000, guid: 8db4e869274f0584ab4f9bde3185f7f3, type: 3}
+  m_BoxingHitBodySound:
+  - {fileID: 8300000, guid: fd0766df9148bb240acd48cc87fabfea, type: 3}
+  m_MagicHitBodyCommonSound:
+  - {fileID: 8300000, guid: a556ef3b74ebce245baa3e3178ddd32d, type: 3}
   m_EffectAddYuMao: {fileID: 6589205166322888823, guid: 9c5d30c2d871b4549925f25b51d27ce8,
     type: 3}
+  m_EffectBlood:
+  - {fileID: 100000, guid: bd1b09ecbf112814399e16be0e5243a9, type: 3}
+  m_EffectWeaponHitGround:
+  - {fileID: 6194057984719691496, guid: 175fa81dd978dc240ae5853d63492460, type: 3}
+  m_EffectSharpWeaponHitBody:
+  - {fileID: 2364612474286823039, guid: c1e5a9e993bb0fa47a812a514b240cd8, type: 3}
+  m_EffectBoxingHitBody:
+  - {fileID: 1258725013165278, guid: f00872eb3daf45d4cb44ebbbf9d203b7, type: 3}
+  m_CommonEffectMagicHitBody:
+  - {fileID: 1310281885280906, guid: 8a11d5a8d1da39d4b993f15b5d613d88, type: 3}

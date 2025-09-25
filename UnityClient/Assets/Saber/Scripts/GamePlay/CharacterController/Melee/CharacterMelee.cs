@@ -242,8 +242,7 @@ namespace Saber.CharacterController
         bool CanSwitchToSpecialSkill(SkillItem skillItem)
         {
             EStateSwitchType canSwitchType = StateHelper.CanSwitchTo(Actor.CurrentStateType, EStateType.Skill);
-            if (canSwitchType == EStateSwitchType.CanTriggerSkill &&
-                Actor.CStateMachine.CurrentState is ISkillCanTrigger skillCanTrigger)
+            if (canSwitchType == EStateSwitchType.CanTriggerSkill && Actor.CStateMachine.CurrentState is ISkillCanTrigger skillCanTrigger)
             {
                 return skillCanTrigger.CanTriggerSkill(skillItem);
             }

@@ -19,7 +19,7 @@ namespace CombatEditor
         //[SerializeField]
         //public TrailBehavior uvMethod;
         */
-        public ENodeType m_WeaponBone = ENodeType.RightHand;
+        public ENodeType m_WeaponBone = ENodeType.WeaponRightHand;
         public bool m_NotTriggerWhenPowerEnough;
 
         //Write the data you need here.

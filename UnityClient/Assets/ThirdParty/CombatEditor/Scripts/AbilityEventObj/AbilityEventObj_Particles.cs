@@ -117,7 +117,8 @@ namespace CombatEditor
             Quaternion rot = Actor.transform.rotation * Quaternion.Euler(effect.m_Rotation);
             GameApp.Entry.Game.Effect.CreateEffect(effect.m_Effect, Actor.transform, pos, rot, effect.m_HoldSeconds);
              */
-            if (EventObj.m_HoldTime > 0)
+
+            if (EventObj.m_HoldTime > 0 && EventObj.GetEventTimeType() == AbilityEventObj.EventTimeType.EventTime)
             {
                 GameApp.Entry.Unity.DoDelayAction(EventObj.m_HoldTime, DestroyObj);
             }
