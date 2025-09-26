@@ -69,7 +69,7 @@ namespace Saber
             return false;
         }
 
-        public void OnIdolFire(int sceneID, int idolID)
+        public void SaveOnIdolFire(int sceneID, int idolID)
         {
             var tarSceneProgress = m_ProgressData.m_SceneProgress.FirstOrDefault(a => a.m_SceneID == sceneID);
             if (tarSceneProgress == null)
@@ -89,14 +89,14 @@ namespace Saber
             Save();
         }
 
-        public void OnGodStatueRest(int sceneID, int idolID)
+        public void SaveOnIdolRest(int sceneID, int idolID)
         {
             m_ProgressData.m_LastStayingSceneID = sceneID;
             m_ProgressData.m_lastStayingIdolID = idolID;
             Save();
         }
 
-        public void OnDressClothes()
+        public void SaveOnDressClothes()
         {
             m_ProgressData.m_Clothes = GameApp.Entry.Game.Player.CDressUp.GetDressingClothes();
             Save();

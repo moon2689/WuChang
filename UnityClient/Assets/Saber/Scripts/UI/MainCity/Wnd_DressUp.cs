@@ -179,7 +179,7 @@ namespace Saber.UI
             clothInfo.LoadIcon(t => imageIcon.texture = t);
 
             // name
-            textName.text = clothInfo.m_Name;
+            textName.text = clothInfo.ClothName;
 
             // click
             btn.onClick.RemoveAllListeners();

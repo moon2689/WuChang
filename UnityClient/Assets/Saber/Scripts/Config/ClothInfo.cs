@@ -58,6 +58,30 @@ namespace Saber.Config
 
         public string PrefabName => $"{Classify.m_ResName}_{m_ClothType}";
 
+        public string ClothName
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(m_Name))
+                {
+                    return m_Name;
+                }
+                else
+                {
+                    string str = m_ClothType switch
+                    {
+                        EClothType.Hands => "臂甲",
+                        EClothType.Hat => "头饰",
+                        EClothType.Head => "脸",
+                        EClothType.Jacket => "胸甲",
+                        EClothType.Pants => "腿甲",
+                        _ => "???",
+                    };
+                    return $"{Classify.m_Name}.{str}";
+                }
+            }
+        }
+
         public AssetHandle LoadGameObject(Action<GameObject> onLoaded)
         {
             string res = $"Actor/Player/Clothes/{Classify.m_ResName}/{PrefabName}";

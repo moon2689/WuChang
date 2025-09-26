@@ -393,7 +393,7 @@ MonoBehaviour:
     m_CostPower: 0
     m_CanTriggerWhenPowerNotEnough: 0
     m_PowerAddWhenHitted: 0
-    m_CDSeconds: 30
+    m_CDSeconds: 60
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0

@@ -859,7 +859,7 @@ namespace Saber.World
         void Wnd_DressUp.IHandler.OnCloseWnd()
         {
             m_WndRest.ActiveRoot = true;
-            GameApp.Entry.Game.ProgressMgr.OnDressClothes();
+            GameApp.Entry.Game.ProgressMgr.SaveOnDressClothes();
         }
 
         #endregion
@@ -867,6 +867,11 @@ namespace Saber.World
         #region Wnd_Rest.IHandler
 
         void Wnd_Rest.IHandler.OnClickQuit()
+        {
+            QuitIdolRest();
+        }
+
+        void QuitIdolRest()
         {
             GameApp.Entry.Game.World.SetFilmEffect(false);
 
@@ -903,13 +908,13 @@ namespace Saber.World
                 sceneID == m_CurrentStayingIdol.IdolObj.SceneID &&
                 idolID == m_CurrentStayingIdol.IdolObj.ID)
             {
-                GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(m_CurrentStayingIdol.IdolObj);
+                QuitIdolRest();
                 yield break;
             }
 
             OnPlayerExit(m_CurrentStayingIdol.IdolObj);
 
-            GameApp.Entry.Game.ProgressMgr.OnGodStatueRest(sceneID, idolID);
+            GameApp.Entry.Game.ProgressMgr.SaveOnIdolRest(sceneID, idolID);
 
             /*
             bool wait = true;
@@ -1011,7 +1016,7 @@ namespace Saber.World
 
             GameApp.Entry.Game.PlayerAI.ActiveIdol(idol, () =>
             {
-                GameApp.Entry.Game.ProgressMgr.OnIdolFire(idol.SceneID, idol.ID);
+                GameApp.Entry.Game.ProgressMgr.SaveOnIdolFire(idol.SceneID, idol.ID);
                 idol.RefreshFire();
             });
         }
@@ -1034,7 +1039,7 @@ namespace Saber.World
             }
 
             GameApp.Entry.Game.World.SetFilmEffect(true);
-            GameApp.Entry.Game.ProgressMgr.OnGodStatueRest(idol.SceneID, idol.ID);
+            GameApp.Entry.Game.ProgressMgr.SaveOnIdolRest(idol.SceneID, idol.ID);
 
             m_WndRest = null;
             yield return GameApp.Entry.UI.CreateWnd<Wnd_Rest>(null, this, w => m_WndRest = w);

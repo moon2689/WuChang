@@ -108,7 +108,21 @@ namespace Saber.AI
                 // 随机游走
                 if (m_DistanceToEnemy > 5)
                 {
-                    Actor.StartMove(EMoveSpeedV.Walk, new Vector3(0, 0, 1));
+                    Vector3 axis;
+                    if (CalcProbability(50))
+                    {
+                        axis = new Vector3(0, 0, 1);
+                    }
+                    else if (CalcProbability(50))
+                    {
+                        axis = new Vector3(1, 0, 0);
+                    }
+                    else
+                    {
+                        axis = new Vector3(-1, 0, 0);
+                    }
+
+                    Actor.StartMove(EMoveSpeedV.Walk, axis);
                 }
                 else if (m_DistanceToEnemy < 3)
                 {

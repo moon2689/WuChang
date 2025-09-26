@@ -83,8 +83,8 @@ InputData InitializeInputData(Varyings input, half3 normalTS)
 //                  Vertex and Fragment functions                            //
 ///////////////////////////////////////////////////////////////////////////////
 
-// Used in Standard (Physically Based) shader
-Varyings LitPassVertex(Attributes input)
+
+Varyings GetLitPassVertex(Attributes input, float3 normalOS)
 {
     Varyings output = (Varyings)0;
 
@@ -97,7 +97,7 @@ Varyings LitPassVertex(Attributes input)
     // normalWS and tangentWS already normalize.
     // this is required to avoid skewing the direction during interpolation
     // also required for per-vertex lighting and SH evaluation
-    VertexNormalInputs normalInput = GetVertexNormalInputs(input.normalOS, input.tangentOS);
+    VertexNormalInputs normalInput = GetVertexNormalInputs(normalOS, input.tangentOS);
 
     half3 vertexLight = VertexLighting(vertexInput.positionWS, normalInput.normalWS);
 
@@ -151,6 +151,12 @@ Varyings LitPassVertex(Attributes input)
 }
 
 // Used in Standard (Physically Based) shader
+Varyings LitPassVertex(Attributes input)
+{
+    return GetLitPassVertex(input, input.normalOS);
+}
+
+// Used in Standard (Physically Based) shader
 half4 LitPassFragment(Varyings input) : SV_Target0
 {
     UNITY_SETUP_INSTANCE_ID(input);
@@ -164,6 +170,11 @@ half4 LitPassFragment(Varyings input) : SV_Target0
     half4 color = UniversalFragmentPBR(inputData, surfaceData);
     color.rgb = MixFog(color.rgb, inputData.fogCoord);
     return color;
+}
+
+Varyings LitPassVertexBack(Attributes input)
+{
+    return GetLitPassVertex(input, -input.normalOS);
 }
 
 #endif
