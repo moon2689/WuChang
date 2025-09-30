@@ -131,13 +131,11 @@ namespace Saber.CharacterController
             }
             else if (curSmoothFloat <= 2)
             {
-                speed = Mathf.Lerp(Character.m_CharacterInfo.m_SpeedWalk, Character.m_CharacterInfo.m_SpeedRun,
-                    curSmoothFloat - 1);
+                speed = Mathf.Lerp(Character.m_CharacterInfo.m_SpeedWalk, Character.m_CharacterInfo.m_SpeedRun, curSmoothFloat - 1);
             }
             else if (curSmoothFloat <= 3)
             {
-                speed = Mathf.Lerp(Character.m_CharacterInfo.m_SpeedRun, Character.m_CharacterInfo.m_SpeedSprint,
-                    curSmoothFloat - 2);
+                speed = Mathf.Lerp(Character.m_CharacterInfo.m_SpeedRun, Character.m_CharacterInfo.m_SpeedSprint, curSmoothFloat - 2);
             }
 
             return speed;
