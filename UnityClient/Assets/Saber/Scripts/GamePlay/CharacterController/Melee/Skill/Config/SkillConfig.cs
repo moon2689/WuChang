@@ -46,6 +46,8 @@ namespace Saber.CharacterController
         public ESkillType m_SkillType;
         public ETriggerCondition m_TriggerCondition;
         public bool UseGravityWhenInAir;
+        // public bool CanBeTanFan = true;
+        // public bool BreakByTanFan = true;
 
         public bool m_FirstSkillOfCombo;
         public ChainSkill[] m_ChainSkills;

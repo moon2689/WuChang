@@ -331,6 +331,11 @@ public static class WuChangTools
             normalPath = albedoPath.Replace("_Albedo.tga", "_Normal.tga");
             maskPath = albedoPath.Replace("_Albedo.tga", "_Reflection.tga");
         }
+        else if (albedoPath.Contains("_BaseColor_2K.tga"))
+        {
+            normalPath = albedoPath.Replace("_BaseColor_2K.tga", "_Normal_2K.tga");
+            maskPath = albedoPath.Replace("_BaseColor_2K.tga", "_Reflective_2K.tga");
+        }
         else
         {
             Debug.LogError("Unknown tex path:" + albedoPath);
@@ -774,7 +779,7 @@ public static class WuChangTools
 
         string ext = Path.GetExtension(diffuseUE);
         diffuseUE = diffuseUE.Replace(ext, ".tga");
-        diffuseUE = k_UEProjectFolder + "/" + diffuseUE;
+        //diffuseUE = k_UEProjectFolder + "/" + diffuseUE;
 
         GetUENormalMaskPathByAlbedoPath(diffuseUE, out normalUE, out maskUE);
 
@@ -968,7 +973,7 @@ public static class WuChangTools
                 m_AIPramAttackDistance = new RangedFloat(0f, 3f),
             };
             newSkills.Add(skillItem);
-            
+
             Debug.Log($"Add skill item:{clipName}");
         }
 
@@ -1005,5 +1010,31 @@ public static class WuChangTools
         }
 
         return clipsNames;
+    }
+
+    [MenuItem("Saber/WUCH/Skill/RemoveUselessTracks")]
+    static void RemoveSkillEventUselessTracks()
+    {
+        List<string> assets = GetSelectedAssets<AbilityScriptableObject>("*.asset");
+        foreach (var asset in assets)
+        {
+            AbilityScriptableObject obj = AssetDatabase.LoadAssetAtPath<AbilityScriptableObject>(asset);
+            for (int i = obj.events.Count - 1; i >= 0; --i)
+            {
+                var e = obj.events[i];
+                //Debug.Log(e.Obj.name);
+                if (e.Obj.name.Contains("TanDao", StringComparison.OrdinalIgnoreCase) ||
+                    e.Obj.name.Contains("PerfectDodge", StringComparison.OrdinalIgnoreCase))
+                {
+                    obj.events.RemoveAt(i);
+                }
+            }
+
+            EditorUtility.SetDirty(obj);
+        }
+
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        Debug.Log("all done");
     }
 }

@@ -81,12 +81,13 @@ namespace Saber.AI
                 m_DodgeAxis = axis;
             }
         }
-        
+
         public void SetData_DrinkPotion()
         {
             if (CanAheadInput)
             {
-                m_AheadType = EAheadInputType.DrinkPotion;
+                if (m_Actor.CAbility.CurAbilityType != EAbilityType.DrinkMedicine)
+                    m_AheadType = EAheadInputType.DrinkPotion;
             }
         }
 

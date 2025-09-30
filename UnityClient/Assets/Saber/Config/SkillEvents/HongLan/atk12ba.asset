@@ -153,24 +153,6 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 5569149328719648773}
-  - EventTime: 0
-    EventRange: {x: 0.22909091, y: 0.2509091}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 7612821271816142935}
-  - EventTime: 0.24727273
-    EventRange: {x: 0, y: 1}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 6609698892364393439}
   - EventTime: 0.06909091
     EventRange: {x: 0, y: 1}
     EventMultiRange:
@@ -244,11 +226,14 @@ MonoBehaviour:
   Radius: 1
   Height: 1
   m_WeaponDamageSetting:
+    m_HitType: 0
     m_WeaponBone: 29
     m_DamageValue: 5
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 1
 --- !u!114 &6609698892364393439
 MonoBehaviour:
   m_ObjectHideFlags: 0

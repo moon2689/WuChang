@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace CombatEditor
 {
-    [AbilityEvent]
+    //[AbilityEvent]
     [CreateAssetMenu(menuName = "AbilityEvents / PerfectDodge")]
     public class AbilityEventObj_PerfectDodge : AbilityEventObj_CreateObjWithHandle
     {
@@ -41,7 +41,7 @@ namespace CombatEditor
         public override void StartEffect()
         {
             base.StartEffect();
-            base.CurrentSkill.PerfectDodgeData = EventObj;
+            //base.CurrentSkill.PerfectDodgeData = EventObj;
             
             /*
             // debug
@@ -55,7 +55,7 @@ namespace CombatEditor
         protected override void EndEffect()
         {
             base.EndEffect();
-            base.CurrentSkill.PerfectDodgeData = null;
+            //base.CurrentSkill.PerfectDodgeData = null;
         }
     }
 

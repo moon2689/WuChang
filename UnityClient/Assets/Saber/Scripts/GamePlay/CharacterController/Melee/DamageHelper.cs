@@ -68,8 +68,7 @@ namespace Saber.CharacterController
                 return false;
             }
 
-            if (enemy.Invincible && enemy.CurrentStateType == EStateType.Dodge &&
-                enemy.CStateMachine.CurrentState is Dodge dodeg)
+            if (enemy.Invincible && enemy.CurrentStateType == EStateType.Dodge && enemy.CStateMachine.CurrentState is Dodge dodeg)
             {
                 dodeg.OnPerfectDodge();
                 return true;
@@ -127,12 +126,24 @@ namespace Saber.CharacterController
             // 声音
             PlayHitSound(actor, false, hurtBox, curDmgInfo);
 
-            // // 死亡
-            // if (enemy.IsDead)
-            // {
-            //     enemy.Die(curDmgInfo);
-            //     return;
-            // }
+            // 骨骼受击抖动 ik
+            float force = GameApp.Entry.Config.GameSetting.IKBoneForceOnHit;
+            curDmgInfo.m_HurtBox.OnHit(curDmgInfo.DamageDirection * force, curDmgInfo.DamagePosition);
+
+            // 击退的力
+            if (curDmgInfo.DamageConfig.m_ForceWhenGround.x > 0)
+            {
+                Vector3 dir = actor.transform.position - enemy.transform.position;
+                dir.y = 0;
+                enemy.CPhysic.Force_Add(-dir, curDmgInfo.DamageConfig.m_ForceWhenGround.x, 0, false);
+            }
+
+            // 死亡
+            if (enemy.IsDead)
+            {
+                enemy.Die();
+                return true;
+            }
 
             // 打击恢复
             if (!enemy.IsInSpecialStun)
@@ -148,18 +159,6 @@ namespace Saber.CharacterController
                     // 受击反馈
                     enemy.OnHit(curDmgInfo);
                 }
-            }
-
-            // 骨骼受击抖动
-            float force = GameApp.Entry.Config.GameSetting.IKBoneForceOnHit;
-            curDmgInfo.m_HurtBox.OnHit(curDmgInfo.DamageDirection * force, curDmgInfo.DamagePosition);
-
-            // 击退的力
-            if (curDmgInfo.DamageConfig.m_ForceWhenGround.x > 0)
-            {
-                Vector3 dir = actor.transform.position - enemy.transform.position;
-                dir.y = 0;
-                enemy.CPhysic.Force_Add(-dir, curDmgInfo.DamageConfig.m_ForceWhenGround.x, 0, false);
             }
 
             return true;
@@ -187,6 +186,19 @@ namespace Saber.CharacterController
                 return false;
             }
 
+            // 是否被弹反
+            if (curDmgInfo.DamageConfig.CanBeTanFan)
+            {
+                bool beParried = WhetherBeparried(enemy, actor, out var defenseState);
+                if (beParried)
+                {
+                    if (curDmgInfo.DamageConfig.BreakByTanFan)
+                        actor.OnParried(defenseState.Actor); //被弹反打断技能
+                    defenseState.OnTanFanSucceed(actor);
+                    return true;
+                }
+            }
+
             Defense defenseObj = (Defense)enemy.CStateMachine.CurrentState;
             if (!defenseObj.CanDefense(actor))
             {
@@ -200,26 +212,23 @@ namespace Saber.CharacterController
             enemy.m_AnimSpeedExecutor.AddSpeedModifiers(0, 0.12f);
             actor.m_AnimSpeedExecutor.AddSpeedModifiers(0, 0.12f);
 
-            // 是否成功弹反
-            /*
-            if (enemy.CStateMachine.ParriedSuccssSkills.Count > 0 &&
-                actor.CurrentSkill != null &&
-                enemy.CStateMachine.ParriedSuccssSkills.Contains(actor.CurrentSkill))
-            {
-                enemy.CStateMachine.ParriedSuccssSkills.Clear();
-
-                //bool isLeftDir = Vector3.Dot(curDmgInfo.DamageDirection, actor.transform.right) < 0;
-                //float dmgHeight = curDmgInfo.DamagePosition.y - enemy.transform.position.y;
-                //float dmgHeightRate = dmgHeight / enemy.CPhysic.Height;
-                // SDebug.DrawArrow(actor.transform.position, curDmgInfo.DamageDirection, Color.yellow, 1);
-                // SDebug.DrawArrow(actor.transform.position, actor.transform.right, Color.green, 1);
-                //defenseObj.PlayParriedSucceedAnim(isLeftDir, dmgHeightRate);
-                return true;
-            }
-            */
-
             enemy.DefenseHit(curDmgInfo);
             return true;
+        }
+
+        static bool WhetherBeparried(SActor defenser, SActor attacker, out Defense defenseState)
+        {
+            defenseState = (Defense)defenser.CStateMachine.CurrentState;
+            if (!defenseState.InTanFanTime)
+            {
+                return false;
+            }
+
+            Vector3 dirToMe = attacker.transform.position - defenser.transform.position;
+            if (Vector3.Dot(dirToMe, defenser.transform.forward) > 0)
+                return true;
+
+            return false;
         }
 
         static void PlayDefenseEffect(SActor enemy, DamageInfo curDmgInfo)

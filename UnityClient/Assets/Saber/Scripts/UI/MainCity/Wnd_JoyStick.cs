@@ -53,15 +53,7 @@ namespace Saber.UI
         public IHandler Handler { get; set; }
         private ESceneInteractType m_InteractType;
 
-
-        public bool IsShowJoyStick
-        {
-            set
-            {
-                m_joystick.gameObject.SetActive(value);
-                m_parentButtons.gameObject.SetActive(value);
-            }
-        }
+        
 
         bool ActiveButtonInteract
         {
@@ -77,6 +69,11 @@ namespace Saber.UI
             }
         }
 
+        public void Default()
+        {
+            ActiveButtonInteract = false;
+            ActiveSticks = true;
+        }
 
         protected override void OnAwake()
         {

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using CombatEditor;
 using Saber.Frame;
 using UnityEngine;
 
@@ -22,6 +21,7 @@ namespace Saber.CharacterController
 
 
         protected abstract void RegisterStates();
+
 
         public ActorStateMachine(SActor actor)
         {
@@ -51,7 +51,7 @@ namespace Saber.CharacterController
             m_DicStates[characterState.StateType] = characterState;
         }
 
-        protected ActorStateBase GetState(EStateType type)
+        private ActorStateBase GetState(EStateType type)
         {
             m_DicStates.TryGetValue(type, out ActorStateBase state);
             return state;
@@ -62,23 +62,13 @@ namespace Saber.CharacterController
             return GetState(type) as T;
         }
 
-        public virtual void Update()
+        public void Update()
         {
             if (Actor.IsDead)
             {
                 if (Actor.CurrentStateType != EStateType.Die)
                     Die();
             }
-            /*
-            else if (Actor.IsStun)
-            {
-                ToStun();
-            }
-            else if (GameApp.Entry.Config.GameSetting.TiredWhenStaminaZero && Actor.CStats.CurrentStamina <= 0)
-            {
-                ToTired();
-            }
-            */
 
             if (CurrentState != null && CurrentState.IsTriggering)
             {
@@ -176,30 +166,9 @@ namespace Saber.CharacterController
             {
                 return CurrentState.CanExit || !CurrentState.IsTriggering;
             }
-            /*
-            else if (canSwitchType == EStateSwitchType.SkillCanBreak)
-            {
-                if (CurrentState.CanExit || !CurrentState.IsTriggering)
-                {
-                    return true;
-                }
-
-                if (CurrentState is SkillState skillState && skillState.IsTriggering)
-                {
-                    return skillState.CurSkill.CurrentAttackState == EAttackStates.BeforeAttack;
-                }
-
-                return false;
-            }
-            */
             else if (canSwitchType == EStateSwitchType.CanTriggerSkill)
             {
                 return true;
-                /*
-                return to == EStateType.Skill &&
-                       CurrentState is ISkillCanTrigger skillCanTrigger &&
-                       skillCanTrigger.CanTriggerSkill();
-                */
             }
             else if (canSwitchType == EStateSwitchType.DodgeToSprint)
             {
@@ -216,23 +185,6 @@ namespace Saber.CharacterController
                     return false;
                 }
             }
-            /*
-            else if (canSwitchType == EStateSwitchType.WaitSkillCanCombo)
-            {
-                if (CurrentState.CanExit || !CurrentState.IsTriggering)
-                {
-                    return true;
-                }
-                else if (CurrentState is SkillState skillState)
-                {
-                    return skillState.CurSkill.ComboTimeEntered;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            */
             else
             {
                 throw new InvalidOperationException("Unknown switch type: " + canSwitchType);
@@ -268,8 +220,6 @@ namespace Saber.CharacterController
 
         // ------------------------------------------------------------------------------------->以下为公用状态触发调用
 
-        public List<BaseSkill> ParriedSuccssSkills { get; set; } = new();
-
         public bool StartMove()
         {
             if (CurrentStateType != EStateType.Move)
@@ -282,56 +232,18 @@ namespace Saber.CharacterController
             return false;
         }
 
-        public virtual bool OnHit(DamageInfo dmgInfo)
+        public bool OnHit(DamageInfo dmgInfo)
         {
-            return false;
-            /*
-            if (dmgInfo == null)
-            {
-                return false;
-            }
-
-            return TryEnterState<ObstructStateBase>(EStateType.GetHit, state => state.Damage = dmgInfo);
-            */
+            return TryEnterState<GetHit>(EStateType.GetHit, state => state.Damage = dmgInfo);
         }
-
-        /*
-        void ToTired()
-        {
-            if (CurrentStateType == EStateType.GetHit)
-            {
-                return;
-            }
-
-            TryEnterState<ObstructStateBase>(EStateType.GetHit, state =>
-            {
-                state.Damage = new DamageInfo()
-                {
-                    ObstructType = EObstructType.Tired
-                };
-            });
-        }
-
-        void ToStun()
-        {
-            if (CurrentStateType == EStateType.GetHit)
-            {
-                return;
-            }
-
-            TryEnterState<ObstructStateBase>(EStateType.GetHit, state =>
-            {
-                state.Damage = new DamageInfo()
-                {
-                    ObstructType = EObstructType.Stun
-                };
-            });
-        }
-        */
 
         public bool Die(string specialAnim = null)
         {
-            return TryEnterState<Die>(EStateType.Die, die => die.SpecialAnim = specialAnim);
+            return TryEnterState<Die>(EStateType.Die, die =>
+            {
+                die.SpecialAnim = specialAnim;
+                //die.Damage = damageInfo;
+            });
         }
 
         public virtual bool Dodge(Vector3 axis)
@@ -339,8 +251,18 @@ namespace Saber.CharacterController
             return false;
         }
 
-        public virtual void OnParried()
+        public void OnParried(SActor defenser)
         {
+            TryEnterState<GetHit>(EStateType.GetHit, state =>
+            {
+                state.Damage = new DamageInfo()
+                {
+                    DamageConfig = new()
+                    {
+                        m_HitRecover = EHitRecover.StunTanDao,
+                    },
+                };
+            });
         }
 
         public virtual bool DefenseStart()
@@ -380,57 +302,9 @@ namespace Saber.CharacterController
             Actor.CPhysic.UseGravity = true;
         }
 
-        public virtual bool PlayAction_IdolActive(Action onPlayed)
+        public bool PlayAction(PlayActionState.EActionType actionType, Action onPlayFinish)
         {
-            return false;
-        }
-
-        public virtual bool PlayAction_IdolRest(Action onPlayFinish)
-        {
-            return false;
-        }
-
-        public virtual bool PlayAction_IdolRestEnd(Action onPlayFinish)
-        {
-            return false;
-        }
-
-        public virtual bool PlayAction_BranchTeleport(Action onPlayFinish)
-        {
-            return false;
-        }
-
-        public virtual bool PlayAction_GoHome(Action onPlayFinish)
-        {
-            return false;
-        }
-
-        public virtual bool PlayAction_LookAround(Action onFinished)
-        {
-            onFinished?.Invoke();
-            return false;
-        }
-
-        public virtual bool PlayActionWhenIdle(string name, Action onFinished)
-        {
-            onFinished?.Invoke();
-            return false;
-        }
-
-        public virtual bool IsPlayingActionWhenIdle(string name)
-        {
-            return false;
-        }
-
-        public virtual bool PlayAction_TurnDirection(Vector3 targetPos, Action onFinished)
-        {
-            onFinished?.Invoke();
-            return false;
-        }
-
-        public virtual bool Startled(Action onFinished)
-        {
-            return false;
+            return TryEnterState<PlayActionState>(EStateType.PlayAction, state => state.PlayAction(actionType, onPlayFinish));
         }
 
         /// <summary>被处决</summary>

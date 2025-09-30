@@ -18,7 +18,7 @@ namespace Saber.CharacterController
         RecoverHP,
         PlayExpression,
         DodgeToSprint,
-        ExecuteDamage,
+        CanTanFanAgain,
         ShowWeapon,
         HideWeapon,
         WeaponFallToGround,

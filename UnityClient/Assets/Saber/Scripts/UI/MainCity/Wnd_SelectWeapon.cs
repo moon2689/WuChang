@@ -20,9 +20,7 @@ namespace Saber.UI
         [SerializeField] private GameObject m_Grid;
 
         private IHandler m_Handler;
-
-
-        protected override bool PauseGame => true;
+        
 
         protected override void OnAwake()
         {

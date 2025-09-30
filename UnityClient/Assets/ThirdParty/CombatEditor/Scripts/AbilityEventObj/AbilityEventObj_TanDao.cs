@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace CombatEditor
 {
-    [AbilityEvent]
+    //[AbilityEvent]
     [CreateAssetMenu(menuName = "AbilityEvents / TanDao")]
     public class AbilityEventObj_TanDao : AbilityEventObj_CreateObjWithHandle
     {
@@ -40,6 +40,26 @@ namespace CombatEditor
     //Write you logic here
     public partial class AbilityEventEffect_TanDao : AbilityEventEffect
     {
+        public static bool WhetherBeparried(SActor defenser, SActor attacker, out Defense defenseState)
+        {
+            defenseState = null;
+            if (defenser != null && defenser != attacker && !defenser.IsDead && defenser.Camp != attacker.Camp &&
+                defenser.CurrentStateType == EStateType.Defense)
+            {
+                defenseState = (Defense)defenser.CStateMachine.CurrentState;
+                if (!defenseState.InTanFanTime)
+                {
+                    return false;
+                }
+
+                Vector3 dirToMe = attacker.transform.position - defenser.transform.position;
+                if (Vector3.Dot(dirToMe, defenser.transform.forward) > 0)
+                    return true;
+            }
+
+            return false;
+        }
+
         /// <summary>尝试弹反</summary>
         bool WhetherBeParried(out Defense defenseState)
         {
@@ -55,6 +75,7 @@ namespace CombatEditor
             foreach (var col in colliders)
             {
                 var enemy = col.GetComponent<SActor>();
+                /*
                 if (enemy != null && enemy != Actor && !enemy.IsDead && enemy.Camp != Actor.Camp &&
                     enemy.CurrentStateType == EStateType.Defense)
                 {
@@ -68,6 +89,12 @@ namespace CombatEditor
                     if (Vector3.Dot(dirToMe, enemy.transform.forward) > 0)
                         return true;
                 }
+                */
+                bool beParried = WhetherBeparried(enemy, Actor, out defenseState);
+                if (beParried)
+                {
+                    return true;
+                }
             }
 
             defenseState = null;
@@ -78,12 +105,17 @@ namespace CombatEditor
         {
             base.StartEffect();
 
-            bool beParried = WhetherBeParried(out var defenseState);
-            if (beParried)
+            /*
+            if (base.CurrentSkill.SkillConfig.CanBeTanFan)
             {
-                Actor.OnParried();
-                defenseState.OnTanFanSucceed(Actor);
+                bool beParried = WhetherBeParried(out var defenseState);
+                if (beParried)
+                {
+                    Actor.OnParried(defenseState.Actor);
+                    defenseState.OnTanFanSucceed(Actor);
+                }
             }
+            */
         }
     }
 

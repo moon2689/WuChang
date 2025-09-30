@@ -38,6 +38,7 @@ namespace Saber.AI
                 yield return null;
             }
 
+            /*
             bool wait;
             if (foundType == EFoundEnemyType.NotInStealth)
             {
@@ -55,6 +56,7 @@ namespace Saber.AI
             {
                 yield return null;
             }
+            */
 
             ToStalemate();
         }

@@ -10,6 +10,7 @@ using Saber.Director;
 using Saber.Frame;
 using Saber.Timeline;
 using Saber.UI;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using YooAsset;
@@ -123,6 +124,7 @@ namespace Saber.World
                 yield return GameApp.Entry.UI.CreateWnd<Wnd_Loading>(w => m_WndLoading = w);
 
             yield return GameApp.Entry.UI.CreateWnd<Wnd_JoyStick>(null, null, w => m_WndJoyStick = w);
+            m_WndJoyStick.Default();
 
             // scene
             yield return LoadScene().StartCoroutine();
@@ -707,7 +709,7 @@ namespace Saber.World
         IEnumerator GoHome()
         {
             bool wait = true;
-            if (m_Player.CStateMachine.PlayAction_GoHome(() => wait = false))
+            if (m_Player.PlayAction(PlayActionState.EActionType.IdolRest, () => wait = false))
             {
                 SetFilmEffect(true);
                 m_Player.CMelee.CWeapon.ShowOrHideWeapon(false);
@@ -878,7 +880,7 @@ namespace Saber.World
             GameApp.Entry.Game.PlayerAI.Active = true;
             GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(m_CurrentStayingIdol.IdolObj);
 
-            m_Player.CStateMachine.PlayAction_IdolRestEnd(() => { m_Player.CMelee.CWeapon.ShowOrHideWeapon(true); });
+            m_Player.PlayAction(PlayActionState.EActionType.IdolRestEnd, () => m_Player.CMelee.CWeapon.ShowOrHideWeapon(true));
         }
 
         void Wnd_Rest.IHandler.OnClickTransmit(int sceneID, int idolID)
@@ -1030,8 +1032,7 @@ namespace Saber.World
         {
             bool wait = true;
             Vector3 idolRestPos = idol.Point.GetIdolFixedPos(out _);
-            bool succeed =
-                m_Player.CStateMachine.SetPosAndForward(idolRestPos, -idol.transform.forward, () => wait = false);
+            bool succeed = m_Player.CStateMachine.SetPosAndForward(idolRestPos, -idol.transform.forward, () => wait = false);
             if (!succeed)
             {
                 GameApp.Entry.UI.ShowTips("当前状态不能执行该操作");
@@ -1051,8 +1052,10 @@ namespace Saber.World
             }
 
             m_Player.CMelee.CWeapon.ShowOrHideWeapon(false);
+            yield return null;
+
             wait = true;
-            m_Player.CStateMachine.PlayAction_IdolRest(() => wait = false);
+            m_Player.PlayAction(PlayActionState.EActionType.IdolRest, () => wait = false);
             while (wait)
             {
                 yield return null;

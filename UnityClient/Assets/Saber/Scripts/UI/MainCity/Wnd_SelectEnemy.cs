@@ -33,9 +33,7 @@ namespace Saber.UI
         }
 
         int Option => m_dropOption.value;
-
-
-        protected override bool PauseGame => true;
+        
 
         protected override void OnAwake()
         {

@@ -56,32 +56,6 @@ MonoBehaviour:
   TimeType: 2
   m_HoldTime: 1
   OnlyTriggerWhenPowerEnough: 0
---- !u!114 &-1272716130861697240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e82fd648527146e59cbfa2687416bd83, type: 3}
-  m_Name: PerfectDodge
-  m_EditorClassIdentifier: 
-  IsActive: 1
-  ObjData:
-    TargetObj: {fileID: 2557966978344939087, guid: 2902985be43994742a7534bd5c1ebd16,
-      type: 3}
-    controlType: 0
-    Offset: {x: 0.17424563, y: 1.5052149, z: 0.3911349}
-    Rot: {x: 0, y: 0, z: 0, w: 1}
-    TargetNode: 2
-    FollowNode: 1
-    RotateByNode: 1
-  ColliderOffset: {x: 0, y: 0, z: -0.07631755}
-  ColliderSize: {x: 1, y: 1, z: 1}
-  Radius: 3.2372506
-  Height: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,15 +91,6 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 102119638383599212}
-  - EventTime: 0
-    EventRange: {x: 0.40243903, y: 0.43414634}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: -1272716130861697240}
   - EventTime: 0.004878049
     EventRange: {x: 0, y: 1}
     EventMultiRange:
@@ -204,6 +169,8 @@ MonoBehaviour:
     m_ImpactForce: 2
     m_HitRecover: 5
     m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 0
+    BreakByTanFan: 1
 --- !u!114 &923631185371874585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +204,8 @@ MonoBehaviour:
     m_ImpactForce: 2
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 0
+    BreakByTanFan: 1
 --- !u!114 &1625361958528838131
 MonoBehaviour:
   m_ObjectHideFlags: 0

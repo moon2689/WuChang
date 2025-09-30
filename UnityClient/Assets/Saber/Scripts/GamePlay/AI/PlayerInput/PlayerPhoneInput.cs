@@ -295,8 +295,7 @@ namespace Saber.AI
         {
             bool wait = true;
             Vector3 idolRestPos = idol.Point.GetIdolFixedPos(out _);
-            bool succeed =
-                Actor.CStateMachine.SetPosAndForward(idolRestPos, -idol.Point.transform.forward, () => wait = false);
+            bool succeed = Actor.CStateMachine.SetPosAndForward(idolRestPos, -idol.Point.transform.forward, () => wait = false);
             if (!succeed)
             {
                 GameApp.Entry.UI.ShowTips("当前状态不能执行该操作");
@@ -323,7 +322,7 @@ namespace Saber.AI
 
             yield return null;
 
-            Actor.CStateMachine.PlayAction_IdolActive(() =>
+            Actor.CStateMachine.PlayAction(PlayActionState.EActionType.IdolActive, () =>
             {
                 Actor.CMelee.CWeapon.ShowOrHideWeapon(true);
                 GameApp.Entry.Game.World.SetFilmEffect(false);

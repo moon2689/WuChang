@@ -46,11 +46,14 @@ MonoBehaviour:
   Radius: 1
   Height: 1
   m_WeaponDamageSetting:
+    m_HitType: 0
     m_WeaponBone: 23
     m_DamageValue: 5
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 1
 --- !u!114 &-5181041062940174762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,24 +189,6 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -5409795176532594459}
-  - EventTime: 0
-    EventRange: {x: 0.29411766, y: 0.3529412}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 7767508021975851184}
-  - EventTime: 0
-    EventRange: {x: 0, y: 1}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 6135135135931837300}
   - EventTime: 0.05882353
     EventRange: {x: 0, y: 1}
     EventMultiRange:

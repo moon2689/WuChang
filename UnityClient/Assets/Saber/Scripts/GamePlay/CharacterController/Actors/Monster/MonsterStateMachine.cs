@@ -20,6 +20,7 @@ namespace Saber.CharacterController
             base.RegisterState(new SkillState());
             base.RegisterState(new GetHit());
             base.RegisterState(new Die());
+            base.RegisterState(new PlayActionState());
 
             if (Monster.m_MonsterInfo.m_MoveByRootMotion)
             {
@@ -39,87 +40,6 @@ namespace Saber.CharacterController
             {
                 base.RegisterState(new MonsterDefense());
             }
-        }
-
-        public override bool Startled(Action onFinished)
-        {
-            if (Actor.CurrentStateType == EStateType.Idle)
-            {
-                MonsterIdle idle = Actor.CStateMachine.GetState<MonsterIdle>(EStateType.Idle);
-                idle.DoActionStartled(onFinished);
-                return true;
-            }
-
-            return false;
-        }
-
-        public override bool PlayAction_LookAround(Action onFinished)
-        {
-            if (Actor.CurrentStateType == EStateType.Idle)
-            {
-                MonsterIdle idle = Actor.CStateMachine.GetState<MonsterIdle>(EStateType.Idle);
-                idle.LookAround(onFinished);
-                return true;
-            }
-
-            onFinished?.Invoke();
-            return false;
-        }
-
-        public override bool PlayActionWhenIdle(string name, Action onFinished)
-        {
-            if (Actor.CurrentStateType == EStateType.Idle)
-            {
-                MonsterIdle idle = Actor.CStateMachine.GetState<MonsterIdle>(EStateType.Idle);
-                idle.PlayAction(name, onFinished);
-                return true;
-            }
-
-            onFinished?.Invoke();
-            return false;
-        }
-
-        public override bool IsPlayingActionWhenIdle(string name)
-        {
-            if (Actor.CurrentStateType != EStateType.Idle)
-            {
-                return false;
-            }
-
-            MonsterIdle idle = Actor.CStateMachine.GetState<MonsterIdle>(EStateType.Idle);
-            return idle.IsPlayingAction(name);
-        }
-
-        public override bool PlayAction_TurnDirection(Vector3 targetPos, Action onFinished)
-        {
-            if (Actor.CurrentStateType == EStateType.Idle)
-            {
-                MonsterIdle idle = Actor.CStateMachine.GetState<MonsterIdle>(EStateType.Idle);
-                idle.TurnDirection(targetPos, onFinished);
-                return true;
-            }
-
-            onFinished?.Invoke();
-            return false;
-        }
-
-        public override bool OnHit(DamageInfo dmgInfo)
-        {
-            return TryEnterState<GetHit>(EStateType.GetHit, state => state.Damage = dmgInfo);
-        }
-
-        public override void OnParried()
-        {
-            TryEnterState<GetHit>(EStateType.GetHit, state =>
-            {
-                state.Damage = new DamageInfo()
-                {
-                    DamageConfig = new()
-                    {
-                        m_HitRecover = EHitRecover.StunTanDao,
-                    },
-                };
-            });
         }
 
         public override bool Dodge(Vector3 axis)

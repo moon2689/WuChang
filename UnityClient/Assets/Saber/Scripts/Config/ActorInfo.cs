@@ -1,7 +1,6 @@
 using System;
 using Saber.Frame;
 using UnityEngine;
-using UnityEngine.Serialization;
 using YooAsset;
 
 namespace Saber.Config

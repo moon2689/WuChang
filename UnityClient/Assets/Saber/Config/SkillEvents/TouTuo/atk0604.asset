@@ -17,32 +17,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5f535851f66b0e44f936ca5cca9de907, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
---- !u!114 &-8911281513957452820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 636e08a368debe04987b09e239810343, type: 3}
-  m_Name: TanDao
-  m_EditorClassIdentifier: 
-  IsActive: 1
-  ObjData:
-    TargetObj: {fileID: 2557966978344939087, guid: 2902985be43994742a7534bd5c1ebd16,
-      type: 3}
-    controlType: 0
-    Offset: {x: 0, y: 1.5052149, z: 2.0348473}
-    Rot: {x: 0, y: 0, z: 0, w: 1}
-    TargetNode: 2
-    FollowNode: 1
-    RotateByNode: 1
-  ColliderOffset: {x: 0, y: 0, z: 0.08105326}
-  ColliderSize: {x: 1, y: 1, z: 1}
-  Radius: 2.1109076
-  Height: 1
 --- !u!114 &-4135947323733479191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,25 +79,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 4157788760675551969}
   - EventTime: 0
-    EventRange: {x: 0.5288641, y: 0.54934824}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 8116965869364875837}
-  - EventTime: 0.547486
-    EventRange: {x: 0, y: 1}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: -8911281513957452820}
-  - EventTime: 0
-    EventRange: {x: 0, y: 0.10614525}
+    EventRange: {x: 0, y: 0.3594041}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -217,6 +173,8 @@ MonoBehaviour:
     m_ImpactForce: 3
     m_HitRecover: 5
     m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 1
 --- !u!114 &4859642320919406690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +188,7 @@ MonoBehaviour:
   m_Name: AlignToEnemy2
   m_EditorClassIdentifier: 
   IsActive: 1
-  m_RotateSpeed: 1080
+  m_RotateSpeed: 720
 --- !u!114 &5021865977411076067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,29 +203,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   m_RotateSpeed: 360
---- !u!114 &8116965869364875837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e82fd648527146e59cbfa2687416bd83, type: 3}
-  m_Name: PerfectDodge
-  m_EditorClassIdentifier: 
-  IsActive: 1
-  ObjData:
-    TargetObj: {fileID: 2557966978344939087, guid: 2902985be43994742a7534bd5c1ebd16,
-      type: 3}
-    controlType: 0
-    Offset: {x: 0, y: 1.5052149, z: 2.0348473}
-    Rot: {x: 0, y: 0, z: 0, w: 1}
-    TargetNode: 2
-    FollowNode: 1
-    RotateByNode: 1
-  ColliderOffset: {x: 0, y: 0, z: 0.08105326}
-  ColliderSize: {x: 1, y: 1, z: 1}
-  Radius: 2.1109076
-  Height: 1

@@ -155,7 +155,7 @@ namespace Saber.CharacterController
             }
         }
 
-        public virtual bool InPerfectDodgeTime => false;
+       // public virtual bool InPerfectDodgeTime => false;
         //public virtual bool InTanDaoTime => false;
 
         /// <summary>是否安静，不破除潜行状态</summary>
@@ -306,11 +306,13 @@ namespace Saber.CharacterController
             // Debug.Log($"exit skill,{SkillConfig.m_ID}, time:{Actor.CAnim.GetAnimNormalizedTime(0)}");
         }
 
+        /*
         /// <summary>在完美闪避范围内</summary>
         public virtual bool InPerfectDodgeRange(SActor target)
         {
             return false;
         }
+        */
 
         public virtual void OnTriggerAnimEvent(AnimPointTimeEvent eventObj)
         {

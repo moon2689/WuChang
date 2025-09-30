@@ -84,6 +84,22 @@ namespace Saber.AI
                     yield break;
                 }
 
+                /*
+                // 面向玩家
+                if (!IsFaceToEnemy())
+                {
+                    bool wait = true;
+                    PlayActionState.EActionType turnDirAction = CalcProbability(50) ? PlayActionState.EActionType.TurnL180 : PlayActionState.EActionType.TurnR180;
+                    if (Actor.PlayAction(turnDirAction, () => wait = false))
+                    {
+                        while (wait && !IsAlighingToEnemy())
+                        {
+                            yield return null;
+                        }
+                    }
+                }
+                */
+
                 // 攻击
                 timerStay -= Time.deltaTime;
                 if (timerStay < 0 && !LockingEnemy.IsInSpecialStun)
@@ -318,6 +334,16 @@ namespace Saber.AI
             }
         }
 
+        bool IsFaceToEnemy()
+        {
+            return Vector3.Dot(LockingEnemy.transform.position - Actor.transform.position, Actor.transform.forward) > 0;
+        }
+
+        bool IsAlighingToEnemy()
+        {
+            return Vector3.Angle(LockingEnemy.transform.position - Actor.transform.position, Actor.transform.forward) < 10;
+        }
+
         /// <summary>攻击</summary>
         IEnumerator AttackItor()
         {
@@ -376,6 +402,13 @@ namespace Saber.AI
                         }
                     }
                 }
+                /*
+                else if (!IsFaceToEnemy())
+                {
+                    ToStalemate();
+                    yield break;
+                }
+                */
                 else if (CalcProbability(90))
                 {
                     ToAttack();

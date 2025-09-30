@@ -37,7 +37,6 @@ MonoBehaviour:
       m_BlendTime: 0.1
     - m_SkillID: 12
       m_BlendTime: 0.1
-    m_Resilience: 1
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1
     m_ResilienceAfterAttack: 0
@@ -69,7 +68,6 @@ MonoBehaviour:
       m_BlendTime: 0.1
     - m_SkillID: 12
       m_BlendTime: 0.1
-    m_Resilience: 1
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1
     m_ResilienceAfterAttack: 0
@@ -101,7 +99,6 @@ MonoBehaviour:
       m_BlendTime: 0.1
     - m_SkillID: 12
       m_BlendTime: 0.1
-    m_Resilience: 1
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1
     m_ResilienceAfterAttack: 0
@@ -133,7 +130,6 @@ MonoBehaviour:
       m_BlendTime: 0.1
     - m_SkillID: 12
       m_BlendTime: 0.1
-    m_Resilience: 1
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1
     m_ResilienceAfterAttack: 0
@@ -165,7 +161,6 @@ MonoBehaviour:
       m_BlendTime: 0.1
     - m_SkillID: 12
       m_BlendTime: 0.1
-    m_Resilience: 1
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1
     m_ResilienceAfterAttack: 0
@@ -197,7 +192,6 @@ MonoBehaviour:
       m_BlendTime: 0.1
     - m_SkillID: 12
       m_BlendTime: 0.1
-    m_Resilience: 1
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1
     m_ResilienceAfterAttack: 0
@@ -229,7 +223,6 @@ MonoBehaviour:
       m_BlendTime: 0.1
     - m_SkillID: 12
       m_BlendTime: 0.1
-    m_Resilience: 1
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1
     m_ResilienceAfterAttack: 0
@@ -261,7 +254,6 @@ MonoBehaviour:
       m_BlendTime: 0.1
     - m_SkillID: 12
       m_BlendTime: 0.1
-    m_Resilience: 1
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1
     m_ResilienceAfterAttack: 0
@@ -287,7 +279,6 @@ MonoBehaviour:
     m_ChainSkills:
     - m_SkillID: 1
       m_BlendTime: 0.1
-    m_Resilience: 1
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
@@ -313,7 +304,6 @@ MonoBehaviour:
     m_ChainSkills:
     - m_SkillID: 3
       m_BlendTime: 0.1
-    m_Resilience: 1
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1
     m_ResilienceAfterAttack: 0
@@ -339,7 +329,6 @@ MonoBehaviour:
     m_ChainSkills:
     - m_SkillID: 5
       m_BlendTime: 0.1
-    m_Resilience: 1
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1
     m_ResilienceAfterAttack: 0
@@ -353,7 +342,7 @@ MonoBehaviour:
     m_AnimStates:
     - m_Name: DoubleChop
       m_EventData: {fileID: 11400000, guid: 4b7853feca07eba40b7d1494f9d574df, type: 2}
-    CostStrength: 20
+    CostStrength: 10
     m_CostPower: 2
     m_CanTriggerWhenPowerNotEnough: 1
     m_PowerAddWhenHitted: 0
@@ -365,7 +354,6 @@ MonoBehaviour:
     m_ChainSkills:
     - m_SkillID: 13
       m_BlendTime: 0.1
-    m_Resilience: 2
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
@@ -391,7 +379,6 @@ MonoBehaviour:
     m_ChainSkills:
     - m_SkillID: 5
       m_BlendTime: 0.1
-    m_Resilience: 2
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
@@ -413,7 +400,6 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_Resilience: 1
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1
     m_ResilienceAfterAttack: 0

@@ -27,6 +27,8 @@ namespace Saber.CharacterController
         public EImpactForce m_ImpactForce = EImpactForce.Level2;
         public EHitRecover m_HitRecover;
         public Vector2 m_ForceWhenGround;
+        public bool CanBeTanFan = true;
+        public bool BreakByTanFan = true;
     }
 
     public enum EHitType

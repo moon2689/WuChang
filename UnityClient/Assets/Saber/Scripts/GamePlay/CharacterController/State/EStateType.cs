@@ -15,6 +15,7 @@ namespace Saber.CharacterController
         Defense, //格挡
         Die, //死亡
         Fall, //下落
+        PlayAction, //播放动作
     }
 
     public enum EStateSwitchType
@@ -32,15 +33,16 @@ namespace Saber.CharacterController
         public static readonly int[,] StateSwitchTable =
         {
             // to:
-            //Id Mo Sk Do GH De Di Fa    // from:
-            { 1, 1, 1, 1, 1, 1, 1, 1, }, // Idle
-            { 1, 1, 4, 1, 1, 1, 1, 1, }, // Move
-            { 0, 2, 1, 2, 1, 2, 1, 2, }, // Skill
-            { 0, 3, 4, 2, 1, 2, 1, 2, }, // Dodge
-            { 0, 0, 0, 2, 1, 0, 0, 0, }, // GetHit
-            { 0, 2, 4, 2, 1, 1, 1, 2, }, // Defense
-            { 0, 0, 0, 0, 0, 0, 0, 0, }, // Die
-            { 0, 0, 1, 0, 0, 0, 1, 0, }, // Fall
+            //Id Mo Sk Do GH De Di Fa Pa    // from:
+            { 1, 1, 1, 1, 1, 1, 1, 1, 1, }, // Idle
+            { 1, 1, 4, 1, 1, 1, 1, 1, 1, }, // Move
+            { 0, 2, 1, 2, 1, 2, 1, 2, 0, }, // Skill
+            { 0, 3, 4, 2, 1, 2, 1, 2, 0, }, // Dodge
+            { 0, 0, 0, 2, 1, 0, 0, 0, 0, }, // GetHit
+            { 0, 2, 4, 2, 1, 1, 1, 2, 0, }, // Defense
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, }, // Die
+            { 0, 0, 1, 0, 0, 0, 1, 0, 0, }, // Fall
+            { 0, 0, 0, 0, 1, 0, 1, 1, 1, }, // PlayAction
         };
 
         public static EStateSwitchType CanSwitchTo(EStateType from, EStateType to)

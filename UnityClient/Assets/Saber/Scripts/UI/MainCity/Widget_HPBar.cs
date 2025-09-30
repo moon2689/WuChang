@@ -1,10 +1,5 @@
-using System.Collections.Generic;
-using DuloGames.UI;
-using Saber.Frame;
 using UnityEngine;
 using UnityEngine.UI;
-using Saber.CharacterController;
-using UnityEngine.Serialization;
 
 namespace Saber.UI
 {
@@ -46,7 +41,7 @@ namespace Saber.UI
                 m_FastImage.fillAmount = CurHp / m_MaxHp;
                 m_OldHp = CurHp;
                 m_TimerHealthSmoothChange = 0.5f;
-                m_FollowSpeed = 1f;
+                m_FollowSpeed = Mathf.Abs(m_FastImage.fillAmount - m_FollowImage.fillAmount) / 0.3f;
             }
             else if (CurHp < m_OldHp)
             {
@@ -56,7 +51,7 @@ namespace Saber.UI
                 m_FastImage.fillAmount = CurHp / m_MaxHp;
                 m_OldHp = CurHp;
                 m_TimerHealthSmoothChange = 1f;
-                m_FollowSpeed = 0.5f;
+                m_FollowSpeed = Mathf.Abs(m_FastImage.fillAmount - m_FollowImage.fillAmount) / 0.5f;
             }
 
             float tar = m_FastImage.fillAmount;

@@ -64,10 +64,16 @@ namespace Saber.CharacterController
                 return "F";
         }
 
-        string GetDir2()
+        string GetDir2(out Vector3 faceDir)
         {
             m_AngleFromAttacker = Vector3.SignedAngle(Damage.Attacker.transform.forward, Actor.transform.forward, Vector3.up);
-            return m_AngleFromAttacker > -90 && m_AngleFromAttacker <= 90 ? "B" : "F";
+            bool isBack = m_AngleFromAttacker > -90 && m_AngleFromAttacker <= 90;
+
+            Vector3 directionToAttacker = Damage.Attacker.transform.position - Actor.transform.position;
+            directionToAttacker.y = 0;
+            faceDir = isBack ? -directionToAttacker : directionToAttacker;
+
+            return isBack ? "B" : "F";
         }
 
 
@@ -75,9 +81,10 @@ namespace Saber.CharacterController
         {
         }
 
-        string GetHitAnim(out EHitRecHurtType hurtType)
+        string GetHitAnim(out EHitRecHurtType hurtType, out Vector3 faceDir)
         {
             hurtType = EHitRecHurtType.Stun;
+            faceDir = Vector3.zero;
 
             if (Damage.DamageConfig.m_HitRecover == EHitRecover.StunTanDao)
             {
@@ -93,13 +100,15 @@ namespace Saber.CharacterController
             if (Damage.DamageConfig.m_HitRecover == EHitRecover.StrikeDown)
             {
                 hurtType = EHitRecHurtType.SpecialStun;
-                return $"StrikeDown{GetDir2()}";
+
+                return $"StrikeDown{GetDir2(out faceDir)}";
             }
 
             if (Damage.DamageConfig.m_HitRecover == EHitRecover.KnockOffLongDis)
             {
                 hurtType = EHitRecHurtType.SpecialStun;
-                return $"KnockOffLongDis{GetDir2()}";
+
+                return $"KnockOffLongDis{GetDir2(out faceDir)}";
             }
 
             if (Damage.DamageConfig.m_HitRecover == EHitRecover.Uppercut)
@@ -127,7 +136,7 @@ namespace Saber.CharacterController
         void OnEnter()
         {
             // 受击动画
-            m_CurAnim = GetHitAnim(out m_HurtType);
+            m_CurAnim = GetHitAnim(out m_HurtType, out Vector3 faceDir);
             Actor.CAnim.Play(m_CurAnim, force: true);
 
             if (m_HurtType == EHitRecHurtType.BlockBroken)
@@ -151,20 +160,9 @@ namespace Saber.CharacterController
             }
 
             // 对齐攻击者方向
-            EHitRecover hitRec = Damage.DamageConfig.m_HitRecover;
-            if (hitRec == EHitRecover.StrikeDown || hitRec == EHitRecover.KnockOffLongDis)
+            if (faceDir != Vector3.zero)
             {
-                Vector3 directionToAttacker = Damage.Attacker.transform.position - Actor.transform.position;
-                directionToAttacker.y = 0;
-                bool isBack = m_AngleFromAttacker > -90 && m_AngleFromAttacker <= 90;
-                if (isBack)
-                {
-                    Actor.transform.rotation = Quaternion.LookRotation(-directionToAttacker);
-                }
-                else
-                {
-                    Actor.transform.rotation = Quaternion.LookRotation(directionToAttacker);
-                }
+                Actor.transform.rotation = Quaternion.LookRotation(faceDir);
             }
         }
 
@@ -244,7 +242,7 @@ namespace Saber.CharacterController
         {
             Exit();
             string dieAnim = m_IsExecuteFromBack ? "ExecutedBackDownDie" : "ExecutedFrontDownDie";
-            StateMachine.Die(dieAnim);
+            Actor.Die(dieAnim);
         }
     }
 

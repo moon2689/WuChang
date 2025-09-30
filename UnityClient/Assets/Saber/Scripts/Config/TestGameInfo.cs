@@ -11,8 +11,21 @@ namespace Saber.Config
     public class TestGameInfo : ScriptableObject
     {
         public bool DebugFPS;
-        public bool DebugFight;
+        [SerializeField] private bool m_DebugFight;
         public EAIType EnemyAI;
         public int[] TestingSkillID;
+
+
+        public bool DebugFight
+        {
+            get
+            {
+#if UNITY_EDITOR
+                return m_DebugFight;
+#else
+                return false;
+#endif
+            }
+        }
     }
 }

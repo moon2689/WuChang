@@ -24,8 +24,6 @@ namespace Saber.UI
         private IHandler m_Handler;
 
 
-        protected override bool PauseGame => true;
-
         protected override void OnAwake()
         {
             base.OnAwake();

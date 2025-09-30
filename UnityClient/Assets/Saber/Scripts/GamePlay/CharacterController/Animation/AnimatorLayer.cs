@@ -105,7 +105,7 @@ namespace Saber.CharacterController
             }
 #endif
 
-            //Debug.Log($"Play anim:{anim}, hash:{anim.GetAnimatorHash()}, layer:{m_Layer}, blendTime:{blendTime}, exitTime:{exitTime}");
+            // Debug.Log($"Play anim:{anim}, hash:{anim.GetAnimatorHash()}, layer:{m_Layer}, blendTime:{blendTime}");
             if (force || !IsReallyPlaying(anim))
             {
                 if (timeOffset > 0)

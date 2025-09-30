@@ -488,6 +488,11 @@ namespace Saber.CharacterController
             return CStateMachine.Fall();
         }
 
+        public bool Die(string specialAnim = null)
+        {
+            return CStateMachine.Die(specialAnim);
+        }
+
         public bool Dodge(Vector3 axis)
         {
             return CStateMachine.Dodge(axis);
@@ -498,9 +503,9 @@ namespace Saber.CharacterController
             return CStateMachine.Dodge(MovementAxis);
         }
 
-        public void OnParried()
+        public void OnParried(SActor defenser)
         {
-            CStateMachine.OnParried();
+            CStateMachine.OnParried(defenser);
         }
 
         public bool DefenseStart()
@@ -554,6 +559,11 @@ namespace Saber.CharacterController
             Heal(CStats.MaxHp);
             CStats.DefaultHPPointCount();
             CStats.ClearPower();
+        }
+        
+        public bool PlayAction(PlayActionState.EActionType action, Action onPlayFinished)
+        {
+            return  CStateMachine.PlayAction(action, onPlayFinished);
         }
 
         #endregion
@@ -648,5 +658,7 @@ namespace Saber.CharacterController
         {
             Event_OnDeadAnimPlayFinished?.Invoke(this);
         }
+
+    
     }
 }

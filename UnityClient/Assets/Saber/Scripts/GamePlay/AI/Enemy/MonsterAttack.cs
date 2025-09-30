@@ -43,6 +43,7 @@ namespace Saber.AI
 
             yield return new WaitForSeconds(1);
 
+            /*
             Actor.StopMove();
 
             while (Actor.CurrentStateType != EStateType.Idle)
@@ -58,6 +59,7 @@ namespace Saber.AI
             }
 
             yield return new WaitForSeconds(0.2f);
+            */
 
             while (true)
             {

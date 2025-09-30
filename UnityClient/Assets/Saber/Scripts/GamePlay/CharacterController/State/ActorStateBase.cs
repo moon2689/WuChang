@@ -10,7 +10,7 @@ namespace Saber.CharacterController
 
         protected ActorStateMachine StateMachine { get; private set; }
 
-        protected SActor Actor => StateMachine.Actor;
+        public SActor Actor => StateMachine.Actor;
 
         public EStateType StateType { private set; get; }
         public float DeltaTime => Actor.DeltaTime;
@@ -31,7 +31,7 @@ namespace Saber.CharacterController
 
         public virtual void ReEnter()
         {
-            // if (Actor is SCharacter)
+            // if (Actor.IsPlayer)
             //     UnityEngine.Debug.Log("ReEnter:" + StateType);
         }
 
@@ -41,7 +41,7 @@ namespace Saber.CharacterController
             Actor.CPhysic.ApplyRootMotion = ApplyRootMotionSetWhenEnter;
             Actor.CStats.StaminaRecSpeed = StaminaRecSpeed;
 
-            // if (Actor is SCharacter)
+            // if (Actor.IsPlayer)
             //     UnityEngine.Debug.Log("Enter:" + StateType);
         }
 
@@ -60,7 +60,7 @@ namespace Saber.CharacterController
 
         protected virtual void OnExit()
         {
-            // if (Actor is SCharacter)
+            // if (Actor.IsPlayer)
             //     UnityEngine.Debug.Log("On Exit:" + StateType);
         }
 

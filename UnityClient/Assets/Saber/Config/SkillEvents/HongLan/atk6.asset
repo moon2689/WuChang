@@ -27,9 +27,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: 55bf0136e4f52d049b641e9e982b6288, type: 3}
-  - {fileID: 8300000, guid: 977b5ecbd2fca674db1df7dc682cc3a2, type: 3}
-  - {fileID: 8300000, guid: 67af835e4a5a4e9479066e8623522f80, type: 3}
+  - {fileID: 8300000, guid: a02cd8efa1d3df34c83e95d8c62cee80, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
 --- !u!114 &-5079931749413464281
@@ -59,11 +57,14 @@ MonoBehaviour:
   Radius: 1
   Height: 1
   m_WeaponDamageSetting:
+    m_HitType: 2
     m_WeaponBone: 13
     m_DamageValue: 5
     m_ImpactForce: 1
-    m_HitRecover: 0
+    m_HitRecover: 5
     m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 1
 --- !u!114 &-4932587445503195408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,7 +148,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -2161160034392264715}
-  - EventTime: 0.24117647
+  - EventTime: 0.25882354
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -175,7 +176,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 2955371204089120355}
   - EventTime: 0
-    EventRange: {x: 0.32941177, y: 0.3529412}
+    EventRange: {x: 0.31764707, y: 0.34117648}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -183,24 +184,6 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 347029888132950775}
-  - EventTime: 0
-    EventRange: {x: 0.2764706, y: 0.32941177}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: -4932587445503195408}
-  - EventTime: 0
-    EventRange: {x: 0, y: 1}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 3142175637462103721}
   - EventTime: 0.0882353
     EventRange: {x: 0, y: 1}
     EventMultiRange:
@@ -211,7 +194,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 5783341906080792109}
   - EventTime: 0
-    EventRange: {x: 0.47058824, y: 0.5}
+    EventRange: {x: 0.46470588, y: 0.4882353}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -219,15 +202,6 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -5079931749413464281}
-  - EventTime: 0
-    EventRange: {x: 0.40588236, y: 0.47058824}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 6585227193124203479}
 --- !u!114 &347029888132950775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,11 +229,14 @@ MonoBehaviour:
   Radius: 1
   Height: 1
   m_WeaponDamageSetting:
+    m_HitType: 2
     m_WeaponBone: 14
     m_DamageValue: 5
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 1
 --- !u!114 &1085523481295931658
 MonoBehaviour:
   m_ObjectHideFlags: 0

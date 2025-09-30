@@ -93,11 +93,14 @@ MonoBehaviour:
   Radius: 1
   Height: 1
   m_WeaponDamageSetting:
+    m_HitType: 0
     m_WeaponBone: 24
     m_DamageValue: 5
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 1
 --- !u!114 &-2386940915127171593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
   m_Name: SFXVoice
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   clips:
   - {fileID: 8300000, guid: 230ca5e51939b1f478519d63a401bff6, type: 3}
   - {fileID: 8300000, guid: efcf476ab86845643b2d895517ca5189, type: 3}
@@ -176,7 +179,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -980133652288515788}
-  - EventTime: 0
+  - EventTime: 0.0375
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -212,24 +215,6 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -2429057959185376274}
-  - EventTime: 0
-    EventRange: {x: 0.1625, y: 0.2}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: -4615575475160550969}
-  - EventTime: 0
-    EventRange: {x: 0, y: 1}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: -6615717095479200397}
   - EventTime: 0.3625
     EventRange: {x: 0, y: 1}
     EventMultiRange:

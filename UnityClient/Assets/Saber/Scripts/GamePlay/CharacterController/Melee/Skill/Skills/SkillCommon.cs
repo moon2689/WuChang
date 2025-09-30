@@ -14,9 +14,9 @@ namespace Saber.CharacterController
         private int? m_CurAnimStateID;
 
 
-        public override bool InPerfectDodgeTime => PerfectDodgeData != null;
+       // public override bool InPerfectDodgeTime => PerfectDodgeData != null;
         //public override bool InTanDaoTime => TanDaoData != null;
-        public AbilityEventObj_PerfectDodge PerfectDodgeData { get; set; }
+        //public AbilityEventObj_PerfectDodge PerfectDodgeData { get; set; }
         //public AbilityEventObj_TanDao TanDaoData { get; set; }
 
 
@@ -106,7 +106,7 @@ namespace Saber.CharacterController
         public override void Enter()
         {
             m_CurAnimStateID = null;
-            PerfectDodgeData = null;
+            //PerfectDodgeData = null;
 
             base.Enter();
         }
@@ -176,7 +176,7 @@ namespace Saber.CharacterController
 
             base.Exit();
 
-            PerfectDodgeData = null;
+           // PerfectDodgeData = null;
 
             // End last frame events if needed.
             TryEndLastEvents();
@@ -189,6 +189,7 @@ namespace Saber.CharacterController
             }
         }
 
+        /*
         /// <summary>在完美闪避范围内</summary>
         public override bool InPerfectDodgeRange(SActor target)
         {
@@ -209,5 +210,6 @@ namespace Saber.CharacterController
 
             return false;
         }
+        */
     }
 }

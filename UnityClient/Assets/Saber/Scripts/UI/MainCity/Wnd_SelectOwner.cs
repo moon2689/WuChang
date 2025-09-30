@@ -23,7 +23,6 @@ namespace Saber.UI
         private IHandler m_Handler;
         private int m_SelectedActorID;
 
-        protected override bool PauseGame => true;
         int Option => m_dropOption.value;
 
 

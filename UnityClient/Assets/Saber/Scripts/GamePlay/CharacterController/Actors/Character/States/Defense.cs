@@ -21,7 +21,6 @@ namespace Saber.CharacterController
         protected EState m_CurState;
         private SCharacter m_Character;
         private float m_TimerCanTanFan;
-        private List<SActor> m_ParriedEnemies = new();
         private bool m_AutoExitOnAnimFinished;
         private bool m_CanExit;
         private bool m_CanTriggerSkill;
@@ -104,8 +103,8 @@ namespace Saber.CharacterController
             }
             else if (m_CurState == EState.TanDao)
             {
-                if (!Actor.CAnim.IsPlayingOrWillPlay("TanFan", 0.3f))
-                    m_TimerCanTanFan = GameApp.Entry.Config.SkillCommon.CanTanFanSecondsFromDefenseStart;
+                //if (!Actor.CAnim.IsPlayingOrWillPlay("TanFan", 0.1f))
+                m_TimerCanTanFan = GameApp.Entry.Config.SkillCommon.CanTanFanSecondsFromDefenseStart;
             }
             else
             {
@@ -115,19 +114,17 @@ namespace Saber.CharacterController
 
         public void OnTanFanSucceed(SActor enemy)
         {
-            if (m_CurState != EState.TanDao)
-            {
-                Actor.CStateMachine.ParriedSuccssSkills.Add(enemy.CurrentSkill);
-                Actor.CAnim.Play("TanFan", force: true);
-                m_CurState = EState.TanDao;
-                m_TimerCanTanFan = 0;
-                Actor.AddYuMao(1);
-                GameApp.Entry.Unity.DoDelayAction(0.1f, ShowTanFanEffect);
-            }
+            Actor.CAnim.Play("TanFan", force: true);
+            m_CurState = EState.TanDao;
+            m_TimerCanTanFan = 0;
+            Actor.AddYuMao(1);
+            ShowTanFanEffectDelay().StartCoroutine();
         }
 
-        void ShowTanFanEffect()
+        IEnumerator ShowTanFanEffectDelay()
         {
+            for (int i = 0; i < 2; i++)
+                yield return null;
             Vector3 pos = Actor.CMelee.CWeapon.CurWeapons[0].MiddlePos;
             GameApp.Entry.Game.Effect.CreateEffect("Particles/SwordHitSword", pos, Quaternion.identity, 0.6f);
         }
@@ -145,7 +142,6 @@ namespace Saber.CharacterController
             if (m_TimerCanTanFan > 0)
             {
                 m_TimerCanTanFan -= base.DeltaTime;
-                //CheckTanFan();
             }
 
             if (m_CurState == EState.TanDao)
@@ -232,7 +228,6 @@ namespace Saber.CharacterController
             Actor.UpdateMovementAxisAnimatorParams = true;
             m_CurState = EState.None;
             m_AutoExitOnAnimFinished = false;
-            Actor.CStateMachine.ParriedSuccssSkills.Clear();
         }
 
         public void TryEndDefense()

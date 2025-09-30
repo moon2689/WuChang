@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace CombatEditor
 {
-    [AbilityEvent]
+    //[AbilityEvent]
     [CreateAssetMenu(menuName = "AbilityEvents / MagicCounter")]
     public class AbilityEventObj_MagicCounter : AbilityEventObj
     {
@@ -52,6 +52,7 @@ namespace CombatEditor
             */
         }
 
+        /*
         /// <summary>尝试弹反</summary>
         bool TryParry(out List<SActor> parriedEnemies)
         {
@@ -85,6 +86,7 @@ namespace CombatEditor
             parriedEnemies = m_ParriedEnemies;
             return m_ParriedEnemies.Count > 0;
         }
+        */
     }
 
     public partial class AbilityEventEffect_MagicCounter : AbilityEventEffect

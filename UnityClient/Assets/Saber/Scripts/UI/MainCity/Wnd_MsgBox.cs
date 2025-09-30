@@ -19,9 +19,7 @@ namespace Saber.UI
         {
             set => m_text.text = value;
         }
-
-
-        protected override bool PauseGame => true;
+        
 
         protected override void OnAwake()
         {

@@ -126,12 +126,6 @@ public class SkillConfigEditor : EditorBase
         item.m_ID = EditorGUILayout.IntField("ID：", item.m_ID);
         item.m_SkillName = EditorGUILayout.TextField("技能名：", item.m_SkillName);
 
-        if (m_IsPlayer)
-        {
-            item.CostStrength = EditorGUILayout.FloatField("消耗体力:", item.CostStrength);
-            item.m_SkillType = (ESkillType)EditorGUILayout.EnumPopup("输入键：", item.m_SkillType);
-        }
-
         item.m_TriggerCondition = (ETriggerCondition)EditorGUILayout.EnumPopup("触发条件:", item.m_TriggerCondition);
         if (item.m_TriggerCondition == ETriggerCondition.InAir)
         {
@@ -144,17 +138,22 @@ public class SkillConfigEditor : EditorBase
             item.m_CDSeconds = EditorGUILayout.FloatField("冷却时间（秒）:", item.m_CDSeconds);
         }
 
+        item.m_ResilienceBeforeAttack = (EResilience)EditorGUILayout.EnumPopup("攻击前摇韧性:", item.m_ResilienceBeforeAttack);
+        item.m_ResilienceAttacking = (EResilience)EditorGUILayout.EnumPopup("攻击中韧性:", item.m_ResilienceAttacking);
+        item.m_ResilienceAfterAttack = (EResilience)EditorGUILayout.EnumPopup("攻击后摇韧性:", item.m_ResilienceAfterAttack);
+
         if (m_IsPlayer)
         {
+            item.CostStrength = EditorGUILayout.FloatField("消耗体力:", item.CostStrength);
+            item.m_SkillType = (ESkillType)EditorGUILayout.EnumPopup("输入键：", item.m_SkillType);
             item.m_CostPower = EditorGUILayout.IntField("消耗能量:", item.m_CostPower);
             item.m_PowerAddWhenHitted = EditorGUILayout.IntField("击中时增加能量:", item.m_PowerAddWhenHitted);
             if (item.m_CostPower > 0)
                 item.m_CanTriggerWhenPowerNotEnough = EditorGUILayout.Toggle("能量不足也可释放？", item.m_CanTriggerWhenPowerNotEnough);
         }
 
-        item.m_ResilienceBeforeAttack = (EResilience)EditorGUILayout.EnumPopup("攻击前摇韧性:", item.m_ResilienceBeforeAttack);
-        item.m_ResilienceAttacking = (EResilience)EditorGUILayout.EnumPopup("攻击中韧性:", item.m_ResilienceAttacking);
-        item.m_ResilienceAfterAttack = (EResilience)EditorGUILayout.EnumPopup("攻击后摇韧性:", item.m_ResilienceAfterAttack);
+        // item.CanBeTanFan = EditorGUILayout.Toggle("可被弹反？", item.CanBeTanFan);
+        // item.BreakByTanFan = EditorGUILayout.Toggle("弹反可中断技能？", item.BreakByTanFan);
 
         // 动画
         GUILayout.BeginHorizontal();

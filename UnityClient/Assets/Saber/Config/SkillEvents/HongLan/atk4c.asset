@@ -40,9 +40,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: 55bf0136e4f52d049b641e9e982b6288, type: 3}
-  - {fileID: 8300000, guid: 977b5ecbd2fca674db1df7dc682cc3a2, type: 3}
-  - {fileID: 8300000, guid: 67af835e4a5a4e9479066e8623522f80, type: 3}
+  - {fileID: 8300000, guid: 66413e71acc6a1b419f6d129d1624e5e, type: 3}
+  - {fileID: 8300000, guid: 42a26a4536e1c3f4b9441ac9474405b9, type: 3}
+  - {fileID: 8300000, guid: 3d4f6d6fd4c0ddc49b77c5fd153754e9, type: 3}
+  - {fileID: 8300000, guid: 0bb644b9af84b254d80022ef3b97ebcd, type: 3}
+  - {fileID: 8300000, guid: eae04dceed690e3498186b024961ac23, type: 3}
+  - {fileID: 8300000, guid: a1b91d7d376a93845ade01817b751918, type: 3}
+  - {fileID: 8300000, guid: 4129c073baeabfe4d9896efa5f0069dd, type: 3}
+  - {fileID: 8300000, guid: e906a35694f14b14b993d47f3b5a5e4f, type: 3}
+  - {fileID: 8300000, guid: 66e94576994d4cd4b8f0ae54236541fc, type: 3}
+  - {fileID: 8300000, guid: b8cbe132da3feb84f8d2e0bcf3bf11df, type: 3}
+  - {fileID: 8300000, guid: 40e9c2aac0b728e47951c2f90912d02c, type: 3}
+  - {fileID: 8300000, guid: f5eaf7b183103184f819ed7e6a0765b7, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
 --- !u!114 &-789600021295135897
@@ -138,24 +147,6 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 545023576433429890}
-  - EventTime: 0
-    EventRange: {x: 0.16071428, y: 0.25892857}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 3645285108375745680}
-  - EventTime: 0.25
-    EventRange: {x: 0, y: 1}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 2888656506599878373}
   - EventTime: 0.116071425
     EventRange: {x: 0, y: 1}
     EventMultiRange:
@@ -201,11 +192,14 @@ MonoBehaviour:
   Radius: 1
   Height: 1
   m_WeaponDamageSetting:
+    m_HitType: 0
     m_WeaponBone: 29
     m_DamageValue: 5
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 1
 --- !u!114 &1346374573096128846
 MonoBehaviour:
   m_ObjectHideFlags: 0

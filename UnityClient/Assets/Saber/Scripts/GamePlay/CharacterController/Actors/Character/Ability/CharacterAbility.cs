@@ -7,7 +7,7 @@ namespace Saber.CharacterController
     /// <summary>Mode是一种能力，如走路时和休闲时都可以吃东西</summary>
     public class CharacterAbility
     {
-        Dictionary<EAbilityType, AbilityBase> m_Modes;
+        Dictionary<EAbilityType, AbilityBase> m_Abilities;
 
 
         public SCharacter Actor { get; private set; }
@@ -15,21 +15,21 @@ namespace Saber.CharacterController
         public EAbilityType CurAbilityType => CurAbility != null ? CurAbility.AbilityType : EAbilityType.None;
 
 
-        #region Mode operation
+        #region Operation
 
         public bool DrinkMedicine()
         {
-            return TryEnterMode(EAbilityType.DrinkMedicine, null);
+            return TryEnterAbility(EAbilityType.DrinkMedicine, null);
         }
 
         #endregion
 
         public CharacterAbility(SCharacter actor)
         {
-            m_Modes = new Dictionary<EAbilityType, AbilityBase>();
+            m_Abilities = new Dictionary<EAbilityType, AbilityBase>();
             Actor = actor;
             CurAbility = null;
-            RegisterModes();
+            RegisterAbilities();
 
             Actor.CStateMachine.Event_OnStateChange += OnStateChange;
         }
@@ -39,12 +39,12 @@ namespace Saber.CharacterController
             CurAbility?.OnStateChange(arg1, arg2);
         }
 
-        void RegisterModes()
+        void RegisterAbilities()
         {
-            RegisterMode(new DrinkMedicine());
+            RegisterAbility(new DrinkMedicine());
         }
 
-        void RegisterMode(AbilityBase ability)
+        void RegisterAbility(AbilityBase ability)
         {
             if (ability == null)
             {
@@ -52,25 +52,25 @@ namespace Saber.CharacterController
                 return;
             }
 
-            if (m_Modes.ContainsKey(ability.AbilityType))
+            if (m_Abilities.ContainsKey(ability.AbilityType))
             {
                 Debug.LogError($"State type {ability.AbilityType} is already exits");
                 return;
             }
 
             ability.Init(this);
-            m_Modes[ability.AbilityType] = ability;
+            m_Abilities[ability.AbilityType] = ability;
         }
 
-        AbilityBase GetMode(EAbilityType type)
+        AbilityBase GetAbility(EAbilityType type)
         {
-            m_Modes.TryGetValue(type, out AbilityBase state);
+            m_Abilities.TryGetValue(type, out AbilityBase state);
             return state;
         }
 
-        public T GetMode<T>(EAbilityType type) where T : AbilityBase
+        public T GetAbility<T>(EAbilityType type) where T : AbilityBase
         {
-            return GetMode(type) as T;
+            return GetAbility(type) as T;
         }
 
         public void Update()
@@ -86,19 +86,19 @@ namespace Saber.CharacterController
             //Debug.Log($"player: {Actor.transform.name}  cur mode: {CurModeType}", Actor.gameObject);
         }
 
-        bool TryEnterMode(EAbilityType next, Action onFinished)
+        bool TryEnterAbility(EAbilityType next, Action onFinished)
         {
-            AbilityBase nextState = GetMode<AbilityBase>(next);
+            AbilityBase nextState = GetAbility<AbilityBase>(next);
             if (nextState == null)
             {
                 Debug.LogError("Next state is null, type:" + next);
                 return false;
             }
 
-            return TryEnterMode(nextState, onFinished);
+            return TryEnterAbility(nextState, onFinished);
         }
 
-        bool TryEnterMode(AbilityBase nextState, Action onFinished)
+        bool TryEnterAbility(AbilityBase nextState, Action onFinished)
         {
             if (CurAbility == null && nextState != null && nextState.CanEnter)
             {
@@ -111,11 +111,11 @@ namespace Saber.CharacterController
             return false;
         }
 
-        bool TryEnterMode<T>(EAbilityType target, Action<T> beforeEnter) where T : AbilityBase
+        bool TryEnterAbility<T>(EAbilityType target, Action<T> beforeEnter) where T : AbilityBase
         {
             if (CurAbility == null)
             {
-                T mode = GetMode<T>(target);
+                T mode = GetAbility<T>(target);
                 if (mode != null && mode.CanEnter)
                 {
                     beforeEnter?.Invoke(mode);
@@ -130,9 +130,9 @@ namespace Saber.CharacterController
 
         public void Release()
         {
-            foreach (var pair in m_Modes)
+            foreach (var pair in m_Abilities)
                 pair.Value.Release();
-            m_Modes = null;
+            m_Abilities = null;
         }
     }
 }

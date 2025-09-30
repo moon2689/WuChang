@@ -99,7 +99,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -8793377735818716304}
-  - EventTime: 0.28025478
+  - EventTime: 0.22929937
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -127,7 +127,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -808526577967796412}
   - EventTime: 0
-    EventRange: {x: 0.38853502, y: 0.41401273}
+    EventRange: {x: 0.35031846, y: 0.36942676}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -135,24 +135,6 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 4902492215841124704}
-  - EventTime: 0
-    EventRange: {x: 0.28025478, y: 0.38853502}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 2349508327598274264}
-  - EventTime: 0.37579617
-    EventRange: {x: 0, y: 1}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 1483627054655477289}
   - EventTime: 0.10191083
     EventRange: {x: 0, y: 1}
     EventMultiRange:
@@ -241,9 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: 55bf0136e4f52d049b641e9e982b6288, type: 3}
-  - {fileID: 8300000, guid: 977b5ecbd2fca674db1df7dc682cc3a2, type: 3}
-  - {fileID: 8300000, guid: 67af835e4a5a4e9479066e8623522f80, type: 3}
+  - {fileID: 8300000, guid: e636599b8191a5d4facac090545b2e06, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
 --- !u!114 &4902492215841124704
@@ -273,11 +253,14 @@ MonoBehaviour:
   Radius: 1
   Height: 1
   m_WeaponDamageSetting:
+    m_HitType: 2
     m_WeaponBone: 13
     m_DamageValue: 5
     m_ImpactForce: 1
-    m_HitRecover: 0
+    m_HitRecover: 3
     m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 1
 --- !u!114 &6351063216431511811
 MonoBehaviour:
   m_ObjectHideFlags: 0
