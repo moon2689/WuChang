@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: TestGame
   m_EditorClassIdentifier: 
   DebugFPS: 1
-  DebugFight: 1
+  m_DebugFight: 1
   EnemyAI: 3
   TestingSkillID: 0d000000
