@@ -11,6 +11,21 @@ namespace Saber
     {
         static EffectPool s_instance;
         Dictionary<string, List<GameObject>> m_dicEffects = new();
+        private Transform m_Parent;
+
+        private Transform Parent
+        {
+            get
+            {
+                if (m_Parent == null)
+                {
+                    m_Parent = new GameObject("Effects").transform;
+                    GameObject.DontDestroyOnLoad(m_Parent);
+                }
+
+                return m_Parent;
+            }
+        }
 
 
         public static EffectPool GetInstance()
@@ -34,7 +49,7 @@ namespace Saber
                 list.Add(go);
             }
 
-            go.transform.parent = parent;
+            go.transform.SetParent(parent ?? Parent);
             go.transform.localPosition = Vector3.zero;
             go.transform.localRotation = Quaternion.identity;
 
@@ -60,7 +75,7 @@ namespace Saber
                 list.Add(go);
             }
 
-            go.transform.SetParent(parent);
+            go.transform.SetParent(parent ?? Parent);
             go.transform.position = pos;
             go.transform.rotation = rot;
 
@@ -82,7 +97,7 @@ namespace Saber
             GameObject e = list.Find(i => i != null && !i.gameObject.activeSelf);
             if (e == null)
             {
-                e = GameObject.Instantiate<GameObject>(prefab);
+                e = GameObject.Instantiate<GameObject>(prefab, Parent);
                 list.Add(e);
             }
 
@@ -133,15 +148,16 @@ namespace Saber
             if (gameObject)
             {
                 gameObject.SetActive(false);
-                gameObject.transform.parent = null;
+                gameObject.transform.SetParent(Parent);
             }
         }
 
-        public void GetOrCreateEffect(string name, Transform parent, Vector3 pos, Quaternion rot, Action<GameObject> onGetted)
+        public void GetOrCreateEffect(string name, Transform parent, Vector3 pos, Quaternion rot,
+            Action<GameObject> onGetted)
         {
             GetOrCreateEffect(name, e =>
             {
-                e.transform.parent = parent;
+                e.transform.SetParent(parent ?? Parent);
                 e.transform.position = pos;
                 e.transform.rotation = rot;
                 onGetted?.Invoke(e);
@@ -152,7 +168,7 @@ namespace Saber
         {
             GetOrCreateEffect(name, e =>
             {
-                e.transform.parent = parent;
+                e.transform.SetParent(parent ?? Parent);
                 e.transform.localPosition = Vector3.zero;
                 e.transform.localRotation = quaternion.identity;
                 onGetted?.Invoke(e);

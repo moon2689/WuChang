@@ -254,10 +254,24 @@ namespace Saber.CharacterController
             AI = null;
         }
 
-        public override void OnGodStatueRest()
+        public override void OnIdolRest()
         {
-            base.OnGodStatueRest();
+            base.OnIdolRest();
             CRender.OnGodStatueRest();
+
+            var recItems = GameApp.Entry.Config.GameSetting.m_IdolRestRecItems;
+            foreach (var item in recItems)
+            {
+                int count = GameApp.Entry.Game.Bag.CalcItemCount(item.m_ID);
+                int needAddCount = item.m_Count - count;
+                if (needAddCount > 0)
+                {
+                    GameApp.Entry.Game.Bag.AddItem(item.m_ID, needAddCount);
+
+                    var cofig = GameApp.Entry.Game.Bag.GetItemConfig(item.m_ID);
+                    GameApp.Entry.UI.ShowTips($"获得{cofig.m_Name}x{needAddCount}");
+                }
+            }
         }
 
         public override void AddYuMao(int value)

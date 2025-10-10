@@ -26,6 +26,7 @@ namespace Saber.UI
             void OnClickInteract(ESceneInteractType interactType);
             void OnClickDrinkMedicine();
             void OnClickSkill(ESkillType type);
+            void OnClickBag();
         }
 
 
@@ -39,7 +40,8 @@ namespace Saber.UI
             m_btnInteract,
             m_ButtonDrinkMedicine,
             m_ButtonMedicineNone,
-            m_ButtonDefense;
+            m_ButtonDefense,
+            m_ButtonBag;
 
         [SerializeField] private Widget_SkillButton m_ButtonSkill1,
             m_ButtonSkill2,
@@ -90,6 +92,7 @@ namespace Saber.UI
             m_btnInteract.onClick.AddListener(OnClickInteract);
             m_ButtonDrinkMedicine.onClick.AddListener(OnClickDrinkMedicine);
             m_ButtonMedicineNone.onClick.AddListener(OnClickMedicineNone);
+            m_ButtonBag.onClick.AddListener(OnClickBag);
 
             m_btnRoll.AddEvent(EventTriggerType.PointerDown, OnPressDownDodge);
             m_btnRoll.AddEvent(EventTriggerType.PointerUp, OnPressUpDodge);
@@ -102,6 +105,11 @@ namespace Saber.UI
             m_ButtonSkill1.Init(ESkillType.Skill1, this);
             m_ButtonSkill2.Init(ESkillType.Skill2, this);
             m_ButtonSkill3.Init(ESkillType.Skill3, this);
+        }
+
+        private void OnClickBag()
+        {
+            Handler?.OnClickBag();
         }
 
         void OnPressDownHeavyAttack(BaseEventData arg0)

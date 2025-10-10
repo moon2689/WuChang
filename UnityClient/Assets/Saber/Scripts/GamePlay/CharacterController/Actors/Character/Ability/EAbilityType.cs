@@ -8,5 +8,6 @@ namespace Saber.CharacterController
     {
         None = -1,
         DrinkMedicine,
+        Eat,
     }
 }

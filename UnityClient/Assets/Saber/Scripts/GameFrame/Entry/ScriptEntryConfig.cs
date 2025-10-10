@@ -15,6 +15,7 @@ namespace Saber.Frame
         public ClothInfo ClothInfo { get; private set; }
         public SkillCommonConfig SkillCommon { get; private set; }
         public MusicInfo MusicInfo { get; private set; }
+        public PropInfo PropInfo { get; set; }
 
 
         public IEnumerator LoadAsync()
@@ -26,6 +27,7 @@ namespace Saber.Frame
             yield return GameApp.Entry.Asset.LoadAsset<ClothInfo>("Config/ClothInfo", s => ClothInfo = s);
             yield return GameApp.Entry.Asset.LoadAsset<SkillCommonConfig>("Config/SkillCommon", s => SkillCommon = s);
             yield return GameApp.Entry.Asset.LoadAsset<MusicInfo>("Config/MusicInfo", s => MusicInfo = s);
+            yield return GameApp.Entry.Asset.LoadAsset<PropInfo>("Config/PropInfo", s => PropInfo = s);
 
             yield return null;
             ClothInfo.Init();

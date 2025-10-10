@@ -651,6 +651,11 @@ namespace Saber.AI
             }
         }
 
+        void Wnd_JoyStick.IHandler.OnClickBag()
+        {
+            GameApp.Entry.UI.CreateWnd<Wnd_Bag>(null);
+        }
+
         #endregion
 
 

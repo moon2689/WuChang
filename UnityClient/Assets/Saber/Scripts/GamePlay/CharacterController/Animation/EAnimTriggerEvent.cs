@@ -10,7 +10,7 @@ namespace Saber.CharacterController
     {
         None,
         DrawOrStoreWeapon,
-        ArmWeapon,
+        Eated,
         AnimCanExit,
         LookArroundFirstFinished,
         FlyDash,

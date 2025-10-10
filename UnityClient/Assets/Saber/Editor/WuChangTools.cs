@@ -10,6 +10,8 @@ using Saber.CharacterController;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Animations;
+using UnityEngine.UI;
+using UnityEngine.WSA;
 
 public static class WuChangTools
 {
@@ -1036,5 +1038,123 @@ public static class WuChangTools
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
         Debug.Log("all done");
+    }
+
+    [MenuItem("Saber/WUCH/UI/Move Sprites")]
+    static void MoveUISprites()
+    {
+        string uiFolder = "Assets/Saber/Resources_/UI";
+        string[] uis = Directory.GetFiles(uiFolder, "*.prefab");
+        string rootFolder = "Assets/Saber/Art/UI/WuChang";
+        Dictionary<string, int> dicCount = new();
+        Dictionary<GameObject, List<string>> dicWndSprites = new();
+        List<string> texturePaths = new();
+        foreach (var ui in uis)
+        {
+            GameObject uiPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(ui);
+            List<Texture> textures = new();
+            Image[] imageComs = uiPrefab.GetComponentsInChildren<Image>(true);
+            RawImage[] rawImages = uiPrefab.GetComponentsInChildren<RawImage>(true);
+
+            foreach (var imageCom in imageComs)
+            {
+                if (imageCom.sprite && !textures.Contains(imageCom.sprite.texture))
+                {
+                    textures.Add(imageCom.sprite.texture);
+                }
+            }
+
+            foreach (var rawImage in rawImages)
+            {
+                if (rawImage.texture && !textures.Contains(rawImage.texture))
+                {
+                    textures.Add(rawImage.texture);
+                }
+            }
+
+            List<string> sprites = new();
+            foreach (var texture in textures)
+            {
+                string spritePath = AssetDatabase.GetAssetPath(texture);
+                if (spritePath.Contains("WuChang"))
+                {
+                    continue;
+                }
+
+                string ext = Path.GetExtension(spritePath);
+                if (string.IsNullOrEmpty(ext))
+                    continue;
+
+
+                bool isTooLarge = texture.width > 512 && texture.height > 512;
+                if (isTooLarge)
+                {
+                    if (!texturePaths.Contains(spritePath))
+                        texturePaths.Add(spritePath);
+                    continue;
+                }
+
+                if (!sprites.Contains(spritePath))
+                    sprites.Add(spritePath);
+
+                if (dicCount.ContainsKey(spritePath))
+                {
+                    ++dicCount[spritePath];
+                }
+                else
+                {
+                    dicCount.Add(spritePath, 1);
+                }
+            }
+
+            dicWndSprites.Add(uiPrefab, sprites);
+        }
+
+        foreach (var pair in dicWndSprites)
+        {
+            Debug.Log("wnd:" + pair.Key.name);
+            foreach (var p2 in pair.Value)
+            {
+                if (!File.Exists(p2))
+                {
+                    continue;
+                }
+
+                string fileName = Path.GetFileName(p2);
+                string tarFolderName = dicCount[p2] > 2 ? "Common" : pair.Key.name;
+                string tarFolderPath = $"{rootFolder}/{tarFolderName}";
+                string tarPath = $"{tarFolderPath}/{fileName}";
+
+                if (!Directory.Exists(tarFolderPath))
+                {
+                    Directory.CreateDirectory(tarFolderPath);
+                }
+
+                File.Move(p2, tarPath);
+                File.Move(p2 + ".meta", tarPath + ".meta");
+                Debug.Log($"{p2} -> {tarPath}");
+            }
+        }
+
+        Debug.Log("textures:");
+        foreach (var t in texturePaths)
+        {
+            string fileName = Path.GetFileName(t);
+            string tarFolderPath = $"{rootFolder}/Textures";
+            string tarPath = $"{tarFolderPath}/{fileName}";
+
+            if (!Directory.Exists(tarFolderPath))
+            {
+                Directory.CreateDirectory(tarFolderPath);
+            }
+
+            File.Move(t, tarPath);
+            File.Move(t + ".meta", tarPath + ".meta");
+            Debug.Log($"{t} -> {tarPath}");
+        }
+
+        AssetDatabase.Refresh();
+
+        Debug.Log("All done");
     }
 }

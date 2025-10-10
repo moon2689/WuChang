@@ -554,7 +554,7 @@ namespace Saber.CharacterController
             return CStateMachine.BeExecute(executioner);
         }
 
-        public virtual void OnGodStatueRest()
+        public virtual void OnIdolRest()
         {
             Heal(CStats.MaxHp);
             CStats.DefaultHPPointCount();
@@ -658,7 +658,5 @@ namespace Saber.CharacterController
         {
             Event_OnDeadAnimPlayFinished?.Invoke(this);
         }
-
-    
     }
 }

@@ -17,9 +17,23 @@ namespace Saber.CharacterController
 
         #region Operation
 
+        void RegisterAbilities()
+        {
+            RegisterAbility(new DrinkMedicine());
+            RegisterAbility(new Eat());
+        }
+        
         public bool DrinkMedicine()
         {
-            return TryEnterAbility(EAbilityType.DrinkMedicine, null);
+            return TryEnterAbility<DrinkMedicine>(EAbilityType.DrinkMedicine, null);
+        }
+
+        public bool Eat(Action onEated)
+        {
+            return TryEnterAbility<Eat>(EAbilityType.Eat, a =>
+            {
+                a.OnEated = onEated;
+            });
         }
 
         #endregion
@@ -37,11 +51,6 @@ namespace Saber.CharacterController
         private void OnStateChange(EStateType arg1, EStateType arg2)
         {
             CurAbility?.OnStateChange(arg1, arg2);
-        }
-
-        void RegisterAbilities()
-        {
-            RegisterAbility(new DrinkMedicine());
         }
 
         void RegisterAbility(AbilityBase ability)
@@ -86,31 +95,32 @@ namespace Saber.CharacterController
             //Debug.Log($"player: {Actor.transform.name}  cur mode: {CurModeType}", Actor.gameObject);
         }
 
-        bool TryEnterAbility(EAbilityType next, Action onFinished)
+        bool TryEnterAbility<T>(EAbilityType next, Action<T> onEnter) where T : AbilityBase
         {
-            AbilityBase nextState = GetAbility<AbilityBase>(next);
+            T nextState = GetAbility<T>(next);
             if (nextState == null)
             {
                 Debug.LogError("Next state is null, type:" + next);
                 return false;
             }
 
-            return TryEnterAbility(nextState, onFinished);
+            return TryEnterAbility(nextState, onEnter);
         }
 
-        bool TryEnterAbility(AbilityBase nextState, Action onFinished)
+        bool TryEnterAbility<T>(T nextState, Action<T> onEnter) where T : AbilityBase
         {
             if (CurAbility == null && nextState != null && nextState.CanEnter)
             {
                 CurAbility = nextState;
                 CurAbility.Enter();
-                CurAbility.OnFinisehd = onFinished;
+                onEnter?.Invoke(nextState);
                 return true;
             }
 
             return false;
         }
 
+        /*
         bool TryEnterAbility<T>(EAbilityType target, Action<T> beforeEnter) where T : AbilityBase
         {
             if (CurAbility == null)
@@ -127,6 +137,7 @@ namespace Saber.CharacterController
 
             return false;
         }
+        */
 
         public void Release()
         {

@@ -40,16 +40,9 @@ namespace Saber.World
 
 
         private SActor m_Player;
-
-        //private SSpirit m_Butterfly;
         private ELoadType m_LoadType;
         private SceneBaseInfo m_SceneInfo;
-
         private Wnd_MainCity m_WndMainCity;
-
-        // private AzureTimeController m_AzureTime;
-        // private AzureWeatherController m_AzureWeather;
-        // private AzureEffectsController m_AzureEffects;
         private Wnd_Loading m_WndLoading;
         private Wnd_JoyStick m_WndJoyStick;
         private Wnd_Rest m_WndRest;
@@ -81,6 +74,7 @@ namespace Saber.World
         public Light MainLight { get; private set; }
         public SActor CurrentFightingBoss { get; private set; }
         public SceneBaseInfo SceneInfo => m_SceneInfo;
+        public int CurrentStayingIdolID => m_CurrentStayingIdol != null ? m_CurrentStayingIdol.m_ID : 0;
 
 
         #region Load
@@ -692,21 +686,20 @@ namespace Saber.World
         #endregion
 
 
-        #region Wnd_Menu.IHandler
-
-        void Wnd_Menu.IHandler.OnClickBackToLastGodStatue()
+        public bool GoNearestIdol()
         {
             //GameApp.Entry.UI.CreateWnd<Wnd_SelectWeapon>(null, this);
             if (m_Player.AI.LockingEnemy != null)
             {
                 GameApp.Entry.UI.ShowTips("战斗中不可执行此操作");
-                return;
+                return false;
             }
 
-            GoHome().StartCoroutine();
+            GoNearestIdolItor().StartCoroutine();
+            return true;
         }
 
-        IEnumerator GoHome()
+        IEnumerator GoNearestIdolItor()
         {
             bool wait = true;
             if (m_Player.PlayAction(PlayActionState.EActionType.IdolRest, () => wait = false))
@@ -718,7 +711,7 @@ namespace Saber.World
                     yield return null;
                 }
 
-                yield return BackToNerestIdol();
+                yield return BackToNearestIdol();
             }
             else
             {
@@ -727,7 +720,7 @@ namespace Saber.World
             }
         }
 
-        Coroutine BackToNerestIdol()
+        Coroutine BackToNearestIdol()
         {
             if (GameApp.Entry.Game.ProgressMgr.HasSavePointBefore)
             {
@@ -771,15 +764,18 @@ namespace Saber.World
             }
         }
 
+        #region Wnd_Menu.IHandler
+
         void Wnd_Menu.IHandler.OnClickToMainWnd()
         {
+            GameApp.Entry.Game.ProgressMgr.Save();
             DirectorLogin dirLogin = new();
             GameApp.Instance.TryEnterNextDir(dirLogin);
         }
-
-        void Wnd_Menu.IHandler.OnClickWait()
+        
+        void Wnd_Menu.IHandler.OnClickSave()
         {
-            GameApp.Entry.UI.CreateWnd<Wnd_Wait>(null);
+            GameApp.Entry.Game.ProgressMgr.Save();
         }
 
         /*
@@ -861,7 +857,6 @@ namespace Saber.World
         void Wnd_DressUp.IHandler.OnCloseWnd()
         {
             m_WndRest.ActiveRoot = true;
-            GameApp.Entry.Game.ProgressMgr.SaveOnDressClothes();
         }
 
         #endregion
@@ -915,8 +910,6 @@ namespace Saber.World
             }
 
             OnPlayerExit(m_CurrentStayingIdol.IdolObj);
-
-            GameApp.Entry.Game.ProgressMgr.SaveOnIdolRest(sceneID, idolID);
 
             /*
             bool wait = true;
@@ -1012,13 +1005,13 @@ namespace Saber.World
             GameApp.Entry.Game.PlayerAI.OnPlayerExitGodStatue(idol);
         }
 
-        void Idol.IHandler.OnPlayerWorship(Idol idol)
+        void Idol.IHandler.OnPlayerActiveFire(Idol idol)
         {
             //GameApp.Entry.Game.PlayerCamera.LookAtTarget(godStatue.transform.rotation.eulerAngles.y + 150);
 
             GameApp.Entry.Game.PlayerAI.ActiveIdol(idol, () =>
             {
-                GameApp.Entry.Game.ProgressMgr.SaveOnIdolFire(idol.SceneID, idol.ID);
+                GameApp.Entry.Game.ProgressMgr.Save();
                 idol.RefreshFire();
             });
         }
@@ -1040,7 +1033,6 @@ namespace Saber.World
             }
 
             GameApp.Entry.Game.World.SetFilmEffect(true);
-            GameApp.Entry.Game.ProgressMgr.SaveOnIdolRest(idol.SceneID, idol.ID);
 
             m_WndRest = null;
             yield return GameApp.Entry.UI.CreateWnd<Wnd_Rest>(null, this, w => m_WndRest = w);
@@ -1062,11 +1054,12 @@ namespace Saber.World
             }
 
             m_WndRest.ActiveRoot = true;
-            m_Player.OnGodStatueRest();
+            m_Player.OnIdolRest();
 
             yield return null;
 
             GameApp.Entry.Game.World.RecorverOtherActors();
+            yield return null;
         }
 
         #endregion

@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-
 namespace Saber.UI
 {
     public class Wnd_DoAction : WndBase

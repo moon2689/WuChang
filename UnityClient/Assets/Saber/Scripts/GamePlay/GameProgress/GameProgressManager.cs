@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using Saber.Config;
 using Saber.Frame;
 using UnityEngine;
 
@@ -14,19 +15,12 @@ namespace Saber
         private string SavePath => $"{Application.persistentDataPath}/SaberProgress.json";
         public bool HasSavePointBefore => m_ProgressData != null && m_ProgressData.m_LastStayingSceneID > 0;
         public int LastStayingSceneID => m_ProgressData.m_LastStayingSceneID;
-        public int LastStayingIdolID => m_ProgressData.m_lastStayingIdolID;
+        public int LastStayingIdolID => m_ProgressData.m_LastStayingIdolID;
 
         public List<SceneProgressData> SceneProgressDatas => m_ProgressData.m_SceneProgress;
         public int[] Clothes => m_ProgressData.m_Clothes;
-        
-        
+        public PlayerPropItemInfo[] Items => m_ProgressData.m_Items;
 
-        public void Save()
-        {
-            // Debug.Log($"Save progress file:{SavePath}");
-            string json = JsonUtility.ToJson(m_ProgressData);
-            File.WriteAllText(SavePath, json);
-        }
 
         public void Read()
         {
@@ -41,9 +35,10 @@ namespace Saber
                 m_ProgressData = new()
                 {
                     m_SceneProgress = new(),
-                    m_lastStayingIdolID = -1,
+                    m_LastStayingIdolID = -1,
                     m_LastStayingSceneID = -1,
                     m_Clothes = GameApp.Entry.Config.GameSetting.PlayerStartClothes,
+                    m_Items = new PlayerPropItemInfo[0],
                 };
             }
         }
@@ -69,37 +64,35 @@ namespace Saber
             return false;
         }
 
-        public void SaveOnIdolFire(int sceneID, int idolID)
+        public void Save()
         {
-            var tarSceneProgress = m_ProgressData.m_SceneProgress.FirstOrDefault(a => a.m_SceneID == sceneID);
-            if (tarSceneProgress == null)
+            int curSceneID = GameApp.Entry.Game.World.SceneInfo.m_ID;
+            int curIdolID = GameApp.Entry.Game.World.CurrentStayingIdolID;
+
+            m_ProgressData.m_LastStayingSceneID = curSceneID;
+            m_ProgressData.m_LastStayingIdolID = curIdolID;
+            m_ProgressData.m_Clothes = GameApp.Entry.Game.Player.CDressUp.GetDressingClothes();
+            m_ProgressData.m_Items = GameApp.Entry.Game.Bag.ToItemsArray();
+
+            if (curIdolID > 0)
             {
-                tarSceneProgress = new SceneProgressData()
+                var sceneProgress = m_ProgressData.m_SceneProgress.FirstOrDefault(a => a.m_SceneID == curSceneID);
+                if (sceneProgress != null)
                 {
-                    m_FiredIdols = new(),
-                    m_SceneID = sceneID,
-                };
-                m_ProgressData.m_SceneProgress.Add(tarSceneProgress);
+                    if (!sceneProgress.m_FiredIdols.Contains(curIdolID))
+                        sceneProgress.m_FiredIdols.Add(curIdolID);
+                }
+                else
+                {
+                    sceneProgress = new();
+                    sceneProgress.m_SceneID = curSceneID;
+                    sceneProgress.m_FiredIdols = new() { curIdolID };
+                    m_ProgressData.m_SceneProgress.Add(sceneProgress);
+                }
             }
 
-            tarSceneProgress.m_FiredIdols.Add(idolID);
-            m_ProgressData.m_LastStayingSceneID = sceneID;
-            m_ProgressData.m_lastStayingIdolID = idolID;
-
-            Save();
-        }
-
-        public void SaveOnIdolRest(int sceneID, int idolID)
-        {
-            m_ProgressData.m_LastStayingSceneID = sceneID;
-            m_ProgressData.m_lastStayingIdolID = idolID;
-            Save();
-        }
-
-        public void SaveOnDressClothes()
-        {
-            m_ProgressData.m_Clothes = GameApp.Entry.Game.Player.CDressUp.GetDressingClothes();
-            Save();
+            string json = JsonUtility.ToJson(m_ProgressData);
+            File.WriteAllText(SavePath, json);
         }
     }
 }

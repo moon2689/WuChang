@@ -13,7 +13,7 @@ namespace Saber.World
         {
             void OnPlayerEnter(Idol idol);
             void OnPlayerExit(Idol idol);
-            void OnPlayerWorship(Idol idol);
+            void OnPlayerActiveFire(Idol idol);
             Coroutine OnPlayerRest(Idol idol);
         }
 
@@ -59,7 +59,7 @@ namespace Saber.World
 
         public void Active()
         {
-            m_IHandler.OnPlayerWorship(this);
+            m_IHandler.OnPlayerActiveFire(this);
         }
 
         public Coroutine Rest()

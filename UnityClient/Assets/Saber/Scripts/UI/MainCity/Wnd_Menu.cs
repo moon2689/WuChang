@@ -9,19 +9,20 @@ namespace Saber.UI
     public class Wnd_Menu : WndBase
     {
         [SerializeField] Button m_BtnResume,
-            m_BtnBackToLastGodStatue,
             m_BtnToMainWnd,
-            m_BtnWait;
+            m_BtnSave;
 
 
         public interface IHandler : IWndHandler
         {
-            void OnClickBackToLastGodStatue();
             void OnClickToMainWnd();
-            void OnClickWait();
+            void OnClickSave();
         }
 
         private IHandler m_Handler;
+
+
+        protected override bool PauseGame => true;
 
 
         protected override void OnAwake()
@@ -30,18 +31,17 @@ namespace Saber.UI
             m_Handler = base.m_WndHandler as IHandler;
 
             m_BtnResume.onClick.AddListener(OnClickClose);
-            m_BtnBackToLastGodStatue.onClick.AddListener(OnClickBackToLastGodStatue);
             m_BtnToMainWnd.onClick.AddListener(OnClickToMainWnd);
-            m_BtnWait.onClick.AddListener(OnClickWait);
+            m_BtnSave.onClick.AddListener(OnClickSave);
 
             GameApp.Entry.Game.Audio.Play2DSound("Sound/UI/ActorInfoWndOpen");
         }
 
-        void OnClickWait()
+        void OnClickSave()
         {
             Destroy();
             GameApp.Entry.Game.Audio.PlayCommonClick();
-            m_Handler.OnClickWait();
+            m_Handler.OnClickSave();
         }
 
         void OnClickToMainWnd()
@@ -55,13 +55,6 @@ namespace Saber.UI
         {
             GameApp.Entry.Game.Audio.Play2DSound("Sound/UI/ActorInfoWndClose");
             Destroy();
-        }
-
-        void OnClickBackToLastGodStatue()
-        {
-            Destroy();
-            GameApp.Entry.Game.Audio.PlayCommonClick();
-            m_Handler.OnClickBackToLastGodStatue();
         }
     }
 }

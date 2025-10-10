@@ -45,15 +45,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1882b9788a8e97f4bb8a489fe460f414, type: 3}
   - {fileID: 8300000, guid: a8cbdd780baad1440b3a952fdd085c64, type: 3}
   - {fileID: 8300000, guid: 8edc9bc0dc6f4ce488b0a6a5cb32d1aa, type: 3}
-  m_SoundSwordHitSword:
-  - {fileID: 8300000, guid: 0033e1e4b1d3e0d43aa3c336b531f70b, type: 3}
-  m_SoundWeaponHitGround:
-  - {fileID: 8300000, guid: 8db4e869274f0584ab4f9bde3185f7f3, type: 3}
-  m_EffectBlood:
-  - {fileID: 100000, guid: bd1b09ecbf112814399e16be0e5243a9, type: 3}
-  m_EffectWeaponHitGround:
-  - {fileID: 6194057984719691496, guid: 175fa81dd978dc240ae5853d63492460, type: 3}
-  m_EffectSharpWeaponHitBody:
-  - {fileID: 2364612474286823039, guid: c1e5a9e993bb0fa47a812a514b240cd8, type: 3}
-  m_EffectFistHitBody: []
-  m_EffectClawHitBody: []
+  m_IdolRestRecItems:
+  - m_ID: 1
+    m_Count: 1
+  - m_ID: 2
+    m_Count: 3

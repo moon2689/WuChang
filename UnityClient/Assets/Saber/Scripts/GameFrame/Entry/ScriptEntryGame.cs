@@ -27,6 +27,7 @@ namespace Saber.Frame
         public BigWorld World { get; set; }
         public SActor Player => World?.Player;
         public GameProgressManager ProgressMgr => s_InstanceGameProgressManager ??= new GameProgressManager();
+        public PlayerBag Bag => PlayerBag.Instance;
 
 
         public void ExitGame()
