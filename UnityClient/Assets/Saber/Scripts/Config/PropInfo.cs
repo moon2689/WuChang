@@ -20,7 +20,8 @@ namespace Saber.Config
         public string m_Icon;
         public EPropType m_PropType;
 
-        public int m_Value;
+        public float m_Param1;
+        public float m_Param2;
     }
 
     [Serializable]
@@ -28,6 +29,7 @@ namespace Saber.Config
     {
         HealHp,
         BackToIdol,
+        HealHpContinuous,
         AddSoul,
         Enchant,
     }

@@ -42,12 +42,12 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 0
     m_WeaponBone: 29
-    m_DamageValue: 5
+    m_DamageValue: 30
     m_ImpactForce: 2
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1
-    BreakByTanFan: 0
+    BreakByTanFan: 1
 --- !u!114 &-3510376943014238571
 MonoBehaviour:
   m_ObjectHideFlags: 0

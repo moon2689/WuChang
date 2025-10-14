@@ -40,7 +40,8 @@ namespace Saber.UI
                 m_FollowImage = m_ImageHp;
                 m_FastImage.fillAmount = CurHp / m_MaxHp;
                 m_OldHp = CurHp;
-                m_TimerHealthSmoothChange = 0.5f;
+                if (m_FollowImage.fillAmount == m_FastImage.fillAmount)
+                    m_TimerHealthSmoothChange = 0.5f;
                 m_FollowSpeed = Mathf.Abs(m_FastImage.fillAmount - m_FollowImage.fillAmount) / 0.3f;
             }
             else if (CurHp < m_OldHp)
@@ -50,7 +51,8 @@ namespace Saber.UI
                 m_FollowImage = m_ImageHpSmooth;
                 m_FastImage.fillAmount = CurHp / m_MaxHp;
                 m_OldHp = CurHp;
-                m_TimerHealthSmoothChange = 1f;
+                if (m_FollowImage.fillAmount == m_FastImage.fillAmount)
+                    m_TimerHealthSmoothChange = 1f;
                 m_FollowSpeed = Mathf.Abs(m_FastImage.fillAmount - m_FollowImage.fillAmount) / 0.5f;
             }
 

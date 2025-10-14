@@ -16,6 +16,7 @@ namespace Saber.CharacterController
 
         public override BaseActorInfo m_BaseActorInfo => m_MonsterConfig.m_BaseActorInfo;
         public MonsterInfo m_MonsterInfo => m_MonsterConfig.m_MonsterInfo;
+
         public override ActorStateMachine CStateMachine
         {
             get
@@ -39,11 +40,28 @@ namespace Saber.CharacterController
             }
         }
 
+        /// <summary>Boss阶段</summary>
+        public int BossStage { get; set; } = 1;
+
 
         protected override void Awake()
         {
             base.Awake();
             CStats.EnableStamina = false;
+            Event_OnDamage += OnDamage;
+        }
+
+        private void OnDamage(SActor actor, float damage)
+        {
+            if (BossStage == 1 && CStats.CurrentHp / CStats.MaxHp <= 0.6f)
+            {
+                BossStage = 2;
+
+                if (AI is EnemyAIBase enemyAI)
+                {
+                    enemyAI.OnEnterBossStageTwo();
+                }
+            }
         }
 
         protected override void Start()
@@ -53,6 +71,12 @@ namespace Saber.CharacterController
             {
                 AI = m_MonsterInfo.m_DefaultAI.CreateEnemyAI();
             }
+        }
+
+        public override void RecoverOrigin()
+        {
+            base.RecoverOrigin();
+            BossStage = 1;
         }
 
         /*

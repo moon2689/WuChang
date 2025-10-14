@@ -22,13 +22,13 @@ namespace Saber.UI
         }
 
 
-        [SerializeField] private Image m_ImagePlayerDead;
-        [SerializeField] private Image m_ImageBossDead;
+        [SerializeField] private RawImage m_ImagePlayerDead;
+        [SerializeField] private RawImage m_ImageBossDead;
 
         private float m_Timer;
         private EState m_State;
-        private Image m_ImageZi;
-        private Image m_ImageFu;
+        private RawImage m_ImageZi;
+        private RawImage m_ImageFu;
 
 
         protected override void Awake()
@@ -54,7 +54,7 @@ namespace Saber.UI
                 m_ImageZi = m_ImageBossDead;
             }
 
-            m_ImageFu = m_ImageZi.transform.GetChild(0).GetComponent<Image>();
+            m_ImageFu = m_ImageZi.transform.GetChild(0).GetComponent<RawImage>();
 
             m_ImageZi.color = new Color(1, 1, 1, 1);
             m_ImageFu.color = new Color(1, 1, 1, 1);

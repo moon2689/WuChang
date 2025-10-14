@@ -22,7 +22,8 @@ namespace Saber.AI
     public enum EAITriggerSkillCondition
     {
         None,
-        HPHalf,
+        OnEnterBossStageTwo,
+        BossStageTwo,
     }
 
     public static class EnemyAITypeHelper

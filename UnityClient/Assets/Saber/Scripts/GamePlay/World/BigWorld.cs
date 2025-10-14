@@ -77,7 +77,7 @@ namespace Saber.World
         public int CurrentStayingIdolID => m_CurrentStayingIdol != null ? m_CurrentStayingIdol.m_ID : 0;
 
 
-        #region Load
+        #region 加载
 
         public void Load(ELoadType loadType, Action onLoaded)
         {
@@ -161,6 +161,9 @@ namespace Saber.World
                 }
             }
             */
+
+            GameApp.Entry.Game.ProgressMgr.Save();
+            yield return null;
 
             m_WndLoading.Percent = 100;
             //yield return new WaitForSeconds(0.1f);
@@ -612,7 +615,7 @@ namespace Saber.World
         {
             yield return new WaitForSeconds(GameApp.Entry.Config.GameSetting.PlayerRebirthDelaySeconds);
 
-            m_Player.Rebirth();
+            m_Player.RecoverOrigin();
             yield return null;
 
             yield return BackToLastIdol();
@@ -674,17 +677,6 @@ namespace Saber.World
         public void Update(float deltaTime)
         {
         }
-
-
-        #region Wnd_MainCity.IHandler
-
-        public void OnClickMenu()
-        {
-            GameApp.Entry.UI.CreateWnd<Wnd_Menu>(null, this, null);
-        }
-
-        #endregion
-
 
         public bool GoNearestIdol()
         {
@@ -764,6 +756,17 @@ namespace Saber.World
             }
         }
 
+
+        #region Wnd_MainCity.IHandler
+
+        public void OnClickMenu()
+        {
+            GameApp.Entry.UI.CreateWnd<Wnd_Menu>(null, this, null);
+        }
+
+        #endregion
+
+
         #region Wnd_Menu.IHandler
 
         void Wnd_Menu.IHandler.OnClickToMainWnd()
@@ -772,7 +775,7 @@ namespace Saber.World
             DirectorLogin dirLogin = new();
             GameApp.Instance.TryEnterNextDir(dirLogin);
         }
-        
+
         void Wnd_Menu.IHandler.OnClickSave()
         {
             GameApp.Entry.Game.ProgressMgr.Save();
@@ -860,6 +863,7 @@ namespace Saber.World
         }
 
         #endregion
+
 
         #region Wnd_Rest.IHandler
 
@@ -1042,6 +1046,9 @@ namespace Saber.World
             {
                 yield return null;
             }
+
+            GameApp.Entry.Game.ProgressMgr.Save();
+            yield return null;
 
             m_Player.CMelee.CWeapon.ShowOrHideWeapon(false);
             yield return null;

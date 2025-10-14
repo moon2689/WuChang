@@ -84,10 +84,17 @@ public static class WuChangTools
                 SetHurtBoxCollider(t, dicAllBones, hitReaction);
             }
         }
+
+        EditorUtility.SetDirty(root);
     }
 
     static void SetHitReaction(HitReaction hitReaction, CapsuleCollider collider, string name)
     {
+        if (hitReaction == null)
+        {
+            return;
+        }
+
         foreach (var item in hitReaction.effectorHitPoints)
         {
             if (item.name == name)

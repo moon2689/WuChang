@@ -5,6 +5,7 @@ namespace Saber
         Player,
         NPC,
         Monster,
+        Chaos,
     }
     
     public enum EMoveSpeedV

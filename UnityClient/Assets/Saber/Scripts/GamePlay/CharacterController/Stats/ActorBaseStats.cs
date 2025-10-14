@@ -111,10 +111,10 @@ namespace Saber.CharacterController
         {
             Actor = actor;
             m_Handler = actor;
-            Reset();
+            RecoverOrigin();
         }
 
-        public virtual void Reset()
+        public virtual void RecoverOrigin()
         {
             CurrentHp = MaxHp;
             CurrentStamina = MaxStamina;

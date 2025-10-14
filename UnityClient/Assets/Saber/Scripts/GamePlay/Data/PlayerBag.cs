@@ -107,7 +107,19 @@ namespace Saber
             }
             else if (t == EPropType.HealHp)
             {
-                return GameApp.Entry.Game.Player.CAbility.Eat(() => { GameApp.Entry.Game.Player.Heal(item.Config.m_Value); });
+                return GameApp.Entry.Game.Player.CAbility.Eat(() =>
+                {
+                    // 睡意治疗
+                    GameApp.Entry.Game.Player.Heal(item.Config.m_Param1);
+                });
+            }
+            else if (t == EPropType.HealHpContinuous)
+            {
+                return GameApp.Entry.Game.Player.CAbility.Eat(() =>
+                {
+                    // 持续治疗
+                    GameApp.Entry.Game.Player.CBuff.AddBuff(EBuffType.HeadlHP, item.Config.m_Param1, item.Config.m_Param2);
+                });
             }
             else
             {

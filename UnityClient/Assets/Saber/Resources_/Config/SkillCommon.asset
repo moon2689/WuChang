@@ -16,17 +16,17 @@ MonoBehaviour:
   ExecuteStartSound: {fileID: 8300000, guid: 8ff72a9fb9a2db5428dc0fb25769fb2a, type: 3}
   ExecuteDamages:
   - m_DamageTime: 0.14
-    m_Damage: 20
+    m_Damage: 50
     m_Sound: {fileID: 8300000, guid: 00e19d5a9c0e5cb41b2b13f9a06a086a, type: 3}
     m_Blood: {fileID: 100000, guid: 15bde53d717eb6f4b8990c3f7c160ed3, type: 3}
     m_BloodTime: 1
   - m_DamageTime: 0.36
-    m_Damage: 10
+    m_Damage: 30
     m_Sound: {fileID: 8300000, guid: 9ca32d6b7191bd64389dd1d0fd21edef, type: 3}
     m_Blood: {fileID: 100000, guid: bd1b09ecbf112814399e16be0e5243a9, type: 3}
     m_BloodTime: 0.6
   - m_DamageTime: 0.55
-    m_Damage: 15
+    m_Damage: 60
     m_Sound: {fileID: 8300000, guid: 00e19d5a9c0e5cb41b2b13f9a06a086a, type: 3}
     m_Blood: {fileID: 100000, guid: 15bde53d717eb6f4b8990c3f7c160ed3, type: 3}
     m_BloodTime: 3

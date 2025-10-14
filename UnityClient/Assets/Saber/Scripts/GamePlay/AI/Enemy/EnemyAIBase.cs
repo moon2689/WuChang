@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Saber.CharacterController;
+using Saber.Frame;
 
 namespace Saber.AI
 {
@@ -39,7 +40,8 @@ namespace Saber.AI
 
         protected void SwitchCoroutine(IEnumerator routine)
         {
-            // Debug.Log(routine.GetType().Name);
+            if (GameApp.Entry.Config.TestGame.DebugFight)
+                Debug.Log(routine.GetType().Name);
             if (m_MainCoroutine != null)
             {
                 Actor.StopCoroutine(m_MainCoroutine);
@@ -57,8 +59,9 @@ namespace Saber.AI
             if (Actor.CMelee.AttackedDamageInfo != null)
             {
                 foundType = EFoundEnemyType.Attacked;
-                LockingEnemy = Actor.CMelee.AttackedDamageInfo.Attacker;
-                return true;
+                LockingEnemy = Actor.CMelee.AttackedDamageInfo.Attacker as SActor;
+                if (LockingEnemy)
+                    return true;
             }
 
             float range = Actor.m_BaseActorInfo.m_AIInfo.m_WarningRange;
@@ -154,6 +157,10 @@ namespace Saber.AI
             }
 
             LockingEnemy = null;
+        }
+
+        public virtual void OnEnterBossStageTwo()
+        {
         }
     }
 }

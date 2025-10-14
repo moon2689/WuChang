@@ -7,7 +7,7 @@ namespace Saber.CharacterController
 {
     public static class DamageHelper
     {
-        public static bool CanDamageEnemy(SActor actor, SActor enemy)
+        public static bool CanDamageEnemy(IDamageMaker actor, SActor enemy)
         {
             return enemy != null && enemy != actor && !enemy.IsDead && enemy.Camp != actor.Camp;
         }
@@ -34,15 +34,13 @@ namespace Saber.CharacterController
         }
         */
 
-        public static bool TryHit(Collider other, SActor actor,
-            WeaponDamageSetting damageSetting, DamageInfo curDmgInfo)
+        public static bool TryHit(Collider other, IDamageMaker actor, WeaponDamageSetting damageSetting, DamageInfo curDmgInfo)
         {
             HurtBox hurtBox = other.GetComponent<HurtBox>();
             return TryHit(hurtBox, actor, damageSetting, curDmgInfo);
         }
 
-        public static bool TryHit(HurtBox hurtBox, SActor actor,
-            WeaponDamageSetting damageSetting, DamageInfo curDmgInfo)
+        public static bool TryHit(HurtBox hurtBox, IDamageMaker actor, WeaponDamageSetting damageSetting, DamageInfo curDmgInfo)
         {
             if (hurtBox == null)
             {
@@ -57,7 +55,7 @@ namespace Saber.CharacterController
             return TryHitEnemy(actor, hurtBox, damageSetting, curDmgInfo);
         }
 
-        static bool TryHitEnemy(SActor actor, HurtBox hurtBox, WeaponDamageSetting damageSetting, DamageInfo curDmgInfo)
+        static bool TryHitEnemy(IDamageMaker dmgMaker, HurtBox hurtBox, WeaponDamageSetting damageSetting, DamageInfo curDmgInfo)
         {
             //WeaponDamageSetting damageSetting = base.m_EventObj.EventObj.m_WeaponDamageSetting;
 
@@ -81,7 +79,7 @@ namespace Saber.CharacterController
 
             //Debug.Log($"Do damage,hurt:{hurtBox.name}, actor:{actor}", hurtBox);
 
-            curDmgInfo.Attacker = actor;
+            curDmgInfo.Attacker = dmgMaker;
             /*
             curDmgInfo.DamagePosition = GetDamagePos(actor, hurtBox, damageSetting, out Vector3 waveDir,
                 out EWeaponType weaponType);
@@ -94,7 +92,7 @@ namespace Saber.CharacterController
 
             if (curDmgInfo.HitType == EHitType.Weapon)
             {
-                var weapon = actor.GetWeaponByPos(damageSetting.m_WeaponBone);
+                var weapon = dmgMaker.GetWeaponByPos(damageSetting.m_WeaponBone);
                 if (weapon == null)
                 {
                     Debug.LogError($"No weapon in bone:{damageSetting.m_WeaponBone}");
@@ -111,20 +109,20 @@ namespace Saber.CharacterController
             enemy.CMelee.AttackedDamageInfo = curDmgInfo;
 
             // 尝试格挡
-            if (TryDefense(actor, hurtBox, curDmgInfo))
+            if (dmgMaker is SActor actor && TryDefense(actor, hurtBox, curDmgInfo))
                 return true;
 
             // 卡帧 Freeze Frame.
-            FreezeFrame(actor, hurtBox);
+            FreezeFrame(dmgMaker, hurtBox);
 
             // 扣血
             if (curDmgInfo.DamageValue > 0)
                 enemy.CStats.TakeDamage(curDmgInfo.DamageValue);
 
-            PlayDamageEffect(actor, hurtBox, curDmgInfo);
+            PlayDamageEffect(hurtBox, curDmgInfo);
 
             // 声音
-            PlayHitSound(actor, false, hurtBox, curDmgInfo);
+            PlayHitSound(false, hurtBox, curDmgInfo);
 
             // 骨骼受击抖动 ik
             float force = GameApp.Entry.Config.GameSetting.IKBoneForceOnHit;
@@ -133,7 +131,7 @@ namespace Saber.CharacterController
             // 击退的力
             if (curDmgInfo.DamageConfig.m_ForceWhenGround.x > 0)
             {
-                Vector3 dir = actor.transform.position - enemy.transform.position;
+                Vector3 dir = dmgMaker.transform.position - enemy.transform.position;
                 dir.y = 0;
                 enemy.CPhysic.Force_Add(-dir, curDmgInfo.DamageConfig.m_ForceWhenGround.x, 0, false);
             }
@@ -165,14 +163,16 @@ namespace Saber.CharacterController
         }
 
         // 卡帧
-        static void FreezeFrame(SActor actor, HurtBox hurtBox)
+        static void FreezeFrame(IDamageMaker dmgMaker, HurtBox hurtBox)
         {
             SActor enemy = hurtBox.Actor;
             float speed = 0.1f;
             float time = 0.1f;
 
             enemy.CAnim.CartonFrames(time, speed);
-            actor.CAnim.CartonFrames(time, speed);
+
+            if (dmgMaker is SActor actor)
+                actor.CAnim.CartonFrames(time, speed);
             // enemy.m_AnimSpeedExecutor.AddSpeedModifiers(speed, time);
             // actor.m_AnimSpeedExecutor.AddSpeedModifiers(speed, time);
         }
@@ -205,7 +205,7 @@ namespace Saber.CharacterController
                 return false;
             }
 
-            PlayHitSound(actor, true, hurtBox, curDmgInfo);
+            PlayHitSound(true, hurtBox, curDmgInfo);
             PlayDefenseEffect(enemy, curDmgInfo);
 
             // 卡帧 Freeze Frame.
@@ -243,7 +243,7 @@ namespace Saber.CharacterController
             }
         }
 
-        static void PlayDamageEffect(SActor actor, HurtBox hurtBox, DamageInfo curDmgInfo)
+        static void PlayDamageEffect(HurtBox hurtBox, DamageInfo curDmgInfo)
         {
             SActor enemy = hurtBox.Actor;
             GameObject prefabHit = null;
@@ -314,7 +314,7 @@ namespace Saber.CharacterController
             */
         }
 
-        static void PlayHitSound(SActor actor, bool block, HurtBox hurtBox, DamageInfo curDmgInfo)
+        static void PlayHitSound(bool block, HurtBox hurtBox, DamageInfo curDmgInfo)
         {
             AudioClip sound = null;
             if (block)
@@ -339,7 +339,7 @@ namespace Saber.CharacterController
 
             if (sound != null)
             {
-                GameApp.Entry.Game.Audio.Play3DSound(sound, actor.transform.position);
+                GameApp.Entry.Game.Audio.Play3DSound(sound, hurtBox.transform.position);
             }
             else
             {

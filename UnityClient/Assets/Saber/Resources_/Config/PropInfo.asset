@@ -18,10 +18,12 @@ MonoBehaviour:
     m_Description: "\u8FD4\u56DE\u6700\u8FD1\u795E\u9F9B"
     m_Icon: csyz2_S
     m_PropType: 1
-    m_Value: 0
+    m_Param1: 0
+    m_Param2: 0
   - m_ID: 2
     m_Name: "\u84B8\u9762\u5154"
     m_Description: "\u6062\u590D\u751F\u547D"
     m_Icon: zmt_S
-    m_PropType: 0
-    m_Value: 10
+    m_PropType: 2
+    m_Param1: 3
+    m_Param2: 10

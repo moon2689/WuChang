@@ -11,7 +11,7 @@ namespace Saber.CharacterController
         public float DamageValue;
         public Vector3 DamagePosition;
         public Vector3 DamageDirection;
-        public SActor Attacker;
+        public IDamageMaker Attacker;
         public EHitType HitType;
         public EWeaponType DamagingWeaponType;
         public WeaponDamageSetting DamageConfig;
@@ -23,7 +23,7 @@ namespace Saber.CharacterController
     {
         public EHitType m_HitType = EHitType.Weapon;
         public ENodeType m_WeaponBone = ENodeType.WeaponRightHand;
-        public float m_DamageValue = 5;
+        public float m_DamageValue = 30;
         public EImpactForce m_ImpactForce = EImpactForce.Level2;
         public EHitRecover m_HitRecover;
         public Vector2 m_ForceWhenGround;
@@ -41,12 +41,13 @@ namespace Saber.CharacterController
 
     public enum EHitRecover
     {
-        Stun,
-        Backstab,
-        Uppercut,
-        StrikeDown,
-        StunTanDao,
-        KnockOffLongDis,
+        Stun, //普通击晕，四方向
+        Backstab, //背刺
+        Uppercut, //挑飞
+        StrikeDown, //砸趴
+        StunTanDao, //被弹反
+        KnockOffLongDis, //打飞
+        StunLarge, //重度击晕，二方向
     }
 
     public enum EImpactForce

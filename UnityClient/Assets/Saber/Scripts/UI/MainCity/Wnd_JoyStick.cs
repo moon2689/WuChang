@@ -55,7 +55,6 @@ namespace Saber.UI
         public IHandler Handler { get; set; }
         private ESceneInteractType m_InteractType;
 
-        
 
         bool ActiveButtonInteract
         {
@@ -225,15 +224,14 @@ namespace Saber.UI
             Handler?.OnClickLockOn();
         }
 
+
+#if UNITY_EDITOR
         protected override void Update()
         {
             base.Update();
-#if UNITY_EDITOR
             UpdatePCInput();
-#endif
         }
 
-#if UNITY_EDITOR
         void UpdatePCInput()
         {
             if (Input.GetKeyDown(KeyCode.J))
@@ -298,6 +296,11 @@ namespace Saber.UI
             if (Input.GetKeyDown(KeyCode.F))
             {
                 m_btnInteract.OnSubmit(null);
+            }
+
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                m_ButtonBag.OnSubmit(null);
             }
         }
 #endif

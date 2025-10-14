@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &186351036424677210
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8866370104884709340}
-  m_Layer: 0
-  m_Name: Back
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8866370104884709340
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 186351036424677210}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.51816905, y: 0.48114544, z: 0.518169, w: 0.48114532}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 476672362435880147}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &704268053999600532
 GameObject:
   m_ObjectHideFlags: 0
@@ -5136,10 +5105,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6908440836098078574, guid: 21c40c0537ec69245958cc0895deede8,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8866370104884709340}
-    - targetCorrespondingSourceObject: {fileID: 6908440836098078574, guid: 21c40c0537ec69245958cc0895deede8,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1528845697366813156}
     - targetCorrespondingSourceObject: {fileID: 3000308066621949899, guid: 21c40c0537ec69245958cc0895deede8,
         type: 3}
@@ -6494,7 +6459,7 @@ MonoBehaviour:
   - m_Type: 14
     m_NodeTrans: {fileID: 9155515243604525421}
   - m_Type: 27
-    m_NodeTrans: {fileID: 8866370104884709340}
+    m_NodeTrans: {fileID: 7826781036322373491}
   - m_Type: 28
     m_NodeTrans: {fileID: 8191710392549841437}
   - m_Type: 29

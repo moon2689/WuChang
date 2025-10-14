@@ -68,7 +68,7 @@ namespace Saber.CharacterController
         {
             gameObject.SetLayerRecursive(EStaticLayers.Actor);
 
-            CBuff = new();
+            CBuff = new(this);
             CStats = new ActorBaseStats(this);
             CStats.EventOnStaminaZero += OnStaminaZero;
             CPhysic = new CharacterPhysic(this, m_BaseActorInfo.m_PhysicInfo);

@@ -29,7 +29,7 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 3
     m_WeaponBone: 24
-    m_DamageValue: 20
+    m_DamageValue: 70
     m_ImpactForce: 2
     m_HitRecover: 5
     m_ForceWhenGround: {x: 0, y: 0}
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 3
     m_WeaponBone: 24
-    m_DamageValue: 3
+    m_DamageValue: 10
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
@@ -528,7 +528,7 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 3
     m_WeaponBone: 24
-    m_DamageValue: 3
+    m_DamageValue: 10
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
@@ -563,7 +563,7 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 3
     m_WeaponBone: 24
-    m_DamageValue: 3
+    m_DamageValue: 10
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
@@ -598,7 +598,7 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 3
     m_WeaponBone: 24
-    m_DamageValue: 3
+    m_DamageValue: 10
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
@@ -646,7 +646,7 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 0
     m_WeaponBone: 29
-    m_DamageValue: 5
+    m_DamageValue: 30
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
@@ -681,7 +681,7 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 3
     m_WeaponBone: 24
-    m_DamageValue: 3
+    m_DamageValue: 10
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}

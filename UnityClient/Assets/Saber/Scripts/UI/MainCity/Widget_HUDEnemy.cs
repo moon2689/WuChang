@@ -8,13 +8,12 @@ namespace Saber.UI
 {
     public class Widget_HUDEnemy : WidgetBase
     {
-        private const float k_HPPerSlider = 500;
-
         [SerializeField] private GameObject m_Root;
         [SerializeField] private Widget_HPBar m_HpBar;
         [SerializeField] private Transform m_SliderParent;
         [SerializeField] private Text m_TextName;
         [SerializeField] private float m_SliderSpaceY = 45;
+        [SerializeField] private float m_HPPerSlider = 1000;
 
         private SActor m_LockEnemy;
         private List<Widget_HPBar> m_HpBars = new();
@@ -68,7 +67,7 @@ namespace Saber.UI
 
         void InitEnemy()
         {
-            m_SliderCount = Mathf.CeilToInt(m_LockEnemy.CStats.MaxHp / k_HPPerSlider);
+            m_SliderCount = Mathf.CeilToInt(m_LockEnemy.CStats.MaxHp / m_HPPerSlider);
             for (int i = 0; i < m_SliderCount; i++)
             {
                 Widget_HPBar hpBar;
@@ -93,16 +92,16 @@ namespace Saber.UI
                 float thisSliderMaxHP;
                 if (i == m_SliderCount - 1)
                 {
-                    float left = m_LockEnemy.CStats.MaxHp % k_HPPerSlider;
-                    thisSliderMaxHP = left == 0 ? k_HPPerSlider : left;
+                    float left = m_LockEnemy.CStats.MaxHp % m_HPPerSlider;
+                    thisSliderMaxHP = left == 0 ? m_HPPerSlider : left;
                 }
                 else
                 {
-                    thisSliderMaxHP = k_HPPerSlider;
+                    thisSliderMaxHP = m_HPPerSlider;
                 }
 
                 hpBar.Init(thisSliderMaxHP, thisSliderMaxHP);
-                rectTransform.sizeDelta = new Vector2(thisSliderMaxHP * 3, rectTransform.sizeDelta.y);
+                rectTransform.sizeDelta = new Vector2(thisSliderMaxHP, rectTransform.sizeDelta.y);
             }
 
             for (int i = m_SliderCount; i < m_HpBars.Count; i++)
@@ -120,8 +119,8 @@ namespace Saber.UI
             for (int i = 0; i < m_SliderCount; i++)
             {
                 Widget_HPBar hpBar = m_HpBars[i];
-                float hpThisSlider = currentHP - k_HPPerSlider * i;
-                hpThisSlider = Mathf.Clamp(hpThisSlider, 0, k_HPPerSlider);
+                float hpThisSlider = currentHP - m_HPPerSlider * i;
+                hpThisSlider = Mathf.Clamp(hpThisSlider, 0, m_HPPerSlider);
                 hpBar.CurHp = hpThisSlider;
             }
         }

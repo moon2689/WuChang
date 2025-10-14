@@ -39,7 +39,7 @@ namespace Saber.AI
             {
                 Vector3 dir = m_OriginPos - Actor.transform.position;
 
-                if (dir.magnitude < 1)
+                if (dir.magnitude < 0.5f)
                 {
                     onReached?.Invoke();
                     yield break;
@@ -70,8 +70,21 @@ namespace Saber.AI
         // 对峙
         IEnumerator StalemateItor()
         {
-            float timerStay = UnityEngine.Random.Range(0, 3);
+            // 朝向敌人
+            if (!IsFaceToEnemy())
+            {
+                bool wait = true;
+                Actor.StopMove();
+                if (Actor.PlayAction(PlayActionState.EActionType.FaceToLockingEnemy, () => wait = false))
+                {
+                    while (wait)
+                    {
+                        yield return null;
+                    }
+                }
+            }
 
+            float timerStay = UnityEngine.Random.Range(0.3f, 3);
             while (true)
             {
                 // 敌人死亡或敌人距离过远，则返回出生点
@@ -84,27 +97,11 @@ namespace Saber.AI
                     yield break;
                 }
 
-                /*
-                // 面向玩家
-                if (!IsFaceToEnemy())
-                {
-                    bool wait = true;
-                    PlayActionState.EActionType turnDirAction = CalcProbability(50) ? PlayActionState.EActionType.TurnL180 : PlayActionState.EActionType.TurnR180;
-                    if (Actor.PlayAction(turnDirAction, () => wait = false))
-                    {
-                        while (wait && !IsAlighingToEnemy())
-                        {
-                            yield return null;
-                        }
-                    }
-                }
-                */
-
                 // 攻击
                 timerStay -= Time.deltaTime;
                 if (timerStay < 0 && !LockingEnemy.IsInSpecialStun)
                 {
-                    if (CalcProbability(20))
+                    if (Monster.m_MonsterInfo.m_CanDodge && CalcProbability(20))
                         ToDodge();
                     else
                         ToAttack();
@@ -122,32 +119,35 @@ namespace Saber.AI
                 }
 
                 // 随机游走
-                if (m_DistanceToEnemy > 5)
+                if (Actor.CurrentStateType == EStateType.Idle)
                 {
-                    Vector3 axis;
-                    if (CalcProbability(50))
+                    if (m_DistanceToEnemy > 5)
                     {
-                        axis = new Vector3(0, 0, 1);
+                        Vector3 axis;
+                        if (CalcProbability(50))
+                        {
+                            axis = new Vector3(0, 0, 1);
+                        }
+                        else if (CalcProbability(50))
+                        {
+                            axis = new Vector3(1, 0, 0);
+                        }
+                        else
+                        {
+                            axis = new Vector3(-1, 0, 0);
+                        }
+
+                        Actor.StartMove(EMoveSpeedV.Walk, axis);
                     }
-                    else if (CalcProbability(50))
+                    else if (m_DistanceToEnemy < 3)
                     {
-                        axis = new Vector3(1, 0, 0);
+                        Actor.StartMove(EMoveSpeedV.Walk, new Vector3(0, 0, -1));
                     }
                     else
                     {
-                        axis = new Vector3(-1, 0, 0);
+                        Vector3 axis = CalcProbability(50) ? new Vector3(1, 0, 0) : new Vector3(-1, 0, 0);
+                        Actor.StartMove(EMoveSpeedV.Walk, axis);
                     }
-
-                    Actor.StartMove(EMoveSpeedV.Walk, axis);
-                }
-                else if (m_DistanceToEnemy < 3)
-                {
-                    Actor.StartMove(EMoveSpeedV.Walk, new Vector3(0, 0, -1));
-                }
-                else if (Actor.CurrentStateType == EStateType.Idle)
-                {
-                    Vector3 axis = CalcProbability(50) ? new Vector3(1, 0, 0) : new Vector3(-1, 0, 0);
-                    Actor.StartMove(EMoveSpeedV.Walk, axis);
                 }
 
                 yield return null;
@@ -186,31 +186,16 @@ namespace Saber.AI
             {
                 return true;
             }
-            else if (skill.m_AITriggerCondition == EAITriggerSkillCondition.HPHalf)
+            else if (skill.m_AITriggerCondition == EAITriggerSkillCondition.OnEnterBossStageTwo ||
+                     skill.m_AITriggerCondition == EAITriggerSkillCondition.BossStageTwo)
             {
-                return Actor.CStats.CurrentHp <= Actor.CStats.MaxHp * 0.5f;
+                return Monster.BossStage == 2;
             }
             else
             {
                 Debug.LogError($"Unknown condition:{skill.m_AITriggerCondition}");
                 return false;
             }
-        }
-
-        SkillItem GetCanTriggerSpecialSkill()
-        {
-            foreach (SkillItem skill in Actor.Skills)
-            {
-                if (skill.m_FirstSkillOfCombo &&
-                    IsCDColldown(skill) &&
-                    skill.m_AITriggerCondition != EAITriggerSkillCondition.None &&
-                    SatifyTriggerCondition(skill))
-                {
-                    return skill;
-                }
-            }
-
-            return null;
         }
 
         void ToAttack()
@@ -220,15 +205,6 @@ namespace Saber.AI
                 ToStalemate();
                 return;
             }
-
-            SkillItem specialSkill = GetCanTriggerSpecialSkill();
-            if (specialSkill != null)
-            {
-                m_CurrentSkill = specialSkill;
-                SwitchCoroutine(SprintAndAttackItor());
-                return;
-            }
-
 
             m_ListSkills.Clear();
             foreach (SkillItem skill in Actor.Skills)
@@ -297,6 +273,24 @@ namespace Saber.AI
             }
         }
 
+        public override void OnEnterBossStageTwo()
+        {
+            base.OnEnterBossStageTwo();
+
+            foreach (SkillItem skill in Actor.Skills)
+            {
+                if (skill.m_FirstSkillOfCombo &&
+                    skill.m_AITriggerCondition == EAITriggerSkillCondition.OnEnterBossStageTwo &&
+                    IsCDColldown(skill) &&
+                    SatifyTriggerCondition(skill))
+                {
+                    m_CurrentSkill = skill;
+                    SwitchCoroutine(AttackItor());
+                    break;
+                }
+            }
+        }
+
         /// <summary>冲刺后攻击</summary>
         IEnumerator SprintAndAttackItor()
         {
@@ -316,7 +310,6 @@ namespace Saber.AI
 
                 if (m_DistanceToEnemy < m_CurrentSkill.m_AIPramAttackDistance.maxValue)
                 {
-                    Actor.StopMove();
                     SwitchCoroutine(AttackItor());
                     yield break;
                 }
@@ -336,12 +329,8 @@ namespace Saber.AI
 
         bool IsFaceToEnemy()
         {
-            return Vector3.Dot(LockingEnemy.transform.position - Actor.transform.position, Actor.transform.forward) > 0;
-        }
-
-        bool IsAlighingToEnemy()
-        {
-            return Vector3.Angle(LockingEnemy.transform.position - Actor.transform.position, Actor.transform.forward) < 10;
+            Vector3 dirToEnemy = LockingEnemy.transform.position - Actor.transform.position;
+            return Vector3.Dot(Actor.transform.forward, dirToEnemy) > 0;
         }
 
         /// <summary>攻击</summary>
@@ -351,12 +340,7 @@ namespace Saber.AI
             bool triggered = false;
             while (true)
             {
-                if (LockingEnemy == null || LockingEnemy.IsDead)
-                {
-                    ToStalemate();
-                    yield break;
-                }
-                else if (LockingEnemy.IsInSpecialStun)
+                if (LockingEnemy == null || LockingEnemy.IsDead || LockingEnemy.IsInSpecialStun)
                 {
                     ToStalemate();
                     yield break;
@@ -373,14 +357,6 @@ namespace Saber.AI
                 {
                     if (Actor.CurrentSkill.SkillConfig.m_ChainSkills.Length > 0 && Actor.CurrentSkill.InComboTime)
                     {
-                        var specialSkill = GetCanTriggerSpecialSkill();
-                        if (specialSkill != null)
-                        {
-                            m_CurrentSkill = specialSkill;
-                            SwitchCoroutine(SprintAndAttackItor());
-                            yield break;
-                        }
-
                         m_ListSkills.Clear();
                         foreach (var item in Actor.CurrentSkill.SkillConfig.m_ChainSkills)
                         {
@@ -402,13 +378,11 @@ namespace Saber.AI
                         }
                     }
                 }
-                /*
                 else if (!IsFaceToEnemy())
                 {
                     ToStalemate();
                     yield break;
                 }
-                */
                 else if (CalcProbability(90))
                 {
                     ToAttack();

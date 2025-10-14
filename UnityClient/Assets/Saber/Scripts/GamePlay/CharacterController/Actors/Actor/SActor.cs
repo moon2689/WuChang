@@ -10,7 +10,11 @@ using YooAsset;
 
 namespace Saber.CharacterController
 {
-    public abstract class SActor : MonoBehaviour, AnimatorLayer.IHandler, ActorBaseStats.IHandler, PlayerCamera.ITarget
+    public abstract class SActor : MonoBehaviour,
+        AnimatorLayer.IHandler,
+        ActorBaseStats.IHandler,
+        PlayerCamera.ITarget,
+        IDamageMaker
     {
         public event Action<SActor> Event_OnDead;
         public event Action<SActor> Event_OnDeadAnimPlayFinished;
@@ -52,7 +56,7 @@ namespace Saber.CharacterController
         /// <summary>战斗</summary>
         public CharacterMelee CMelee { get; protected set; }
 
-        public ActorBuffManager CBuff { get; protected set; }
+        public ActorBuff CBuff { get; protected set; }
 
         /// <summary>能力</summary>
         public CharacterAbility CAbility { get; protected set; }
@@ -306,7 +310,7 @@ namespace Saber.CharacterController
             gameObject.SetLayerRecursive(EStaticLayers.Actor);
             gameObject.SetRenderingLayerRecursive(ERenderingLayers.Actor);
 
-            CBuff = new();
+            CBuff = new(this);
             CAnim = new CharacterAnimation(this, this);
             CPhysic = new CharacterPhysic(this, m_BaseActorInfo.m_PhysicInfo);
             CStats = new ActorBaseStats(this);
@@ -338,6 +342,7 @@ namespace Saber.CharacterController
 
         protected virtual void Update()
         {
+            CBuff?.Update(Time.deltaTime);
             CStats?.Update(Time.deltaTime);
             AI?.Update();
 
@@ -434,11 +439,13 @@ namespace Saber.CharacterController
         {
         }
 
-        public void Rebirth()
+        /// <summary>恢复原状</summary>
+        public virtual void RecoverOrigin()
         {
-            gameObject.SetActive(true);
-            CStats.Reset();
             IsDead = false;
+
+            gameObject.SetActive(true);
+            CStats.RecoverOrigin();
 
             StopMove();
             CStateMachine.ForceEnterState(EStateType.Idle);
@@ -560,10 +567,10 @@ namespace Saber.CharacterController
             CStats.DefaultHPPointCount();
             CStats.ClearPower();
         }
-        
+
         public bool PlayAction(PlayActionState.EActionType action, Action onPlayFinished)
         {
-            return  CStateMachine.PlayAction(action, onPlayFinished);
+            return CStateMachine.PlayAction(action, onPlayFinished);
         }
 
         #endregion
@@ -598,7 +605,7 @@ namespace Saber.CharacterController
             {
                 if (GameApp.Entry.Config.TestGame.DebugFight)
                 {
-                    GameApp.Entry.Unity.DoDelayAction(3, CStats.Reset);
+                    GameApp.Entry.Unity.DoDelayAction(3, CStats.RecoverOrigin);
                 }
                 else
                 {

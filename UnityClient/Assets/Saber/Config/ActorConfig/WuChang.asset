@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BaseActorInfo:
     m_StatsInfo:
-      m_MaxHp: 30
+      m_MaxHp: 100
       m_DefaultHpRecSpeed: 0
       m_MaxStamina: 100
       m_MaxPower: 5
@@ -42,6 +42,12 @@ MonoBehaviour:
       m_ArmBoneType: 29
     m_AIInfo:
       m_WarningRange: 30
+    m_HitRecInfo:
+      CanBeBackstab: 1
+      CanBeUppercut: 1
+      CanBeStrikeDown: 1
+      CanBeKnockOffLongDis: 1
+      CanBeStunLarge: 0
   m_CharacterInfo:
     m_ClothInfo:
       m_Enable: 1

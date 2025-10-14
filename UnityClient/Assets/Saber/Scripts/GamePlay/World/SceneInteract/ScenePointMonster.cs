@@ -56,15 +56,8 @@ namespace Saber.World
 
         public void RebirthActor()
         {
-            if (Actor.IsDead)
-            {
-                Actor.Rebirth();
-            }
-            else
-            {
-                Actor.CStats.Reset();
-            }
-
+            Actor.RecoverOrigin();
+            
             Vector3 pos = GetFixedBornPos(out var rot);
             Actor.transform.position = pos;
             Actor.transform.rotation = rot;

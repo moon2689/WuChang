@@ -332,8 +332,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcafaeb91b1292740a845433bc0f0844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ImagePlayerDead: {fileID: 0}
-  m_ImageBossDead: {fileID: 0}
+  m_ImagePlayerDead: {fileID: 1537190857243663245}
+  m_ImageBossDead: {fileID: 8245088686614633426}
 --- !u!1 &8466564954629595296
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,9 +27,8 @@ namespace Saber.CharacterController
     public enum EWeaponType
     {
         None = 0,
-        Custom1,
+        WoodStick, //木棍
         Custom2,
-
         Sword, //剑
         YueYaChan, //月牙铲
         MiaoDao, //苗刀

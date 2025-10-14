@@ -54,7 +54,8 @@ namespace Saber.CharacterController
 
         public void OnHit(Vector3 force, Vector3 point)
         {
-            Actor.CMelee.IKHitReaction.Hit(m_Collider, force, point);
+            if (Actor.CMelee.IKHitReaction != null)
+                Actor.CMelee.IKHitReaction.Hit(m_Collider, force, point);
         }
     }
 }

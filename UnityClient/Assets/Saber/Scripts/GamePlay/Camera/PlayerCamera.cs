@@ -306,7 +306,8 @@ namespace Saber
             Vector3 lockPos = LockTarget.LockPosition;
             Vector3 viewPoint = Cam.WorldToViewportPoint(lockPos);
             outScreen = viewPoint.x < 0.1f || viewPoint.x > 0.9f || viewPoint.y < 0.1f || viewPoint.y > 0.9f;
-            outCenterRect = viewPoint.x < 0.4f || viewPoint.x > 0.7f || viewPoint.y < 0.5f || viewPoint.y > 0.8f;
+            outCenterRect = viewPoint.x < 0.45f || viewPoint.x > 0.6f || viewPoint.y < 0.6f || viewPoint.y > 0.8f;
+            //Debug.Log($"ViewPoint:{viewPoint} outScreen:{outScreen} outCenterRect:{outCenterRect}");
         }
 
         void CheckWhetherLookAtTarget(Vector3 dirToLockTarget)
@@ -362,8 +363,6 @@ namespace Saber
                     m_TimerLockTarget = 1.5f;
                 }
             }
-
-            //Debug.Log($"ViewPoint:{viewPoint}  {m_LookAtLockTargetType}");
         }
 
         private void HandleLockTarget(float deltaTime)

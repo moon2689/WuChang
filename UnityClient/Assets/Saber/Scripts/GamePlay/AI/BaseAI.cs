@@ -35,7 +35,8 @@ namespace Saber.AI
         public virtual void Init(SActor actor)
         {
             Actor = actor;
-            actor.Event_OnDead += OnDead;
+            Actor.Event_OnDead -= OnDead;
+            Actor.Event_OnDead += OnDead;
         }
 
         public virtual void Update()

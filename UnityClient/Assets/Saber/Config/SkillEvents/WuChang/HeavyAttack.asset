@@ -31,6 +31,24 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fc471827d10c769439267b9547a102d7, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
+--- !u!114 &-153683452509847195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFX
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: ec83f155934259346826e4bebc646e30, type: 3}
+  - {fileID: 8300000, guid: cead4bc79a1327d4bacef6ef95d38e3c, type: 3}
+  m_Volume: 1
+  m_TriggerProbability: 100
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,6 +147,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 5848745076441986098}
+  - EventTime: 0.08
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -153683452509847195}
 --- !u!114 &1762797643101684151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,10 +263,12 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 0
     m_WeaponBone: 29
-    m_DamageValue: 5
+    m_DamageValue: 40
     m_ImpactForce: 1
-    m_HitRecover: 0
+    m_HitRecover: 6
     m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 1
 --- !u!114 &8723633805134807681
 MonoBehaviour:
   m_ObjectHideFlags: 0

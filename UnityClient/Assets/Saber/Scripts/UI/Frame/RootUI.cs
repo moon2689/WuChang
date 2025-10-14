@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Saber.Frame;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,12 +16,12 @@ namespace Saber.UI
 
         [SerializeField] private Image m_ImageBackground;
 
-        public List<WndBase> m_Wnds;
-        Camera m_UICamera;
-        Canvas m_CanvasObj;
-        CanvasScaler m_CanvasScaler;
-        CanvasGroup m_CanvasGroupObj;
-        EventSystem m_EventSystemObj;
+        private List<WndBase> m_Wnds = new();
+        private Camera m_UICamera;
+        private Canvas m_CanvasObj;
+        private CanvasScaler m_CanvasScaler;
+        private CanvasGroup m_CanvasGroupObj;
+        private EventSystem m_EventSystemObj;
 
 
         public static RootUI Instance => s_Instance;
@@ -29,7 +30,6 @@ namespace Saber.UI
         public CanvasScaler CanvasScalerObj => m_CanvasScaler ??= transform.GetComponent<CanvasScaler>();
         public CanvasGroup CanvasGroupObj => m_CanvasGroupObj ??= transform.GetComponent<CanvasGroup>();
         public EventSystem EventSystemObj => m_EventSystemObj ??= transform.GetComponentInChildren<EventSystem>();
-
         public Vector2 ScaleRatio => new Vector2(CanvasScalerObj.referenceResolution.x / Screen.width,
             CanvasScalerObj.referenceResolution.y / Screen.height);
 
@@ -61,7 +61,6 @@ namespace Saber.UI
         {
             s_Instance = this;
             DontDestroyOnLoad(this);
-            m_Wnds = new List<WndBase>();
 
             /*
             // ui camera overlay to main camera
