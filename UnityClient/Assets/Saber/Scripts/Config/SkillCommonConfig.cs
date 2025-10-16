@@ -61,6 +61,10 @@ namespace Saber.CharacterController
             {
                 return GetRandomSound(m_SwordHitBodySound);
             }
+            else if (weaponType == EWeaponType.WoodStick)
+            {
+                return GetRandomSound(m_BoxingHitBodySound);
+            }
             else
             {
                 Debug.LogError($"Unknown weapon:{weaponType}");

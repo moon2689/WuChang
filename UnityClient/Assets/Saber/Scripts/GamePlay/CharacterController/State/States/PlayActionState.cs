@@ -13,6 +13,8 @@ namespace Saber.CharacterController
             IdolRest,
             IdolRestEnd,
             FaceToLockingEnemy,
+            SpecialIdle,
+            SpecialIdleTransition,
         }
 
         enum ENormalActionState
@@ -22,12 +24,14 @@ namespace Saber.CharacterController
             End,
         }
 
-        enum ECurAction
+        public enum ECurAction
         {
             None,
             SetPosAndForward,
             FaceToLockingEnemy,
             NormalAction,
+            SpecialIdle,
+            SpecialIdleTransition,
         }
 
         private string m_CurActionName;
@@ -41,8 +45,10 @@ namespace Saber.CharacterController
 
         private ECurAction m_CurAction;
 
+
         public override bool ApplyRootMotionSetWhenEnter => true;
         protected override ActorBaseStats.EStaminaRecSpeed StaminaRecSpeed => ActorBaseStats.EStaminaRecSpeed.Fast;
+        public ECurAction CurAction => m_CurAction;
 
 
         public PlayActionState() : base(EStateType.PlayAction)
@@ -65,6 +71,13 @@ namespace Saber.CharacterController
                 UpdateFaceToLockingEnemy();
             }
             else if (m_CurAction == ECurAction.NormalAction)
+            {
+                UpdateNormalAction();
+            }
+            else if (m_CurAction == ECurAction.SpecialIdle)
+            {
+            }
+            else if (m_CurAction == ECurAction.SpecialIdleTransition)
             {
                 UpdateNormalAction();
             }
@@ -110,7 +123,7 @@ namespace Saber.CharacterController
             }
         }
 
-        public void PlayAction(EActionType actionType, Action onPlayFinish)
+        public void PlayAction(EActionType actionType, string animName, Action onPlayFinish)
         {
             if (actionType == EActionType.FaceToLockingEnemy)
             {
@@ -142,6 +155,22 @@ namespace Saber.CharacterController
 
                 m_CurAction = ECurAction.FaceToLockingEnemy;
                 Actor.CPhysic.ApplyRootMotion = false;
+            }
+            else if (actionType == EActionType.SpecialIdle)
+            {
+                m_CurActionName = animName;
+                m_CurAction = ECurAction.SpecialIdle;
+            }
+            else if (actionType == EActionType.SpecialIdleTransition)
+            {
+                if (m_CurAction != ECurAction.SpecialIdle)
+                {
+                    Exit();
+                    return;
+                }
+
+                m_CurAction = ECurAction.NormalAction;
+                m_CurActionName = $"Transition{m_CurActionName}";
             }
             else
             {

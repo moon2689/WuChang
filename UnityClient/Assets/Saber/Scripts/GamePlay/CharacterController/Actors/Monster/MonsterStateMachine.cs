@@ -31,22 +31,15 @@ namespace Saber.CharacterController
                 base.RegisterState(new MonsterMove());
             }
 
-            if (Monster.m_MonsterInfo.m_CanDodge)
+            if (Monster.m_BaseActorInfo.m_AIInfo.CanDodge)
             {
-                base.RegisterState(new MonsterDodge());
+                base.RegisterState(new Dodge());
             }
 
             if (Monster.m_MonsterInfo.m_CanDefense)
             {
                 base.RegisterState(new MonsterDefense());
             }
-        }
-
-        public override bool Dodge(Vector3 axis)
-        {
-            if (!Monster.m_MonsterInfo.m_CanDodge)
-                return false;
-            return TryEnterState<MonsterDodge>(EStateType.Dodge, state => state.DodgeAxis = axis);
         }
 
         public override bool DefenseStart()

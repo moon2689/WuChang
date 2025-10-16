@@ -20,7 +20,7 @@ namespace Saber.UI
             void OnClickLightAttack();
             void OnPressHeavyAttack(bool press);
             void OnPressDodge(bool value);
-            void OnClickLockOn();
+            void OnPressLockOn(bool value);
             void OnPressDefense(bool value);
 
             void OnClickInteract(ESceneInteractType interactType);
@@ -83,11 +83,9 @@ namespace Saber.UI
             m_joystick.Init(this);
             m_moveCamera.Init(this);
 
-            //m_btnAttackA.onClick.AddListener(OnClickAttack1);
             m_btnAttackA.AddEvent(EventTriggerType.PointerDown, OnClickAttack1);
             m_ButtonHeavyAttack.AddEvent(EventTriggerType.PointerDown, OnPressDownHeavyAttack);
             m_ButtonHeavyAttack.AddEvent(EventTriggerType.PointerUp, OnPressUpHeavyAttack);
-            m_btnLockOn.onClick.AddListener(OnClickLockOn);
             m_btnInteract.onClick.AddListener(OnClickInteract);
             m_ButtonDrinkMedicine.onClick.AddListener(OnClickDrinkMedicine);
             m_ButtonMedicineNone.onClick.AddListener(OnClickMedicineNone);
@@ -98,6 +96,9 @@ namespace Saber.UI
 
             m_ButtonDefense.AddEvent(EventTriggerType.PointerDown, OnPressDownDefense);
             m_ButtonDefense.AddEvent(EventTriggerType.PointerUp, OnPressUpDefense);
+
+            m_btnLockOn.AddEvent(EventTriggerType.PointerDown, OnPressDownLockOn);
+            m_btnLockOn.AddEvent(EventTriggerType.PointerUp, OnPressUpLockOn);
 
             ActiveButtonInteract = false;
 
@@ -219,9 +220,14 @@ namespace Saber.UI
             m_Handler?.OnClickJump();
         }*/
 
-        void OnClickLockOn()
+        private void OnPressDownLockOn(BaseEventData arg0)
         {
-            Handler?.OnClickLockOn();
+            Handler?.OnPressLockOn(true);
+        }
+
+        private void OnPressUpLockOn(BaseEventData arg0)
+        {
+            Handler?.OnPressLockOn(false);
         }
 
 
@@ -262,7 +268,12 @@ namespace Saber.UI
 
             if (Input.GetKeyDown(KeyCode.Tab))
             {
-                m_btnLockOn.OnSubmit(null);
+                m_btnLockOn.TriggerEvent(EventTriggerType.PointerDown);
+            }
+
+            if (Input.GetKeyUp(KeyCode.Tab))
+            {
+                m_btnLockOn.TriggerEvent(EventTriggerType.PointerUp);
             }
 
             if (Input.GetKeyDown(KeyCode.Space))

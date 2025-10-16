@@ -30,7 +30,7 @@ namespace Saber.AI
         public override void Init(SActor actor)
         {
             base.Init(actor);
-            OnStart();
+            GameApp.Entry.Unity.DoActionOneFrameLater(OnStart);
         }
 
         protected virtual void OnStart()
@@ -100,7 +100,7 @@ namespace Saber.AI
             SwitchCoroutine(SearchEnemy());
         }
 
-        protected IEnumerator SearchEnemy()
+        protected virtual IEnumerator SearchEnemy()
         {
             Actor.StopMove();
             LockingEnemy = null;

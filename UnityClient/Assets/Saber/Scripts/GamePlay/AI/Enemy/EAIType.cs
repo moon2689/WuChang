@@ -9,13 +9,7 @@ namespace Saber.AI
         OnlyIdle,
         Stalemate,
         TestSkill,
-
-        // OnlyDefense,
-        // MonsterAttack,
-        BossAttack,
-        // Follow,
-        // RandomMove,
-        // SimpleAttack,
+        EnemyCommonAI,
     }
 
     [Serializable]
@@ -33,12 +27,12 @@ namespace Saber.AI
             return aiType switch
             {
                 EAIType.None => null,
-                EAIType.OnlyIdle => new OnlyIdle(),
-                EAIType.Stalemate => new Stalemate(),
+                //EAIType.OnlyIdle => new OnlyIdle(),
+                //EAIType.Stalemate => new Stalemate(),
                 EAIType.TestSkill => new TestSkill(),
                 // EAIType.OnlyDefense => new FightDefense(),
                 // EAIType.MonsterAttack => new MonsterAttack(),
-                EAIType.BossAttack => new BossAttack(),
+                EAIType.EnemyCommonAI => new EnemyCommonAI(),
                 // EAIType.Follow => new Follow(),
                 // EAIType.RandomMove => new RandomMove(),
                 // EAIType.SimpleAttack => new SimpleAttack(),

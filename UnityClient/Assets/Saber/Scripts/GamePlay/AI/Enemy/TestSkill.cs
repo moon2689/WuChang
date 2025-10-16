@@ -20,7 +20,7 @@ namespace Saber.AI
         protected override void OnStart()
         {
             base.OnStart();
-            SwitchCoroutine(SearchEnemy());
+            ToSearchEnemy();
             if (m_TestSkillGUI == null)
             {
                 m_TestSkillGUI = TestSkillGUI.Create();

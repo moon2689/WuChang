@@ -258,6 +258,10 @@ namespace Saber.CharacterController
                     prefabHit = GameApp.Entry.Config.SkillCommon.GetRandomEffectPrefab_SharpWeaponHitBody();
                     showBlood = true;
                 }
+                else if (curDmgInfo.DamagingWeaponType == EWeaponType.WoodStick)
+                {
+                    prefabHit = GameApp.Entry.Config.SkillCommon.GetRandomEffectPrefab_BoxingHitBody();
+                }
                 else
                 {
                     Debug.LogError($"Unknown damage weapon type:{curDmgInfo.DamagingWeaponType}");

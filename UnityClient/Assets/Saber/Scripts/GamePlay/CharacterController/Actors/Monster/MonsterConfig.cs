@@ -22,22 +22,14 @@ namespace Saber.CharacterController
         public float m_SpeedWalk;
         public float m_SpeedRun;
         public float m_SpeedSprint;
-        public List<AudioClip> m_FootstepClips;
 
-        public bool m_PlaySoundWhenIdle;
-        public List<AudioClip> m_IdleSoundClips;
-
-        public bool m_CanDodge;
         public bool m_CanDefense;
 
-        public AudioClip GetRandomFootstepAudio()
-        {
-            return m_FootstepClips[UnityEngine.Random.Range(0, m_FootstepClips.Count)];
-        }
+        public string[] m_SpecialIdls;
+        public float m_AttackDesirePercent = 50;
+        public float m_DodgeDamagePercent = 50;
 
-        public AudioClip GetRandomIdleAudio()
-        {
-            return m_IdleSoundClips[UnityEngine.Random.Range(0, m_IdleSoundClips.Count)];
-        }
+        public float AttackDesireRatio => Mathf.Clamp01(m_AttackDesirePercent / 100f);
+        public float DodgeDamageRatio => Mathf.Clamp01(m_DodgeDamagePercent / 100f);
     }
 }

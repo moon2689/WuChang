@@ -246,9 +246,24 @@ namespace Saber.CharacterController
             });
         }
 
-        public virtual bool Dodge(Vector3 axis)
+        public bool Dodge(Vector3 axis)
         {
-            return false;
+            if (!Actor.m_BaseActorInfo.m_AIInfo.CanDodge)
+                return false;
+            
+            return TryEnterState<Dodge>(EStateType.Dodge, state =>
+            {
+                Actor.Invincible = true;
+                /*
+                bool perfectDodge = TryPerfectDodge();
+                if (perfectDodge)
+                {
+                    state.OnPerfectDodge();
+                }
+                */
+
+                state.DodgeAxis = axis;
+            });
         }
 
         public void OnParried(SActor defenser)
@@ -302,9 +317,9 @@ namespace Saber.CharacterController
             Actor.CPhysic.UseGravity = true;
         }
 
-        public bool PlayAction(PlayActionState.EActionType actionType, Action onPlayFinish)
+        public bool PlayAction(PlayActionState.EActionType actionType, string animName, Action onPlayFinish)
         {
-            return TryEnterState<PlayActionState>(EStateType.PlayAction, state => state.PlayAction(actionType, onPlayFinish));
+            return TryEnterState<PlayActionState>(EStateType.PlayAction, state => state.PlayAction(actionType, animName, onPlayFinish));
         }
 
         /// <summary>被处决</summary>

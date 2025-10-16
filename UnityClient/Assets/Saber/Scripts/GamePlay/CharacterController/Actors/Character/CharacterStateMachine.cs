@@ -41,23 +41,6 @@ namespace Saber.CharacterController
             ForceEnterState(EStateType.Fall);
         }
 
-        public override bool Dodge(Vector3 axis)
-        {
-            return TryEnterState<Dodge>(EStateType.Dodge, state =>
-            {
-                Actor.Invincible = true;
-                /*
-                bool perfectDodge = TryPerfectDodge();
-                if (perfectDodge)
-                {
-                    state.OnPerfectDodge();
-                }
-                */
-
-                state.DodgeAxis = axis;
-            });
-        }
-
         /*
         /// <summary>尝试完美闪避</summary>
         bool TryPerfectDodge()

@@ -568,9 +568,19 @@ namespace Saber.CharacterController
             CStats.ClearPower();
         }
 
+        public bool PlayAction(PlayActionState.EActionType action, string animName, Action onPlayFinished)
+        {
+            return CStateMachine.PlayAction(action, animName, onPlayFinished);
+        }
+
         public bool PlayAction(PlayActionState.EActionType action, Action onPlayFinished)
         {
-            return CStateMachine.PlayAction(action, onPlayFinished);
+            return PlayAction(action, null, onPlayFinished);
+        }
+
+        public bool PlayAction(PlayActionState.EActionType action)
+        {
+            return PlayAction(action, null, null);
         }
 
         #endregion

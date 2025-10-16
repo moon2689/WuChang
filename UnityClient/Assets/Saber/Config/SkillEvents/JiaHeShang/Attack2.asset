@@ -1,0 +1,236 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6323309386991160832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFXHuiWu2
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 3401054116893954d860302a572323d6, type: 3}
+  - {fileID: 8300000, guid: 827d33c62922b0b40b7bc1b1d328f45d, type: 3}
+  - {fileID: 8300000, guid: eaf71696e0b2e364db437daa7087ddab, type: 3}
+  - {fileID: 8300000, guid: 832d10dc16640674fbeb055ab8780412, type: 3}
+  m_Volume: 1
+  m_TriggerProbability: 100
+--- !u!114 &-1687577282552051449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f29d956cd14f76ae2ff6fbffccde20, type: 3}
+  m_Name: AlignToEnemy
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_RotateSpeed: 1080
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 757d9b080c65e9847b379b2a8a5ae8ab, type: 3}
+  m_Name: Attack2
+  m_EditorClassIdentifier: 
+  AbilityType: 0
+  Clip: {fileID: -2568474824377135588, guid: 6db0f6cc8ca2382429da545c98bd2dfa, type: 3}
+  PreviewPercentageRange: {x: 0, y: 1}
+  loopCount: 0
+  events:
+  - EventTime: 0
+    EventRange: {x: 0, y: 0.26}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -1687577282552051449}
+  - EventTime: 0.27
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 5988460277672081409}
+  - EventTime: 0
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.265
+    - 0.61
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 8117631707792723962}
+  - EventTime: 0
+    EventRange: {x: 0.28, y: 0.31}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 2606495649934334786}
+  - EventTime: 0.505
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -6323309386991160832}
+  - EventTime: 0
+    EventRange: {x: 0.51, y: 0.535}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 8579375674241569040}
+  - EventTime: 0.025
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 1964514455827243316}
+--- !u!114 &1964514455827243316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFXVoice
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 934c16fb7f85d5e499804ef6b74210c6, type: 3}
+  m_Volume: 1
+  m_TriggerProbability: 30
+--- !u!114 &2606495649934334786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
+  m_Name: CreateHitBox
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 0.7589838, z: 1.2003411}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 0
+  ColliderOffset: {x: -0.030812502, y: 0, z: 0}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 1.2166543
+  Height: 1
+  m_WeaponDamageSetting:
+    m_HitType: 0
+    m_WeaponBone: 29
+    m_DamageValue: 10
+    m_ImpactForce: 1
+    m_HitRecover: 0
+    m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 1
+--- !u!114 &5988460277672081409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFXHuiWu
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 3401054116893954d860302a572323d6, type: 3}
+  - {fileID: 8300000, guid: 827d33c62922b0b40b7bc1b1d328f45d, type: 3}
+  - {fileID: 8300000, guid: eaf71696e0b2e364db437daa7087ddab, type: 3}
+  - {fileID: 8300000, guid: 832d10dc16640674fbeb055ab8780412, type: 3}
+  m_Volume: 1
+  m_TriggerProbability: 100
+--- !u!114 &8117631707792723962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b6cfcfadd54440b975c2de0758518c, type: 3}
+  m_Name: AttackStates
+  m_EditorClassIdentifier: 
+  IsActive: 1
+--- !u!114 &8579375674241569040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
+  m_Name: CreateHitBox2
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 0.7589838, z: 1.2003411}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 0
+  ColliderOffset: {x: -0.030812502, y: 0, z: 0}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 1.2166543
+  Height: 1
+  m_WeaponDamageSetting:
+    m_HitType: 0
+    m_WeaponBone: 29
+    m_DamageValue: 10
+    m_ImpactForce: 1
+    m_HitRecover: 0
+    m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 1

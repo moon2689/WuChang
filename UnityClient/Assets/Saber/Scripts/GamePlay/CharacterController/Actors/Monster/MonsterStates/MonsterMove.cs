@@ -9,11 +9,8 @@ namespace Saber.CharacterController
         private float m_CurRotSpeed;
         private SMonster m_Monster;
 
-        private AudioPlayer m_AudioPlayer;
-
 
         private SMonster Monster => m_Monster ??= (SMonster)Actor;
-        public override bool ApplyRootMotionSetWhenEnter => true;
 
 
         public MonsterMove() : base(EStateType.Move)
@@ -26,41 +23,7 @@ namespace Saber.CharacterController
 
             Actor.CAnim.ResetSmoothFloat(EAnimatorParams.Horizontal, 0);
             Actor.CAnim.ResetSmoothFloat(EAnimatorParams.Vertical, 0);
-
-            //Actor.CAnim.Play("Move", force: true);
         }
-
-        /*
-        public override void OnStay()
-        {
-            base.OnStay();
-
-            if (Actor.MovementAxisMagnitude > 0.1f)
-            {
-                if (Actor.MoveSpeedV == EMoveSpeedV.Walk)
-                {
-                    Actor.CAnim.SetSmoothFloat(EAnimatorParams.Horizontal, Actor.MovementAxis.x);
-                    Actor.CAnim.SetSmoothFloat(EAnimatorParams.Vertical, Actor.MovementAxis.z);
-
-                    // 转向
-                    Actor.CPhysic.AlignForwardTo(Actor.DesiredLookDir, 1080);
-                }
-                else if (Actor.MoveSpeedV == EMoveSpeedV.Run)
-                {
-                    Actor.CAnim.SetSmoothFloat(EAnimatorParams.Horizontal, 0);
-                    Actor.CAnim.SetSmoothFloat(EAnimatorParams.Vertical, Actor.MovementAxis.z * 2);
-
-                    // 转向
-                    Actor.CPhysic.AlignForwardTo(Actor.DesiredMoveDir, 1080);
-                }
-            }
-            else
-            {
-                Exit();
-            }
-        }
-        */
-
 
         public override void OnStay()
         {

@@ -276,15 +276,6 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 4585671438105070855}
-  - EventTime: 0.08
-    EventRange: {x: 0, y: 1}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 9041539855143749771}
 --- !u!114 &646702915303535274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,24 +377,6 @@ MonoBehaviour:
   m_Name: ComboTime
   m_EditorClassIdentifier: 
   IsActive: 1
---- !u!114 &9041539855143749771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
-  m_Name: SFX
-  m_EditorClassIdentifier: 
-  IsActive: 1
-  clips:
-  - {fileID: 8300000, guid: ec83f155934259346826e4bebc646e30, type: 3}
-  - {fileID: 8300000, guid: cead4bc79a1327d4bacef6ef95d38e3c, type: 3}
-  m_Volume: 1
-  m_TriggerProbability: 100
 --- !u!114 &9122247368379906697
 MonoBehaviour:
   m_ObjectHideFlags: 0

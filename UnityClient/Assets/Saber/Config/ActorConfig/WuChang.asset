@@ -42,6 +42,8 @@ MonoBehaviour:
       m_ArmBoneType: 29
     m_AIInfo:
       m_WarningRange: 30
+      m_LostFocusRange: 30
+      m_DodgeType: 1
     m_HitRecInfo:
       CanBeBackstab: 1
       CanBeUppercut: 1

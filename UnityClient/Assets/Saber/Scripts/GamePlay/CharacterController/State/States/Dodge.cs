@@ -1,3 +1,5 @@
+using System;
+using Saber.AI;
 using Saber.Frame;
 using UnityEngine;
 
@@ -28,7 +30,6 @@ namespace Saber.CharacterController
 
         public Vector3 DodgeAxis { get; set; }
         public bool CanSwitchToSprint { get; private set; }
-        private SCharacter Character => m_Character ??= Actor as SCharacter;
 
 
         public void OnPerfectDodge()
@@ -63,6 +64,26 @@ namespace Saber.CharacterController
             Actor.CPhysic.EnableSlopeMovement = false;
             Actor.Invincible = true;
 
+            if (Actor.m_BaseActorInfo.m_AIInfo.m_DodgeType == EDodgeType.CanDodge)
+            {
+                m_DodgeAnim = GetDodgeAnimByDir4();
+            }
+            else if (Actor.m_BaseActorInfo.m_AIInfo.m_DodgeType == EDodgeType.OnlyCanJumpBack)
+            {
+                m_DodgeAnim = "JumpBack";
+            }
+            else
+            {
+                throw new InvalidCastException($"Unknown dodge type:{Actor.m_BaseActorInfo.m_AIInfo.m_DodgeType}");
+            }
+
+            Actor.CAnim.Play(m_DodgeAnim);
+
+            m_TimerAlign = 0.2f;
+        }
+
+        string GetDodgeAnimByDir4()
+        {
             if (DodgeAxis != Vector3.zero)
             {
                 if (Actor.AI.LockingEnemy != null)
@@ -102,11 +123,7 @@ namespace Saber.CharacterController
                 m_ForwardDir = Actor.DesiredLookDir;
             }
 
-            m_DodgeAnim = $"Dodge{m_Dir}";
-
-            Actor.CAnim.Play(m_DodgeAnim);
-
-            m_TimerAlign = 0.2f;
+            return $"Dodge{m_Dir}";
         }
 
         public override void OnStay()

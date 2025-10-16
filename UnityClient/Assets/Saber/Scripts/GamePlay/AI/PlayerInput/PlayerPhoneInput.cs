@@ -14,16 +14,13 @@ namespace Saber.AI
         private static PlayerPhoneInput s_Instance;
         public static PlayerPhoneInput Instance => s_Instance ??= new PlayerPhoneInput();
 
-
         private Wnd_JoyStick m_WndJoyStick;
-
         private AheadInputData m_AheadInput;
         private bool m_PlayingAction;
         private float m_TimerCheckLockEnemy;
         private float m_DistanceToLockEnemy;
-        protected Portal m_CurrentStayingPortal;
-        protected Idol m_CurrentStayingIdol;
-
+        private Portal m_CurrentStayingPortal;
+        private Idol m_CurrentStayingIdol;
         private float? m_oldTouchDis;
         private bool m_Sprint;
         private bool m_PressDefense;
@@ -31,12 +28,13 @@ namespace Saber.AI
         private float m_StickLength;
         private bool m_ToCheckChargeAttack;
         private float m_PressDownHeavyAttackTime;
-
         private bool m_IsTryMoving;
         private float m_PressDodgeDownTime;
+        private bool m_PressingLockOn;
+        private float m_PressDownLockOnTime;
 
 
-        protected PlayerCamera PlayerCameraObj => GameApp.Entry.Game.PlayerCamera;
+        private PlayerCamera PlayerCameraObj => GameApp.Entry.Game.PlayerCamera;
 
         public bool Active
         {
@@ -215,6 +213,7 @@ namespace Saber.AI
             if (LockingEnemy != null && LockingEnemy.IsDead)
             {
                 ClearLockEnemy();
+                TryLockEnemy();
                 return;
             }
 
@@ -230,22 +229,6 @@ namespace Saber.AI
                     {
                         ClearLockEnemy();
                     }
-                }
-            }
-        }
-
-        private void OnLockEnemyDown()
-        {
-            if (LockingEnemy != null && GameApp.Entry.Game.PlayerCamera.LockTarget != null)
-            {
-                ClearLockEnemy();
-            }
-            else
-            {
-                bool lockSucceed = TryLockEnemy();
-                if (!lockSucceed)
-                {
-                    GameApp.Entry.Game.PlayerCamera.LookAtTargetBack();
                 }
             }
         }
@@ -322,7 +305,7 @@ namespace Saber.AI
 
             yield return null;
 
-            Actor.CStateMachine.PlayAction(PlayActionState.EActionType.IdolActive, () =>
+            Actor.PlayAction(PlayActionState.EActionType.IdolActive, () =>
             {
                 Actor.CMelee.CWeapon.ShowOrHideWeapon(true);
                 GameApp.Entry.Game.World.SetFilmEffect(false);
@@ -388,6 +371,19 @@ namespace Saber.AI
             UpdateMovement();
 
             UpdateHeavyAttack();
+
+            UpdateLockOnInput();
+        }
+
+        private void UpdateLockOnInput()
+        {
+            if (m_PressingLockOn)
+            {
+                if (Time.time - m_PressDownLockOnTime > 0.3f)
+                {
+                    ClearLockEnemy();
+                }
+            }
         }
 
         // 镜头
@@ -604,9 +600,21 @@ namespace Saber.AI
             }
         }
 
-        void Wnd_JoyStick.IHandler.OnClickLockOn()
+        void Wnd_JoyStick.IHandler.OnPressLockOn(bool value)
         {
-            OnLockEnemyDown();
+            m_PressingLockOn = value;
+            if (value)
+            {
+                m_PressDownLockOnTime = Time.time;
+            }
+            else if (Time.time - m_PressDownLockOnTime <= 0.3f)
+            {
+                bool lockSucceed = TryLockEnemy();
+                if (!lockSucceed)
+                {
+                    GameApp.Entry.Game.PlayerCamera.LookAtTargetBack();
+                }
+            }
         }
 
         void Wnd_JoyStick.IHandler.OnClickDrinkMedicine()

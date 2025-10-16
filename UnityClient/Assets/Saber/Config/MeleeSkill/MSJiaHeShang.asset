@@ -17,8 +17,8 @@ MonoBehaviour:
   - m_ID: 1
     m_SkillName: 
     m_AnimStates:
-    - m_Name: 
-      m_EventData: {fileID: 0}
+    - m_Name: Atk_01
+      m_EventData: {fileID: 11400000, guid: 3abf0c5a5366587489df434da05df973, type: 2}
     CostStrength: 5
     m_CostPower: 0
     m_CanTriggerWhenPowerNotEnough: 0
@@ -35,5 +35,99 @@ MonoBehaviour:
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 2
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk_02
+      m_EventData: {fileID: 11400000, guid: 08e6d187f1be342409e82b57f3e71600, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 3
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk_03_A
+      m_EventData: {fileID: 11400000, guid: 83c0d0930025a2c4496a543e9c49dca5, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills:
+    - m_SkillID: 4
+      m_BlendTime: 0.1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 4
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk_03_B
+      m_EventData: {fileID: 11400000, guid: 3e10dbdad3651d546920ffbb0315d982, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 0
+    m_ChainSkills: []
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+  - m_ID: 5
+    m_SkillName: 
+    m_AnimStates:
+    - m_Name: Atk_04
+      m_EventData: {fileID: 11400000, guid: 6600e95e440b49c41b5899cced36b2c8, type: 2}
+    CostStrength: 5
+    m_CostPower: 0
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 0
+    m_SkillType: 0
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 1
+    m_ResilienceAfterAttack: 0
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 5
     m_GroupID: 0
     m_AITriggerCondition: 0

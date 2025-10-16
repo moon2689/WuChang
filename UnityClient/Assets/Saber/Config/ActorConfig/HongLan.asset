@@ -44,14 +44,21 @@ MonoBehaviour:
       m_ArmBoneType: 28
     m_AIInfo:
       m_WarningRange: 30
+      m_LostFocusRange: 50
+      m_DodgeType: 1
+    m_HitRecInfo:
+      CanBeBackstab: 1
+      CanBeUppercut: 1
+      CanBeStrikeDown: 1
+      CanBeKnockOffLongDis: 1
+      CanBeStunLarge: 1
   m_MonsterInfo:
     m_DefaultAI: 1
     m_MoveByRootMotion: 0
     m_SpeedWalk: 1
     m_SpeedRun: 2
     m_SpeedSprint: 0
-    m_FootstepClips: []
-    m_PlaySoundWhenIdle: 0
-    m_IdleSoundClips: []
-    m_CanDodge: 0
     m_CanDefense: 0
+    m_SpecialIdls: []
+    m_AttackDesirePercent: 100
+    m_DodgeDamagePercent: 50

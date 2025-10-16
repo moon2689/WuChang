@@ -41,7 +41,9 @@ MonoBehaviour:
     - m_WeaponPrefabResPath: 
       m_ArmBoneType: 29
     m_AIInfo:
-      m_WarningRange: 30
+      m_WarningRange: 10
+      m_LostFocusRange: 20
+      m_DodgeType: 2
     m_HitRecInfo:
       CanBeBackstab: 1
       CanBeUppercut: 1
@@ -54,8 +56,12 @@ MonoBehaviour:
     m_SpeedWalk: 1
     m_SpeedRun: 2
     m_SpeedSprint: 0
-    m_FootstepClips: []
-    m_PlaySoundWhenIdle: 0
-    m_IdleSoundClips: []
-    m_CanDodge: 0
     m_CanDefense: 0
+    m_SpecialIdls:
+    - SpecialIdle1
+    - SpecialIdle2
+    - SpecialIdle3
+    - SpecialIdle4
+    - SpecialIdle5
+    m_AttackDesirePercent: 50
+    m_DodgeDamagePercent: 50

@@ -7,14 +7,13 @@ namespace Saber.CharacterController
     public class MonsterIdle : ActorStateBase
     {
         private SMonster m_Monster;
-        private AudioPlayer m_AudioPlayer;
         private Action m_ActionOnLookArroundFinished;
         private Action m_ActionOnTurnDirectionFinished;
 
 
         private SMonster Monster => m_Monster ??= (SMonster)Actor;
         public override bool ApplyRootMotionSetWhenEnter => true;
-        
+
 
         public MonsterIdle() : base(EStateType.Idle)
         {
@@ -30,15 +29,6 @@ namespace Saber.CharacterController
         public override void OnStay()
         {
             base.OnStay();
-            // 播放声音
-            if (Monster.m_MonsterInfo.m_PlaySoundWhenIdle)
-            {
-                if (m_AudioPlayer == null || !m_AudioPlayer.AudioSource.isPlaying)
-                {
-                    var clip = Monster.m_MonsterInfo.GetRandomIdleAudio();
-                    m_AudioPlayer = GameApp.Entry.Game.Audio.Play3DSound(clip, Monster.transform.position);
-                }
-            }
         }
 
         protected override void OnExit()

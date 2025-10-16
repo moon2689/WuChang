@@ -7,6 +7,7 @@ using System.Text;
 using CombatEditor;
 using RootMotion.FinalIK;
 using Saber.CharacterController;
+using Unity.Collections;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Animations;
@@ -88,7 +89,7 @@ public static class WuChangTools
         EditorUtility.SetDirty(root);
     }
 
-    static void SetHitReaction(HitReaction hitReaction, CapsuleCollider collider, string name)
+    static void SetHitReaction(Transform bone, HitReaction hitReaction, CapsuleCollider collider, string name)
     {
         if (hitReaction == null)
         {
@@ -109,6 +110,7 @@ public static class WuChangTools
             if (item.name == name)
             {
                 item.collider = collider;
+                item.boneLinks[0].bone = bone;
                 break;
             }
         }
@@ -139,7 +141,7 @@ public static class WuChangTools
             c.height = c.radius * 2;
             c.center = new Vector3(0, 0, 0);
 
-            SetHitReaction(hitReaction, c, "Hips");
+            SetHitReaction(bone, hitReaction, c, "Hips");
         }
         else if (boneName == "Chest_M")
         {
@@ -150,7 +152,7 @@ public static class WuChangTools
             c.height = c.radius * 2;
             c.center = new Vector3(0, 0, 0);
 
-            SetHitReaction(hitReaction, c, "Chest");
+            SetHitReaction(bone, hitReaction, c, "Chest");
         }
         else if (boneName == "Head_M")
         {
@@ -161,7 +163,7 @@ public static class WuChangTools
             c.height = dis * 2;
             c.center = new Vector3(0, 0, 0);
 
-            SetHitReaction(hitReaction, c, "Head");
+            SetHitReaction(bone, hitReaction, c, "Head");
         }
         else if (boneName == "Hip_L")
         {
@@ -172,7 +174,7 @@ public static class WuChangTools
             c.height = dis;
             c.center = new Vector3(c.height / 2f, 0, 0);
 
-            SetHitReaction(hitReaction, c, "L Thigh");
+            SetHitReaction(bone, hitReaction, c, "L Thigh");
         }
         else if (boneName == "Knee_L")
         {
@@ -183,7 +185,7 @@ public static class WuChangTools
             c.height = dis;
             c.center = new Vector3(c.height / 2f, 0, 0);
 
-            SetHitReaction(hitReaction, c, "L Calf");
+            SetHitReaction(bone, hitReaction, c, "L Calf");
         }
         else if (boneName == "Hip_R")
         {
@@ -194,7 +196,7 @@ public static class WuChangTools
             c.height = dis;
             c.center = new Vector3(-c.height / 2f, 0, 0);
 
-            SetHitReaction(hitReaction, c, "R Thigh");
+            SetHitReaction(bone, hitReaction, c, "R Thigh");
         }
         else if (boneName == "Knee_R")
         {
@@ -205,7 +207,7 @@ public static class WuChangTools
             c.height = dis;
             c.center = new Vector3(-c.height / 2f, 0, 0);
 
-            SetHitReaction(hitReaction, c, "R Calf");
+            SetHitReaction(bone, hitReaction, c, "R Calf");
         }
         else if (boneName == "Shoulder_L")
         {
@@ -216,7 +218,7 @@ public static class WuChangTools
             c.height = dis;
             c.center = new Vector3(c.height / 2f, 0, 0);
 
-            SetHitReaction(hitReaction, c, "L Upper Arm");
+            SetHitReaction(bone, hitReaction, c, "L Upper Arm");
         }
         else if (boneName == "Elbow_L")
         {
@@ -227,7 +229,7 @@ public static class WuChangTools
             c.height = dis * 1.2f;
             c.center = new Vector3(c.height / 2f, 0, 0);
 
-            SetHitReaction(hitReaction, c, "L Forearm");
+            SetHitReaction(bone, hitReaction, c, "L Forearm");
         }
         else if (boneName == "Shoulder_R")
         {
@@ -238,7 +240,7 @@ public static class WuChangTools
             c.height = dis;
             c.center = new Vector3(-c.height / 2f, 0, 0);
 
-            SetHitReaction(hitReaction, c, "R Upper Arm");
+            SetHitReaction(bone, hitReaction, c, "R Upper Arm");
         }
         else if (boneName == "Elbow_R")
         {
@@ -249,7 +251,7 @@ public static class WuChangTools
             c.height = dis * 1.2f;
             c.center = new Vector3(-c.height / 2f, 0, 0);
 
-            SetHitReaction(hitReaction, c, "R Forearm");
+            SetHitReaction(bone, hitReaction, c, "R Forearm");
         }
     }
 

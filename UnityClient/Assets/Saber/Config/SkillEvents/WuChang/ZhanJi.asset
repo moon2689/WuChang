@@ -186,7 +186,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -6990389164277184467}
-  - EventTime: 0.11637931
+  - EventTime: 0.038793102
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -222,15 +222,6 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -9037097187543090460}
-  - EventTime: 0.0862069
-    EventRange: {x: 0, y: 1}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 3332301734501082526}
 --- !u!114 &2228662809925703508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +250,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ef16c0214bf99024ab50e6997bcf3aec, type: 3}
   - {fileID: 8300000, guid: b950eaeeabdbbf2449ed38cb01ea77ec, type: 3}
   m_Volume: 1
-  m_TriggerProbability: 20
+  m_TriggerProbability: 80
 --- !u!114 &2376085696044719993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,24 +264,6 @@ MonoBehaviour:
   m_Name: ComboTime
   m_EditorClassIdentifier: 
   IsActive: 1
---- !u!114 &3332301734501082526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
-  m_Name: SFXWeapon
-  m_EditorClassIdentifier: 
-  IsActive: 1
-  clips:
-  - {fileID: 8300000, guid: ec83f155934259346826e4bebc646e30, type: 3}
-  - {fileID: 8300000, guid: cead4bc79a1327d4bacef6ef95d38e3c, type: 3}
-  m_Volume: 1
-  m_TriggerProbability: 100
 --- !u!114 &6026539364583277062
 MonoBehaviour:
   m_ObjectHideFlags: 0

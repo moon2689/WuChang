@@ -1,0 +1,577 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8119848385287137186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
+  m_Name: hit3
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 0.7589838, z: 1.2003411}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 0
+  ColliderOffset: {x: -0.030812502, y: 0, z: 0}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 1.2166543
+  Height: 1
+  m_WeaponDamageSetting:
+    m_HitType: 0
+    m_WeaponBone: 29
+    m_DamageValue: 10
+    m_ImpactForce: 1
+    m_HitRecover: 0
+    m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 1
+--- !u!114 &-7640260503033588803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFXVoiceChunQi
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 9ac622bec13806543a483a5ee9466772, type: 3}
+  m_Volume: 1
+  m_TriggerProbability: 100
+--- !u!114 &-6346982020281226894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
+  m_Name: hit4
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 0.7589838, z: 1.2003411}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 0
+  ColliderOffset: {x: -0.030812502, y: 0, z: 0}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 1.2166543
+  Height: 1
+  m_WeaponDamageSetting:
+    m_HitType: 0
+    m_WeaponBone: 29
+    m_DamageValue: 20
+    m_ImpactForce: 1
+    m_HitRecover: 0
+    m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 1
+--- !u!114 &-6114576399221838819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f29d956cd14f76ae2ff6fbffccde20, type: 3}
+  m_Name: AlignToEnemy
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_RotateSpeed: 180
+--- !u!114 &-5621379043482349812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
+  m_Name: hit5
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 0.7589838, z: 1.2003411}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 0
+  ColliderOffset: {x: -0.030812502, y: 0, z: 0}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 1.2166543
+  Height: 1
+  m_WeaponDamageSetting:
+    m_HitType: 0
+    m_WeaponBone: 29
+    m_DamageValue: 10
+    m_ImpactForce: 1
+    m_HitRecover: 0
+    m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 1
+--- !u!114 &-2882681636502791541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
+  m_Name: hit6
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 0.7589838, z: 1.2003411}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 0
+  ColliderOffset: {x: -0.030812502, y: 0, z: 0}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 1.2166543
+  Height: 1
+  m_WeaponDamageSetting:
+    m_HitType: 0
+    m_WeaponBone: 29
+    m_DamageValue: 15
+    m_ImpactForce: 1
+    m_HitRecover: 5
+    m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 1
+--- !u!114 &-2161022046331038184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFXVoice
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 934c16fb7f85d5e499804ef6b74210c6, type: 3}
+  m_Volume: 1
+  m_TriggerProbability: 30
+--- !u!114 &-2139244627637631477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: HuiWu4
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 3401054116893954d860302a572323d6, type: 3}
+  - {fileID: 8300000, guid: 827d33c62922b0b40b7bc1b1d328f45d, type: 3}
+  - {fileID: 8300000, guid: eaf71696e0b2e364db437daa7087ddab, type: 3}
+  - {fileID: 8300000, guid: 832d10dc16640674fbeb055ab8780412, type: 3}
+  m_Volume: 1
+  m_TriggerProbability: 100
+--- !u!114 &-1513560119487512755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: HuiWu6
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 3401054116893954d860302a572323d6, type: 3}
+  - {fileID: 8300000, guid: 827d33c62922b0b40b7bc1b1d328f45d, type: 3}
+  - {fileID: 8300000, guid: eaf71696e0b2e364db437daa7087ddab, type: 3}
+  - {fileID: 8300000, guid: 832d10dc16640674fbeb055ab8780412, type: 3}
+  m_Volume: 1
+  m_TriggerProbability: 100
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 757d9b080c65e9847b379b2a8a5ae8ab, type: 3}
+  m_Name: Attack4
+  m_EditorClassIdentifier: 
+  AbilityType: 0
+  Clip: {fileID: -6857425532669011829, guid: 6db0f6cc8ca2382429da545c98bd2dfa, type: 3}
+  PreviewPercentageRange: {x: 0, y: 1}
+  loopCount: 0
+  events:
+  - EventTime: 0
+    EventRange: {x: 0.3689655, y: 0.37931034}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -6346982020281226894}
+  - EventTime: 0
+    EventRange: {x: 0, y: 0.14655173}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 25320978210548777}
+  - EventTime: 0.13448276
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 1458720776752644022}
+  - EventTime: 0
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.15
+    - 0.5137931
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 1808879419833644100}
+  - EventTime: 0
+    EventRange: {x: 0.14827587, y: 0.16034482}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 3797671712102920739}
+  - EventTime: 0
+    EventRange: {x: 0.17586207, y: 0.51896554}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -6114576399221838819}
+  - EventTime: 0
+    EventRange: {x: 0.23620689, y: 0.24655172}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 8033406711893097113}
+  - EventTime: 0
+    EventRange: {x: 0.3275862, y: 0.33793104}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -8119848385287137186}
+  - EventTime: 0
+    EventRange: {x: 0.4051724, y: 0.41551724}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -5621379043482349812}
+  - EventTime: 0
+    EventRange: {x: 0.49827588, y: 0.5103448}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -2882681636502791541}
+  - EventTime: 0.22758621
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 4098733220545167592}
+  - EventTime: 0.3034483
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 4572170508968661361}
+  - EventTime: 0.3637931
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -2139244627637631477}
+  - EventTime: 0.4
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 6992428427415386112}
+  - EventTime: 0.4948276
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -1513560119487512755}
+  - EventTime: 0.55517244
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -7640260503033588803}
+  - EventTime: 0.013793103
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -2161022046331038184}
+--- !u!114 &25320978210548777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f29d956cd14f76ae2ff6fbffccde20, type: 3}
+  m_Name: AlignToEnemy
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_RotateSpeed: 1080
+--- !u!114 &1458720776752644022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: HuiWu1
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 3401054116893954d860302a572323d6, type: 3}
+  - {fileID: 8300000, guid: 827d33c62922b0b40b7bc1b1d328f45d, type: 3}
+  - {fileID: 8300000, guid: eaf71696e0b2e364db437daa7087ddab, type: 3}
+  - {fileID: 8300000, guid: 832d10dc16640674fbeb055ab8780412, type: 3}
+  m_Volume: 1
+  m_TriggerProbability: 100
+--- !u!114 &1808879419833644100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b6cfcfadd54440b975c2de0758518c, type: 3}
+  m_Name: AttackStates
+  m_EditorClassIdentifier: 
+  IsActive: 1
+--- !u!114 &3797671712102920739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
+  m_Name: hit1
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 0.7589838, z: 1.2003411}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 0
+  ColliderOffset: {x: -0.030812502, y: 0, z: 0}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 1.2166543
+  Height: 1
+  m_WeaponDamageSetting:
+    m_HitType: 0
+    m_WeaponBone: 29
+    m_DamageValue: 10
+    m_ImpactForce: 1
+    m_HitRecover: 0
+    m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 1
+--- !u!114 &4098733220545167592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: HuiWu2
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 3401054116893954d860302a572323d6, type: 3}
+  - {fileID: 8300000, guid: 827d33c62922b0b40b7bc1b1d328f45d, type: 3}
+  - {fileID: 8300000, guid: eaf71696e0b2e364db437daa7087ddab, type: 3}
+  - {fileID: 8300000, guid: 832d10dc16640674fbeb055ab8780412, type: 3}
+  m_Volume: 1
+  m_TriggerProbability: 100
+--- !u!114 &4572170508968661361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: HuiWu3
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 3401054116893954d860302a572323d6, type: 3}
+  - {fileID: 8300000, guid: 827d33c62922b0b40b7bc1b1d328f45d, type: 3}
+  - {fileID: 8300000, guid: eaf71696e0b2e364db437daa7087ddab, type: 3}
+  - {fileID: 8300000, guid: 832d10dc16640674fbeb055ab8780412, type: 3}
+  m_Volume: 1
+  m_TriggerProbability: 100
+--- !u!114 &6992428427415386112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: HuiWu5
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 3401054116893954d860302a572323d6, type: 3}
+  - {fileID: 8300000, guid: 827d33c62922b0b40b7bc1b1d328f45d, type: 3}
+  - {fileID: 8300000, guid: eaf71696e0b2e364db437daa7087ddab, type: 3}
+  - {fileID: 8300000, guid: 832d10dc16640674fbeb055ab8780412, type: 3}
+  m_Volume: 1
+  m_TriggerProbability: 100
+--- !u!114 &8033406711893097113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
+  m_Name: hit2
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 0.7589838, z: 1.2003411}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 0
+  ColliderOffset: {x: -0.030812502, y: 0, z: 0}
+  ColliderSize: {x: 1, y: 1, z: 1}
+  Radius: 1.2166543
+  Height: 1
+  m_WeaponDamageSetting:
+    m_HitType: 0
+    m_WeaponBone: 29
+    m_DamageValue: 10
+    m_ImpactForce: 1
+    m_HitRecover: 0
+    m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 1
