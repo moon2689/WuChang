@@ -41,7 +41,6 @@ namespace Saber.CharacterController
         private Vector3 m_ToSetForward;
         private float m_ToSetPosTime;
         private Vector3 m_ToSetPosSpeed;
-        private Action m_SetPosAndForwardFinishedEvent;
 
         private ECurAction m_CurAction;
 
@@ -97,7 +96,7 @@ namespace Saber.CharacterController
             m_CurAction = ECurAction.SetPosAndForward;
             m_ToSetForward = forward;
             m_ToSetPosTime = dis.magnitude / speed;
-            m_SetPosAndForwardFinishedEvent = onFinished;
+            m_OnPlayActionEnd = onFinished;
         }
 
         void UpdateSetPosAndForward()
@@ -114,11 +113,6 @@ namespace Saber.CharacterController
                 {
                     Exit();
                     m_CurAction = ECurAction.None;
-                    if (m_SetPosAndForwardFinishedEvent != null)
-                    {
-                        GameApp.Entry.Unity.DoActionOneFrameLater(m_SetPosAndForwardFinishedEvent);
-                        m_SetPosAndForwardFinishedEvent = null;
-                    }
                 }
             }
         }
@@ -200,12 +194,6 @@ namespace Saber.CharacterController
                 {
                     Exit();
                     m_CurAction = ECurAction.None;
-
-                    if (m_OnPlayActionEnd != null)
-                    {
-                        GameApp.Entry.Unity.DoActionOneFrameLater(m_OnPlayActionEnd);
-                        m_OnPlayActionEnd = null;
-                    }
                 }
             }
         }
@@ -246,6 +234,16 @@ namespace Saber.CharacterController
             else if (eventObj.EventType == EAnimTriggerEvent.HideWeapon)
             {
                 Actor.CMelee.CWeapon.ShowOrHideWeapon(false);
+            }
+        }
+
+        protected override void OnExit()
+        {
+            base.OnExit();
+            if (m_OnPlayActionEnd != null)
+            {
+                GameApp.Entry.Unity.DoActionOneFrameLater(m_OnPlayActionEnd);
+                m_OnPlayActionEnd = null;
             }
         }
     }

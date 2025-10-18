@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Saber.Config;
 using UnityEngine;
 
 namespace Saber.CharacterController
@@ -21,8 +22,9 @@ namespace Saber.CharacterController
         {
             RegisterAbility(new DrinkMedicine());
             RegisterAbility(new Eat());
+            RegisterAbility(new EnchantWeapon());
         }
-        
+
         public bool DrinkMedicine()
         {
             return TryEnterAbility<DrinkMedicine>(EAbilityType.DrinkMedicine, null);
@@ -30,9 +32,15 @@ namespace Saber.CharacterController
 
         public bool Eat(Action onEated)
         {
-            return TryEnterAbility<Eat>(EAbilityType.Eat, a =>
+            return TryEnterAbility<Eat>(EAbilityType.Eat, a => { a.OnEated = onEated; });
+        }
+
+        public bool EnchantByItem(PropItemInfo item)
+        {
+            return TryEnterAbility<EnchantWeapon>(EAbilityType.EnchantWeapon, a =>
             {
-                a.OnEated = onEated;
+                a.Magic = (EEnchantedMagic)((int)item.m_Param1);
+                a.HoldSeconds = item.m_Param2;
             });
         }
 

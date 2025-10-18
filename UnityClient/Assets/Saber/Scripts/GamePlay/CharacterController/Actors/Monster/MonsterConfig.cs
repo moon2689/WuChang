@@ -18,7 +18,6 @@ namespace Saber.CharacterController
     public class MonsterInfo
     {
         public EAIType m_DefaultAI;
-        public bool m_MoveByRootMotion;
         public float m_SpeedWalk;
         public float m_SpeedRun;
         public float m_SpeedSprint;
@@ -28,8 +27,16 @@ namespace Saber.CharacterController
         public string[] m_SpecialIdls;
         public float m_AttackDesirePercent = 50;
         public float m_DodgeDamagePercent = 50;
+        public EAIAttackStyleWhenTooFar m_AIAttackStyleWhenTooFar;
 
         public float AttackDesireRatio => Mathf.Clamp01(m_AttackDesirePercent / 100f);
         public float DodgeDamageRatio => Mathf.Clamp01(m_DodgeDamagePercent / 100f);
+    }
+
+    public enum EAIAttackStyleWhenTooFar
+    {
+        ToStalemate,
+        UseLongestRangeSkill,
+        UseRandomSkill,
     }
 }

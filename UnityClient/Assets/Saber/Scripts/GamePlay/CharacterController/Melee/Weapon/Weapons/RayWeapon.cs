@@ -120,8 +120,8 @@ namespace Saber.CharacterController
             if (canDoDmg)
             {
                 Vector3 pos = FixDamagePos(other, hit);
-                base.DoDamage(pos, dir, hb);
-                OnDamageDone(target);
+                bool succeed = base.DoDamage(pos, dir, hb);
+                OnDamageDone(target, succeed);
                 //SDebug.DrawWireSphere(hit.point, 0.1f, Color.red, 3);
 
                 return true;
@@ -170,10 +170,11 @@ namespace Saber.CharacterController
             GameApp.Entry.Game.Audio.Play3DSound(sound, hitPos);
         }
 
-        void OnDamageDone(SActor target)
+        void OnDamageDone(SActor target, bool damageCaused)
         {
             m_ListRayHurtedActors.Add(target);
-            Actor.CurrentSkill.OnDamageDone();
+            if (damageCaused)
+                Actor.CurrentSkill.OnDamageDone();
         }
     }
 }

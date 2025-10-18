@@ -27,3 +27,10 @@ MonoBehaviour:
     m_PropType: 2
     m_Param1: 3
     m_Param2: 10
+  - m_ID: 3
+    m_Name: "\u6DEC\u7FBD\u7ECF\u8109"
+    m_Description: "\u7ED9\u6B66\u5668\u9644\u9B54"
+    m_Icon: cyjm_S
+    m_PropType: 4
+    m_Param1: 1
+    m_Param2: 30

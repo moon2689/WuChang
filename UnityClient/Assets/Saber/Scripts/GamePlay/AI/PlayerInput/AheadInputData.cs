@@ -1,3 +1,4 @@
+using CombatEditor;
 using UnityEngine;
 using Saber.CharacterController;
 
@@ -26,8 +27,13 @@ namespace Saber.AI
             get
             {
                 var s = m_Actor.CurrentStateType;
+                if (s == EStateType.Skill)
+                {
+                    return m_Actor.CurrentSkill.CurrentAttackState != EAttackStates.BeforeAttack;
+                }
+
                 return s == EStateType.Idle || s == EStateType.Move || s == EStateType.Defense ||
-                       s == EStateType.Dodge || s == EStateType.Skill;
+                       s == EStateType.Dodge;
             }
         }
 

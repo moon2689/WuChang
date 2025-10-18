@@ -155,7 +155,7 @@ namespace Saber.CharacterController
             }
         }
 
-       // public virtual bool InPerfectDodgeTime => false;
+        // public virtual bool InPerfectDodgeTime => false;
         //public virtual bool InTanDaoTime => false;
 
         /// <summary>是否安静，不破除潜行状态</summary>
@@ -174,7 +174,8 @@ namespace Saber.CharacterController
         protected virtual void PlayAnimOnEnter(string firstAnim, string endAnim)
         {
             m_LastAnimHash = endAnim.GetAnimatorHash();
-            Actor.CAnim.Play(firstAnim, force: true, blendTime: BlendTime);
+            float fixedTimeOffset = IsPowerEnough ? SkillConfig.m_SkipSomeAnimWhenUsePower : 0;
+            Actor.CAnim.Play(firstAnim, force: true, blendTime: BlendTime, timeOffset: fixedTimeOffset);
         }
 
         public virtual void Enter()
@@ -189,10 +190,15 @@ namespace Saber.CharacterController
             m_AnimParamToGounedTriggered = false;
             m_PowerAdded = false;
 
-            IsPowerEnough = Actor.CStats.CurrentPower >= SkillConfig.m_CostPower;
-            if (SkillConfig.m_CostPower > 0 && IsPowerEnough)
+            IsPowerEnough = SkillConfig.m_CostPower > 0 && Actor.CStats.CurrentPower >= SkillConfig.m_CostPower;
+            if (IsPowerEnough)
             {
                 Actor.CostYuMao(SkillConfig.m_CostPower);
+
+                if (SkillConfig.m_EnchantedWhenUsePower != EEnchantedMagic.None)
+                {
+                    Actor.CMelee.EnchantedByPower(SkillConfig.m_EnchantedWhenUsePower);
+                }
             }
 
             // play anim
@@ -294,6 +300,8 @@ namespace Saber.CharacterController
 
             IsTriggering = false;
             Actor.CPhysic.UseGravity = true;
+            
+            Actor.CMelee.EndPowerEnchanted();
 
             /*
             if (Actor.CurrentWeapons != null)

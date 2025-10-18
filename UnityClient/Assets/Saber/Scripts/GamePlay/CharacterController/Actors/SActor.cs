@@ -474,11 +474,6 @@ namespace Saber.CharacterController
             return CStateMachine.StartMove();
         }
 
-        public bool StartMove()
-        {
-            return CStateMachine.StartMove();
-        }
-
         public void StopMove()
         {
             MoveSpeedV = EMoveSpeedV.None;

@@ -16,20 +16,12 @@ namespace Saber.CharacterController
 
         protected override void RegisterStates()
         {
-            base.RegisterState(new MonsterIdle());
+            base.RegisterState(new Idle());
             base.RegisterState(new SkillState());
             base.RegisterState(new GetHit());
             base.RegisterState(new Die());
             base.RegisterState(new PlayActionState());
-
-            if (Monster.m_MonsterInfo.m_MoveByRootMotion)
-            {
-                base.RegisterState(new MonsterRootMotionMove());
-            }
-            else
-            {
-                base.RegisterState(new MonsterMove());
-            }
+            base.RegisterState(new MonsterMove());
 
             if (Monster.m_BaseActorInfo.m_AIInfo.CanDodge)
             {

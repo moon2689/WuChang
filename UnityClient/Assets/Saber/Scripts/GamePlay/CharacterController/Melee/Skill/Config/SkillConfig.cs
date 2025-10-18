@@ -59,6 +59,8 @@ namespace Saber.CharacterController
         public RangedFloat m_AIPramAttackDistance;
         public int m_GroupID;
         public EAITriggerSkillCondition m_AITriggerCondition;
+        public float m_SkipSomeAnimWhenUsePower;
+        public EEnchantedMagic m_EnchantedWhenUsePower;
 
         public bool IsAirSkill => m_TriggerCondition == ETriggerCondition.InAir;
 

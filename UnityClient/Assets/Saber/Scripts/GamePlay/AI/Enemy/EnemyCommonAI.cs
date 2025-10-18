@@ -105,6 +105,9 @@ namespace Saber.AI
         // 对峙
         IEnumerator StalemateItor()
         {
+            Actor.StopMove();
+
+            // 特殊IDLE切换成战斗IDLE状态
             bool wait;
             if (Monster.CurrentStateType == EStateType.PlayAction)
             {
@@ -113,7 +116,7 @@ namespace Saber.AI
                 {
                     wait = true;
                     Monster.PlayAction(PlayActionState.EActionType.SpecialIdleTransition, null, () => wait = false);
-                    while (wait && Monster.CurrentStateType == EStateType.PlayAction)
+                    while (wait)
                     {
                         yield return null;
                     }
@@ -124,7 +127,6 @@ namespace Saber.AI
             if (!IsFaceToEnemy())
             {
                 wait = true;
-                Actor.StopMove();
                 if (Actor.PlayAction(PlayActionState.EActionType.FaceToLockingEnemy, () => wait = false))
                 {
                     while (wait)
@@ -296,6 +298,46 @@ namespace Saber.AI
                 return;
             }
 
+
+            m_CurrentSkill = GetInRangeRandomSkill();
+
+            if (m_CurrentSkill != null)
+            {
+                SwitchCoroutine(AttackItor());
+            }
+            else
+            {
+                EAIAttackStyleWhenTooFar attackStyle = Monster.m_MonsterInfo.m_AIAttackStyleWhenTooFar;
+                if (attackStyle == EAIAttackStyleWhenTooFar.UseLongestRangeSkill)
+                {
+                    m_CurrentSkill = GetLongestAttackRangeSkill(); //找攻击距离最大的技能
+                }
+                else if (attackStyle == EAIAttackStyleWhenTooFar.UseRandomSkill)
+                {
+                    m_CurrentSkill = GetRandomSkill();
+                }
+                else if (attackStyle == EAIAttackStyleWhenTooFar.ToStalemate)
+                {
+                    m_CurrentSkill = null;
+                }
+                else
+                {
+                    Debug.LogError($"Unknown attack style:{attackStyle}");
+                }
+
+                if (m_CurrentSkill != null)
+                {
+                    SwitchCoroutine(SprintAndAttackItor());
+                }
+                else
+                {
+                    ToStalemate();
+                }
+            }
+        }
+
+        SkillItem GetInRangeRandomSkill()
+        {
             m_ListSkills.Clear();
             foreach (SkillItem skill in Actor.Skills)
             {
@@ -309,58 +351,83 @@ namespace Saber.AI
                 }
             }
 
-            if (m_ListSkills.Count > 0)
+            if (m_ListSkills.Count <= 0)
+                return null;
+
+            return m_ListSkills[UnityEngine.Random.Range(0, m_ListSkills.Count)];
+        }
+
+        SkillItem GetLongestAttackRangeSkill()
+        {
+            float maxAttackDistance = float.MinValue;
+            SkillItem tarSkill = null;
+            foreach (SkillItem skill in Actor.Skills)
             {
-                m_CurrentSkill = m_ListSkills[UnityEngine.Random.Range(0, m_ListSkills.Count)];
-                SwitchCoroutine(AttackItor());
+                if (skill.m_FirstSkillOfCombo &&
+                    IsCDColldown(skill) &&
+                    SatifyTriggerCondition(skill) &&
+                    !IsRepeatSkill(skill))
+                {
+                    if (skill.m_AIPramAttackDistance.maxValue > maxAttackDistance)
+                    {
+                        maxAttackDistance = skill.m_AIPramAttackDistance.maxValue;
+                        tarSkill = skill;
+                    }
+                }
             }
-            else
+
+            if (tarSkill == null)
             {
-                // 找攻击距离最大的技能
-                float maxAttackDistance = float.MinValue;
-                m_CurrentSkill = null;
+                maxAttackDistance = float.MinValue;
                 foreach (SkillItem skill in Actor.Skills)
                 {
                     if (skill.m_FirstSkillOfCombo &&
                         IsCDColldown(skill) &&
-                        SatifyTriggerCondition(skill) &&
-                        !IsRepeatSkill(skill))
+                        SatifyTriggerCondition(skill))
                     {
                         if (skill.m_AIPramAttackDistance.maxValue > maxAttackDistance)
                         {
                             maxAttackDistance = skill.m_AIPramAttackDistance.maxValue;
-                            m_CurrentSkill = skill;
+                            tarSkill = skill;
                         }
                     }
-                }
-
-                if (m_CurrentSkill == null)
-                {
-                    maxAttackDistance = float.MinValue;
-                    foreach (SkillItem skill in Actor.Skills)
-                    {
-                        if (skill.m_FirstSkillOfCombo &&
-                            IsCDColldown(skill) &&
-                            SatifyTriggerCondition(skill))
-                        {
-                            if (skill.m_AIPramAttackDistance.maxValue > maxAttackDistance)
-                            {
-                                maxAttackDistance = skill.m_AIPramAttackDistance.maxValue;
-                                m_CurrentSkill = skill;
-                            }
-                        }
-                    }
-                }
-
-                if (m_CurrentSkill != null)
-                {
-                    SwitchCoroutine(SprintAndAttackItor());
-                }
-                else
-                {
-                    ToStalemate();
                 }
             }
+
+            return tarSkill;
+        }
+
+        SkillItem GetRandomSkill()
+        {
+            m_ListSkills.Clear();
+            foreach (SkillItem skill in Actor.Skills)
+            {
+                if (skill.m_FirstSkillOfCombo &&
+                    IsCDColldown(skill) &&
+                    SatifyTriggerCondition(skill) &&
+                    !IsRepeatSkill(skill))
+                {
+                    m_ListSkills.Add(skill);
+                }
+            }
+
+            if (m_ListSkills.Count <= 0)
+            {
+                foreach (SkillItem skill in Actor.Skills)
+                {
+                    if (skill.m_FirstSkillOfCombo &&
+                        IsCDColldown(skill) &&
+                        SatifyTriggerCondition(skill))
+                    {
+                        m_ListSkills.Add(skill);
+                    }
+                }
+            }
+
+            if (m_ListSkills.Count <= 0)
+                return null;
+
+            return m_ListSkills[UnityEngine.Random.Range(0, m_ListSkills.Count)];
         }
 
         public override void OnEnterBossStageTwo()
@@ -384,6 +451,9 @@ namespace Saber.AI
         /// <summary>冲刺后攻击</summary>
         IEnumerator SprintAndAttackItor()
         {
+            float minStayTime = Mathf.Lerp(0.3f, 2f, Monster.m_MonsterInfo.AttackDesireRatio);
+            float maxStayTime = Mathf.Lerp(2f, 8f, Monster.m_MonsterInfo.AttackDesireRatio);
+            float timerSprint = UnityEngine.Random.Range(minStayTime, maxStayTime);
             while (true)
             {
                 Actor.StartMove(EMoveSpeedV.Sprint, new Vector3(0, 0, 1));
@@ -394,6 +464,11 @@ namespace Saber.AI
                 }
 
                 yield return new WaitForSeconds(0.1f);
+                timerSprint -= 0.1f;
+                if (timerSprint < 0)
+                {
+                    ToStalemate();
+                }
             }
         }
 
@@ -408,6 +483,11 @@ namespace Saber.AI
 
         bool IsFaceToEnemy()
         {
+            if (LockingEnemy == null)
+            {
+                return false;
+            }
+
             Vector3 dirToEnemy = LockingEnemy.transform.position - Actor.transform.position;
             return Vector3.Dot(Actor.transform.forward, dirToEnemy) > 0;
         }
@@ -431,6 +511,12 @@ namespace Saber.AI
                 {
                     if (Actor.CurrentSkill.SkillConfig.m_ChainSkills.Length > 0 && Actor.CurrentSkill.InComboTime)
                     {
+                        if (LockingEnemy.IsInSpecialStun)
+                        {
+                            ToStalemate();
+                            yield break;
+                        }
+
                         m_ListSkills.Clear();
                         foreach (var item in Actor.CurrentSkill.SkillConfig.m_ChainSkills)
                         {

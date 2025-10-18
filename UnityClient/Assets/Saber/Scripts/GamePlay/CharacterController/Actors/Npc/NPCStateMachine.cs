@@ -13,9 +13,8 @@ namespace Saber.CharacterController
 
         protected override void RegisterStates()
         {
-            RegisterState(new NPCIdle());
+            RegisterState(new Idle());
             RegisterState(new NPCMove());
-            //RegisterState(new HumanObstruct());
             RegisterState(new Die());
         }
     }

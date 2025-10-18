@@ -209,7 +209,7 @@ namespace CombatEditor
                     }
                     */
 
-                    if (/*NodeList == null ||*/ CombatControllerSO == null)
+                    if ( /*NodeList == null ||*/ CombatControllerSO == null)
                     {
                         InitNodeReorableList();
                     }
@@ -366,7 +366,6 @@ namespace CombatEditor
             string TargetPath = path + InsObj.name + ".asset";
             while (true)
             {
-                //����ͬ�ļ��͸���
                 if (File.Exists(TargetPath))
                 {
                     TargetPath = path + InsObj.name + "_" + index + ".asset";
@@ -383,8 +382,6 @@ namespace CombatEditor
             return InsObj;
         }
 
-
-        public Rect WindowRect = new Rect(20, 20, 120, 50);
 
         public void CreateInspectedObj(Object InspectedObj)
         {

@@ -289,8 +289,7 @@ namespace Saber.CharacterController
 
         public BaseSkill GetSkillObject(ESkillType type)
         {
-            var tarSkill =
-                SkillConfig.m_SkillItems.FirstOrDefault(a => a.m_SkillType == type && a.m_FirstSkillOfCombo);
+            var tarSkill = SkillConfig.m_SkillItems.FirstOrDefault(a => a.m_SkillType == type && a.m_FirstSkillOfCombo);
             if (tarSkill != null)
             {
                 m_DicSkills.TryGetValue(tarSkill.m_ID, out var tar);
@@ -315,6 +314,30 @@ namespace Saber.CharacterController
         public void ToggleDamage(WeaponDamageSetting damage, bool enable)
         {
             CWeapon.ToggleDamage(damage, enable);
+        }
+
+        public void EnchantedByItem(EEnchantedMagic enchantedMagic, float holdSeconds)
+        {
+            foreach (var w in CWeapon.CurWeapons)
+            {
+                w.StartEnchanted(enchantedMagic, EEnchantedStyle.ByItem, holdSeconds);
+            }
+        }
+
+        public void EnchantedByPower(EEnchantedMagic enchantedMagic)
+        {
+            foreach (var w in CWeapon.CurWeapons)
+            {
+                w.StartEnchanted(enchantedMagic, EEnchantedStyle.ByPower, 0);
+            }
+        }
+
+        public void EndPowerEnchanted()
+        {
+            foreach (var w in CWeapon.CurWeapons)
+            {
+                w.EndPowerEnchanted();
+            }
         }
     }
 }

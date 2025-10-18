@@ -149,7 +149,7 @@ namespace Saber.UI
                     m_ButtonClose.OnSubmit(null);
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.M))
             {
                 m_ButtonClose.OnSubmit(null);
             }

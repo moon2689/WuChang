@@ -109,7 +109,7 @@ namespace Saber
             {
                 return GameApp.Entry.Game.Player.CAbility.Eat(() =>
                 {
-                    // 睡意治疗
+                    // 治疗
                     GameApp.Entry.Game.Player.Heal(item.Config.m_Param1);
                 });
             }
@@ -120,6 +120,10 @@ namespace Saber
                     // 持续治疗
                     GameApp.Entry.Game.Player.CBuff.AddBuff(EBuffType.HeadlHP, item.Config.m_Param1, item.Config.m_Param2);
                 });
+            }
+            else if (t == EPropType.Enchant)
+            {
+                return GameApp.Entry.Game.Player.CAbility.EnchantByItem(item.Config);
             }
             else
             {

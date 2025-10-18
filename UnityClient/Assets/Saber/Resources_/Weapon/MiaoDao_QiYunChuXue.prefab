@@ -14709,6 +14709,7 @@ MonoBehaviour:
   m_WeaponType: 5
   m_WeaponTrails:
   - {fileID: 283841385127477590}
+  m_EnchantedEffectFire: {fileID: 8645432108622421451}
   m_PosStart: {fileID: 6484838340881086570}
   m_PosEnd: {fileID: 2784682636619762956}
   m_RayMinDistanceInterval: 0.5

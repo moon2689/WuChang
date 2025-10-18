@@ -149,7 +149,11 @@ public class SkillConfigEditor : EditorBase
             item.m_CostPower = EditorGUILayout.IntField("消耗能量:", item.m_CostPower);
             item.m_PowerAddWhenHitted = EditorGUILayout.IntField("击中时增加能量:", item.m_PowerAddWhenHitted);
             if (item.m_CostPower > 0)
+            {
                 item.m_CanTriggerWhenPowerNotEnough = EditorGUILayout.Toggle("能量不足也可释放？", item.m_CanTriggerWhenPowerNotEnough);
+                item.m_SkipSomeAnimWhenUsePower = EditorGUILayout.FloatField("使用能量时跳过部分动画（秒）:", item.m_SkipSomeAnimWhenUsePower);
+                item.m_EnchantedWhenUsePower = (EEnchantedMagic)EditorGUILayout.EnumPopup("使用能量时附魔:", item.m_EnchantedWhenUsePower);
+            }
         }
 
         // item.CanBeTanFan = EditorGUILayout.Toggle("可被弹反？", item.CanBeTanFan);

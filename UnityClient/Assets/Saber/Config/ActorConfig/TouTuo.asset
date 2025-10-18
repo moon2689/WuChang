@@ -43,6 +43,7 @@ MonoBehaviour:
     m_AIInfo:
       m_WarningRange: 30
       m_LostFocusRange: 50
+      m_DodgeType: 0
     m_HitRecInfo:
       CanBeBackstab: 1
       CanBeUppercut: 0
@@ -51,11 +52,11 @@ MonoBehaviour:
       CanBeStunLarge: 0
   m_MonsterInfo:
     m_DefaultAI: 1
-    m_MoveByRootMotion: 0
     m_SpeedWalk: 1
     m_SpeedRun: 2
     m_SpeedSprint: 0
-    m_CanDodge: 0
     m_CanDefense: 0
     m_SpecialIdls: []
     m_AttackDesirePercent: 100
+    m_DodgeDamagePercent: 50
+    m_AIAttackStyleWhenTooFar: 1

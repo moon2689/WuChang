@@ -11,12 +11,16 @@ namespace Saber.CharacterController
     {
         [SerializeField] private EWeaponType m_WeaponType;
         [SerializeField] private WeaponTrail[] m_WeaponTrails;
+        [SerializeField] private GameObject m_EnchantedEffectFire;
         public Transform m_PosStart;
         public Transform m_PosEnd;
 
         private WeaponPrefab m_WeaponInfo;
         private DamageInfo m_CurDmgInfo = new();
         protected WeaponDamageSetting m_WeaponDamageSetting;
+        private EEnchantedMagic m_CurrentHoldingEnchantedMagic;
+        private EEnchantedMagic m_CurrentOnceEnchantedMagic;
+        private float m_TimerHoldingEnchant;
 
         public SActor Actor { get; private set; }
         public EWeaponType WeaponType => m_WeaponType;
@@ -24,6 +28,9 @@ namespace Saber.CharacterController
 
         public ENodeType WeaponBone => m_WeaponInfo.m_ArmBoneType;
         public Vector3 MiddlePos => (m_PosStart.position + m_PosEnd.position) / 2f;
+
+        public bool IsEnchanted => m_CurrentHoldingEnchantedMagic != EEnchantedMagic.None ||
+                                   m_CurrentOnceEnchantedMagic != EEnchantedMagic.None;
 
 
         private void Awake()
@@ -42,11 +49,11 @@ namespace Saber.CharacterController
             m_WeaponDamageSetting = damage;
         }
 
-        public void DoDamage(Vector3 position, Vector3 direction, HurtBox hurtBox)
+        public bool DoDamage(Vector3 position, Vector3 direction, HurtBox hurtBox)
         {
             m_CurDmgInfo.DamagePosition = position;
             m_CurDmgInfo.DamageDirection = direction.normalized;
-            DamageHelper.TryHit(hurtBox, this.Actor, m_WeaponDamageSetting, m_CurDmgInfo);
+            return DamageHelper.TryHit(hurtBox, this.Actor, m_WeaponDamageSetting, m_CurDmgInfo);
         }
 
         public void EquipWeapon()
@@ -103,5 +110,91 @@ namespace Saber.CharacterController
             rb.isKinematic = false;
             transform.SetParent(null);
         }
+
+        #region 附魔
+
+        public void StartEnchanted(EEnchantedMagic magic, EEnchantedStyle style, float holdSeconds)
+        {
+            if (magic == EEnchantedMagic.None)
+            {
+                return;
+            }
+
+            if (m_CurrentHoldingEnchantedMagic != EEnchantedMagic.None)
+            {
+                ActiveEnchantedEffect(m_CurrentHoldingEnchantedMagic, false);
+            }
+
+            if (m_CurrentOnceEnchantedMagic != EEnchantedMagic.None)
+            {
+                ActiveEnchantedEffect(m_CurrentOnceEnchantedMagic, false);
+            }
+
+            ActiveEnchantedEffect(magic, true);
+
+            if (style == EEnchantedStyle.ByItem)
+            {
+                m_CurrentHoldingEnchantedMagic = magic;
+                m_TimerHoldingEnchant = holdSeconds;
+                m_CurrentOnceEnchantedMagic = EEnchantedMagic.None;
+            }
+            else if (style == EEnchantedStyle.ByPower)
+            {
+                m_CurrentOnceEnchantedMagic = magic;
+            }
+            else
+            {
+                throw new InvalidOperationException($"Unknown style:{style}");
+            }
+        }
+
+        public void EndPowerEnchanted()
+        {
+            if (m_CurrentOnceEnchantedMagic == EEnchantedMagic.None)
+            {
+                return;
+            }
+
+            ActiveEnchantedEffect(m_CurrentOnceEnchantedMagic, false);
+            m_CurrentOnceEnchantedMagic = EEnchantedMagic.None;
+
+            if (m_CurrentHoldingEnchantedMagic != EEnchantedMagic.None)
+            {
+                ActiveEnchantedEffect(m_CurrentHoldingEnchantedMagic, true);
+            }
+        }
+
+        void ActiveEnchantedEffect(EEnchantedMagic magic, bool active)
+        {
+            if (magic == EEnchantedMagic.None)
+            {
+                return;
+            }
+
+            GameObject effect = magic switch
+            {
+                EEnchantedMagic.Fire => m_EnchantedEffectFire,
+                _ => throw new InvalidOperationException($"Unknown enchanted magic:{magic}"),
+            };
+            if (effect)
+            {
+                effect.SetActive(active);
+            }
+        }
+
+        void Update()
+        {
+            if (m_CurrentHoldingEnchantedMagic != EEnchantedMagic.None)
+            {
+                m_TimerHoldingEnchant -= Time.deltaTime;
+                if (m_TimerHoldingEnchant <= 0)
+                {
+                    ActiveEnchantedEffect(m_CurrentHoldingEnchantedMagic, false);
+                    m_CurrentHoldingEnchantedMagic = EEnchantedMagic.None;
+                }
+            }
+        }
+
+        #endregion
     }
 }

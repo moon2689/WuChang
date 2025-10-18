@@ -45,6 +45,8 @@ MonoBehaviour:
       maxValue: 2
     m_GroupID: 0
     m_AITriggerCondition: 0
+    m_SkipSomeAnimWhenUsePower: 0
+    m_EnchantedWhenUsePower: 0
   - m_ID: 2
     m_SkillName: "\u8F7B\u51FB2"
     m_AnimStates:
@@ -76,6 +78,8 @@ MonoBehaviour:
       maxValue: 2
     m_GroupID: 0
     m_AITriggerCondition: 0
+    m_SkipSomeAnimWhenUsePower: 0
+    m_EnchantedWhenUsePower: 0
   - m_ID: 3
     m_SkillName: "\u8F7B\u51FB3"
     m_AnimStates:
@@ -107,6 +111,8 @@ MonoBehaviour:
       maxValue: 2
     m_GroupID: 0
     m_AITriggerCondition: 0
+    m_SkipSomeAnimWhenUsePower: 0
+    m_EnchantedWhenUsePower: 0
   - m_ID: 4
     m_SkillName: "\u8F7B\u51FB4"
     m_AnimStates:
@@ -138,6 +144,8 @@ MonoBehaviour:
       maxValue: 2
     m_GroupID: 0
     m_AITriggerCondition: 0
+    m_SkipSomeAnimWhenUsePower: 0
+    m_EnchantedWhenUsePower: 0
   - m_ID: 5
     m_SkillName: "\u8F7B\u51FB5"
     m_AnimStates:
@@ -169,6 +177,8 @@ MonoBehaviour:
       maxValue: 2
     m_GroupID: 0
     m_AITriggerCondition: 0
+    m_SkipSomeAnimWhenUsePower: 0
+    m_EnchantedWhenUsePower: 0
   - m_ID: 6
     m_SkillName: "\u5411\u524D\u8E0F\u6B65\u540E\u8F7B\u51FB"
     m_AnimStates:
@@ -200,6 +210,8 @@ MonoBehaviour:
       maxValue: 2
     m_GroupID: 0
     m_AITriggerCondition: 0
+    m_SkipSomeAnimWhenUsePower: 0
+    m_EnchantedWhenUsePower: 0
   - m_ID: 7
     m_SkillName: "\u8E0F\u6B65\u540E\u8F7B\u51FB"
     m_AnimStates:
@@ -231,6 +243,8 @@ MonoBehaviour:
       maxValue: 2
     m_GroupID: 0
     m_AITriggerCondition: 0
+    m_SkipSomeAnimWhenUsePower: 0
+    m_EnchantedWhenUsePower: 0
   - m_ID: 8
     m_SkillName: "\u51B2\u523A\u540E\u8F7B\u51FB"
     m_AnimStates:
@@ -262,6 +276,8 @@ MonoBehaviour:
       maxValue: 2
     m_GroupID: 0
     m_AITriggerCondition: 0
+    m_SkipSomeAnimWhenUsePower: 0
+    m_EnchantedWhenUsePower: 0
   - m_ID: 9
     m_SkillName: "\u84C4\u529B\u91CD\u51FB"
     m_AnimStates:
@@ -287,6 +303,8 @@ MonoBehaviour:
       maxValue: 2
     m_GroupID: 0
     m_AITriggerCondition: 0
+    m_SkipSomeAnimWhenUsePower: 0
+    m_EnchantedWhenUsePower: 0
   - m_ID: 10
     m_SkillName: "\u91CD\u51FB"
     m_AnimStates:
@@ -312,6 +330,8 @@ MonoBehaviour:
       maxValue: 2
     m_GroupID: 0
     m_AITriggerCondition: 0
+    m_SkipSomeAnimWhenUsePower: 0
+    m_EnchantedWhenUsePower: 0
   - m_ID: 11
     m_SkillName: "\u5F39\u5200\u540E\u8F7B\u51FB"
     m_AnimStates:
@@ -337,14 +357,16 @@ MonoBehaviour:
       maxValue: 2
     m_GroupID: 0
     m_AITriggerCondition: 0
+    m_SkipSomeAnimWhenUsePower: 0
+    m_EnchantedWhenUsePower: 0
   - m_ID: 12
     m_SkillName: "\u6218\u6280"
     m_AnimStates:
     - m_Name: ZhanJi
       m_EventData: {fileID: 11400000, guid: 6cdec15b21fd3c945b1350d43bee637c, type: 2}
     CostStrength: 5
-    m_CostPower: 0
-    m_CanTriggerWhenPowerNotEnough: 0
+    m_CostPower: 1
+    m_CanTriggerWhenPowerNotEnough: 1
     m_PowerAddWhenHitted: 0
     m_CDSeconds: 1
     m_SkillType: 4
@@ -368,33 +390,10 @@ MonoBehaviour:
       maxValue: 3
     m_GroupID: 0
     m_AITriggerCondition: 0
-  - m_ID: 15
-    m_SkillName: "\u6218\u62801"
-    m_AnimStates:
-    - m_Name: DoubleChop
-      m_EventData: {fileID: 11400000, guid: 4b7853feca07eba40b7d1494f9d574df, type: 2}
-    CostStrength: 10
-    m_CostPower: 2
-    m_CanTriggerWhenPowerNotEnough: 1
-    m_PowerAddWhenHitted: 0
-    m_CDSeconds: 10
-    m_SkillType: 5
-    m_TriggerCondition: 0
-    UseGravityWhenInAir: 0
-    m_FirstSkillOfCombo: 1
-    m_ChainSkills:
-    - m_SkillID: 13
-      m_BlendTime: 0.1
-    m_ResilienceBeforeAttack: 1
-    m_ResilienceAttacking: 2
-    m_ResilienceAfterAttack: 0
-    m_AIPramAttackDistance:
-      minValue: 0.5
-      maxValue: 2
-    m_GroupID: 0
-    m_AITriggerCondition: 0
+    m_SkipSomeAnimWhenUsePower: 1
+    m_EnchantedWhenUsePower: 0
   - m_ID: 13
-    m_SkillName: "\u6218\u62802"
+    m_SkillName: "\u997F\u6B8D\u904D\u91CE2"
     m_AnimStates:
     - m_Name: DoubleChop2
       m_EventData: {fileID: 11400000, guid: df9e12259360e0a43a58ffdb6fe6ca33, type: 2}
@@ -418,6 +417,8 @@ MonoBehaviour:
       maxValue: 2
     m_GroupID: 0
     m_AITriggerCondition: 0
+    m_SkipSomeAnimWhenUsePower: 0
+    m_EnchantedWhenUsePower: 0
   - m_ID: 14
     m_SkillName: "\u5904\u51B3"
     m_AnimStates: []
@@ -439,3 +440,32 @@ MonoBehaviour:
       maxValue: 2
     m_GroupID: 0
     m_AITriggerCondition: 0
+    m_SkipSomeAnimWhenUsePower: 0
+    m_EnchantedWhenUsePower: 0
+  - m_ID: 15
+    m_SkillName: "\u997F\u6B8D\u904D\u91CE1"
+    m_AnimStates:
+    - m_Name: DoubleChop
+      m_EventData: {fileID: 11400000, guid: 4b7853feca07eba40b7d1494f9d574df, type: 2}
+    CostStrength: 10
+    m_CostPower: 2
+    m_CanTriggerWhenPowerNotEnough: 1
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 10
+    m_SkillType: 5
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills:
+    - m_SkillID: 13
+      m_BlendTime: 0.1
+    m_ResilienceBeforeAttack: 1
+    m_ResilienceAttacking: 2
+    m_ResilienceAfterAttack: 0
+    m_AIPramAttackDistance:
+      minValue: 0.5
+      maxValue: 2
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+    m_SkipSomeAnimWhenUsePower: 0
+    m_EnchantedWhenUsePower: 0

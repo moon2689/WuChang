@@ -13,7 +13,7 @@ namespace Saber.CharacterController
         Eated,
         AnimCanExit,
         LookArroundFirstFinished,
-        FlyDash,
+        Enchanted,
         PlaySound,
         RecoverHP,
         PlayExpression,

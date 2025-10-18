@@ -278,4 +278,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   m_WeaponBone: 29
-  m_NotTriggerWhenPowerEnough: 0
+  m_NotTriggerWhenPowerEnough: 1

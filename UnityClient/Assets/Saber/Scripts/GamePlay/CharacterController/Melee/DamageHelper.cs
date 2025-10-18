@@ -66,10 +66,10 @@ namespace Saber.CharacterController
                 return false;
             }
 
-            if (enemy.Invincible && enemy.CurrentStateType == EStateType.Dodge && enemy.CStateMachine.CurrentState is Dodge dodeg)
+            if (enemy.Invincible && enemy.CurrentStateType == EStateType.Dodge && enemy.CStateMachine.CurrentState is Dodge dodge)
             {
-                dodeg.OnPerfectDodge();
-                return true;
+                dodge.OnPerfectDodge();
+                return false;
             }
 
             if (enemy.Invincible)
@@ -86,10 +86,10 @@ namespace Saber.CharacterController
             curDmgInfo.DamageDirection = waveDir;
             */
             curDmgInfo.DamageConfig = damageSetting;
-            curDmgInfo.DamageValue = damageSetting.m_DamageValue * UnityEngine.Random.Range(0.8f, 1.2f);
             curDmgInfo.HitType = damageSetting.m_HitType;
             curDmgInfo.m_HurtBox = hurtBox;
 
+            float enchantedDamageRatio = 1;
             if (curDmgInfo.HitType == EHitType.Weapon)
             {
                 var weapon = dmgMaker.GetWeaponByPos(damageSetting.m_WeaponBone);
@@ -99,7 +99,14 @@ namespace Saber.CharacterController
                 }
 
                 curDmgInfo.DamagingWeaponType = weapon.WeaponType;
+
+                if (weapon.IsEnchanted)
+                {
+                    enchantedDamageRatio = 1.5f;
+                }
             }
+
+            curDmgInfo.DamageValue = damageSetting.m_DamageValue * enchantedDamageRatio * UnityEngine.Random.Range(0.8f, 1.2f);
 
             //curDmgInfo.Time = Time.time;
 
@@ -110,7 +117,7 @@ namespace Saber.CharacterController
 
             // 尝试格挡
             if (dmgMaker is SActor actor && TryDefense(actor, hurtBox, curDmgInfo))
-                return true;
+                return false;
 
             // 卡帧 Freeze Frame.
             FreezeFrame(dmgMaker, hurtBox);

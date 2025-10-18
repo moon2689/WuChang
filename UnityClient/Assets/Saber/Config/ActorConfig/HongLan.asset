@@ -54,7 +54,6 @@ MonoBehaviour:
       CanBeStunLarge: 1
   m_MonsterInfo:
     m_DefaultAI: 1
-    m_MoveByRootMotion: 0
     m_SpeedWalk: 1
     m_SpeedRun: 2
     m_SpeedSprint: 0
@@ -62,3 +61,4 @@ MonoBehaviour:
     m_SpecialIdls: []
     m_AttackDesirePercent: 100
     m_DodgeDamagePercent: 50
+    m_AIAttackStyleWhenTooFar: 2
