@@ -15,7 +15,7 @@ namespace Saber
         private string SavePath => $"{Application.persistentDataPath}/SaberProgress.json";
         public bool HasSavePointBefore => m_ProgressData != null && m_ProgressData.m_LastStayingSceneID > 0;
         public int LastStayingSceneID => m_ProgressData.m_LastStayingSceneID;
-        public int LastStayingIdolID => m_ProgressData.m_LastStayingIdolID;
+        public int LastStayingShenKanID => m_ProgressData.m_LastStayingShenKanID;
 
         public List<SceneProgressData> SceneProgressDatas => m_ProgressData.m_SceneProgress;
         public int[] Clothes => m_ProgressData.m_Clothes;
@@ -35,7 +35,7 @@ namespace Saber
                 m_ProgressData = new()
                 {
                     m_SceneProgress = new(),
-                    m_LastStayingIdolID = -1,
+                    m_LastStayingShenKanID = -1,
                     m_LastStayingSceneID = -1,
                     m_Clothes = GameApp.Entry.Config.GameSetting.PlayerStartClothes,
                     m_Items = new PlayerPropItemInfo[0],
@@ -53,12 +53,12 @@ namespace Saber
             Read();
         }
 
-        public bool IsIdolFired(int sceneID, int idolID)
+        public bool IsShenKanActived(int sceneID, int shenKanID)
         {
             var tarSceneProgress = m_ProgressData.m_SceneProgress.FirstOrDefault(a => a.m_SceneID == sceneID);
             if (tarSceneProgress != null)
             {
-                return tarSceneProgress.m_FiredIdols.Contains(idolID);
+                return tarSceneProgress.m_ActivedShenKan.Contains(shenKanID);
             }
 
             return false;
@@ -67,26 +67,26 @@ namespace Saber
         public void Save()
         {
             int curSceneID = GameApp.Entry.Game.World.SceneInfo.m_ID;
-            int curIdolID = GameApp.Entry.Game.World.CurrentStayingIdolID;
+            int curShenKanID = GameApp.Entry.Game.World.CurrentStayingShenKanID;
 
             m_ProgressData.m_LastStayingSceneID = curSceneID;
-            m_ProgressData.m_LastStayingIdolID = curIdolID;
+            m_ProgressData.m_LastStayingShenKanID = curShenKanID;
             m_ProgressData.m_Clothes = GameApp.Entry.Game.Player.CDressUp.GetDressingClothes();
             m_ProgressData.m_Items = GameApp.Entry.Game.Bag.ToItemsArray();
 
-            if (curIdolID > 0)
+            if (curShenKanID > 0)
             {
                 var sceneProgress = m_ProgressData.m_SceneProgress.FirstOrDefault(a => a.m_SceneID == curSceneID);
                 if (sceneProgress != null)
                 {
-                    if (!sceneProgress.m_FiredIdols.Contains(curIdolID))
-                        sceneProgress.m_FiredIdols.Add(curIdolID);
+                    if (!sceneProgress.m_ActivedShenKan.Contains(curShenKanID))
+                        sceneProgress.m_ActivedShenKan.Add(curShenKanID);
                 }
                 else
                 {
                     sceneProgress = new();
                     sceneProgress.m_SceneID = curSceneID;
-                    sceneProgress.m_FiredIdols = new() { curIdolID };
+                    sceneProgress.m_ActivedShenKan = new() { curShenKanID };
                     m_ProgressData.m_SceneProgress.Add(sceneProgress);
                 }
             }

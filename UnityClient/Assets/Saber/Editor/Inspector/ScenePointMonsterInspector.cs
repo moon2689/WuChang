@@ -60,15 +60,15 @@ public class ScenePointMonsterInspector : Editor
     void SyncToSceneConfig()
     {
         SceneInfo sceneInfo = AssetDatabase.LoadAssetAtPath<SceneInfo>("Assets/Saber/Resources_/Config/SceneInfo.asset");
-        List<IdolInfo> listIdols = new();
-        foreach (ScenePointIdol p in FindObjectsOfType<ScenePointIdol>())
+        List<ShenKanInfo> listShenKans = new();
+        foreach (ScenePointShenKan p in FindObjectsOfType<ScenePointShenKan>())
         {
-            IdolInfo idolInfo = new()
+            ShenKanInfo shenKanInfo = new()
             {
                 m_ID = p.m_ID,
                 m_Name = p.m_PointName,
             };
-            listIdols.Add(idolInfo);
+            listShenKans.Add(shenKanInfo);
         }
 
         List<int> listPortal = new();
@@ -78,7 +78,7 @@ public class ScenePointMonsterInspector : Editor
         }
 
         var sceneItem = sceneInfo.m_Scenes.First(a => a.m_ResName == SceneManager.GetActiveScene().name);
-        sceneItem.m_Idols = listIdols.ToArray();
+        sceneItem.m_ShenKans = listShenKans.ToArray();
         sceneItem.m_Portals = listPortal.ToArray();
         EditorUtility.SetDirty(sceneInfo);
 

@@ -26,6 +26,7 @@ namespace Saber.UI
         {
             m_MaxHp = maxHp;
             CurHp = curHp;
+            m_OldHp = curHp;
             m_ImageHp.fillAmount = m_ImageHpSmooth.fillAmount = CurHp / m_MaxHp;
         }
 
@@ -51,9 +52,13 @@ namespace Saber.UI
                 m_FollowImage = m_ImageHpSmooth;
                 m_FastImage.fillAmount = CurHp / m_MaxHp;
                 m_OldHp = CurHp;
-                if (m_FollowImage.fillAmount == m_FastImage.fillAmount)
-                    m_TimerHealthSmoothChange = 1f;
+                m_TimerHealthSmoothChange = 1f;
                 m_FollowSpeed = Mathf.Abs(m_FastImage.fillAmount - m_FollowImage.fillAmount) / 0.5f;
+            }
+
+            if (m_FastImage == null)
+            {
+                return;
             }
 
             float tar = m_FastImage.fillAmount;

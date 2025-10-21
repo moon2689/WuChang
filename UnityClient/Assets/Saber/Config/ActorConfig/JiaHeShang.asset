@@ -43,7 +43,7 @@ MonoBehaviour:
     m_AIInfo:
       m_WarningRange: 10
       m_LostFocusRange: 20
-      m_DodgeType: 2
+      m_DodgeType: 1
     m_HitRecInfo:
       CanBeBackstab: 1
       CanBeUppercut: 1
@@ -61,7 +61,6 @@ MonoBehaviour:
     - SpecialIdle2
     - SpecialIdle3
     - SpecialIdle4
-    - SpecialIdle5
     m_AttackDesirePercent: 50
     m_DodgeDamagePercent: 50
     m_AIAttackStyleWhenTooFar: 2

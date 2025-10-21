@@ -42,7 +42,7 @@ namespace Saber.Config
         public float m_ShadowDistance = 20;
         
         // 通过工具填充
-        public IdolInfo[] m_Idols;
+        public ShenKanInfo[] m_ShenKans;
         public int[] m_Portals;
     }
 
@@ -55,7 +55,7 @@ namespace Saber.Config
     }
     
     [Serializable]
-    public class IdolInfo
+    public class ShenKanInfo
     {
         public int m_ID;
         public string m_Name;

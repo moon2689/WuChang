@@ -2922,7 +2922,7 @@ MonoBehaviour:
   m_SliderParent: {fileID: 8359156336141438159}
   m_TextName: {fileID: 2033947384783909123}
   m_SliderSpaceY: 35
-  m_HPPerSlider: 2000
+  m_HPPerSlider: 1600
 --- !u!1 &3468869665226914582
 GameObject:
   m_ObjectHideFlags: 0

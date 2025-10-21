@@ -22,17 +22,17 @@ namespace Saber.World
         , Wnd_SelectWeapon.IHandler
         , Wnd_DressUp.IHandler
         , Portal.IHandler
-        , Idol.IHandler
+        , ShenKan.IHandler
         , Wnd_Rest.IHandler
     {
         public enum ELoadType
         {
             None,
             NewGame,
-            ToLastIdol,
+            ToLastShenKan,
             ToNextSceneByPortal,
-            ToIdol,
-            ToNearestIdol,
+            ToShenKan,
+            ToNearestShenKan,
         }
 
 
@@ -47,9 +47,9 @@ namespace Saber.World
         private Wnd_JoyStick m_WndJoyStick;
         private Wnd_Rest m_WndRest;
         private Portal m_CurrentUsingPortalInfo;
-        private ScenePointIdol m_CurrentStayingIdol;
+        private ScenePointShenKan m_CurrentStayingShenKan;
         private int m_TransmittingPortalID;
-        private int m_TransmittingIdolID;
+        private int m_TransmittingShenKanID;
         private Coroutine m_CoroutineWitchTime;
         private EffectObject m_EffectWitchTimeBoom;
         private ScenePoint[] m_ScenePoints;
@@ -74,7 +74,7 @@ namespace Saber.World
         public Light MainLight { get; private set; }
         public SActor CurrentFightingBoss { get; private set; }
         public SceneBaseInfo SceneInfo => m_SceneInfo;
-        public int CurrentStayingIdolID => m_CurrentStayingIdol != null ? m_CurrentStayingIdol.m_ID : 0;
+        public int CurrentStayingShenKanID => m_CurrentStayingShenKan != null ? m_CurrentStayingShenKan.m_ID : 0;
 
 
         #region 加载
@@ -96,11 +96,11 @@ namespace Saber.World
                 m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
                 m_TransmittingPortalID = m_CurrentUsingPortalInfo.TargetPortalID;
             }
-            else if (loadType == ELoadType.ToLastIdol)
+            else if (loadType == ELoadType.ToLastShenKan)
             {
                 int sceneID = GameApp.Entry.Game.ProgressMgr.LastStayingSceneID;
                 m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
-                m_TransmittingIdolID = GameApp.Entry.Game.ProgressMgr.LastStayingIdolID;
+                m_TransmittingShenKanID = GameApp.Entry.Game.ProgressMgr.LastStayingShenKanID;
             }
             else
             {
@@ -124,11 +124,11 @@ namespace Saber.World
             yield return LoadScene().StartCoroutine();
 
             //
-            m_CurrentStayingIdol = null;
-            if (m_LoadType == ELoadType.ToIdol || m_LoadType == ELoadType.ToLastIdol || m_LoadType == ELoadType.ToNearestIdol)
+            m_CurrentStayingShenKan = null;
+            if (m_LoadType == ELoadType.ToShenKan || m_LoadType == ELoadType.ToLastShenKan || m_LoadType == ELoadType.ToNearestShenKan)
             {
-                ScenePoint point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.Idol && a.m_ID == m_TransmittingIdolID);
-                m_CurrentStayingIdol = point as ScenePointIdol;
+                ScenePoint point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.ShenKan && a.m_ID == m_TransmittingShenKanID);
+                m_CurrentStayingShenKan = point as ScenePointShenKan;
             }
 
             // player
@@ -244,7 +244,7 @@ namespace Saber.World
                     ++count;
                     m_WndLoading.Percent = 50 + 10 * count / portalCount;
                     AssetHandle assetHandle = scenePoint.Load(parentPortal.transform, this);
-                    while (!assetHandle.IsDone)
+                    while (assetHandle != null && !assetHandle.IsDone)
                     {
                         yield return null;
                     }
@@ -260,26 +260,26 @@ namespace Saber.World
 
             m_WndLoading.Percent = 60;
 
-            // 雕像（存档点）
-            int idolCount = m_ScenePoints.Count(a => a.m_PointType == EScenePointType.Idol);
-            if (idolCount > 0)
+            // 神龛（存档点）
+            int shenKanCount = m_ScenePoints.Count(a => a.m_PointType == EScenePointType.ShenKan);
+            if (shenKanCount > 0)
             {
-                string statueParentName = "Idols";
-                GameObject parentStatue = GameObject.Find(statueParentName);
-                if (!parentStatue)
-                    parentStatue = new GameObject(statueParentName);
+                string shenKanParentName = "ShenKans";
+                GameObject parentShenKan = GameObject.Find(shenKanParentName);
+                if (!parentShenKan)
+                    parentShenKan = new GameObject(shenKanParentName);
                 int count = 0;
                 foreach (var scenePoint in m_ScenePoints)
                 {
-                    if (scenePoint.m_PointType != EScenePointType.Idol)
+                    if (scenePoint.m_PointType != EScenePointType.ShenKan)
                     {
                         continue;
                     }
 
                     ++count;
-                    m_WndLoading.Percent = 60 + 5 * count / idolCount;
-                    AssetHandle assetHandle = scenePoint.Load(parentStatue.transform, this);
-                    while (!assetHandle.IsDone)
+                    m_WndLoading.Percent = 60 + 5 * count / shenKanCount;
+                    AssetHandle assetHandle = scenePoint.Load(parentShenKan.transform, this);
+                    while (assetHandle != null && !assetHandle.IsDone)
                     {
                         yield return null;
                     }
@@ -403,7 +403,7 @@ namespace Saber.World
         {
             foreach (var p in m_ScenePoints)
             {
-                if (p is ScenePointIdol ip && ip != m_CurrentStayingIdol)
+                if (p is ScenePointShenKan ip && ip != m_CurrentStayingShenKan)
                 {
                     foreach (var mp in ip.LinkMonsterPoints)
                         mp.Destroy();
@@ -412,17 +412,17 @@ namespace Saber.World
 
             yield return null;
 
-            if (m_CurrentStayingIdol == null)
+            if (m_CurrentStayingShenKan == null)
             {
                 yield break;
             }
 
             int count = 0;
-            foreach (var scenePoint in m_CurrentStayingIdol.LinkMonsterPoints)
+            foreach (var scenePoint in m_CurrentStayingShenKan.LinkMonsterPoints)
             {
                 ++count;
                 yield return CreateActor(scenePoint).StartCoroutine();
-                m_WndLoading.Percent = 70 + 20 * count / m_CurrentStayingIdol.LinkMonsterPoints.Length;
+                m_WndLoading.Percent = 70 + 20 * count / m_CurrentStayingShenKan.LinkMonsterPoints.Length;
                 yield return null;
             }
         }
@@ -478,9 +478,9 @@ namespace Saber.World
                     //return point.GetPortalFixedPos(out rot);
                 }
             }
-            else if (m_CurrentStayingIdol != null)
+            else if (m_CurrentStayingShenKan != null)
             {
-                return m_CurrentStayingIdol.GetIdolFixedPos(out rot);
+                return m_CurrentStayingShenKan.GetShenKanFixedPos(out rot);
             }
             else
             {
@@ -572,7 +572,7 @@ namespace Saber.World
 
             foreach (var p in m_ScenePoints)
             {
-                if (p.m_PointType == EScenePointType.Idol)
+                if (p.m_PointType == EScenePointType.ShenKan)
                 {
                     p.SetActive(!isFightingBoss);
                 }
@@ -618,7 +618,7 @@ namespace Saber.World
             m_Player.RecoverOrigin();
             yield return null;
 
-            yield return BackToLastIdol();
+            yield return BackToLastShenKan();
 
             RecorverOtherActors();
             yield return null;
@@ -626,14 +626,14 @@ namespace Saber.World
             //Timeline += 6;
         }
 
-        Coroutine BackToLastIdol()
+        Coroutine BackToLastShenKan()
         {
             if (GameApp.Entry.Game.ProgressMgr.HasSavePointBefore)
             {
                 int sceneID = GameApp.Entry.Game.ProgressMgr.LastStayingSceneID;
                 m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
-                m_TransmittingIdolID = GameApp.Entry.Game.ProgressMgr.LastStayingIdolID;
-                return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToLastIdol, null));
+                m_TransmittingShenKanID = GameApp.Entry.Game.ProgressMgr.LastStayingShenKanID;
+                return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToLastShenKan, null));
             }
             else
             {
@@ -651,7 +651,7 @@ namespace Saber.World
         {
             foreach (var p in m_ScenePoints)
             {
-                if (p is ScenePointIdol ip && ip != m_CurrentStayingIdol)
+                if (p is ScenePointShenKan ip && ip != m_CurrentStayingShenKan)
                 {
                     foreach (var mp in ip.LinkMonsterPoints)
                         mp.Destroy();
@@ -660,12 +660,12 @@ namespace Saber.World
 
             yield return null;
 
-            if (m_CurrentStayingIdol == null)
+            if (m_CurrentStayingShenKan == null)
             {
                 yield break;
             }
 
-            foreach (var p in m_CurrentStayingIdol.LinkMonsterPoints)
+            foreach (var p in m_CurrentStayingShenKan.LinkMonsterPoints)
             {
                 yield return CreateActor(p).StartCoroutine();
             }
@@ -678,7 +678,7 @@ namespace Saber.World
         {
         }
 
-        public bool GoNearestIdol()
+        public bool GoNearestShenKan()
         {
             //GameApp.Entry.UI.CreateWnd<Wnd_SelectWeapon>(null, this);
             if (m_Player.AI.LockingEnemy != null)
@@ -687,14 +687,14 @@ namespace Saber.World
                 return false;
             }
 
-            GoNearestIdolItor().StartCoroutine();
+            GoNearestShenKanItor().StartCoroutine();
             return true;
         }
 
-        IEnumerator GoNearestIdolItor()
+        IEnumerator GoNearestShenKanItor()
         {
             bool wait = true;
-            if (m_Player.PlayAction(PlayActionState.EActionType.IdolRest, () => wait = false))
+            if (m_Player.PlayAction(PlayActionState.EActionType.ShenKanRest, () => wait = false))
             {
                 SetFilmEffect(true);
                 m_Player.CMelee.CWeapon.ShowOrHideWeapon(false);
@@ -703,7 +703,7 @@ namespace Saber.World
                     yield return null;
                 }
 
-                yield return BackToNearestIdol();
+                yield return BackToNearestShenKan();
             }
             else
             {
@@ -712,24 +712,24 @@ namespace Saber.World
             }
         }
 
-        Coroutine BackToNearestIdol()
+        Coroutine BackToNearestShenKan()
         {
             if (GameApp.Entry.Game.ProgressMgr.HasSavePointBefore)
             {
-                m_TransmittingIdolID = -1;
+                m_TransmittingShenKanID = -1;
                 if (m_SceneInfo != null)
                 {
                     float minDis = float.MaxValue;
                     foreach (var scenePoint in m_ScenePoints)
                     {
-                        if (scenePoint.m_PointType != EScenePointType.Idol)
+                        if (scenePoint.m_PointType != EScenePointType.ShenKan)
                         {
                             continue;
                         }
 
-                        ScenePointIdol idolPoint = (ScenePointIdol)scenePoint;
+                        ScenePointShenKan shenKanPoint = (ScenePointShenKan)scenePoint;
 
-                        if (!idolPoint.IdolObj.IsFired)
+                        if (!shenKanPoint.ShenKanObj.IsActived)
                         {
                             continue;
                         }
@@ -738,17 +738,17 @@ namespace Saber.World
                         if (dis < minDis)
                         {
                             minDis = dis;
-                            m_TransmittingIdolID = scenePoint.m_ID;
+                            m_TransmittingShenKanID = scenePoint.m_ID;
                         }
                     }
                 }
 
-                if (m_TransmittingIdolID < 0)
+                if (m_TransmittingShenKanID < 0)
                 {
-                    return BackToLastIdol();
+                    return BackToLastShenKan();
                 }
 
-                return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToNearestIdol, null));
+                return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToNearestShenKan, null));
             }
             else
             {
@@ -869,22 +869,22 @@ namespace Saber.World
 
         void Wnd_Rest.IHandler.OnClickQuit()
         {
-            QuitIdolRest();
+            QuitShenKanRest();
         }
 
-        void QuitIdolRest()
+        void QuitShenKanRest()
         {
             GameApp.Entry.Game.World.SetFilmEffect(false);
 
             GameApp.Entry.Game.PlayerAI.Active = true;
-            GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(m_CurrentStayingIdol.IdolObj);
+            GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(m_CurrentStayingShenKan.ShenKanObj);
 
-            m_Player.PlayAction(PlayActionState.EActionType.IdolRestEnd, () => m_Player.CMelee.CWeapon.ShowOrHideWeapon(true));
+            m_Player.PlayAction(PlayActionState.EActionType.ShenKanRestEnd, () => m_Player.CMelee.CWeapon.ShowOrHideWeapon(true));
         }
 
-        void Wnd_Rest.IHandler.OnClickTransmit(int sceneID, int idolID)
+        void Wnd_Rest.IHandler.OnClickTransmit(int sceneID, int shenKanID)
         {
-            TransmitItor(sceneID, idolID).StartCoroutine();
+            TransmitItor(sceneID, shenKanID).StartCoroutine();
         }
 
         void Wnd_Rest.IHandler.OnClickDressUp()
@@ -901,19 +901,19 @@ namespace Saber.World
             }
         }
 
-        IEnumerator TransmitItor(int sceneID, int idolID)
+        IEnumerator TransmitItor(int sceneID, int shenKanID)
         {
             GameApp.Entry.Game.PlayerAI.Active = true;
 
-            if (m_CurrentStayingIdol != null &&
-                sceneID == m_CurrentStayingIdol.IdolObj.SceneID &&
-                idolID == m_CurrentStayingIdol.IdolObj.ID)
+            if (m_CurrentStayingShenKan != null &&
+                sceneID == m_CurrentStayingShenKan.ShenKanObj.SceneID &&
+                shenKanID == m_CurrentStayingShenKan.ShenKanObj.ID)
             {
-                QuitIdolRest();
+                QuitShenKanRest();
                 yield break;
             }
 
-            OnPlayerExit(m_CurrentStayingIdol.IdolObj);
+            OnPlayerExit(m_CurrentStayingShenKan.ShenKanObj);
 
             /*
             bool wait = true;
@@ -926,8 +926,8 @@ namespace Saber.World
             yield return null;
 
             m_SceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(sceneID);
-            m_TransmittingIdolID = idolID;
-            yield return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToIdol, null));
+            m_TransmittingShenKanID = shenKanID;
+            yield return GameApp.Entry.Unity.StartCoroutine(LoadItor(ELoadType.ToShenKan, null));
         }
 
         /*
@@ -996,40 +996,40 @@ namespace Saber.World
         #endregion
 
 
-        #region Idol.IHandler
+        #region ShenKan.IHandler
 
-        void Idol.IHandler.OnPlayerEnter(Idol idol)
+        void ShenKan.IHandler.OnPlayerEnter(ShenKan shenKan)
         {
-            m_CurrentStayingIdol = idol.Point;
-            GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(idol);
+            m_CurrentStayingShenKan = shenKan.Point;
+            GameApp.Entry.Game.PlayerAI.OnPlayerEnterGodStatue(shenKan);
         }
 
-        public void OnPlayerExit(Idol idol)
+        public void OnPlayerExit(ShenKan shenKan)
         {
-            GameApp.Entry.Game.PlayerAI.OnPlayerExitGodStatue(idol);
+            GameApp.Entry.Game.PlayerAI.OnPlayerExitGodStatue(shenKan);
         }
 
-        void Idol.IHandler.OnPlayerActiveFire(Idol idol)
+        void ShenKan.IHandler.OnPlayerActiveFire(ShenKan shenKan)
         {
             //GameApp.Entry.Game.PlayerCamera.LookAtTarget(godStatue.transform.rotation.eulerAngles.y + 150);
 
-            GameApp.Entry.Game.PlayerAI.ActiveIdol(idol, () =>
+            GameApp.Entry.Game.PlayerAI.ActiveShenKan(shenKan, () =>
             {
                 GameApp.Entry.Game.ProgressMgr.Save();
-                idol.RefreshFire();
+                shenKan.RefreshFire();
             });
         }
 
-        Coroutine Idol.IHandler.OnPlayerRest(Idol idol)
+        Coroutine ShenKan.IHandler.OnPlayerRest(ShenKan shenKan)
         {
-            return PlayerRestBeforeIdolItor(idol).StartCoroutine();
+            return PlayerRestOnShenKanItor(shenKan).StartCoroutine();
         }
 
-        IEnumerator PlayerRestBeforeIdolItor(Idol idol)
+        IEnumerator PlayerRestOnShenKanItor(ShenKan shenKan)
         {
             bool wait = true;
-            Vector3 idolRestPos = idol.Point.GetIdolFixedPos(out _);
-            bool succeed = m_Player.CStateMachine.SetPosAndForward(idolRestPos, -idol.transform.forward, () => wait = false);
+            Vector3 shenKanRestPos = shenKan.Point.GetShenKanFixedPos(out _);
+            bool succeed = m_Player.CStateMachine.SetPosAndForward(shenKanRestPos, -shenKan.transform.forward, () => wait = false);
             if (!succeed)
             {
                 GameApp.Entry.UI.ShowTips("当前状态不能执行该操作");
@@ -1054,14 +1054,14 @@ namespace Saber.World
             yield return null;
 
             wait = true;
-            m_Player.PlayAction(PlayActionState.EActionType.IdolRest, () => wait = false);
+            m_Player.PlayAction(PlayActionState.EActionType.ShenKanRest, () => wait = false);
             while (wait)
             {
                 yield return null;
             }
 
             m_WndRest.ActiveRoot = true;
-            m_Player.OnIdolRest();
+            m_Player.OnShenKanRest();
 
             yield return null;
 

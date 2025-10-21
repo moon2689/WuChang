@@ -75,7 +75,7 @@ namespace Saber.World
     {
         PlayerBornPosition,
         MonsterBornPosition,
-        Idol,
+        ShenKan,
         Portal,
     }
 }

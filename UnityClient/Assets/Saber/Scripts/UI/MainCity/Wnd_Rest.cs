@@ -15,7 +15,7 @@ namespace Saber.UI
         public interface IHandler : IWndHandler
         {
             void OnClickQuit();
-            void OnClickTransmit(int sceneID, int idolID);
+            void OnClickTransmit(int sceneID, int shenKanID);
             void OnClickDressUp();
         }
 
@@ -55,15 +55,15 @@ namespace Saber.UI
             foreach (var s in GameApp.Entry.Game.ProgressMgr.SceneProgressDatas)
             {
                 var sceneInfo = GameApp.Entry.Config.SceneInfo.GetSceneInfoByID(s.m_SceneID);
-                foreach (var statueID in s.m_FiredIdols)
+                foreach (var statueID in s.m_ActivedShenKan)
                 {
                     ++count;
-                    var idolInfo = sceneInfo.m_Idols.FirstOrDefault(a => a.m_ID == statueID);
+                    var shenKanInfo = sceneInfo.m_ShenKans.FirstOrDefault(a => a.m_ID == statueID);
                     GameObject item = GameObject.Instantiate(m_TempTextItem);
                     item.SetActive(true);
                     item.name = item.ToString();
                     item.transform.SetParent(m_RootStatues.transform);
-                    item.GetComponentInChildren<Text>().text = $"{sceneInfo.m_Name} {idolInfo.m_Name}";
+                    item.GetComponentInChildren<Text>().text = $"{sceneInfo.m_Name} {shenKanInfo.m_Name}";
                     item.GetComponentInChildren<Button>().onClick.AddListener(() =>
                     {
                         m_Handler.OnClickTransmit(sceneInfo.m_ID, statueID);
@@ -133,7 +133,7 @@ namespace Saber.UI
         protected override void Update()
         {
             base.Update();
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 OnClickQuit();
             }

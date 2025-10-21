@@ -244,7 +244,14 @@ namespace Saber.CharacterController
 
         public override bool DrinkPotion()
         {
-            return CAbility.DrinkMedicine();
+            if (CStats.HPPotionCount > 0)
+            {
+                return CAbility.DrinkMedicine();
+            }
+            else
+            {
+                return PlayAction(PlayActionState.EActionType.UseItemNone);
+            }
         }
 
         protected override void OnDestroy()
@@ -254,12 +261,12 @@ namespace Saber.CharacterController
             AI = null;
         }
 
-        public override void OnIdolRest()
+        public override void OnShenKanRest()
         {
-            base.OnIdolRest();
-            CRender.OnGodStatueRest();
+            base.OnShenKanRest();
+            CRender.OnShenKanRest();
 
-            var recItems = GameApp.Entry.Config.GameSetting.m_IdolRestRecItems;
+            var recItems = GameApp.Entry.Config.GameSetting.m_ShenKanRestRecItems;
             foreach (var item in recItems)
             {
                 int count = GameApp.Entry.Game.Bag.CalcItemCount(item.m_ID);

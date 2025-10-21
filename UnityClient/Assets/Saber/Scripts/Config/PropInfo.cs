@@ -28,7 +28,7 @@ namespace Saber.Config
     public enum EPropType
     {
         HealHp,
-        BackToIdol,
+        BackToShenKan,
         HealHpContinuous,
         AddSoul,
         Enchant,

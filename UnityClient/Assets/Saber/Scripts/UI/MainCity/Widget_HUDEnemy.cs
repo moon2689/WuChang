@@ -18,7 +18,6 @@ namespace Saber.UI
         private SActor m_LockEnemy;
         private List<Widget_HPBar> m_HpBars = new();
         private int m_SliderCount;
-        private float m_HPOfSmoothSlider;
 
         bool IsShow
         {
@@ -67,6 +66,7 @@ namespace Saber.UI
 
         void InitEnemy()
         {
+            float currentHP = m_LockEnemy.CStats.CurrentHp;
             m_SliderCount = Mathf.CeilToInt(m_LockEnemy.CStats.MaxHp / m_HPPerSlider);
             for (int i = 0; i < m_SliderCount; i++)
             {
@@ -99,8 +99,12 @@ namespace Saber.UI
                 {
                     thisSliderMaxHP = m_HPPerSlider;
                 }
+                
+                
+                float hpThisSlider = currentHP - m_HPPerSlider * i;
+                hpThisSlider = Mathf.Clamp(hpThisSlider, 0, m_HPPerSlider);
 
-                hpBar.Init(thisSliderMaxHP, thisSliderMaxHP);
+                hpBar.Init(thisSliderMaxHP, hpThisSlider);
                 rectTransform.sizeDelta = new Vector2(thisSliderMaxHP, rectTransform.sizeDelta.y);
             }
 
@@ -110,7 +114,6 @@ namespace Saber.UI
             }
 
             m_TextName.text = m_LockEnemy.BaseInfo.m_Name;
-            m_HPOfSmoothSlider = m_LockEnemy.CStats.CurrentHp;
         }
 
         void UpdateSliders()

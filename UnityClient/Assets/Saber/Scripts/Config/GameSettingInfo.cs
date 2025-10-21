@@ -24,7 +24,7 @@ namespace Saber.Config
         public AudioClip[] m_SoundFootStepWater;
         public AudioClip[] m_SoundFootStepGround;
         public AudioClip[] m_SoundFootStepSnow;
-        public PlayerPropItemInfo[] m_IdolRestRecItems;
+        public PlayerPropItemInfo[] m_ShenKanRestRecItems;
         
 
         public AudioClip GetRandomVoiceTired()

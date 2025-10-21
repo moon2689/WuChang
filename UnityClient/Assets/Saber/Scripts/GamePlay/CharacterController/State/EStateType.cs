@@ -42,7 +42,7 @@ namespace Saber.CharacterController
             { 0, 2, 4, 2, 1, 1, 1, 2, 0, }, // Defense
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, }, // Die
             { 0, 0, 1, 0, 0, 0, 1, 0, 0, }, // Fall
-            { 0, 0, 0, 0, 1, 0, 1, 1, 1, }, // PlayAction
+            { 0, 2, 2, 2, 1, 2, 1, 1, 1, }, // PlayAction
         };
 
         public static EStateSwitchType CanSwitchTo(EStateType from, EStateType to)

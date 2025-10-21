@@ -9,13 +9,15 @@ namespace Saber.AI
         public float m_LostFocusRange = 10;
         public EDodgeType m_DodgeType;
 
-        public bool CanDodge => m_DodgeType != EDodgeType.CannotDodge;
+        public bool CanDodge => m_DodgeType != 0;
     }
-    
+
+    [Flags]
     public enum EDodgeType
     {
-        CannotDodge,
-        CanDodge,
-        OnlyCanJumpBack,
+        Back = 1,
+        Left = 2,
+        Right = 4,
+        Front = 8,
     }
 }

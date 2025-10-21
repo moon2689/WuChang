@@ -56,7 +56,7 @@ namespace Saber.CharacterController
         {
         }
 
-        public void OnGodStatueRest()
+        public void OnShenKanRest()
         {
             IsInWater = false;
         }

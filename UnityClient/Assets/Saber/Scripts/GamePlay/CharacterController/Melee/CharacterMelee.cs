@@ -95,6 +95,11 @@ namespace Saber.CharacterController
             }
         }
 
+        public bool IsAnyWeaponEnchanted
+        {
+            get { return CWeapon.CurWeapons.Any(a => a.IsEnchanted); }
+        }
+
 
         public CharacterMelee(SActor actor, SkillConfig skillConfig)
         {

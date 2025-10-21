@@ -143,6 +143,7 @@ namespace Saber.CharacterController
             // 受击动画
             m_CurAnim = GetHitAnim(out m_HurtType, out Vector3 faceDir);
             Actor.CAnim.Play(m_CurAnim, force: true);
+            Actor.CAnim.StopMaskLayerAnims();
 
             if (m_HurtType == EHitRecHurtType.BlockBroken)
             {

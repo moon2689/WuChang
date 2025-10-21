@@ -21,7 +21,7 @@ namespace Saber.Director
 
             yield return RootUI.Create();
 
-            GameApp.Entry.UI.ShowTips("欢迎来到游戏！", 3);
+            GameApp.Entry.UI.ShowTips("欢迎来到游戏！", 0.5f);
 
             // 加载配置
             yield return GameApp.Entry.Config.LoadAsync().StartCoroutine();

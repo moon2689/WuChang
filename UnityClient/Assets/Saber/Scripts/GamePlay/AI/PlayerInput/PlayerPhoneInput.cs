@@ -20,7 +20,7 @@ namespace Saber.AI
         private float m_TimerCheckLockEnemy;
         private float m_DistanceToLockEnemy;
         private Portal m_CurrentStayingPortal;
-        private Idol m_CurrentStayingIdol;
+        private ShenKan m_CurrentStayingShenKan;
         private float? m_oldTouchDis;
         private bool m_Sprint;
         private bool m_PressDefense;
@@ -269,16 +269,16 @@ namespace Saber.AI
             onReached?.Invoke();
         }
 
-        public Coroutine ActiveIdol(Idol idol, Action onWorshiped)
+        public Coroutine ActiveShenKan(ShenKan shenKan, Action onWorshiped)
         {
-            return GameApp.Entry.Unity.StartCoroutine(ActiveIdolItor(idol, onWorshiped));
+            return GameApp.Entry.Unity.StartCoroutine(ActiveShenKanItor(shenKan, onWorshiped));
         }
 
-        IEnumerator ActiveIdolItor(Idol idol, Action onWorshiped)
+        IEnumerator ActiveShenKanItor(ShenKan shenKan, Action onWorshiped)
         {
             bool wait = true;
-            Vector3 idolRestPos = idol.Point.GetIdolFixedPos(out _);
-            bool succeed = Actor.CStateMachine.SetPosAndForward(idolRestPos, -idol.Point.transform.forward, () => wait = false);
+            Vector3 shenKanRestPos = shenKan.Point.GetShenKanFixedPos(out _);
+            bool succeed = Actor.CStateMachine.SetPosAndForward(shenKanRestPos, -shenKan.Point.transform.forward, () => wait = false);
             if (!succeed)
             {
                 GameApp.Entry.UI.ShowTips("当前状态不能执行该操作");
@@ -296,7 +296,7 @@ namespace Saber.AI
 
             while (true)
             {
-                Vector3 dirToStatue = idol.transform.position - Actor.transform.position;
+                Vector3 dirToStatue = shenKan.transform.position - Actor.transform.position;
                 if (Actor.CPhysic.AlignForwardTo(dirToStatue, 720))
                     break;
 
@@ -305,7 +305,7 @@ namespace Saber.AI
 
             yield return null;
 
-            Actor.PlayAction(PlayActionState.EActionType.IdolActive, () =>
+            Actor.PlayAction(PlayActionState.EActionType.ShenKanActive, () =>
             {
                 Actor.CMelee.CWeapon.ShowOrHideWeapon(true);
                 GameApp.Entry.Game.World.SetFilmEffect(false);
@@ -443,17 +443,17 @@ namespace Saber.AI
             m_WndJoyStick.HideButtonInteract();
         }
 
-        public void OnPlayerEnterGodStatue(Idol idol)
+        public void OnPlayerEnterGodStatue(ShenKan shenKan)
         {
-            m_CurrentStayingIdol = idol;
+            m_CurrentStayingShenKan = shenKan;
 
-            ESceneInteractType interactType = idol.IsFired ? ESceneInteractType.Rest : ESceneInteractType.ActiveIdol;
+            ESceneInteractType interactType = shenKan.IsActived ? ESceneInteractType.Rest : ESceneInteractType.ActiveShenKan;
             m_WndJoyStick.ShowButtonInteract(interactType);
         }
 
-        public void OnPlayerExitGodStatue(Idol idol)
+        public void OnPlayerExitGodStatue(ShenKan shenKan)
         {
-            m_CurrentStayingIdol = null;
+            m_CurrentStayingShenKan = null;
             m_WndJoyStick.HideButtonInteract();
         }
 
@@ -469,18 +469,18 @@ namespace Saber.AI
                 if (m_CurrentStayingPortal)
                     m_CurrentStayingPortal.Transmit();
             }
-            else if (interactType == ESceneInteractType.ActiveIdol)
+            else if (interactType == ESceneInteractType.ActiveShenKan)
             {
-                if (m_CurrentStayingIdol)
+                if (m_CurrentStayingShenKan)
                 {
-                    m_CurrentStayingIdol.Active();
+                    m_CurrentStayingShenKan.Active();
                     m_WndJoyStick.ShowButtonInteract(ESceneInteractType.Rest);
                 }
             }
             else if (interactType == ESceneInteractType.Rest)
             {
-                if (m_CurrentStayingIdol)
-                    m_CurrentStayingIdol.Rest();
+                if (m_CurrentStayingShenKan)
+                    m_CurrentStayingShenKan.Rest();
             }
             else
             {

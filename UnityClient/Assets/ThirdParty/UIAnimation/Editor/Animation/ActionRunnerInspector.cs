@@ -13,6 +13,7 @@ namespace UGUIAnimation.Editor
     {
         private ActionRunner actionRunner;
         private ActionEntryContainer container;
+        private Vector2 m_ScrollPosition;
 
         void OnEnable()
         {
@@ -60,7 +61,9 @@ namespace UGUIAnimation.Editor
             EditorGUIUtility.labelWidth = 60f;
             if (container.RootEntry != null)
             {
+                m_ScrollPosition = GUILayout.BeginScrollView(m_ScrollPosition);
                 DrawEntry(container.RootEntry);
+                GUILayout.EndScrollView();
             }
             else
             {
@@ -81,7 +84,7 @@ namespace UGUIAnimation.Editor
 
             serializedObject.ApplyModifiedProperties();
             
-            if (GUI.changed)
+            if (GUI.changed && !Application.isPlaying)
             {
                 EditorUtility.SetDirty(target);
             }
@@ -146,7 +149,6 @@ namespace UGUIAnimation.Editor
             }
             EditorGUILayout.EndHorizontal();
         }
-
 
         private void DrawParallelEntry(ActionEntry entry)
         {

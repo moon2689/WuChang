@@ -924,6 +924,7 @@ GameObject:
   - component: {fileID: 3911787813356220823}
   - component: {fileID: 2962825540768904248}
   - component: {fileID: -4356806401940213064}
+  - component: {fileID: 7804056697941837296}
   m_Layer: 5
   m_Name: Wnd_Tips
   m_TagString: Untagged
@@ -1004,3 +1005,26 @@ MonoBehaviour:
   m_TextTitle: {fileID: 1255172729737258166}
   m_TextContent: {fileID: 1255172729591424925}
   m_CanvasGroup: {fileID: 8064603405325229553}
+--- !u!223 &7804056697941837296
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8166039764593828253}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 1001
+  m_TargetDisplay: 0

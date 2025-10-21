@@ -9,12 +9,13 @@ namespace Saber.CharacterController
     {
         public enum EActionType
         {
-            IdolActive,
-            IdolRest,
-            IdolRestEnd,
+            ShenKanActive,
+            ShenKanRest,
+            ShenKanRestEnd,
             FaceToLockingEnemy,
             SpecialIdle,
             SpecialIdleTransition,
+            UseItemNone,
         }
 
         enum ENormalActionState
@@ -43,15 +44,23 @@ namespace Saber.CharacterController
         private Vector3 m_ToSetPosSpeed;
 
         private ECurAction m_CurAction;
+        private bool m_CanExit;
 
 
         public override bool ApplyRootMotionSetWhenEnter => true;
         protected override ActorBaseStats.EStaminaRecSpeed StaminaRecSpeed => ActorBaseStats.EStaminaRecSpeed.Fast;
         public ECurAction CurAction => m_CurAction;
+        public override bool CanExit => m_CanExit;
 
 
         public PlayActionState() : base(EStateType.PlayAction)
         {
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            m_CanExit = false;
         }
 
         public override void OnStay()
@@ -190,7 +199,7 @@ namespace Saber.CharacterController
             else if (m_NormalActionState == ENormalActionState.Playing)
             {
                 Vector3 dirToEnemy = Actor.AI.LockingEnemy.transform.position - Actor.transform.position;
-                if (Actor.CPhysic.AlignForwardTo(dirToEnemy, 360) || !Actor.CAnim.IsReallyPlaying(m_CurActionName))
+                if (Actor.CPhysic.AlignForwardTo(dirToEnemy, 360))// || !Actor.CAnim.IsReallyPlaying(m_CurActionName))
                 {
                     Exit();
                     m_CurAction = ECurAction.None;
@@ -235,6 +244,10 @@ namespace Saber.CharacterController
             {
                 Actor.CMelee.CWeapon.ShowOrHideWeapon(false);
             }
+            else if (eventObj.EventType == EAnimTriggerEvent.AnimCanExit)
+            {
+                m_CanExit = true;
+            }
         }
 
         protected override void OnExit()
@@ -245,6 +258,7 @@ namespace Saber.CharacterController
                 GameApp.Entry.Unity.DoActionOneFrameLater(m_OnPlayActionEnd);
                 m_OnPlayActionEnd = null;
             }
+            Actor.CMelee.CWeapon.ShowOrHideWeapon(true);
         }
     }
 }

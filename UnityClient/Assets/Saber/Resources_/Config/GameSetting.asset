@@ -45,10 +45,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1882b9788a8e97f4bb8a489fe460f414, type: 3}
   - {fileID: 8300000, guid: a8cbdd780baad1440b3a952fdd085c64, type: 3}
   - {fileID: 8300000, guid: 8edc9bc0dc6f4ce488b0a6a5cb32d1aa, type: 3}
-  m_IdolRestRecItems:
+  m_ShenKanRestRecItems:
   - m_ID: 1
     m_Count: 3
   - m_ID: 2
     m_Count: 5
   - m_ID: 3
-    m_Count: 3
+    m_Count: 1

@@ -149,12 +149,12 @@ namespace Saber.UI
                     m_ButtonClose.OnSubmit(null);
             }
 
-            if (Input.GetKeyDown(KeyCode.M))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 m_ButtonClose.OnSubmit(null);
             }
 
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.A))
             {
                 int curIndex = Array.FindIndex(m_Slots, a => a == m_SelctedSlot);
                 --curIndex;
@@ -166,7 +166,7 @@ namespace Saber.UI
 
                 OnSelectedSlot(m_Slots[curIndex]);
             }
-            else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+            else if (Input.GetKeyDown(KeyCode.D))
             {
                 int curIndex = Array.FindIndex(m_Slots, a => a == m_SelctedSlot);
                 ++curIndex;

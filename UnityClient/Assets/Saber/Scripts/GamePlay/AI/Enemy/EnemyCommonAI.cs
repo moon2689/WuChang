@@ -157,12 +157,15 @@ namespace Saber.AI
                 timerStay -= Time.deltaTime;
                 if (timerStay < 0 && !LockingEnemy.IsInSpecialStun)
                 {
-                    if (Monster.m_BaseActorInfo.m_AIInfo.CanDodge)
+                    if (m_DistanceToEnemy < Monster.m_BaseActorInfo.m_AIInfo.m_WarningRange)
                     {
                         int dodgePercent = (int)Mathf.Lerp(60f, 20, Monster.m_MonsterInfo.AttackDesireRatio);
                         if (CalcProbability(dodgePercent))
                         {
-                            ToDodge();
+                            if (Monster.m_BaseActorInfo.m_AIInfo.CanDodge)
+                                ToDodge();
+                            else
+                                ToStalemate();
                         }
                         else
                         {
@@ -551,11 +554,20 @@ namespace Saber.AI
                         ToAttack();
                         yield break;
                     }
-                    else
+
+                    if (Monster.m_BaseActorInfo.m_AIInfo.CanDodge &&
+                        m_DistanceToEnemy < Monster.m_BaseActorInfo.m_AIInfo.m_WarningRange)
                     {
-                        ToStalemate();
-                        yield break;
+                        int dodgePercent = (int)Mathf.Lerp(10f, 90, Monster.m_MonsterInfo.DodgeDamageRatio);
+                        if (CalcProbability(dodgePercent))
+                        {
+                            ToDodge();
+                            yield break;
+                        }
                     }
+
+                    ToStalemate();
+                    yield break;
                 }
 
 

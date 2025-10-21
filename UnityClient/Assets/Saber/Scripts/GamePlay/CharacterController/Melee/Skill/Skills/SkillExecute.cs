@@ -146,7 +146,13 @@ namespace Saber.CharacterController
                     if (curTime >= dmgItem.m_DamageTime)
                     {
                         dmgItem.IsDmgDone = true;
-                        Target.CStats.TakeDamage(dmgItem.m_Damage);
+                        float damage = dmgItem.m_Damage;
+                        if (Actor.CMelee.IsAnyWeaponEnchanted)
+                        {
+                            damage *= 1.5f;
+                        }
+
+                        Target.CStats.TakeDamage(damage);
 
                         GameApp.Entry.Game.Audio.Play3DSound(dmgItem.m_Sound, Actor.transform.position);
 

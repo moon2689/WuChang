@@ -10,7 +10,7 @@ namespace Saber
     {
         public List<SceneProgressData> m_SceneProgress;
         public int m_LastStayingSceneID;
-        public int m_LastStayingIdolID;
+        public int m_LastStayingShenKanID;
         public int[] m_Clothes;
         public PlayerPropItemInfo[] m_Items;
     }
@@ -19,6 +19,6 @@ namespace Saber
     public class SceneProgressData
     {
         public int m_SceneID;
-        public List<int> m_FiredIdols;
+        public List<int> m_ActivedShenKan;
     }
 }

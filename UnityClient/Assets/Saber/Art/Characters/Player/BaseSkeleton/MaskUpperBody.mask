@@ -132,9 +132,9 @@ AvatarMask:
   - m_Path: wuchang_empty.ao/Root/Root_M/Hip_R/SHip6_R/SHip6Target_R
     m_Weight: 0
   - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M
     m_Weight: 1
   - m_Path: wuchang_empty.ao/Root/Root_M/RootPart2_M/Spine1Part1_M/Chest_M/Breast_jnt_L01

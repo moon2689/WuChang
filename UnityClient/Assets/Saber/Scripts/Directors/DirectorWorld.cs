@@ -18,7 +18,7 @@ namespace Saber.Director
             m_LoadType = startGameType switch
             {
                 DirectorLogin.EStartGameType.NewGame => BigWorld.ELoadType.NewGame,
-                DirectorLogin.EStartGameType.ContineGame => BigWorld.ELoadType.ToLastIdol,
+                DirectorLogin.EStartGameType.ContineGame => BigWorld.ELoadType.ToLastShenKan,
                 _ => throw new InvalidOperationException($"Unknown startGameType:{startGameType}"),
             };
             GameApp.Entry.Game.World = new();

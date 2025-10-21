@@ -95,6 +95,7 @@ namespace Saber.CharacterController
         {
             base.StopAnim();
             m_CurAnim = null;
+            base.Play("Null", true, 0, 0, null);
         }
     }
 }

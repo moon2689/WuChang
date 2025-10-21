@@ -15,6 +15,7 @@ namespace Saber.CharacterController
 
         private EState m_State;
         private bool m_InTransition;
+        private bool m_ExitEventTriggered;
 
         public abstract EAnimRangeEvent EventType { get; }
 
@@ -59,14 +60,25 @@ namespace Saber.CharacterController
             }
         }
 
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            base.OnStateExit(animator, stateInfo, layerIndex);
+            OnRangeEventExit();
+        }
+
         protected virtual void OnRangeEventEnter()
         {
+            m_ExitEventTriggered = false;
             base.m_Actor.OnTriggerAnimRangeTimeEvent(this, true);
         }
 
         protected virtual void OnRangeEventExit()
         {
-            base.m_Actor.OnTriggerAnimRangeTimeEvent(this, false);
+            if (!m_ExitEventTriggered)
+            {
+                m_ExitEventTriggered = true;
+                base.m_Actor.OnTriggerAnimRangeTimeEvent(this, false);
+            }
         }
     }
 }

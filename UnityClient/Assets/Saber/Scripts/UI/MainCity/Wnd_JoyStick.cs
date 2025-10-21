@@ -134,6 +134,7 @@ namespace Saber.UI
 
         private void OnClickMedicineNone()
         {
+            Handler?.OnClickDrinkMedicine();
             GameApp.Entry.Game.Audio.PlaySoundSkillFailed();
             GameApp.Entry.UI.ShowTips("药喝光了", 0.1f);
         }
@@ -164,7 +165,7 @@ namespace Saber.UI
             m_TextBtnInteract.text = m_InteractType switch
             {
                 ESceneInteractType.Portal => "进入",
-                ESceneInteractType.ActiveIdol => "奉血",
+                ESceneInteractType.ActiveShenKan => "奉血",
                 ESceneInteractType.Rest => "拜命",
                 _ => throw new InvalidOperationException($"Unknown EInteractType:{m_InteractType}"),
             };

@@ -64,26 +64,16 @@ namespace Saber.CharacterController
             Actor.CPhysic.EnableSlopeMovement = false;
             Actor.Invincible = true;
 
-            if (Actor.m_BaseActorInfo.m_AIInfo.m_DodgeType == EDodgeType.CanDodge)
-            {
-                m_DodgeAnim = GetDodgeAnimByDir4();
-            }
-            else if (Actor.m_BaseActorInfo.m_AIInfo.m_DodgeType == EDodgeType.OnlyCanJumpBack)
-            {
-                m_DodgeAnim = "JumpBack";
-            }
-            else
-            {
-                throw new InvalidCastException($"Unknown dodge type:{Actor.m_BaseActorInfo.m_AIInfo.m_DodgeType}");
-            }
-
+            m_DodgeAnim = GetDodgeAnim(out m_ForwardDir);
             Actor.CAnim.Play(m_DodgeAnim);
 
             m_TimerAlign = 0.2f;
         }
 
-        string GetDodgeAnimByDir4()
+        string GetDodgeAnim(out Vector3 forwardDir)
         {
+            EDodgeType dodgeType = Actor.m_BaseActorInfo.m_AIInfo.m_DodgeType;
+
             if (DodgeAxis != Vector3.zero)
             {
                 if (Actor.AI.LockingEnemy != null)
@@ -92,35 +82,67 @@ namespace Saber.CharacterController
                     Vector3 moveDir = Quaternion.AngleAxis(angle, Vector3.up) * Actor.DesiredLookDir;
                     if ((angle >= 0 && angle <= 45f) || (angle <= 0 && angle >= -45f))
                     {
-                        m_Dir = GameHelper.EDir4.Front;
-                        m_ForwardDir = moveDir;
+                        if (dodgeType.HasFlag(EDodgeType.Front))
+                        {
+                            m_Dir = GameHelper.EDir4.Front;
+                            forwardDir = moveDir;
+                        }
+                        else
+                        {
+                            m_Dir = GameHelper.EDir4.Back;
+                            forwardDir = Actor.DesiredLookDir;
+                        }
                     }
                     else if (angle > 45 && angle < 135)
                     {
-                        m_Dir = GameHelper.EDir4.Right;
-                        m_ForwardDir = Quaternion.AngleAxis(-90, Vector3.up) * moveDir;
+                        if (dodgeType.HasFlag(EDodgeType.Right))
+                        {
+                            m_Dir = GameHelper.EDir4.Right;
+                            forwardDir = Quaternion.AngleAxis(-90, Vector3.up) * moveDir;
+                        }
+                        else
+                        {
+                            m_Dir = GameHelper.EDir4.Back;
+                            forwardDir = Actor.DesiredLookDir;
+                        }
                     }
                     else if (angle >= 135 || angle <= -135)
                     {
                         m_Dir = GameHelper.EDir4.Back;
-                        m_ForwardDir = -moveDir;
+                        forwardDir = -moveDir;
                     }
                     else
                     {
-                        m_Dir = GameHelper.EDir4.Left;
-                        m_ForwardDir = Quaternion.AngleAxis(90, Vector3.up) * moveDir;
+                        if (dodgeType.HasFlag(EDodgeType.Left))
+                        {
+                            m_Dir = GameHelper.EDir4.Left;
+                            forwardDir = Quaternion.AngleAxis(90, Vector3.up) * moveDir;
+                        }
+                        else
+                        {
+                            m_Dir = GameHelper.EDir4.Back;
+                            forwardDir = Actor.DesiredLookDir;
+                        }
                     }
                 }
                 else
                 {
-                    m_Dir = GameHelper.EDir4.Front;
-                    m_ForwardDir = Actor.DesiredMoveDir;
+                    if (dodgeType.HasFlag(EDodgeType.Front))
+                    {
+                        m_Dir = GameHelper.EDir4.Front;
+                        forwardDir = Actor.DesiredMoveDir;
+                    }
+                    else
+                    {
+                        m_Dir = GameHelper.EDir4.Back;
+                        forwardDir = Actor.DesiredLookDir;
+                    }
                 }
             }
             else
             {
                 m_Dir = GameHelper.EDir4.Back;
-                m_ForwardDir = Actor.DesiredLookDir;
+                forwardDir = Actor.DesiredLookDir;
             }
 
             return $"Dodge{m_Dir}";

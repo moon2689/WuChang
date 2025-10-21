@@ -556,7 +556,7 @@ namespace Saber.CharacterController
             return CStateMachine.BeExecute(executioner);
         }
 
-        public virtual void OnIdolRest()
+        public virtual void OnShenKanRest()
         {
             Heal(CStats.MaxHp);
             CStats.DefaultHPPointCount();
@@ -656,14 +656,18 @@ namespace Saber.CharacterController
 
         public bool Heal(float value)
         {
-            if (!IsDead && value > 0)
+            if (IsDead || value <= 0)
+            {
+                return false;
+            }
+
+            if (!CStats.IsHPFull)
             {
                 GameApp.Entry.Game.Effect.CreateEffect("Particles/Healing", transform, 5);
                 CStats.AddHp(value);
-                return true;
             }
 
-            return false;
+            return true;
         }
 
         public void OnDieAnimPlayFinished()

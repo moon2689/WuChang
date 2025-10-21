@@ -85,6 +85,37 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 65334ea8fb602154aa66187b1b7f2f49, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
+--- !u!1102 &-8706858060988944637
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UseItemNone
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions:
+  - {fileID: -5051167656294043385}
+  m_StateMachineBehaviours:
+  - {fileID: 4484509180952277114}
+  - {fileID: -4916520664606165779}
+  - {fileID: 191834796109745947}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: -8872280348610564644, guid: 2fe954d05c388a74a8e35a0ca25e3833,
+    type: 3}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1101 &-8633594338876397665
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1027,6 +1058,28 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1101 &-5051167656294043385
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions: []
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -74676518271652011}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.925
+  m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &-4985730249474043691
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1049,6 +1102,20 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &-4916520664606165779
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d92a9f02e45b4ff29de47663fe00b92c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerTime: 0.9
+  m_EventType: 11
 --- !u!1107 &-4726483114772184652
 AnimatorStateMachine:
   serializedVersion: 6
@@ -1366,7 +1433,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: IdolRestLoop
+  m_Name: ShenKanRestLoop
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -1436,7 +1503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d92a9f02e45b4ff29de47663fe00b92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TriggerTime: 0.67
+  m_TriggerTime: 0.3
   m_EventType: 3
 --- !u!114 &-3314575719330278735
 MonoBehaviour:
@@ -2410,6 +2477,20 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cead4bc79a1327d4bacef6ef95d38e3c, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
+--- !u!114 &191834796109745947
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d92a9f02e45b4ff29de47663fe00b92c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerTime: 0.3
+  m_EventType: 3
 --- !u!114 &220412566742943412
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2637,7 +2718,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: IdolActive
+  m_Name: ShenKanActive
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -2777,7 +2858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d92a9f02e45b4ff29de47663fe00b92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TriggerTime: 0.77
+  m_TriggerTime: 0.3
   m_EventType: 3
 --- !u!114 &1545334317428729564
 MonoBehaviour:
@@ -2859,16 +2940,19 @@ AnimatorStateMachine:
     m_Position: {x: 680, y: -20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1046543476753272997}
-    m_Position: {x: 300, y: 170, z: 0}
+    m_Position: {x: 30, y: -70, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7550535801974916255}
-    m_Position: {x: 300, y: 250, z: 0}
+    m_Position: {x: 30, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3371283357089093772}
-    m_Position: {x: 580, y: 250, z: 0}
+    m_Position: {x: 310, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7329279089195521062}
-    m_Position: {x: 300, y: 320, z: 0}
+    m_Position: {x: 30, y: 80, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -8706858060988944637}
+    m_Position: {x: 30, y: 180, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -2939,7 +3023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d92a9f02e45b4ff29de47663fe00b92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TriggerTime: 0.6
+  m_TriggerTime: 0.3
   m_EventType: 3
 --- !u!114 &2194549654229242845
 MonoBehaviour:
@@ -3659,6 +3743,20 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &4484509180952277114
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d92a9f02e45b4ff29de47663fe00b92c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerTime: 0
+  m_EventType: 12
 --- !u!1101 &4628769454942677599
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -4301,7 +4399,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: IdolRestEnd
+  m_Name: ShenKanRestEnd
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -4410,7 +4508,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: IdolRest
+  m_Name: ShenKanRest
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -4573,7 +4671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d92a9f02e45b4ff29de47663fe00b92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TriggerTime: 0.92
+  m_TriggerTime: 0.3
   m_EventType: 3
 --- !u!114 &8325072360692121046
 MonoBehaviour:

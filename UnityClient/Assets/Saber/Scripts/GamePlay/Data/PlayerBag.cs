@@ -101,9 +101,9 @@ namespace Saber
         bool PlayerTryUseItem(Item item)
         {
             var t = item.Config.m_PropType;
-            if (t == EPropType.BackToIdol)
+            if (t == EPropType.BackToShenKan)
             {
-                return GameApp.Entry.Game.World.GoNearestIdol();
+                return GameApp.Entry.Game.World.GoNearestShenKan();
             }
             else if (t == EPropType.HealHp)
             {

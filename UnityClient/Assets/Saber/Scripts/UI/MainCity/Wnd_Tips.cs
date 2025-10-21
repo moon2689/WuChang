@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +15,12 @@ namespace Saber.UI
             Fade,
         }
 
+        class TextItem
+        {
+            public string Messenge;
+            public float ShowingTime;
+        }
+
         private const float k_FadeDuration = 0.5f;
         [SerializeField] private Text m_TextTitle;
         [SerializeField] private Text m_TextContent;
@@ -22,6 +30,9 @@ namespace Saber.UI
         private float m_TimerShowText, m_TimerFade;
         private bool m_Fading;
         private EState m_State;
+        private Queue<TextItem> m_QueueTexts = new();
+        private List<TextItem> m_CacheTexts = new();
+        private float m_TimerShowTextInterval;
 
 
         protected override void Start()
@@ -33,14 +44,19 @@ namespace Saber.UI
 
         public void ShowText(string message, float textTime)
         {
-            if (m_State == EState.ShowText)
-                m_TextContent.text = message + "\n" + m_TextContent.text;
+            TextItem item = m_CacheTexts.FirstOrDefault();
+            if (item != null)
+            {
+                m_CacheTexts.RemoveAt(0);
+            }
             else
-                m_TextContent.text = message;
+            {
+                item = new TextItem();
+            }
 
-            m_State = EState.ShowText;
-            if (m_TimerShowText < textTime)
-                m_TimerShowText = textTime;
+            item.Messenge = message;
+            item.ShowingTime = textTime;
+            m_QueueTexts.Enqueue(item);
         }
 
         public void ShowText(string message)
@@ -84,7 +100,41 @@ namespace Saber.UI
         protected override void Update()
         {
             base.Update();
+
+            if (m_TimerShowTextInterval > 0)
+            {
+                m_TimerShowTextInterval -= Time.deltaTime;
+            }
+
+            if (m_QueueTexts.Count > 0)
+            {
+                if (m_TimerShowTextInterval <= 0)
+                {
+                    TextItem item = m_QueueTexts.Dequeue();
+                    if (item != null)
+                    {
+                        m_CacheTexts.Add(item);
+                        ShowText(item);
+                    }
+                }
+            }
+
             FadeEffect();
+        }
+
+        private void ShowText(TextItem item)
+        {
+            m_TimerShowTextInterval = 0.5f;
+            string message = item.Messenge;
+            float textTime = item.ShowingTime;
+            if (m_State == EState.ShowText)
+                m_TextContent.text = message + "\n" + m_TextContent.text;
+            else
+                m_TextContent.text = message;
+
+            m_State = EState.ShowText;
+            if (m_TimerShowText < textTime)
+                m_TimerShowText = textTime;
         }
     }
 }
