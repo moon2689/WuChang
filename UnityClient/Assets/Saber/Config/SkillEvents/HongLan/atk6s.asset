@@ -53,14 +53,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
-  m_Name: CreateHitBox
+  m_Name: hit1
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
     TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
       type: 3}
     controlType: 0
-    Offset: {x: 0, y: 0.75898385, z: 1.1384761}
+    Offset: {x: 0, y: 1.7791016, z: 1.0397503}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     TargetNode: 2
     FollowNode: 1
@@ -73,7 +73,7 @@ MonoBehaviour:
     m_HitType: 2
     m_WeaponBone: 14
     m_DamageValue: 20
-    m_ImpactForce: 1
+    m_ImpactForce: 2
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
   m_Name: CanExit
   m_EditorClassIdentifier: 
-  IsActive: 0
+  IsActive: 1
 --- !u!114 &-1682097308387323463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,27 +101,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
-  m_Name: CreateHitBox2
+  m_Name: hit2
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
     TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
       type: 3}
     controlType: 0
-    Offset: {x: 0, y: 0.75898385, z: 1.1384761}
+    Offset: {x: 0, y: 1.7791058, z: 1.1384764}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 0
-  ColliderOffset: {x: 0, y: 0, z: 0}
+  ColliderOffset: {x: -0.04105544, y: 0, z: 0}
   ColliderSize: {x: 1, y: 1, z: 1}
-  Radius: 1
+  Radius: 1.0997062
   Height: 1
   m_WeaponDamageSetting:
     m_HitType: 2
     m_WeaponBone: 13
-    m_DamageValue: 20
-    m_ImpactForce: 1
+    m_DamageValue: 30
+    m_ImpactForce: 2
     m_HitRecover: 5
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1
@@ -144,7 +144,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0, y: 0.31764707}
+    EventRange: {x: 0, y: 0.3}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -152,7 +152,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 445409836683134091}
-  - EventTime: 0.9235294
+  - EventTime: 0.6882353
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -162,7 +162,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -1899376044629015138}
   - EventTime: 0
-    EventRange: {x: 0.64117646, y: 0.6882353}
+    EventRange: {x: 0.5176471, y: 0.57058823}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -198,7 +198,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 2784576439072726546}
   - EventTime: 0
-    EventRange: {x: 0.23529412, y: 0.25882354}
+    EventRange: {x: 0.22941177, y: 0.25882354}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -216,7 +216,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 1082988422513652102}
   - EventTime: 0
-    EventRange: {x: 0.33529413, y: 0.35882354}
+    EventRange: {x: 0.31764707, y: 0.34705883}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Name: AlignToEnemy
   m_EditorClassIdentifier: 
   IsActive: 1
-  m_RotateSpeed: 1080
+  m_RotateSpeed: 360
 --- !u!114 &1082988422513652102
 MonoBehaviour:
   m_ObjectHideFlags: 0

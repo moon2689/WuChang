@@ -141,7 +141,7 @@ namespace Saber.AI
 
         private bool TryLockEnemy()
         {
-            return TryLockEnemy(Actor.m_BaseActorInfo.m_AIInfo.m_WarningRange, true);
+            return TryLockEnemy(GameApp.Entry.Config.GameSetting.m_WarningRange, true);
         }
 
         private bool TryLockEnemy(float radius, bool lockCamera)
@@ -225,7 +225,7 @@ namespace Saber.AI
                     m_TimerCheckLockEnemy = 0.5f;
                     Vector3 disV3 = LockingEnemy.transform.position - Actor.transform.position;
                     m_DistanceToLockEnemy = disV3.magnitude;
-                    if (m_DistanceToLockEnemy > Actor.m_BaseActorInfo.m_AIInfo.m_WarningRange)
+                    if (m_DistanceToLockEnemy > GameApp.Entry.Config.GameSetting.m_WarningRange)
                     {
                         ClearLockEnemy();
                     }

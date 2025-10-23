@@ -64,7 +64,7 @@ namespace Saber.AI
                     return true;
             }
 
-            float range = Actor.m_BaseActorInfo.m_AIInfo.m_WarningRange;
+            float range = Monster.m_MonsterInfo.m_AIInfo.m_WarningRange;
             int layerMask = EStaticLayers.Actor.GetLayerMask();
             int count = Physics.OverlapSphereNonAlloc(Actor.transform.position, range, m_Colliders, layerMask);
             foundType = EFoundEnemyType.InFieldOfView;
@@ -145,7 +145,7 @@ namespace Saber.AI
         /// <returns>是否发生</returns>
         protected bool CalcProbability(int percent)
         {
-            return UnityEngine.Random.Range(0, 100) < percent;
+            return GameHelper.CalcProbability(percent);
         }
 
         protected override void OnDead(SActor owner)

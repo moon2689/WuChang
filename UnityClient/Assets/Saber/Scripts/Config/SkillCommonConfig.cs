@@ -36,6 +36,7 @@ namespace Saber.CharacterController
         public GameObject[] m_EffectBoxingHitBody;
         public GameObject[] m_CommonEffectMagicHitBody;
 
+
         private AudioClip GetRandomSound(AudioClip[] clips)
         {
             if (clips != null && clips.Length > 0)

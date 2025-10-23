@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BaseActorInfo:
     m_StatsInfo:
-      m_MaxHp: 3200
+      m_MaxHp: 3000
       m_DefaultHpRecSpeed: 0
       m_MaxStamina: 100
       m_MaxPower: 0
@@ -42,23 +42,48 @@ MonoBehaviour:
       m_ArmBoneType: 29
     - m_WeaponPrefabResPath: 
       m_ArmBoneType: 28
-    m_AIInfo:
-      m_WarningRange: 30
-      m_LostFocusRange: 50
-      m_DodgeType: 7
     m_HitRecInfo:
       CanBeBackstab: 1
-      CanBeUppercut: 1
-      CanBeStrikeDown: 1
-      CanBeKnockOffLongDis: 1
-      CanBeStunLarge: 1
-  m_MonsterInfo:
-    m_DefaultAI: 1
+      CanBeUppercut: 0
+      CanBeStrikeDown: 0
+      CanBeKnockOffLongDis: 0
+      CanBeStunLarge: 0
     m_SpeedWalk: 1
-    m_SpeedRun: 2
+    m_SpeedRun: 0
     m_SpeedSprint: 0
+    m_SpeedDefenseWalk: 0
+  m_MonsterInfo:
     m_CanDefense: 0
+    m_DodgeType: 7
     m_SpecialIdls: []
-    m_AttackDesirePercent: 100
-    m_DodgeDamagePercent: 50
-    m_AIAttackStyleWhenTooFar: 2
+    m_SpecialDodgeBackAnims:
+    - FleeBack
+    m_SpecialDodgeLeftAnims:
+    - DodgeLeft2
+    - FleeLeft
+    m_SpecialDodgeRightAnims:
+    - DodgeRight2
+    m_SpecialDodgeFrontAnims: []
+    m_AIInfo:
+      m_DefaultAI: 4
+      m_WarningRange: 10
+      m_LostFocusRange: 50
+      m_StalemateStayTime: {x: 0.3, y: 3}
+      m_RandomMoveTime: {x: 1, y: 3}
+      m_SprintTimeBeforeAttack: {x: 0.5, y: 2}
+      m_DodgeDamagePercent: 50
+      m_DodgePercentAfterAttack: 90
+      m_DodgePercentAfterStalemate: 10
+      m_TurnDirWhenNotFaceToEnemy: 0
+      m_ContinueAttackPercentAfterAttack: 50
+      m_AIAttackStyleWhenTooFar: 1
+      m_EventsBeforeFighting:
+      - EventType: 0
+        m_ParamFloat: 0
+        m_ParamInt: 1
+        m_ParamStrng: 
+      m_EventsOnBossStageToTwo:
+      - EventType: 1
+        m_ParamFloat: 0
+        m_ParamInt: 1
+        m_ParamStrng: 

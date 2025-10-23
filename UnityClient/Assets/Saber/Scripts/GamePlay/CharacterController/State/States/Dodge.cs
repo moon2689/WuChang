@@ -9,7 +9,7 @@ namespace Saber.CharacterController
     {
         private string m_DodgeAnim;
         private bool m_CanExit;
-        private float m_TimerAlign;
+        private bool m_AlignDirection;
         private bool m_CanTriggerSkill;
         private GameHelper.EDir4 m_Dir;
         private Vector3 m_ForwardDir;
@@ -30,6 +30,10 @@ namespace Saber.CharacterController
 
         public Vector3 DodgeAxis { get; set; }
         public bool CanSwitchToSprint { get; private set; }
+        public string[] SpecialDodgeBackAnims { get; set; }
+        public string[] SpecialDodgeLeftAnims { get; set; }
+        public string[] SpecialDodgeRightAnims { get; set; }
+        public string[] SpecialDodgeFrontAnims { get; set; }
 
 
         public void OnPerfectDodge()
@@ -66,14 +70,10 @@ namespace Saber.CharacterController
 
             m_DodgeAnim = GetDodgeAnim(out m_ForwardDir);
             Actor.CAnim.Play(m_DodgeAnim);
-
-            m_TimerAlign = 0.2f;
         }
 
         string GetDodgeAnim(out Vector3 forwardDir)
         {
-            EDodgeType dodgeType = Actor.m_BaseActorInfo.m_AIInfo.m_DodgeType;
-
             if (DodgeAxis != Vector3.zero)
             {
                 if (Actor.AI.LockingEnemy != null)
@@ -82,29 +82,13 @@ namespace Saber.CharacterController
                     Vector3 moveDir = Quaternion.AngleAxis(angle, Vector3.up) * Actor.DesiredLookDir;
                     if ((angle >= 0 && angle <= 45f) || (angle <= 0 && angle >= -45f))
                     {
-                        if (dodgeType.HasFlag(EDodgeType.Front))
-                        {
-                            m_Dir = GameHelper.EDir4.Front;
-                            forwardDir = moveDir;
-                        }
-                        else
-                        {
-                            m_Dir = GameHelper.EDir4.Back;
-                            forwardDir = Actor.DesiredLookDir;
-                        }
+                        m_Dir = GameHelper.EDir4.Front;
+                        forwardDir = moveDir;
                     }
                     else if (angle > 45 && angle < 135)
                     {
-                        if (dodgeType.HasFlag(EDodgeType.Right))
-                        {
-                            m_Dir = GameHelper.EDir4.Right;
-                            forwardDir = Quaternion.AngleAxis(-90, Vector3.up) * moveDir;
-                        }
-                        else
-                        {
-                            m_Dir = GameHelper.EDir4.Back;
-                            forwardDir = Actor.DesiredLookDir;
-                        }
+                        m_Dir = GameHelper.EDir4.Right;
+                        forwardDir = Quaternion.AngleAxis(-90, Vector3.up) * moveDir;
                     }
                     else if (angle >= 135 || angle <= -135)
                     {
@@ -113,30 +97,14 @@ namespace Saber.CharacterController
                     }
                     else
                     {
-                        if (dodgeType.HasFlag(EDodgeType.Left))
-                        {
-                            m_Dir = GameHelper.EDir4.Left;
-                            forwardDir = Quaternion.AngleAxis(90, Vector3.up) * moveDir;
-                        }
-                        else
-                        {
-                            m_Dir = GameHelper.EDir4.Back;
-                            forwardDir = Actor.DesiredLookDir;
-                        }
+                        m_Dir = GameHelper.EDir4.Left;
+                        forwardDir = Quaternion.AngleAxis(90, Vector3.up) * moveDir;
                     }
                 }
                 else
                 {
-                    if (dodgeType.HasFlag(EDodgeType.Front))
-                    {
-                        m_Dir = GameHelper.EDir4.Front;
-                        forwardDir = Actor.DesiredMoveDir;
-                    }
-                    else
-                    {
-                        m_Dir = GameHelper.EDir4.Back;
-                        forwardDir = Actor.DesiredLookDir;
-                    }
+                    m_Dir = GameHelper.EDir4.Front;
+                    forwardDir = Actor.DesiredMoveDir;
                 }
             }
             else
@@ -145,15 +113,29 @@ namespace Saber.CharacterController
                 forwardDir = Actor.DesiredLookDir;
             }
 
+            string[] specialAnims = m_Dir switch
+            {
+                GameHelper.EDir4.Back => SpecialDodgeBackAnims,
+                GameHelper.EDir4.Left => SpecialDodgeLeftAnims,
+                GameHelper.EDir4.Right => SpecialDodgeRightAnims,
+                GameHelper.EDir4.Front => SpecialDodgeFrontAnims,
+                _ => throw new InvalidOperationException()
+            };
+
+            if (specialAnims != null && specialAnims.Length > 0 && GameHelper.CalcProbability(30))
+            {
+                int ranIndex = UnityEngine.Random.Range(0, specialAnims.Length);
+                return specialAnims[ranIndex];
+            }
+
             return $"Dodge{m_Dir}";
         }
 
         public override void OnStay()
         {
             base.OnStay();
-            if (m_TimerAlign > 0)
+            if (m_AlignDirection)
             {
-                m_TimerAlign -= Time.deltaTime;
                 Actor.CPhysic.AlignForwardTo(m_ForwardDir, 1080f);
             }
 
@@ -169,10 +151,13 @@ namespace Saber.CharacterController
             {
                 Actor.Invincible = enter;
             }
-
-            if (eventObj.EventType == EAnimRangeEvent.CanTriggerSkill)
+            else if (eventObj.EventType == EAnimRangeEvent.CanTriggerSkill)
             {
                 m_CanTriggerSkill = enter;
+            }
+            else if (eventObj.EventType == EAnimRangeEvent.AlignDirection)
+            {
+                m_AlignDirection = enter;
             }
         }
 

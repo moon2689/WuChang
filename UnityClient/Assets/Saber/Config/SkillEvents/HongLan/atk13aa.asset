@@ -115,7 +115,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -7010767350583551135}
-  - EventTime: 0.825
+  - EventTime: 0.725
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -125,7 +125,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 1487354449012133083}
   - EventTime: 0
-    EventRange: {x: 0.465, y: 0.49}
+    EventRange: {x: 0.42, y: 0.49}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -155,7 +155,7 @@ MonoBehaviour:
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
-    - 0.4
+    - 0.52
     - 0.6
     - 0.8
     Previewable: 0
@@ -218,9 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: 55bf0136e4f52d049b641e9e982b6288, type: 3}
-  - {fileID: 8300000, guid: 977b5ecbd2fca674db1df7dc682cc3a2, type: 3}
-  - {fileID: 8300000, guid: 67af835e4a5a4e9479066e8623522f80, type: 3}
+  - {fileID: 8300000, guid: 51ccf92cc7aa0204da35a933436c729a, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
 --- !u!114 &2443647130672611573
@@ -278,8 +276,8 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 0
     m_WeaponBone: 29
-    m_DamageValue: 5
-    m_ImpactForce: 1
+    m_DamageValue: 30
+    m_ImpactForce: 2
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1

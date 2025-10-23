@@ -9,7 +9,7 @@ namespace Saber.Config
     {
         public bool OpenCameraLight;
         public float ShadowDistance = 50;
-        
+
         public int PlayerID = 1;
         public int[] PlayerStartClothes;
         public int StartSceneID = 1;
@@ -25,7 +25,7 @@ namespace Saber.Config
         public AudioClip[] m_SoundFootStepGround;
         public AudioClip[] m_SoundFootStepSnow;
         public PlayerPropItemInfo[] m_ShenKanRestRecItems;
-        
+        public float m_WarningRange = 30;
 
         public AudioClip GetRandomVoiceTired()
         {

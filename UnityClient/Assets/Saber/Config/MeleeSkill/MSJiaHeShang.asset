@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_WeaponStyle: 0
   m_SkillItems:
-  - m_ID: 1
+  - m_Active: 1
+    m_ID: 1
     m_SkillName: 
     m_AnimStates:
     - m_Name: Atk_01
@@ -39,7 +40,8 @@ MonoBehaviour:
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_ID: 2
+  - m_Active: 1
+    m_ID: 2
     m_SkillName: 
     m_AnimStates:
     - m_Name: Atk_02
@@ -64,7 +66,8 @@ MonoBehaviour:
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_ID: 3
+  - m_Active: 1
+    m_ID: 3
     m_SkillName: 
     m_AnimStates:
     - m_Name: Atk_03_A
@@ -91,7 +94,8 @@ MonoBehaviour:
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_ID: 4
+  - m_Active: 1
+    m_ID: 4
     m_SkillName: 
     m_AnimStates:
     - m_Name: Atk_03_B
@@ -116,7 +120,8 @@ MonoBehaviour:
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_ID: 5
+  - m_Active: 1
+    m_ID: 5
     m_SkillName: 
     m_AnimStates:
     - m_Name: Atk_04

@@ -23,7 +23,13 @@ public class SkillConfigEditor : EditorBase
             return "Skill";
         }
 
-        string strTitle = $"{item.m_ID}";
+        string strTitle = "";
+        if (!item.m_Active)
+        {
+            strTitle += "× ";
+        }
+
+        strTitle += $"{item.m_ID}";
         if (!string.IsNullOrEmpty(item.m_SkillName))
         {
             strTitle += $" {item.m_SkillName}";
@@ -123,6 +129,7 @@ public class SkillConfigEditor : EditorBase
 
     void DrawSkillItem(SkillItem item)
     {
+        item.m_Active = EditorGUILayout.Toggle("激活？", item.m_Active);
         item.m_ID = EditorGUILayout.IntField("ID：", item.m_ID);
         item.m_SkillName = EditorGUILayout.TextField("技能名：", item.m_SkillName);
 

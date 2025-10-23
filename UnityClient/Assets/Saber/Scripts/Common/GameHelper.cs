@@ -656,4 +656,14 @@ public static class GameHelper
     {
         GameApp.Entry.Unity.StopCoroutine(coroutine);
     }
+    
+    /// <summary>
+    /// 计算概率
+    /// </summary>
+    /// <param name="percent">百分之{percent}的概率（0-100）</param>
+    /// <returns>是否发生</returns>
+    public static bool CalcProbability(int percent)
+    {
+        return UnityEngine.Random.Range(0, 100) < percent;
+    }
 }

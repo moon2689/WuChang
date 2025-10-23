@@ -103,7 +103,7 @@ MonoBehaviour:
     TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
       type: 3}
     controlType: 0
-    Offset: {x: 0, y: 0.75898385, z: 1.1384761}
+    Offset: {x: 0, y: 1.2261544, z: 1.1384764}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     TargetNode: 2
     FollowNode: 1
@@ -113,10 +113,10 @@ MonoBehaviour:
   Radius: 1
   Height: 1
   m_WeaponDamageSetting:
-    m_HitType: 0
+    m_HitType: 1
     m_WeaponBone: 23
-    m_DamageValue: 5
-    m_ImpactForce: 1
+    m_DamageValue: 20
+    m_ImpactForce: 2
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1
@@ -147,7 +147,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 4148278636302568565}
-  - EventTime: 0
+  - EventTime: 0.936
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -157,7 +157,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -7138782131452355099}
   - EventTime: 0
-    EventRange: {x: 0.288, y: 0.392}
+    EventRange: {x: 0.24, y: 0.392}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -165,7 +165,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -8850480891878174122}
-  - EventTime: 0.08
+  - EventTime: 0.064
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -193,7 +193,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -5544310874276493781}
   - EventTime: 0
-    EventRange: {x: 0.192, y: 0.232}
+    EventRange: {x: 0.056, y: 0.192}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -201,7 +201,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -3521875874769018716}
-  - EventTime: 0
+  - EventTime: 0.024
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -224,9 +224,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: 55bf0136e4f52d049b641e9e982b6288, type: 3}
-  - {fileID: 8300000, guid: 977b5ecbd2fca674db1df7dc682cc3a2, type: 3}
-  - {fileID: 8300000, guid: 67af835e4a5a4e9479066e8623522f80, type: 3}
+  - {fileID: 8300000, guid: 8bfe3e0944702c3468567c0760ade8a2, type: 3}
+  - {fileID: 8300000, guid: fd0766df9148bb240acd48cc87fabfea, type: 3}
+  - {fileID: 8300000, guid: 0e0d475ec4d66834cb639dd5c7f8a9f0, type: 3}
+  - {fileID: 8300000, guid: a3c7c6dfd99c8f740ad01f368895f40c, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
 --- !u!114 &3966000900281820021
@@ -257,7 +258,7 @@ MonoBehaviour:
   m_Name: AlignToEnemy
   m_EditorClassIdentifier: 
   IsActive: 1
-  m_RotateSpeed: 1080
+  m_RotateSpeed: 360
 --- !u!114 &6620692345041821331
 MonoBehaviour:
   m_ObjectHideFlags: 0

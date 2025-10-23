@@ -54,15 +54,15 @@ namespace Saber.CharacterController
             float speed = 0;
             if (curSmoothFloat <= 1)
             {
-                speed = Mathf.Lerp(0, Monster.m_MonsterInfo.m_SpeedWalk, curSmoothFloat);
+                speed = Mathf.Lerp(0, Monster.m_BaseActorInfo.m_SpeedWalk, curSmoothFloat);
             }
             else if (curSmoothFloat <= 2)
             {
-                speed = Mathf.Lerp(Monster.m_MonsterInfo.m_SpeedWalk, Monster.m_MonsterInfo.m_SpeedRun, curSmoothFloat - 1);
+                speed = Mathf.Lerp(Monster.m_BaseActorInfo.m_SpeedWalk, Monster.m_BaseActorInfo.m_SpeedRun, curSmoothFloat - 1);
             }
             else if (curSmoothFloat <= 3)
             {
-                speed = Mathf.Lerp(Monster.m_MonsterInfo.m_SpeedRun, Monster.m_MonsterInfo.m_SpeedSprint, curSmoothFloat - 2);
+                speed = Mathf.Lerp(Monster.m_BaseActorInfo.m_SpeedRun, Monster.m_BaseActorInfo.m_SpeedSprint, curSmoothFloat - 2);
             }
 
             return speed;

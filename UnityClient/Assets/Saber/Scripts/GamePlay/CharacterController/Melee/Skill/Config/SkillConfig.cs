@@ -34,6 +34,7 @@ namespace Saber.CharacterController
     [Serializable]
     public class SkillItem
     {
+        public bool m_Active = true;
         public int m_ID;
         public string m_SkillName;
         public SkillAnimStateMachine[] m_AnimStates;

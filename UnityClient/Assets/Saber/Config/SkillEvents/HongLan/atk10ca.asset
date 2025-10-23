@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
   m_Name: CanExit
   m_EditorClassIdentifier: 
-  IsActive: 0
+  IsActive: 1
 --- !u!114 &-8961040531035687677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39,6 +39,26 @@ MonoBehaviour:
   ColliderSize: {x: 1, y: 1, z: 1}
   Radius: 1.2312667
   Height: 1
+--- !u!114 &-7659308170336158106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFXHuiWu2
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: 8bfe3e0944702c3468567c0760ade8a2, type: 3}
+  - {fileID: 8300000, guid: fd0766df9148bb240acd48cc87fabfea, type: 3}
+  - {fileID: 8300000, guid: 0e0d475ec4d66834cb639dd5c7f8a9f0, type: 3}
+  - {fileID: 8300000, guid: a3c7c6dfd99c8f740ad01f368895f40c, type: 3}
+  m_Volume: 1
+  m_TriggerProbability: 100
 --- !u!114 &-7386580671710670274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,9 +133,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: 55bf0136e4f52d049b641e9e982b6288, type: 3}
-  - {fileID: 8300000, guid: 977b5ecbd2fca674db1df7dc682cc3a2, type: 3}
-  - {fileID: 8300000, guid: 67af835e4a5a4e9479066e8623522f80, type: 3}
+  - {fileID: 8300000, guid: 8bfe3e0944702c3468567c0760ade8a2, type: 3}
+  - {fileID: 8300000, guid: fd0766df9148bb240acd48cc87fabfea, type: 3}
+  - {fileID: 8300000, guid: 0e0d475ec4d66834cb639dd5c7f8a9f0, type: 3}
+  - {fileID: 8300000, guid: a3c7c6dfd99c8f740ad01f368895f40c, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
 --- !u!114 &-3551544426321923926
@@ -158,7 +179,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 6958862764220934702}
-  - EventTime: 0
+  - EventTime: 0.696
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -176,7 +197,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -7386580671710670274}
-  - EventTime: 0.16
+  - EventTime: 0.204
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -222,7 +243,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -6994074228992150506}
   - EventTime: 0
-    EventRange: {x: 0.5, y: 0.524}
+    EventRange: {x: 0.484, y: 0.524}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -239,6 +260,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -3551544426321923926}
+  - EventTime: 0.464
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -7659308170336158106}
 --- !u!114 &97583303513950540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,7 +294,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
-  m_Name: CreateHitBox2
+  m_Name: hit2
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
@@ -281,14 +311,14 @@ MonoBehaviour:
   Radius: 1
   Height: 1
   m_WeaponDamageSetting:
-    m_HitType: 0
+    m_HitType: 1
     m_WeaponBone: 23
-    m_DamageValue: 5
-    m_ImpactForce: 1
+    m_DamageValue: 20
+    m_ImpactForce: 2
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
-    CanBeTanFan: 1
-    BreakByTanFan: 1
+    CanBeTanFan: 0
+    BreakByTanFan: 0
 --- !u!114 &2660866341392539794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,7 +382,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
-  m_Name: CreateHitBox
+  m_Name: hit1
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
@@ -369,11 +399,11 @@ MonoBehaviour:
   Radius: 1
   Height: 1
   m_WeaponDamageSetting:
-    m_HitType: 0
+    m_HitType: 1
     m_WeaponBone: 23
-    m_DamageValue: 5
-    m_ImpactForce: 1
+    m_DamageValue: 20
+    m_ImpactForce: 2
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
-    CanBeTanFan: 1
-    BreakByTanFan: 1
+    CanBeTanFan: 0
+    BreakByTanFan: 0

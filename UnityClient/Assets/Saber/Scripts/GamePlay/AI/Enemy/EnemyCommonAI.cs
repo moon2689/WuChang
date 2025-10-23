@@ -15,11 +15,56 @@ namespace Saber.AI
         private SkillItem m_CurrentSkill;
         private List<SkillItem> m_CheckedWhetherDodgeSkills = new();
 
-
+        
         protected override void OnStart()
         {
             base.OnStart();
             ToSearchEnemy();
+
+            foreach (var e in Monster.m_MonsterInfo.m_AIInfo.m_EventsBeforeFighting)
+            {
+                TriggerFightingEvent(e);
+            }
+        }
+
+        void TriggerFightingEvent(MonsterFightingEvent eventObj)
+        {
+            if (eventObj.EventType == EMonsterFightingEvent.HideWeapon)
+            {
+                var tarWeaponConfig = Monster.m_BaseActorInfo.m_WeaponPrefabs[eventObj.m_ParamInt];
+                var weapon = Monster.CMelee.CWeapon.GetWeaponByPos(tarWeaponConfig.m_ArmBoneType);
+                weapon.gameObject.SetActive(false);
+            }
+            else if (eventObj.EventType == EMonsterFightingEvent.ShowWeapon)
+            {
+                var tarWeaponConfig = Monster.m_BaseActorInfo.m_WeaponPrefabs[eventObj.m_ParamInt];
+                var weapon = Monster.CMelee.CWeapon.GetWeaponByPos(tarWeaponConfig.m_ArmBoneType);
+                weapon.gameObject.SetActive(true);
+            }
+        }
+
+        /// <summary>当BOSS进入二阶段</summary>
+        public override void OnEnterBossStageTwo()
+        {
+            base.OnEnterBossStageTwo();
+
+            foreach (var e in Monster.m_MonsterInfo.m_AIInfo.m_EventsOnBossStageToTwo)
+            {
+                TriggerFightingEvent(e);
+            }
+
+            foreach (SkillItem skill in Actor.Skills)
+            {
+                if (skill.m_FirstSkillOfCombo &&
+                    skill.m_AITriggerCondition == EAITriggerSkillCondition.OnEnterBossStageTwo &&
+                    IsCDColldown(skill) &&
+                    SatifyTriggerCondition(skill))
+                {
+                    m_CurrentSkill = skill;
+                    SwitchCoroutine(AttackItor());
+                    break;
+                }
+            }
         }
 
         protected override IEnumerator SearchEnemy()
@@ -55,11 +100,7 @@ namespace Saber.AI
             }
         }
 
-        void ToStalemate()
-        {
-            SwitchCoroutine(StalemateItor());
-        }
-
+        /// <summary>战斗开始</summary>
         protected override void OnFoundEnemy(EFoundEnemyType foundType)
         {
             ToStalemate();
@@ -103,6 +144,15 @@ namespace Saber.AI
         }
 
         // 对峙
+
+        #region Stalemate
+
+        void ToStalemate()
+        {
+            SwitchCoroutine(StalemateItor());
+        }
+
+        // 对峙
         IEnumerator StalemateItor()
         {
             Actor.StopMove();
@@ -124,7 +174,7 @@ namespace Saber.AI
             }
 
             // 朝向敌人
-            if (!IsFaceToEnemy())
+            if (Monster.m_MonsterInfo.m_AIInfo.m_TurnDirWhenNotFaceToEnemy && !IsFaceToEnemy())
             {
                 wait = true;
                 if (Actor.PlayAction(PlayActionState.EActionType.FaceToLockingEnemy, () => wait = false))
@@ -136,16 +186,15 @@ namespace Saber.AI
                 }
             }
 
-            float minStayTime = Mathf.Lerp(3, 0.3f, Monster.m_MonsterInfo.AttackDesireRatio);
-            float maxStayTime = Mathf.Lerp(10f, 3f, Monster.m_MonsterInfo.AttackDesireRatio);
-            float timerStay = UnityEngine.Random.Range(minStayTime, maxStayTime);
+            Vector2 stayTime = Monster.m_MonsterInfo.m_AIInfo.m_StalemateStayTime;
+            float timerStay = UnityEngine.Random.Range(stayTime.x, stayTime.y);
             float moveTimer = 0;
             m_CheckedWhetherDodgeSkills.Clear();
             while (true)
             {
                 // 敌人死亡或敌人距离过远，则返回出生点
                 if (base.LockingEnemy == null || LockingEnemy.IsDead ||
-                    m_DistanceToEnemy > Actor.m_BaseActorInfo.m_AIInfo.m_LostFocusRange)
+                    m_DistanceToEnemy > Monster.m_MonsterInfo.m_AIInfo.m_LostFocusRange)
                 {
                     Actor.StopMove();
                     yield return new WaitForSeconds(3);
@@ -157,20 +206,11 @@ namespace Saber.AI
                 timerStay -= Time.deltaTime;
                 if (timerStay < 0 && !LockingEnemy.IsInSpecialStun)
                 {
-                    if (m_DistanceToEnemy < Monster.m_BaseActorInfo.m_AIInfo.m_WarningRange)
+                    if (Monster.m_MonsterInfo.CanDodge &&
+                        m_DistanceToEnemy < Monster.m_MonsterInfo.m_AIInfo.m_WarningRange &&
+                        CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_DodgePercentAfterStalemate))
                     {
-                        int dodgePercent = (int)Mathf.Lerp(60f, 20, Monster.m_MonsterInfo.AttackDesireRatio);
-                        if (CalcProbability(dodgePercent))
-                        {
-                            if (Monster.m_BaseActorInfo.m_AIInfo.CanDodge)
-                                ToDodge();
-                            else
-                                ToStalemate();
-                        }
-                        else
-                        {
-                            ToAttack();
-                        }
+                        ToDodge();
                     }
                     else
                     {
@@ -183,22 +223,19 @@ namespace Saber.AI
                 // 如果敌人攻击中，则格挡或闪避
                 if (LockingEnemy.CurrentStateType == EStateType.Skill &&
                     LockingEnemy.CurrentSkill.CurrentAttackState != EAttackStates.AfterAttack &&
-                    Monster.m_BaseActorInfo.m_AIInfo.CanDodge &&
-                    !m_CheckedWhetherDodgeSkills.Contains(LockingEnemy.CurrentSkill.SkillConfig))
+                    Monster.m_MonsterInfo.CanDodge &&
+                    !m_CheckedWhetherDodgeSkills.Contains(LockingEnemy.CurrentSkill.SkillConfig) &&
+                    m_DistanceToEnemy < LockingEnemy.CurrentSkill.SkillConfig.m_AIPramAttackDistance.maxValue)
                 {
-                    if (m_DistanceToEnemy < LockingEnemy.CurrentSkill.SkillConfig.m_AIPramAttackDistance.maxValue)
+                    if (CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_DodgeDamagePercent))
                     {
-                        int dodgePercent = (int)Mathf.Lerp(10f, 90, Monster.m_MonsterInfo.DodgeDamageRatio);
-                        if (CalcProbability(dodgePercent))
-                        {
-                            ToDodge();
-                            yield break;
-                        }
-
-                        var skillItem = LockingEnemy.CurrentSkill.SkillConfig;
-                        if (!m_CheckedWhetherDodgeSkills.Contains(skillItem))
-                            m_CheckedWhetherDodgeSkills.Add(skillItem);
+                        ToDodge();
+                        yield break;
                     }
+
+                    var skillItem = LockingEnemy.CurrentSkill.SkillConfig;
+                    if (!m_CheckedWhetherDodgeSkills.Contains(skillItem))
+                        m_CheckedWhetherDodgeSkills.Add(skillItem);
                 }
 
                 if (LockingEnemy.CurrentStateType != EStateType.Skill)
@@ -209,35 +246,9 @@ namespace Saber.AI
                 // 随机游走
                 if (Actor.CurrentStateType == EStateType.Idle || moveTimer < 0)
                 {
-                    if (m_DistanceToEnemy > 5)
-                    {
-                        Vector3 axis;
-                        if (CalcProbability(50))
-                        {
-                            axis = new Vector3(0, 0, 1);
-                        }
-                        else if (CalcProbability(50))
-                        {
-                            axis = new Vector3(1, 0, 0);
-                        }
-                        else
-                        {
-                            axis = new Vector3(-1, 0, 0);
-                        }
-
-                        Actor.StartMove(EMoveSpeedV.Walk, axis);
-                    }
-                    else if (m_DistanceToEnemy < 3)
-                    {
-                        Actor.StartMove(EMoveSpeedV.Walk, new Vector3(0, 0, -1));
-                    }
-                    else
-                    {
-                        Vector3 axis = CalcProbability(50) ? new Vector3(1, 0, 0) : new Vector3(-1, 0, 0);
-                        Actor.StartMove(EMoveSpeedV.Walk, axis);
-                    }
-
-                    moveTimer = UnityEngine.Random.Range(0.3f, 3f);
+                    RandomMove();
+                    Vector3 randomMoveTime = Monster.m_MonsterInfo.m_AIInfo.m_RandomMoveTime;
+                    moveTimer = UnityEngine.Random.Range(randomMoveTime.x, randomMoveTime.y);
                 }
 
                 if (Actor.CurrentStateType == EStateType.Move)
@@ -248,6 +259,43 @@ namespace Saber.AI
                 yield return null;
             }
         }
+
+        void RandomMove()
+        {
+            Vector3 axis;
+            if (m_DistanceToEnemy > 5)
+            {
+                if (CalcProbability(50))
+                {
+                    axis = new Vector3(0, 0, 1);
+                }
+                else if (CalcProbability(50))
+                {
+                    axis = new Vector3(1, 0, 0);
+                }
+                else
+                {
+                    axis = new Vector3(-1, 0, 0);
+                }
+            }
+            else if (m_DistanceToEnemy < 3)
+            {
+                axis = new Vector3(0, 0, -1);
+            }
+            else
+            {
+                axis = CalcProbability(50) ? new Vector3(1, 0, 0) : new Vector3(-1, 0, 0);
+            }
+
+            Actor.StartMove(EMoveSpeedV.Walk, axis);
+        }
+
+        #endregion
+
+
+        // 攻击
+
+        #region Attack
 
         bool IsRepeatSkill(SkillItem skill)
         {
@@ -281,6 +329,10 @@ namespace Saber.AI
             {
                 return true;
             }
+            else if (skill.m_AITriggerCondition == EAITriggerSkillCondition.BossStageOne)
+            {
+                return Monster.BossStage == 1;
+            }
             else if (skill.m_AITriggerCondition == EAITriggerSkillCondition.OnEnterBossStageTwo ||
                      skill.m_AITriggerCondition == EAITriggerSkillCondition.BossStageTwo)
             {
@@ -310,7 +362,7 @@ namespace Saber.AI
             }
             else
             {
-                EAIAttackStyleWhenTooFar attackStyle = Monster.m_MonsterInfo.m_AIAttackStyleWhenTooFar;
+                EAIAttackStyleWhenTooFar attackStyle = Monster.m_MonsterInfo.m_AIInfo.m_AIAttackStyleWhenTooFar;
                 if (attackStyle == EAIAttackStyleWhenTooFar.UseLongestRangeSkill)
                 {
                     m_CurrentSkill = GetLongestAttackRangeSkill(); //找攻击距离最大的技能
@@ -433,30 +485,11 @@ namespace Saber.AI
             return m_ListSkills[UnityEngine.Random.Range(0, m_ListSkills.Count)];
         }
 
-        public override void OnEnterBossStageTwo()
-        {
-            base.OnEnterBossStageTwo();
-
-            foreach (SkillItem skill in Actor.Skills)
-            {
-                if (skill.m_FirstSkillOfCombo &&
-                    skill.m_AITriggerCondition == EAITriggerSkillCondition.OnEnterBossStageTwo &&
-                    IsCDColldown(skill) &&
-                    SatifyTriggerCondition(skill))
-                {
-                    m_CurrentSkill = skill;
-                    SwitchCoroutine(AttackItor());
-                    break;
-                }
-            }
-        }
-
         /// <summary>冲刺后攻击</summary>
         IEnumerator SprintAndAttackItor()
         {
-            float minStayTime = Mathf.Lerp(0.3f, 2f, Monster.m_MonsterInfo.AttackDesireRatio);
-            float maxStayTime = Mathf.Lerp(2f, 8f, Monster.m_MonsterInfo.AttackDesireRatio);
-            float timerSprint = UnityEngine.Random.Range(minStayTime, maxStayTime);
+            Vector2 sprintTime = Monster.m_MonsterInfo.m_AIInfo.m_SprintTimeBeforeAttack;
+            float timerSprint = UnityEngine.Random.Range(sprintTime.x, sprintTime.y);
             while (true)
             {
                 Actor.StartMove(EMoveSpeedV.Sprint, new Vector3(0, 0, 1));
@@ -466,12 +499,14 @@ namespace Saber.AI
                     yield break;
                 }
 
-                yield return new WaitForSeconds(0.1f);
-                timerSprint -= 0.1f;
+                timerSprint -= Time.deltaTime;
                 if (timerSprint < 0)
                 {
                     ToStalemate();
+                    yield break;
                 }
+
+                yield return null;
             }
         }
 
@@ -540,30 +575,40 @@ namespace Saber.AI
                             yield break;
                         }
                     }
+                    else if (Actor.CurrentSkill.CanExit)
+                    {
+                        if (Monster.m_MonsterInfo.CanDodge &&
+                            m_DistanceToEnemy < Monster.m_MonsterInfo.m_AIInfo.m_WarningRange &&
+                            CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_DodgePercentAfterAttack))
+                        {
+                            ToDodge();
+                            yield break;
+                        }
+                    }
                 }
-                else if (!IsFaceToEnemy() || LockingEnemy == null || LockingEnemy.IsDead || LockingEnemy.IsInSpecialStun)
+                else if (Monster.m_MonsterInfo.m_AIInfo.m_TurnDirWhenNotFaceToEnemy &&
+                         (!IsFaceToEnemy() ||
+                          LockingEnemy == null ||
+                          LockingEnemy.IsDead ||
+                          LockingEnemy.IsInSpecialStun))
                 {
                     ToStalemate();
                     yield break;
                 }
                 else
                 {
-                    int attackPercent = (int)Mathf.Lerp(10, 90, Monster.m_MonsterInfo.AttackDesireRatio);
-                    if (CalcProbability(attackPercent))
+                    if (Monster.m_MonsterInfo.CanDodge &&
+                        m_DistanceToEnemy < Monster.m_MonsterInfo.m_AIInfo.m_WarningRange &&
+                        CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_DodgePercentAfterAttack))
                     {
-                        ToAttack();
+                        ToDodge();
                         yield break;
                     }
 
-                    if (Monster.m_BaseActorInfo.m_AIInfo.CanDodge &&
-                        m_DistanceToEnemy < Monster.m_BaseActorInfo.m_AIInfo.m_WarningRange)
+                    if (CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_ContinueAttackPercentAfterAttack))
                     {
-                        int dodgePercent = (int)Mathf.Lerp(10f, 90, Monster.m_MonsterInfo.DodgeDamageRatio);
-                        if (CalcProbability(dodgePercent))
-                        {
-                            ToDodge();
-                            yield break;
-                        }
+                        ToAttack();
+                        yield break;
                     }
 
                     ToStalemate();
@@ -575,6 +620,13 @@ namespace Saber.AI
             }
         }
 
+        #endregion
+
+
+        // 闪避
+
+        #region Dodge
+
         void ToDodge()
         {
             SwitchCoroutine(DodgeItor());
@@ -582,26 +634,18 @@ namespace Saber.AI
 
         IEnumerator DodgeItor()
         {
-            if (!Monster.m_BaseActorInfo.m_AIInfo.CanDodge)
+            if (!Monster.m_MonsterInfo.CanDodge)
             {
                 throw new InvalidOperationException("Cann't dodge");
             }
 
             Vector3 axis;
-            if (m_DistanceToEnemy < 2)
-            {
-                axis = new Vector3(0, 0, -1);
-            }
+            if (Monster.m_MonsterInfo.m_DodgeType.HasFlag(EDodgeType.Right) && CalcProbability(33))
+                axis = new Vector3(1, 0, 0);
+            else if (Monster.m_MonsterInfo.m_DodgeType.HasFlag(EDodgeType.Left) && CalcProbability(50))
+                axis = new Vector3(-1, 0, 0);
             else
-            {
-                int v = UnityEngine.Random.Range(0, 100);
-                if (v < 40)
-                    axis = new Vector3(1, 0, 0);
-                else if (v < 80)
-                    axis = new Vector3(-1, 0, 0);
-                else
-                    axis = new Vector3(0, 0, -1);
-            }
+                axis = new Vector3(0, 0, -1);
 
             bool dodged = false;
 
@@ -621,8 +665,10 @@ namespace Saber.AI
                     }
                 }
 
-                yield return new WaitForSeconds(0.1f);
+                yield return null;
             }
         }
+
+        #endregion
     }
 }

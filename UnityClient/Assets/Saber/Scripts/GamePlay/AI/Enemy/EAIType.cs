@@ -18,6 +18,7 @@ namespace Saber.AI
         None,
         OnEnterBossStageTwo,
         BossStageTwo,
+        BossStageOne,
     }
 
     public static class EnemyAITypeHelper

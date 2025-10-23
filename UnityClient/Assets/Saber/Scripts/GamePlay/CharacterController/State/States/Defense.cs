@@ -218,7 +218,7 @@ namespace Saber.CharacterController
             float curSmoothFloatV = Actor.CAnim.GetCurSmoothFloat(EAnimatorParams.Vertical);
             float curSmoothFloat = Mathf.Sqrt(curSmoothFloatH * curSmoothFloatH + curSmoothFloatV * curSmoothFloatV);
             // float curSmoothFloat = 2 * GameHelper.GetStickLength(curSmoothFloatH * 0.5f, curSmoothFloatV * 0.5f);
-            float speed = Mathf.Lerp(0, Character.m_CharacterInfo.m_SpeedDefenseWalk, curSmoothFloat);
+            float speed = Mathf.Lerp(0, Character.m_BaseActorInfo.m_SpeedDefenseWalk, curSmoothFloat);
             return speed;
         }
 

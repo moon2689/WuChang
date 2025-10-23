@@ -58,7 +58,7 @@ namespace Saber.UI
 
         void InitSlots()
         {
-            m_Slots = new Widget_BagItemSlot[36];
+            m_Slots = new Widget_BagItemSlot[25];
             for (int i = 0; i < m_Slots.Length; i++)
             {
                 GameObject go = GameObject.Instantiate<GameObject>(m_TempSlot.gameObject);

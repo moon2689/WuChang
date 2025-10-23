@@ -26,7 +26,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb9d103b2e74362b49578d9f2b35094, type: 3}
   m_Name: ComboTime
   m_EditorClassIdentifier: 
-  IsActive: 0
+  IsActive: 1
 --- !u!114 &-3499954504680970092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39,7 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
   m_Name: CanExit
   m_EditorClassIdentifier: 
-  IsActive: 0
+  IsActive: 1
 --- !u!114 &-1291196964303971002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0, y: 0.44311377}
+    EventRange: {x: 0, y: 0.19760479}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -139,7 +139,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -8329878372787537620}
-  - EventTime: 0
+  - EventTime: 0.7185629
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -149,7 +149,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -3499954504680970092}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.37724552, y: 0.51497006}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -185,7 +185,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 3276978993645573152}
   - EventTime: 0
-    EventRange: {x: 0.31137726, y: 0.48502994}
+    EventRange: {x: 0.26946107, y: 0.48502994}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -202,6 +202,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -677015091981563577}
+  - EventTime: 0
+    EventRange: {x: 0.19760479, y: 0.4011976}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 5496781593432495209}
 --- !u!114 &1584087641317243439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +274,20 @@ MonoBehaviour:
   IsActive: 1
   m_WeaponBone: 29
   m_NotTriggerWhenPowerEnough: 0
+--- !u!114 &5496781593432495209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f29d956cd14f76ae2ff6fbffccde20, type: 3}
+  m_Name: AlignToEnemy
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_RotateSpeed: 360
 --- !u!114 &6380531116015775073
 MonoBehaviour:
   m_ObjectHideFlags: 0

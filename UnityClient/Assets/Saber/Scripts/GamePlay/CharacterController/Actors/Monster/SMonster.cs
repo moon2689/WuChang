@@ -69,7 +69,7 @@ namespace Saber.CharacterController
             base.Start();
             if (AI == null)
             {
-                AI = m_MonsterInfo.m_DefaultAI.CreateEnemyAI();
+                AI = m_MonsterInfo.m_AIInfo.m_DefaultAI.CreateEnemyAI();
             }
         }
 

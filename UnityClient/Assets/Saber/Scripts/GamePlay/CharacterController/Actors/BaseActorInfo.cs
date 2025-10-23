@@ -15,8 +15,12 @@ namespace Saber.CharacterController
         public PhysicInfo m_PhysicInfo;
         public SkillConfig m_SkillConfig;
         public WeaponPrefab[] m_WeaponPrefabs;
-        public AIInfo m_AIInfo;
         public HitRecInfo m_HitRecInfo;
+        
+        public float m_SpeedWalk;
+        public float m_SpeedRun;
+        public float m_SpeedSprint;
+        public float m_SpeedDefenseWalk;
     }
 
     [Serializable]

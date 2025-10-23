@@ -40,27 +40,31 @@ MonoBehaviour:
     m_WeaponPrefabs:
     - m_WeaponPrefabResPath: 
       m_ArmBoneType: 29
-    m_AIInfo:
-      m_WarningRange: 10
-      m_LostFocusRange: 20
-      m_DodgeType: 1
     m_HitRecInfo:
       CanBeBackstab: 1
       CanBeUppercut: 1
       CanBeStrikeDown: 1
       CanBeKnockOffLongDis: 1
       CanBeStunLarge: 1
-  m_MonsterInfo:
-    m_DefaultAI: 1
     m_SpeedWalk: 1
     m_SpeedRun: 2
     m_SpeedSprint: 0
+    m_SpeedDefenseWalk: 0
+  m_MonsterInfo:
     m_CanDefense: 0
-    m_SpecialIdls:
-    - SpecialIdle1
-    - SpecialIdle2
-    - SpecialIdle3
-    - SpecialIdle4
-    m_AttackDesirePercent: 50
-    m_DodgeDamagePercent: 50
-    m_AIAttackStyleWhenTooFar: 2
+    m_DodgeType: 1
+    m_SpecialIdls: []
+    m_AIInfo:
+      m_DefaultAI: 4
+      m_WarningRange: 10
+      m_LostFocusRange: 30
+      m_StalemateStayTime: {x: 0.3, y: 3}
+      m_SprintTimeBeforeAttack: {x: 1, y: 3}
+      m_DodgeDamagePercent: 50
+      m_DodgePercentAfterAttack: 50
+      m_DodgePercentAfterStalemate: 50
+      m_TurnDirWhenNotFaceToEnemy: 1
+      m_ContinueAttackPercentAfterAttack: 50
+      m_AIAttackStyleWhenTooFar: 2
+      m_EventsBeforeFighting: []
+      m_EventsOnBossStageToTwo: []

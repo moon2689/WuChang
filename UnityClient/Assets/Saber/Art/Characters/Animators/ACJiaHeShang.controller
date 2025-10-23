@@ -52,7 +52,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: JumpBack
+  m_Name: DodgeBack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -61,6 +61,7 @@ AnimatorState:
   - {fileID: -7576104436869353163}
   - {fileID: -5158656694218717661}
   - {fileID: -9141024286352797403}
+  - {fileID: 3431760670017957726}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -1769,6 +1770,22 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &3431760670017957726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931b3187a0134cf8b79548ab3745d1ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RangeTime:
+    minValue: 0
+    maxValue: 0.3
+  m_EventType: 3
 --- !u!1102 &3625928458171043002
 AnimatorState:
   serializedVersion: 6

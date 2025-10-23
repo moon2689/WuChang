@@ -23,9 +23,14 @@ namespace Saber.CharacterController
             base.RegisterState(new PlayActionState());
             base.RegisterState(new MonsterMove());
 
-            if (Monster.m_BaseActorInfo.m_AIInfo.CanDodge)
+            if (Monster.m_MonsterInfo.CanDodge)
             {
-                base.RegisterState(new Dodge());
+                Dodge dodge = new Dodge();
+                base.RegisterState(dodge);
+                dodge.SpecialDodgeBackAnims = Monster.m_MonsterInfo.m_SpecialDodgeBackAnims;
+                dodge.SpecialDodgeLeftAnims = Monster.m_MonsterInfo.m_SpecialDodgeLeftAnims;
+                dodge.SpecialDodgeRightAnims = Monster.m_MonsterInfo.m_SpecialDodgeRightAnims;
+                dodge.SpecialDodgeFrontAnims = Monster.m_MonsterInfo.m_SpecialDodgeFrontAnims;
             }
 
             if (Monster.m_MonsterInfo.m_CanDefense)

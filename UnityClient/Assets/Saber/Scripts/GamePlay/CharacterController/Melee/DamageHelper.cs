@@ -186,6 +186,11 @@ namespace Saber.CharacterController
 
         static bool TryDefense(SActor actor, HurtBox hurtBox, DamageInfo curDmgInfo)
         {
+            if (curDmgInfo.HitType != EHitType.Weapon)
+            {
+                return false;
+            }
+
             SActor enemy = hurtBox.Actor;
 
             if (enemy.CurrentStateType != EStateType.Defense)
@@ -194,7 +199,7 @@ namespace Saber.CharacterController
             }
 
             // 是否被弹反
-            if (curDmgInfo.DamageConfig.CanBeTanFan)
+            if (curDmgInfo.DamageConfig.CanBeTanFan && curDmgInfo.HitType == EHitType.Weapon)
             {
                 bool beParried = WhetherBeparried(enemy, actor, out var defenseState);
                 if (beParried)

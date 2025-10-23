@@ -248,9 +248,6 @@ namespace Saber.CharacterController
 
         public bool Dodge(Vector3 axis)
         {
-            if (!Actor.m_BaseActorInfo.m_AIInfo.CanDodge)
-                return false;
-            
             return TryEnterState<Dodge>(EStateType.Dodge, state =>
             {
                 Actor.Invincible = true;

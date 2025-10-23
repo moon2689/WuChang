@@ -34,7 +34,7 @@ namespace Saber.CharacterController
                     List<SkillItem> list = new();
                     foreach (var item in SkillConfig.m_SkillItems)
                     {
-                        if (item.m_FirstSkillOfCombo && item.m_TriggerCondition == ETriggerCondition.InGround)
+                        if (item.m_Active && item.m_FirstSkillOfCombo && item.m_TriggerCondition == ETriggerCondition.InGround)
                         {
                             list.Add(item);
                         }
@@ -116,6 +116,11 @@ namespace Saber.CharacterController
 
             foreach (var item in m_SkillConfig.m_SkillItems)
             {
+                if (!item.m_Active)
+                {
+                    continue;
+                }
+
                 BaseSkill skillObj;
                 if (item.m_SkillType == ESkillType.Execute)
                 {
@@ -229,6 +234,11 @@ namespace Saber.CharacterController
             // 当前没有任何技能释放，则触发起手技能
             foreach (var skillItem in SkillConfig.m_SkillItems)
             {
+                if (!skillItem.m_Active)
+                {
+                    continue;
+                }
+
                 BaseSkill skill = m_DicSkills[skillItem.m_ID];
                 if (skillItem.m_FirstSkillOfCombo &&
                     skillItem.m_SkillType == type &&
@@ -294,7 +304,7 @@ namespace Saber.CharacterController
 
         public BaseSkill GetSkillObject(ESkillType type)
         {
-            var tarSkill = SkillConfig.m_SkillItems.FirstOrDefault(a => a.m_SkillType == type && a.m_FirstSkillOfCombo);
+            var tarSkill = SkillConfig.m_SkillItems.FirstOrDefault(a => a.m_Active && a.m_SkillType == type && a.m_FirstSkillOfCombo);
             if (tarSkill != null)
             {
                 m_DicSkills.TryGetValue(tarSkill.m_ID, out var tar);

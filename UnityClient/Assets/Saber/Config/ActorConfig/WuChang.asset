@@ -40,16 +40,16 @@ MonoBehaviour:
     m_WeaponPrefabs:
     - m_WeaponPrefabResPath: Weapon/MiaoDao_QiYunChuXue
       m_ArmBoneType: 29
-    m_AIInfo:
-      m_WarningRange: 30
-      m_LostFocusRange: 30
-      m_DodgeType: -1
     m_HitRecInfo:
       CanBeBackstab: 1
       CanBeUppercut: 1
       CanBeStrikeDown: 1
       CanBeKnockOffLongDis: 1
       CanBeStunLarge: 0
+    m_SpeedWalk: 1.6
+    m_SpeedRun: 4
+    m_SpeedSprint: 7
+    m_SpeedDefenseWalk: 1.2
   m_CharacterInfo:
     m_ClothInfo:
       m_Enable: 1
@@ -72,7 +72,3 @@ MonoBehaviour:
       - {fileID: 0}
       m_BlendShapeIndex_Blink: 3
       m_BlendShapeIndex_OpenMouth: 0
-    m_SpeedWalk: 1.6
-    m_SpeedRun: 4
-    m_SpeedSprint: 7
-    m_SpeedDefenseWalk: 1.2
