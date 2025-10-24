@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
   m_Name: CanExit
   m_EditorClassIdentifier: 
-  IsActive: 0
+  IsActive: 1
 --- !u!114 &-6827096376722343607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
-  m_Name: CreateHitBox2
+  m_Name: hit2
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
@@ -60,8 +60,8 @@ MonoBehaviour:
     m_HitType: 2
     m_WeaponBone: 13
     m_DamageValue: 20
-    m_ImpactForce: 1
-    m_HitRecover: 5
+    m_ImpactForce: 2
+    m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1
     BreakByTanFan: 1
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
-  m_Name: CreateHitBox
+  m_Name: hit1
   m_EditorClassIdentifier: 
   IsActive: 1
   ObjData:
@@ -232,7 +232,7 @@ MonoBehaviour:
     m_HitType: 2
     m_WeaponBone: 14
     m_DamageValue: 20
-    m_ImpactForce: 1
+    m_ImpactForce: 2
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1

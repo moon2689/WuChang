@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: AlignToEnemy
   m_EditorClassIdentifier: 
   IsActive: 1
-  m_RotateSpeed: 360
+  m_RotateSpeed: 720
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -118,6 +118,16 @@ MonoBehaviour:
     m_Name: 
     m_ClothType: 4
     m_ClassifyID: 5
+  - m_ID: 22
+    m_IsActive: 1
+    m_Name: 
+    m_ClothType: 2
+    m_ClassifyID: 6
+  - m_ID: 23
+    m_IsActive: 1
+    m_Name: 
+    m_ClothType: 4
+    m_ClassifyID: 6
   m_Classfies:
   - m_ID: 1
     m_ResName: Default
@@ -134,3 +144,6 @@ MonoBehaviour:
   - m_ID: 5
     m_ResName: LTZ
     m_Name: "\u5A49\u82E5\u6E38\u9F99"
+  - m_ID: 6
+    m_ResName: JHS
+    m_Name: "\u5047\u548C\u5C1A"

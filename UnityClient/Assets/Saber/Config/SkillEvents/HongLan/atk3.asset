@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
   m_Name: CanExit
   m_EditorClassIdentifier: 
-  IsActive: 0
+  IsActive: 1
 --- !u!114 &-7011581781256330845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30,21 +30,21 @@ MonoBehaviour:
     TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
       type: 3}
     controlType: 0
-    Offset: {x: 0.41527864, y: 0.75898385, z: 1.1384758}
+    Offset: {x: 0.20431471, y: 0.75898385, z: 0.3473605}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 0
-  ColliderOffset: {x: 0, y: 0, z: 0.01487112}
+  ColliderOffset: {x: 0, y: 0, z: -0.05253458}
   ColliderSize: {x: 1, y: 1, z: 1}
-  Radius: 1.3609371
+  Radius: 1.7303281
   Height: 1
   m_WeaponDamageSetting:
     m_HitType: 0
     m_WeaponBone: 29
     m_DamageValue: 30
-    m_ImpactForce: 1
-    m_HitRecover: 5
+    m_ImpactForce: 2
+    m_HitRecover: 6
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1
     BreakByTanFan: 1
@@ -128,7 +128,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 6247500389923009085}
-  - EventTime: 0.93333334
+  - EventTime: 0.7030303
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -138,7 +138,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -7877314208447956531}
   - EventTime: 0
-    EventRange: {x: 0.56969696, y: 0.58787876}
+    EventRange: {x: 0.55757576, y: 0.6121212}
     EventMultiRange:
     - 0.2
     - 0.4

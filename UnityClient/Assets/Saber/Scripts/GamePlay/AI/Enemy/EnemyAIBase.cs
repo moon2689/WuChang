@@ -36,6 +36,27 @@ namespace Saber.AI
         protected virtual void OnStart()
         {
             m_OriginPos = Actor.transform.position;
+
+            foreach (var e in Monster.m_MonsterInfo.m_AIInfo.m_EventsBeforeFighting)
+            {
+                TriggerFightingEvent(e);
+            }
+        }
+
+        private void TriggerFightingEvent(MonsterFightingEvent eventObj)
+        {
+            if (eventObj.EventType == EMonsterFightingEvent.HideWeapon)
+            {
+                var tarWeaponConfig = Monster.m_BaseActorInfo.m_WeaponPrefabs[eventObj.m_ParamInt];
+                var weapon = Monster.CMelee.CWeapon.GetWeaponByPos(tarWeaponConfig.m_ArmBoneType);
+                weapon.gameObject.SetActive(false);
+            }
+            else if (eventObj.EventType == EMonsterFightingEvent.ShowWeapon)
+            {
+                var tarWeaponConfig = Monster.m_BaseActorInfo.m_WeaponPrefabs[eventObj.m_ParamInt];
+                var weapon = Monster.CMelee.CWeapon.GetWeaponByPos(tarWeaponConfig.m_ArmBoneType);
+                weapon.gameObject.SetActive(true);
+            }
         }
 
         protected void SwitchCoroutine(IEnumerator routine)
@@ -161,6 +182,10 @@ namespace Saber.AI
 
         public virtual void OnEnterBossStageTwo()
         {
+            foreach (var e in Monster.m_MonsterInfo.m_AIInfo.m_EventsOnBossStageToTwo)
+            {
+                TriggerFightingEvent(e);
+            }
         }
     }
 }

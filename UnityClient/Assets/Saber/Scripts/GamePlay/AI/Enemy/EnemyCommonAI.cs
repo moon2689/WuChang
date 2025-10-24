@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using CombatEditor;
 using Saber.CharacterController;
+using Saber.Config;
 
 namespace Saber.AI
 {
@@ -15,32 +16,11 @@ namespace Saber.AI
         private SkillItem m_CurrentSkill;
         private List<SkillItem> m_CheckedWhetherDodgeSkills = new();
 
-        
+
         protected override void OnStart()
         {
             base.OnStart();
             ToSearchEnemy();
-
-            foreach (var e in Monster.m_MonsterInfo.m_AIInfo.m_EventsBeforeFighting)
-            {
-                TriggerFightingEvent(e);
-            }
-        }
-
-        void TriggerFightingEvent(MonsterFightingEvent eventObj)
-        {
-            if (eventObj.EventType == EMonsterFightingEvent.HideWeapon)
-            {
-                var tarWeaponConfig = Monster.m_BaseActorInfo.m_WeaponPrefabs[eventObj.m_ParamInt];
-                var weapon = Monster.CMelee.CWeapon.GetWeaponByPos(tarWeaponConfig.m_ArmBoneType);
-                weapon.gameObject.SetActive(false);
-            }
-            else if (eventObj.EventType == EMonsterFightingEvent.ShowWeapon)
-            {
-                var tarWeaponConfig = Monster.m_BaseActorInfo.m_WeaponPrefabs[eventObj.m_ParamInt];
-                var weapon = Monster.CMelee.CWeapon.GetWeaponByPos(tarWeaponConfig.m_ArmBoneType);
-                weapon.gameObject.SetActive(true);
-            }
         }
 
         /// <summary>当BOSS进入二阶段</summary>
@@ -48,21 +28,20 @@ namespace Saber.AI
         {
             base.OnEnterBossStageTwo();
 
-            foreach (var e in Monster.m_MonsterInfo.m_AIInfo.m_EventsOnBossStageToTwo)
+            // 触发BOSS二阶段转换技能
+            if (Monster.BaseInfo.m_ActorType == EActorType.Boss)
             {
-                TriggerFightingEvent(e);
-            }
-
-            foreach (SkillItem skill in Actor.Skills)
-            {
-                if (skill.m_FirstSkillOfCombo &&
-                    skill.m_AITriggerCondition == EAITriggerSkillCondition.OnEnterBossStageTwo &&
-                    IsCDColldown(skill) &&
-                    SatifyTriggerCondition(skill))
+                foreach (SkillItem skill in Actor.Skills)
                 {
-                    m_CurrentSkill = skill;
-                    SwitchCoroutine(AttackItor());
-                    break;
+                    if (skill.m_FirstSkillOfCombo &&
+                        skill.m_AITriggerCondition == EAITriggerSkillCondition.OnEnterBossStageTwo &&
+                        IsCDColldown(skill) &&
+                        SatifyTriggerCondition(skill))
+                    {
+                        m_CurrentSkill = skill;
+                        SwitchCoroutine(AttackItor());
+                        break;
+                    }
                 }
             }
         }

@@ -71,7 +71,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 0f1b8f242f624604587b2b14044958e0, type: 2}
     - {fileID: 11400000, guid: 5c216f69894248649b49750d07812c50, type: 2}
     - {fileID: 11400000, guid: dcca347cdb18e464888ae5d798027ad3, type: 2}
-  - IsFolded: 0
+  - IsFolded: 1
     Label: Attack3
     CombatObjs:
     - {fileID: 11400000, guid: 71c7d2924c7bcd5408d09c13d5012915, type: 2}

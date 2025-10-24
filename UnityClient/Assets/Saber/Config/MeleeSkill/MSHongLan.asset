@@ -16,7 +16,7 @@ MonoBehaviour:
   m_SkillItems:
   - m_Active: 1
     m_ID: 1
-    m_SkillName: "\u53F3\u624B\u4E0B\u5288"
+    m_SkillName: "\u4E0B\u5288\u5251"
     m_AnimStates:
     - m_Name: atk01
       m_EventData: {fileID: 11400000, guid: 4902a6274d391fa4f9ab4a22e4d8cc34, type: 2}
@@ -31,6 +31,8 @@ MonoBehaviour:
     m_FirstSkillOfCombo: 1
     m_ChainSkills:
     - m_SkillID: 22
+      m_BlendTime: 0.5
+    - m_SkillID: 24
       m_BlendTime: 0.5
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1
@@ -68,9 +70,9 @@ MonoBehaviour:
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_Active: 0
+  - m_Active: 1
     m_ID: 3
-    m_SkillName: 
+    m_SkillName: "\u7A81\u523A\u6A2A\u626B"
     m_AnimStates:
     - m_Name: atk03
       m_EventData: {fileID: 11400000, guid: a95df3fbedc056f4e86529a693fc0ffe, type: 2}
@@ -83,12 +85,16 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
-    m_ChainSkills: []
+    m_ChainSkills:
+    - m_SkillID: 22
+      m_BlendTime: 0.5
+    - m_SkillID: 24
+      m_BlendTime: 0.5
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
-      minValue: 0
+      minValue: 5
       maxValue: 10
     m_GroupID: 0
     m_AITriggerCondition: 0
@@ -230,7 +236,7 @@ MonoBehaviour:
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_Active: 0
+  - m_Active: 1
     m_ID: 9
     m_SkillName: "\u817F\u4E8C\u8FDE\u8E22"
     m_AnimStates:
@@ -245,7 +251,9 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
-    m_ChainSkills: []
+    m_ChainSkills:
+    - m_SkillID: 8
+      m_BlendTime: 0.1
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1
     m_ResilienceAfterAttack: 0
@@ -500,9 +508,9 @@ MonoBehaviour:
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_Active: 0
+  - m_Active: 1
     m_ID: 19
-    m_SkillName: 
+    m_SkillName: "\u5DE6\u62F3\u4E8C\u8FDE\u5FEB"
     m_AnimStates:
     - m_Name: Atk10_c_fast
       m_EventData: {fileID: 11400000, guid: dcca347cdb18e464888ae5d798027ad3, type: 2}
@@ -515,13 +523,15 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
-    m_ChainSkills: []
+    m_ChainSkills:
+    - m_SkillID: 1
+      m_BlendTime: 0.1
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 5
+      maxValue: 7
     m_GroupID: 0
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0
@@ -593,7 +603,9 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 0
-    m_ChainSkills: []
+    m_ChainSkills:
+    - m_SkillID: 9
+      m_BlendTime: 0.5
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1
     m_ResilienceAfterAttack: 0
@@ -630,9 +642,9 @@ MonoBehaviour:
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_Active: 0
+  - m_Active: 1
     m_ID: 24
-    m_SkillName: 
+    m_SkillName: "\u4FA7\u6A2A\u626B"
     m_AnimStates:
     - m_Name: Atk11_c_A
       m_EventData: {fileID: 11400000, guid: efb7ea066bf311247a3ec35c19a7f1d3, type: 2}
@@ -644,8 +656,10 @@ MonoBehaviour:
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
-    m_FirstSkillOfCombo: 1
-    m_ChainSkills: []
+    m_FirstSkillOfCombo: 0
+    m_ChainSkills:
+    - m_SkillID: 9
+      m_BlendTime: 0.5
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1
     m_ResilienceAfterAttack: 0
@@ -699,6 +713,8 @@ MonoBehaviour:
     m_FirstSkillOfCombo: 1
     m_ChainSkills:
     - m_SkillID: 22
+      m_BlendTime: 0.6
+    - m_SkillID: 24
       m_BlendTime: 0.6
     m_ResilienceBeforeAttack: 1
     m_ResilienceAttacking: 1

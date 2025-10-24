@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using System.Text;
 using Saber.CharacterController;
 using Saber.Frame;
 using UnityEngine.Rendering.UI;
@@ -16,6 +17,7 @@ namespace Saber.AI
         private List<SkillItem> m_CurSkill = new();
         private int m_ComboSkillIndex;
         private List<int> m_SkillIDs;
+        private StringBuilder m_SB = new();
 
         protected override void OnStart()
         {
@@ -33,7 +35,7 @@ namespace Saber.AI
             {
                 foreach (var skillItem in Actor.CMelee.SkillConfig.m_SkillItems)
                 {
-                    if (skillItem.m_FirstSkillOfCombo)
+                    if (skillItem.m_Active && skillItem.m_FirstSkillOfCombo)
                     {
                         m_SkillIDs.Add(skillItem.m_ID);
                     }
@@ -75,26 +77,14 @@ namespace Saber.AI
                 m_CurSkill.Add(firstSkill);
                 AddComboSkills(firstSkill);
             }
-
-            if (m_CurSkill.Count > 0)
-            {
-                var animState = m_CurSkill[0].m_AnimStates.FirstOrDefault();
-                if (animState != null)
-                    m_TestSkillGUI.SetMsg($"{skillID} {animState.m_Name}");
-                else
-                    m_TestSkillGUI.SetMsg(null);
-            }
-            else
-            {
-                m_TestSkillGUI.SetMsg(null);
-            }
         }
 
         void AddComboSkills(SkillItem skillItem)
         {
             if (skillItem.m_ChainSkills.Length > 0)
             {
-                SkillItem chainSkill = Actor.CMelee.SkillConfig.GetSkillItemByID(skillItem.m_ChainSkills[0].m_SkillID);
+                int ranChainIndex = UnityEngine.Random.Range(0, skillItem.m_ChainSkills.Length);
+                SkillItem chainSkill = Actor.CMelee.SkillConfig.GetSkillItemByID(skillItem.m_ChainSkills[ranChainIndex].m_SkillID);
                 m_CurSkill.Add(chainSkill);
                 AddComboSkills(chainSkill);
             }
@@ -109,20 +99,32 @@ namespace Saber.AI
         {
             while (true)
             {
-                bool succeed = Actor.TryTriggerSkill(m_CurSkill[m_ComboSkillIndex]);
+                var curSkill = m_CurSkill[m_ComboSkillIndex];
+                bool succeed = Actor.TryTriggerSkill(curSkill);
                 if (succeed)
                 {
+                    m_SB.Length = 0;
+                    m_SB.AppendLine($"序号\t技能名");
+                    for (int i = 0; i < m_CurSkill.Count; i++)
+                    {
+                        var item = m_CurSkill[i];
+                        string endStr = item == curSkill ? " √" : "";
+                        m_SB.AppendLine($"{i + 1}\t{item.m_SkillName} ({item.m_ID}){endStr}");
+                    }
+
+                    m_TestSkillGUI.SetMsg(m_SB.ToString());
+
                     ++m_ComboSkillIndex;
                     if (m_ComboSkillIndex >= m_CurSkill.Count)
                     {
-                        m_ComboSkillIndex = 0;
+                        SetCurSkill(m_SkillIndex);
                     }
                 }
                 else
                 {
                     if (Actor.CurrentStateType != EStateType.Skill)
                     {
-                        m_ComboSkillIndex = 0;
+                        SetCurSkill(m_SkillIndex);
                     }
                 }
 
@@ -162,7 +164,7 @@ namespace Saber.AI
                 fontSize = 40,
                 normal =
                 {
-                    textColor = Color.green
+                    textColor = Color.white
                 }
             };
         }
@@ -175,19 +177,20 @@ namespace Saber.AI
                 m_StyleButton.fontSize = 40;
             }
 
-            if (GUI.Button(new Rect(0, 50, 180, 90), "上一个", m_StyleButton))
+            if (GUI.Button(new Rect(200, 0, 180, 90), "上一个", m_StyleButton))
             {
                 OnClickPrevious?.Invoke();
             }
 
-            if (GUI.Button(new Rect(190, 50, 180, 90), "下一个", m_StyleButton))
+            if (GUI.Button(new Rect(390, 0, 180, 90), "下一个", m_StyleButton))
             {
                 OnClickNext?.Invoke();
             }
 
             if (!string.IsNullOrEmpty(m_Msg))
             {
-                GUI.Label(new Rect(0, 150, 300, 40), m_Msg, m_LabelStyle);
+                GUI.Box(new Rect(0, 100, 500, 500), "");
+                GUI.Label(new Rect(0, 110, 500, 40), m_Msg, m_LabelStyle);
             }
         }
 

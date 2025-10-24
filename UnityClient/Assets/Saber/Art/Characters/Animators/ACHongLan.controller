@@ -508,7 +508,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RangeTime:
     minValue: 0
-    maxValue: 0.2
+    maxValue: 0.5
   m_EventType: 3
 --- !u!1101 &-6838286872555360668
 AnimatorStateTransition:
@@ -739,7 +739,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RangeTime:
     minValue: 0
-    maxValue: 0.2
+    maxValue: 0.5
   m_EventType: 3
 --- !u!114 &-5588064189816747492
 MonoBehaviour:
@@ -1653,7 +1653,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Atk11_c_A
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -1151182453625956113}

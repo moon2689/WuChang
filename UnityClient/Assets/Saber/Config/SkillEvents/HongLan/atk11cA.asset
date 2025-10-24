@@ -17,20 +17,20 @@ MonoBehaviour:
     TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
       type: 3}
     controlType: 0
-    Offset: {x: 0, y: 0.75898385, z: 1.1384761}
+    Offset: {x: 0.53142303, y: 0.90636873, z: 0.8174987}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 0
-  ColliderOffset: {x: 0, y: 0, z: 0}
+  ColliderOffset: {x: 0, y: 0, z: -0.052927613}
   ColliderSize: {x: 1, y: 1, z: 1}
-  Radius: 1
+  Radius: 1.8959025
   Height: 1
   m_WeaponDamageSetting:
     m_HitType: 0
     m_WeaponBone: 29
-    m_DamageValue: 5
-    m_ImpactForce: 1
+    m_DamageValue: 30
+    m_ImpactForce: 2
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1
