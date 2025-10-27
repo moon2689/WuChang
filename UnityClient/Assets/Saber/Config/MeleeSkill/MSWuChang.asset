@@ -297,7 +297,7 @@ MonoBehaviour:
     m_CanTriggerWhenPowerNotEnough: 1
     m_PowerAddWhenHitted: 0
     m_CDSeconds: 0
-    m_SkillType: 9
+    m_SkillType: 3
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
@@ -480,6 +480,32 @@ MonoBehaviour:
     m_AIPramAttackDistance:
       minValue: 0.5
       maxValue: 2
+    m_GroupID: 0
+    m_AITriggerCondition: 0
+    m_SkipSomeAnimWhenUsePower: 0
+    m_EnchantedWhenUsePower: 0
+  - m_Active: 1
+    m_ID: 16
+    m_SkillName: "\u9B54\u6CD5\u5251"
+    m_AnimStates:
+    - m_Name: MP_Fashu_43
+      m_EventData: {fileID: 11400000, guid: 8d51e556ac8cd7c4fb0df7f6fbd6f065, type: 2}
+    CostStrength: 0
+    m_CostPower: 1
+    m_CanTriggerWhenPowerNotEnough: 0
+    m_PowerAddWhenHitted: 0
+    m_CDSeconds: 2
+    m_SkillType: 14
+    m_TriggerCondition: 0
+    UseGravityWhenInAir: 0
+    m_FirstSkillOfCombo: 1
+    m_ChainSkills: []
+    m_ResilienceBeforeAttack: 0
+    m_ResilienceAttacking: 0
+    m_ResilienceAfterAttack: 0
+    m_AIPramAttackDistance:
+      minValue: 0
+      maxValue: 3
     m_GroupID: 0
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0

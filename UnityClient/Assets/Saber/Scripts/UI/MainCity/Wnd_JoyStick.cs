@@ -103,8 +103,8 @@ namespace Saber.UI
             ActiveButtonInteract = false;
 
             m_ButtonSkill1.Init(ESkillType.Skill1, this);
-            m_ButtonSkill2.Init(ESkillType.Skill2, this);
-            m_ButtonSkill3.Init(ESkillType.Skill3, this);
+            m_ButtonSkill2.Init(ESkillType.FaShu1, this);
+            //m_ButtonSkill3.Init(ESkillType.Skill3, this);
         }
 
         private void OnClickBag()

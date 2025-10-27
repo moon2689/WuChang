@@ -100,6 +100,13 @@ namespace Saber.AI
                 GameApp.Entry.Game.Audio.PlaySoundSkillFailed();
                 GameApp.Entry.UI.ShowTips("技能正在冷却中", 0.1f);
             }
+            else if (tarSkill.SkillConfig.m_CostPower > 0 &&
+                     !tarSkill.SkillConfig.m_CanTriggerWhenPowerNotEnough &&
+                     Actor.CStats.CurrentPower < tarSkill.SkillConfig.m_CostPower)
+            {
+                GameApp.Entry.Game.Audio.PlaySoundSkillFailed();
+                GameApp.Entry.UI.ShowTips("能量不足", 0.1f);
+            }
 
             bool needFindEnemy = LockingEnemy == null || Actor.CurrentStateType != EStateType.Skill;
             if (needFindEnemy)

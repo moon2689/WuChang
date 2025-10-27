@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using CombatEditor;
 using UnityEngine;
 
@@ -7,15 +8,26 @@ namespace Saber.CharacterController
     [RequireComponent(typeof(SphereCollider))]
     public class Projectile : MonoBehaviour
     {
+        enum EStage
+        {
+            Fly,
+            Impact,
+            Hide,
+        }
+
         [SerializeField] private float m_Speed = 10;
         [SerializeField] private Vector3 m_Direction;
-        [SerializeField] private bool m_Flying;
+        [SerializeField] private GameObject m_EffectImpact;
+        [SerializeField] private float m_LifeTime = 2;
+
         [SerializeField] private WeaponDamageSetting m_WeaponDamageSetting;
 
         private SphereCollider m_SphereCollider;
         private DamageInfo m_CurDmgInfo = new();
         private SActor m_Actor;
-        private float m_TimerDestroy;
+        private float m_TimerHide;
+        private EStage m_Stage;
+        private List<SActor> m_HurtedActors = new();
 
         private void Awake()
         {
@@ -27,31 +39,48 @@ namespace Saber.CharacterController
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!m_Flying)
+            if (m_Stage != EStage.Fly)
             {
                 return;
             }
+
+            HurtBox hurtBox = other.GetComponent<HurtBox>();
+            bool canDoDmg = hurtBox != null && !m_HurtedActors.Contains(hurtBox.Actor);
+            if (!canDoDmg)
+            {
+                return;
+            }
+
+            m_HurtedActors.Add(hurtBox.Actor);
 
             // Debug.Log($"Projectile,{this.name} hit {other.name}", gameObject);
             bool succeed = DamageHelper.TryHit(other, m_Actor, m_WeaponDamageSetting, m_CurDmgInfo);
             if (succeed)
             {
-                Hide();
+                Impact();
             }
             else
             {
                 if (other.gameObject.layer == (int)EStaticLayers.Default)
                 {
-                    Hide();
+                    Impact();
                 }
             }
+        }
+
+        void Impact()
+        {
+            m_EffectImpact.SetActive(true);
+            m_SphereCollider.enabled = false;
+            m_Stage = EStage.Impact;
+            m_TimerHide = 0.5f;
         }
 
         void Hide()
         {
             gameObject.SetActive(false);
             m_Actor = null;
-            m_Flying = false;
+            m_Stage = EStage.Hide;
         }
 
         public void Throw(SActor owner, SActor target)
@@ -65,50 +94,52 @@ namespace Saber.CharacterController
             gameObject.SetActive(true);
 
             m_Actor = owner;
-            m_Direction = target.transform.position + Vector3.up * target.CPhysic.CenterHeight - transform.position;
+            if (target)
+            {
+                m_Direction = target.transform.position + Vector3.up * target.CPhysic.CenterHeight - transform.position;
+            }
+            else
+            {
+                m_Direction = owner.transform.forward;
+            }
+
             m_Direction.Normalize();
-            m_Flying = true;
-            m_TimerDestroy = 10;
+            m_TimerHide = m_LifeTime;
+
+            transform.rotation = Quaternion.LookRotation(m_Direction);
+
+            m_EffectImpact.SetActive(false);
+
+            m_SphereCollider.enabled = true;
+
+            m_Stage = EStage.Fly;
+
+            m_HurtedActors.Clear();
         }
 
         void Update()
         {
-            if (m_Flying)
+            if (m_Stage == EStage.Fly)
             {
                 transform.position += m_Direction * m_Speed * Time.deltaTime;
 
-                m_TimerDestroy -= Time.deltaTime;
-                if (m_TimerDestroy < 0)
+                m_TimerHide -= Time.deltaTime;
+                if (m_TimerHide < 0)
                 {
                     Hide();
                 }
             }
-        }
-
-        /// <summary>在完美闪避范围内</summary>
-        public bool InPerfectDodgeRange(SActor target)
-        {
-            float radius = m_SphereCollider.radius;
-            int layerMask = EStaticLayers.Actor.GetLayerMask();
-            Vector3 point1 = transform.position + m_Direction * m_Speed * 0.2f;
-            Collider[] colliders = Physics.OverlapCapsule(transform.position, point1, radius, layerMask,
-                QueryTriggerInteraction.Ignore);
-            
-            //SDebug.DrawCapsule(transform.position, point1, Color.green, radius, 3);
-
-            foreach (var col in colliders)
+            else if (m_Stage == EStage.Impact)
             {
-                if (col.gameObject == target.gameObject)
-                    return true;
+                m_TimerHide -= Time.deltaTime;
+                if (m_TimerHide < 0)
+                {
+                    Hide();
+                }
             }
-
-            return false;
-        }
-
-        public bool IsFlying(out SActor owner)
-        {
-            owner = m_Actor;
-            return m_Flying;
+            else if (m_Stage == EStage.Hide)
+            {
+            }
         }
     }
 }

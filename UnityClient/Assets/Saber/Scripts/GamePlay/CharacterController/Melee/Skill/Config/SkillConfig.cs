@@ -46,6 +46,7 @@ namespace Saber.CharacterController
         public float m_CDSeconds;
         public ESkillType m_SkillType;
         public ETriggerCondition m_TriggerCondition;
+
         public bool UseGravityWhenInAir;
         // public bool CanBeTanFan = true;
         // public bool BreakByTanFan = true;
@@ -64,6 +65,24 @@ namespace Saber.CharacterController
         public EEnchantedMagic m_EnchantedWhenUsePower;
 
         public bool IsAirSkill => m_TriggerCondition == ETriggerCondition.InAir;
+
+
+        public bool IsFaShu
+        {
+            get
+            {
+                return m_SkillType == ESkillType.FaShu1 ||
+                       m_SkillType == ESkillType.FaShu2 ||
+                       m_SkillType == ESkillType.FaShu3 ||
+                       m_SkillType == ESkillType.FaShu4 ||
+                       m_SkillType == ESkillType.FaShu5 ||
+                       m_SkillType == ESkillType.FaShu6 ||
+                       m_SkillType == ESkillType.FaShu7 ||
+                       m_SkillType == ESkillType.FaShu8 ||
+                       m_SkillType == ESkillType.FaShu9 ||
+                       m_SkillType == ESkillType.FaShu10;
+            }
+        }
 
         public bool InRange(float distance)
         {
@@ -104,13 +123,27 @@ namespace Saber.CharacterController
         LightAttack,
         HeavyAttack,
         Execute,
-        Custom1,
+        ChargeAttack,
         Skill1,
         Skill2,
         Skill3,
         Skill4,
         Skill5,
-        ChargeAttack,
+        Skill6,
+        Skill7,
+        Skill8,
+        Skill9,
+        Skill10,
+        FaShu1,
+        FaShu2,
+        FaShu3,
+        FaShu4,
+        FaShu5,
+        FaShu6,
+        FaShu7,
+        FaShu8,
+        FaShu9,
+        FaShu10,
     }
 
     [Serializable]

@@ -21,6 +21,7 @@ namespace Saber.CharacterController
         private EEnchantedMagic m_CurrentHoldingEnchantedMagic;
         private EEnchantedMagic m_CurrentOnceEnchantedMagic;
         private float m_TimerHoldingEnchant;
+        private bool m_Active;
 
         public SActor Actor { get; private set; }
         public EWeaponType WeaponType => m_WeaponType;
@@ -32,6 +33,16 @@ namespace Saber.CharacterController
         public bool IsEnchanted => m_CurrentHoldingEnchantedMagic != EEnchantedMagic.None ||
                                    m_CurrentOnceEnchantedMagic != EEnchantedMagic.None;
 
+        public bool Active
+        {
+            get => m_Active;
+            set
+            {
+                m_Active = value;
+                gameObject.SetActive(value);
+            }
+        }
+
 
         private void Awake()
         {
@@ -42,6 +53,7 @@ namespace Saber.CharacterController
         {
             Actor = actor;
             m_WeaponInfo = weaponInfo;
+            Active = true;
         }
 
         public virtual void ToggleDamage(WeaponDamageSetting damage, bool enable)
@@ -196,5 +208,17 @@ namespace Saber.CharacterController
         }
 
         #endregion
+
+        public void ShowOrHideWeapon(bool show)
+        {
+            if (Active)
+            {
+                gameObject.SetActive(show);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
+        }
     }
 }

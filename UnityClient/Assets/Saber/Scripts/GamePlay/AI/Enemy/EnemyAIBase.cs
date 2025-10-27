@@ -49,13 +49,13 @@ namespace Saber.AI
             {
                 var tarWeaponConfig = Monster.m_BaseActorInfo.m_WeaponPrefabs[eventObj.m_ParamInt];
                 var weapon = Monster.CMelee.CWeapon.GetWeaponByPos(tarWeaponConfig.m_ArmBoneType);
-                weapon.gameObject.SetActive(false);
+                weapon.Active = false;
             }
             else if (eventObj.EventType == EMonsterFightingEvent.ShowWeapon)
             {
                 var tarWeaponConfig = Monster.m_BaseActorInfo.m_WeaponPrefabs[eventObj.m_ParamInt];
                 var weapon = Monster.CMelee.CWeapon.GetWeaponByPos(tarWeaponConfig.m_ArmBoneType);
-                weapon.gameObject.SetActive(true);
+                weapon.Active = true;
             }
         }
 

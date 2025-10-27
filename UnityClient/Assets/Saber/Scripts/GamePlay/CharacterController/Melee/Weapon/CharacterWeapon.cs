@@ -108,8 +108,9 @@ namespace Saber.CharacterController
         {
             for (int i = 0; i < m_CurWeapons.Length; i++)
             {
-                if (m_CurWeapons[i] != null)
-                    m_CurWeapons[i].gameObject.SetActive(show);
+                var w = m_CurWeapons[i];
+                if (w != null)
+                    w.ShowOrHideWeapon(show);
             }
 
             if (show)

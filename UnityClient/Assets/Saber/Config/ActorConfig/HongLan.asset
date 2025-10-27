@@ -71,11 +71,12 @@ MonoBehaviour:
       m_StalemateStayTime: {x: 0.3, y: 3}
       m_RandomMoveTime: {x: 1, y: 3}
       m_SprintTimeBeforeAttack: {x: 0.5, y: 2}
-      m_DodgeDamagePercent: 50
-      m_DodgePercentAfterAttack: 90
+      m_DodgeDamagePercent: 80
+      m_DodgePercentAfterAttack: 50
       m_DodgePercentAfterStalemate: 10
       m_TurnDirWhenNotFaceToEnemy: 0
       m_ContinueAttackPercentAfterAttack: 50
+      m_AttackPercentAfterDodge: 50
       m_AIAttackStyleWhenTooFar: 1
       m_EventsBeforeFighting:
       - EventType: 0

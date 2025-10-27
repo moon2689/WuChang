@@ -20,6 +20,7 @@ namespace Saber.AI
 
         public bool m_TurnDirWhenNotFaceToEnemy;
         public int m_ContinueAttackPercentAfterAttack = 50;
+        public int m_AttackPercentAfterDodge = 50;
         public EAIAttackStyleWhenTooFar m_AIAttackStyleWhenTooFar;
 
         public MonsterFightingEvent[] m_EventsBeforeFighting;

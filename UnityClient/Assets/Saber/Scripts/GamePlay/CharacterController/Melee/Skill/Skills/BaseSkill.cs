@@ -231,6 +231,11 @@ namespace Saber.CharacterController
             // Debug.Log($"enter skill,{SkillConfig.m_ID}");
 
             OnSkillTrigger?.Invoke();
+
+            if (SkillConfig.IsFaShu)
+            {
+                Actor.CMelee.CWeapon.ShowOrHideWeapon(false);
+            }
         }
 
         void UpdateOwnerForce()
@@ -300,8 +305,9 @@ namespace Saber.CharacterController
 
             IsTriggering = false;
             Actor.CPhysic.UseGravity = true;
-            
+
             Actor.CMelee.EndPowerEnchanted();
+            Actor.CMelee.CWeapon.ShowOrHideWeapon(true);
 
             /*
             if (Actor.CurrentWeapons != null)

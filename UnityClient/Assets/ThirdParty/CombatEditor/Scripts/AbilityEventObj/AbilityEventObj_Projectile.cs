@@ -13,7 +13,7 @@ namespace CombatEditor
         //Write the data you need here.
         public override EventTimeType GetEventTimeType()
         {
-            return EventTimeType.EventRange;
+            return EventTimeType.EventTime;
         }
 
         public override AbilityEventEffect Initialize()
@@ -39,12 +39,6 @@ namespace CombatEditor
         {
             base.StartEffect();
             m_Projectile = EventObj.ObjData.CreateObject(Actor).GetComponent<Projectile>();
-            m_Projectile.gameObject.SetActive(true);
-        }
-
-        protected override void EndEffect()
-        {
-            base.EndEffect();
             m_Projectile.Throw(this.Actor, base.Actor.AI.LockingEnemy);
         }
     }

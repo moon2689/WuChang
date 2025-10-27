@@ -17,6 +17,18 @@ namespace Saber.AI
         private List<SkillItem> m_CheckedWhetherDodgeSkills = new();
 
 
+        bool WhetherEnemyCanAttackMe
+        {
+            get
+            {
+                return LockingEnemy != null &&
+                       LockingEnemy.CurrentStateType == EStateType.Skill &&
+                       LockingEnemy.CurrentSkill.CurrentAttackState != EAttackStates.AfterAttack &&
+                       m_DistanceToEnemy < LockingEnemy.CurrentSkill.SkillConfig.m_AIPramAttackDistance.maxValue;
+            }
+        }
+
+
         protected override void OnStart()
         {
             base.OnStart();
@@ -200,11 +212,10 @@ namespace Saber.AI
                 }
 
                 // 如果敌人攻击中，则格挡或闪避
-                if (LockingEnemy.CurrentStateType == EStateType.Skill &&
-                    LockingEnemy.CurrentSkill.CurrentAttackState != EAttackStates.AfterAttack &&
-                    Monster.m_MonsterInfo.CanDodge &&
-                    !m_CheckedWhetherDodgeSkills.Contains(LockingEnemy.CurrentSkill.SkillConfig) &&
-                    m_DistanceToEnemy < LockingEnemy.CurrentSkill.SkillConfig.m_AIPramAttackDistance.maxValue)
+                if (Monster.m_MonsterInfo.CanDodge &&
+                    WhetherEnemyCanAttackMe &&
+                    LockingEnemy.CurrentSkill != null &&
+                    !m_CheckedWhetherDodgeSkills.Contains(LockingEnemy.CurrentSkill.SkillConfig))
                 {
                     if (CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_DodgeDamagePercent))
                     {
@@ -267,6 +278,17 @@ namespace Saber.AI
             }
 
             Actor.StartMove(EMoveSpeedV.Walk, axis);
+        }
+
+        bool IsFaceToEnemy()
+        {
+            if (LockingEnemy == null)
+            {
+                return false;
+            }
+
+            Vector3 dirToEnemy = LockingEnemy.transform.position - Actor.transform.position;
+            return Vector3.Dot(Actor.transform.forward, dirToEnemy) > 0;
         }
 
         #endregion
@@ -498,17 +520,6 @@ namespace Saber.AI
             }
         }
 
-        bool IsFaceToEnemy()
-        {
-            if (LockingEnemy == null)
-            {
-                return false;
-            }
-
-            Vector3 dirToEnemy = LockingEnemy.transform.position - Actor.transform.position;
-            return Vector3.Dot(Actor.transform.forward, dirToEnemy) > 0;
-        }
-
         /// <summary>攻击</summary>
         IEnumerator AttackItor()
         {
@@ -516,7 +527,12 @@ namespace Saber.AI
             bool triggered = false;
             while (true)
             {
-                if (!triggered)
+                if (LockingEnemy == null || LockingEnemy.IsDead)
+                {
+                    ToStalemate();
+                    yield break;
+                }
+                else if (!triggered)
                 {
                     if (Actor.TryTriggerSkill(m_CurrentSkill))
                     {
@@ -530,7 +546,7 @@ namespace Saber.AI
                     {
                         if (LockingEnemy.IsInSpecialStun)
                         {
-                            ToStalemate();
+                            TriggerNewStateOnAttackFinished();
                             yield break;
                         }
 
@@ -550,52 +566,64 @@ namespace Saber.AI
                         }
                         else
                         {
-                            ToStalemate();
+                            TriggerNewStateOnAttackFinished();
                             yield break;
                         }
                     }
                     else if (Actor.CurrentSkill.CanExit)
                     {
-                        if (Monster.m_MonsterInfo.CanDodge &&
-                            m_DistanceToEnemy < Monster.m_MonsterInfo.m_AIInfo.m_WarningRange &&
-                            CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_DodgePercentAfterAttack))
-                        {
-                            ToDodge();
-                            yield break;
-                        }
+                        TriggerNewStateOnAttackFinished();
+                        yield break;
                     }
-                }
-                else if (Monster.m_MonsterInfo.m_AIInfo.m_TurnDirWhenNotFaceToEnemy &&
-                         (!IsFaceToEnemy() ||
-                          LockingEnemy == null ||
-                          LockingEnemy.IsDead ||
-                          LockingEnemy.IsInSpecialStun))
-                {
-                    ToStalemate();
-                    yield break;
                 }
                 else
                 {
-                    if (Monster.m_MonsterInfo.CanDodge &&
-                        m_DistanceToEnemy < Monster.m_MonsterInfo.m_AIInfo.m_WarningRange &&
-                        CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_DodgePercentAfterAttack))
-                    {
-                        ToDodge();
-                        yield break;
-                    }
-
-                    if (CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_ContinueAttackPercentAfterAttack))
-                    {
-                        ToAttack();
-                        yield break;
-                    }
-
-                    ToStalemate();
+                    TriggerNewStateOnAttackFinished();
                     yield break;
                 }
 
 
                 yield return null;
+            }
+        }
+
+        void TriggerNewStateOnAttackFinished()
+        {
+            if (Monster.m_MonsterInfo.m_AIInfo.m_TurnDirWhenNotFaceToEnemy && !IsFaceToEnemy())
+            {
+                ToStalemate();
+            }
+            else if (LockingEnemy.IsInSpecialStun)
+            {
+                if (Monster.m_MonsterInfo.CanDodge && CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_DodgePercentAfterAttack))
+                {
+                    ToDodge();
+                }
+                else
+                {
+                    ToStalemate();
+                }
+            }
+            else if (Monster.m_MonsterInfo.CanDodge &&
+                     m_DistanceToEnemy < Monster.m_MonsterInfo.m_AIInfo.m_WarningRange &&
+                     CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_DodgePercentAfterAttack))
+            {
+                ToDodge();
+            }
+            else if (Monster.m_MonsterInfo.CanDodge &&
+                     WhetherEnemyCanAttackMe &&
+                     CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_DodgeDamagePercent))
+
+            {
+                ToDodge();
+            }
+            else if (CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_ContinueAttackPercentAfterAttack))
+            {
+                ToAttack();
+            }
+            else
+            {
+                ToStalemate();
             }
         }
 
@@ -639,7 +667,21 @@ namespace Saber.AI
                     }
                     else
                     {
-                        ToStalemate();
+                        if (Monster.m_MonsterInfo.CanDodge &&
+                            WhetherEnemyCanAttackMe &&
+                            CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_DodgeDamagePercent))
+                        {
+                            ToDodge();
+                        }
+                        else if (CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_AttackPercentAfterDodge))
+                        {
+                            ToAttack();
+                        }
+                        else
+                        {
+                            ToStalemate();
+                        }
+
                         yield break;
                     }
                 }
