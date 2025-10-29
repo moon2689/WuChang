@@ -112,20 +112,30 @@ namespace Saber.CharacterController
             }
         }
 
-        public void OnTanFanSucceed(SActor enemy)
+        public void OnTanFanSucceed(SActor enemy, DamageInfo damageInfo)
         {
             Actor.CAnim.Play("TanFan", force: true);
             m_CurState = EState.TanDao;
             m_TimerCanTanFan = 0;
             Actor.AddYuMao(1);
-            ShowTanFanEffectDelay().StartCoroutine();
-        }
 
-        IEnumerator ShowTanFanEffectDelay()
-        {
-            for (int i = 0; i < 2; i++)
-                yield return null;
-            Vector3 pos = Actor.CMelee.CWeapon.CurWeapons[0].MiddlePos;
+            // 火星
+            Vector3 pos;
+            if (damageInfo.DamageConfig.m_HitType == EHitType.Weapon)
+            {
+                var enemyWeapon = enemy.CMelee.CWeapon.GetWeaponByPos(damageInfo.DamageConfig.m_WeaponBone);
+                pos = enemyWeapon.MiddlePos;
+            }
+            else if (damageInfo.DamageConfig.m_HitType == EHitType.FeiDao)
+            {
+                pos = damageInfo.DamagePosition;
+            }
+            else
+            {
+                pos = damageInfo.DamagePosition;
+                Debug.LogError($"Unknown hit type:{damageInfo.DamageConfig.m_HitType}");
+            }
+
             GameApp.Entry.Game.Effect.CreateEffect("Particles/SwordHitSword", pos, Quaternion.identity, 0.6f);
         }
 

@@ -140,11 +140,7 @@ public class SkillConfigEditor : EditorBase
         }
 
         item.m_FirstSkillOfCombo = EditorGUILayout.Toggle("起手技能？", item.m_FirstSkillOfCombo);
-        if (item.m_FirstSkillOfCombo)
-        {
-            item.m_CDSeconds = EditorGUILayout.FloatField("冷却时间（秒）:", item.m_CDSeconds);
-        }
-
+        item.m_CDSeconds = EditorGUILayout.FloatField("冷却时间（秒）:", item.m_CDSeconds);
         item.m_ResilienceBeforeAttack = (EResilience)EditorGUILayout.EnumPopup("攻击前摇韧性:", item.m_ResilienceBeforeAttack);
         item.m_ResilienceAttacking = (EResilience)EditorGUILayout.EnumPopup("攻击中韧性:", item.m_ResilienceAttacking);
         item.m_ResilienceAfterAttack = (EResilience)EditorGUILayout.EnumPopup("攻击后摇韧性:", item.m_ResilienceAfterAttack);

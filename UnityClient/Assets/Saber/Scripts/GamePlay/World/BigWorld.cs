@@ -74,6 +74,7 @@ namespace Saber.World
         public Light MainLight { get; private set; }
         public SActor CurrentFightingBoss { get; private set; }
         public SceneBaseInfo SceneInfo => m_SceneInfo;
+        public ScenePointShenKan CurrentStayingShenKan => m_CurrentStayingShenKan;
         public int CurrentStayingShenKanID => m_CurrentStayingShenKan != null ? m_CurrentStayingShenKan.m_ID : 0;
 
 
@@ -859,7 +860,7 @@ namespace Saber.World
 
         void Wnd_DressUp.IHandler.OnCloseWnd()
         {
-            m_WndRest.ActiveRoot = true;
+            EndDressUp().StartCoroutine();
         }
 
         #endregion
@@ -889,16 +890,72 @@ namespace Saber.World
 
         void Wnd_Rest.IHandler.OnClickDressUp()
         {
-            if (m_Player.CDressUp != null)
+            if (m_Player.CDressUp == null)
             {
-                Wnd_DressUp.Content content = new()
-                {
-                    m_ListClothes = GameApp.Entry.Config.ClothInfo.GetAllClothesID(),
-                };
-                GameApp.Entry.UI.CreateWnd<Wnd_DressUp>(content, this, null);
-
-                m_WndRest.ActiveRoot = false;
+                Debug.LogError("m_Player.CDressUp == null");
+                return;
             }
+
+            StartDressUp().StartCoroutine();
+        }
+
+        IEnumerator StartDressUp()
+        {
+            m_WndRest.ActiveRoot = false;
+            Vector3 dir = -m_CurrentStayingShenKan.transform.right;
+            Quaternion q = Quaternion.LookRotation(dir);
+            GameApp.Entry.Game.PlayerCamera.LookAtTarget(q.eulerAngles.y);
+            GameApp.Entry.Game.PlayerCamera.CameraStyle = PlayerCamera.ECameraStyle.DressUp;
+
+            // 人物站立起来
+            bool wait = true;
+            m_Player.PlayAction(PlayActionState.EActionType.ToDressUp, () => wait = false);
+            while (wait)
+            {
+                yield return null;
+            }
+
+            m_Player.CMelee.CWeapon.ShowOrHideWeapon(false);
+
+            // 打开界面
+            Wnd_DressUp.Content content = new()
+            {
+                m_ListClothes = GameApp.Entry.Config.ClothInfo.GetAllClothesID(),
+            };
+            GameApp.Entry.UI.CreateWnd<Wnd_DressUp>(content, this, null);
+        }
+
+        IEnumerator EndDressUp()
+        {
+            Vector3 dir = -m_CurrentStayingShenKan.transform.forward;
+            Quaternion q = Quaternion.LookRotation(dir);
+            GameApp.Entry.Game.PlayerCamera.LookAtTarget(q.eulerAngles.y);
+            GameApp.Entry.Game.PlayerCamera.CameraStyle = PlayerCamera.ECameraStyle.Normal;
+            yield return null;
+
+            GameApp.Entry.Game.ProgressMgr.Save();
+            yield return null;
+
+            // 
+            bool wait = true;
+            Vector3 shenKanRestPos = CurrentStayingShenKan.GetShenKanFixedPos(out _);
+            m_Player.CStateMachine.SetPosAndForward(shenKanRestPos, -CurrentStayingShenKan.transform.forward, () => wait = false);
+            while (wait)
+            {
+                yield return null;
+            }
+
+            m_Player.CMelee.CWeapon.ShowOrHideWeapon(false);
+            yield return null;
+
+            wait = true;
+            m_Player.PlayAction(PlayActionState.EActionType.ShenKanRest, () => wait = false);
+            while (wait)
+            {
+                yield return null;
+            }
+
+            m_WndRest.ActiveRoot = true;
         }
 
         IEnumerator TransmitItor(int sceneID, int shenKanID)

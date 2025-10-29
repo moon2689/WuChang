@@ -37,6 +37,7 @@ namespace Saber.CharacterController
         Boxing,
         Leg,
         Magic,
+        FeiDao,
     }
 
     public enum EHitRecover

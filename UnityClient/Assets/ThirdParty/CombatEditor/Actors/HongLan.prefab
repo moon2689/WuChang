@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SelectedAbility: {fileID: 0}
   CombatDatas:
-  - IsFolded: 1
+  - IsFolded: 0
     Label: Attack1
     CombatObjs:
     - {fileID: 11400000, guid: 4902a6274d391fa4f9ab4a22e4d8cc34, type: 2}
@@ -59,7 +59,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 287237b461fe82043906680d95da8167, type: 2}
     - {fileID: 11400000, guid: 8e9756abca4480a498bce1a12556bb91, type: 2}
     - {fileID: 11400000, guid: 699fc646913b33944b823a248b72fa51, type: 2}
-  - IsFolded: 1
+  - IsFolded: 0
     Label: Attack2
     CombatObjs:
     - {fileID: 11400000, guid: 3eec15e156d188c4fa67516780629c54, type: 2}
@@ -71,7 +71,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 0f1b8f242f624604587b2b14044958e0, type: 2}
     - {fileID: 11400000, guid: 5c216f69894248649b49750d07812c50, type: 2}
     - {fileID: 11400000, guid: dcca347cdb18e464888ae5d798027ad3, type: 2}
-  - IsFolded: 1
+  - IsFolded: 0
     Label: Attack3
     CombatObjs:
     - {fileID: 11400000, guid: 71c7d2924c7bcd5408d09c13d5012915, type: 2}
@@ -80,7 +80,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ca6b6364293bad2498564965e1756274, type: 2}
     - {fileID: 11400000, guid: efb7ea066bf311247a3ec35c19a7f1d3, type: 2}
     - {fileID: 11400000, guid: c7d166bf5537adc42858c029bc1217a8, type: 2}
-  - IsFolded: 1
+  - IsFolded: 0
     Label: Attack4
     CombatObjs:
     - {fileID: 11400000, guid: 6d7a9aa70dbdf2545a5a86dee33019e1, type: 2}
@@ -90,7 +90,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: d5e03dff618379344a0d6e17ad2a2e63, type: 2}
     - {fileID: 11400000, guid: 06f0e19274fa3dc4e84093af094204da, type: 2}
     - {fileID: 11400000, guid: 4e300fe6ab7835548bbc12ae99fb1b57, type: 2}
-  - IsFolded: 0
+  - IsFolded: 1
     Label: Attack5
     CombatObjs:
     - {fileID: 11400000, guid: e6c450fdbc42c754fa7d80df54be17f3, type: 2}

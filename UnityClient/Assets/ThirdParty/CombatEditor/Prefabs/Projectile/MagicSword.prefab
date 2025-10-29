@@ -88300,8 +88300,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3734412437594389817}
-  - component: {fileID: 5865016112172855985}
   - component: {fileID: 8943530028246219536}
+  - component: {fileID: 5917250609694744694}
   m_Layer: 0
   m_Name: MagicSword
   m_TagString: Untagged
@@ -88325,27 +88325,6 @@ Transform:
   - {fileID: 2958956210842584298}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 40, z: 0}
---- !u!135 &5865016112172855985
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8477394280318632219}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8943530028246219536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88366,8 +88345,31 @@ MonoBehaviour:
     m_HitType: 3
     m_WeaponBone: 29
     m_DamageValue: 20
-    m_ImpactForce: 1
+    m_ImpactForce: 2
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 0
     BreakByTanFan: 0
+--- !u!136 &5917250609694744694
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8477394280318632219}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}

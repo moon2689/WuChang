@@ -186,7 +186,8 @@ namespace Saber.CharacterController
 
         static bool TryDefense(SActor actor, HurtBox hurtBox, DamageInfo curDmgInfo)
         {
-            if (curDmgInfo.HitType != EHitType.Weapon)
+            bool hitTypeCanBeDefense = curDmgInfo.HitType == EHitType.Weapon || curDmgInfo.HitType == EHitType.FeiDao;
+            if (!hitTypeCanBeDefense)
             {
                 return false;
             }
@@ -199,14 +200,14 @@ namespace Saber.CharacterController
             }
 
             // 是否被弹反
-            if (curDmgInfo.DamageConfig.CanBeTanFan && curDmgInfo.HitType == EHitType.Weapon)
+            if (curDmgInfo.DamageConfig.CanBeTanFan)
             {
                 bool beParried = WhetherBeparried(enemy, actor, out var defenseState);
                 if (beParried)
                 {
                     if (curDmgInfo.DamageConfig.BreakByTanFan)
                         actor.OnParried(defenseState.Actor); //被弹反打断技能
-                    defenseState.OnTanFanSucceed(actor);
+                    defenseState.OnTanFanSucceed(actor, curDmgInfo);
                     return true;
                 }
             }
@@ -245,14 +246,14 @@ namespace Saber.CharacterController
 
         static void PlayDefenseEffect(SActor enemy, DamageInfo curDmgInfo)
         {
-            if (curDmgInfo.HitType == EHitType.Weapon)
-            {
-                GameApp.Entry.Game.Effect.CreateEffect("Particles/SwordHitSword", curDmgInfo.DamagePosition, Quaternion.identity, 1f);
-            }
-            else
-            {
-                GameApp.Entry.Game.Effect.CreateEffect("Particles/FistLight", curDmgInfo.DamagePosition, Quaternion.identity, 1f);
-            }
+            // if (curDmgInfo.HitType == EHitType.Weapon)
+            // {
+            GameApp.Entry.Game.Effect.CreateEffect("Particles/SwordHitSword", curDmgInfo.DamagePosition, Quaternion.identity, 1f);
+            // }
+            // else
+            // {
+            //     GameApp.Entry.Game.Effect.CreateEffect("Particles/FistLight", curDmgInfo.DamagePosition, Quaternion.identity, 1f);
+            // }
         }
 
         static void PlayDamageEffect(HurtBox hurtBox, DamageInfo curDmgInfo)
@@ -286,6 +287,11 @@ namespace Saber.CharacterController
             else if (curDmgInfo.HitType == EHitType.Magic)
             {
                 prefabHit = GameApp.Entry.Config.SkillCommon.GetRandomCommonEffectPrefab_MagicHitBody();
+            }
+            else if (curDmgInfo.HitType == EHitType.FeiDao)
+            {
+                prefabHit = GameApp.Entry.Config.SkillCommon.GetRandomEffectPrefab_SharpWeaponHitBody();
+                showBlood = true;
             }
             else
             {
@@ -350,6 +356,10 @@ namespace Saber.CharacterController
                 else if (curDmgInfo.HitType == EHitType.Magic)
                 {
                     sound = GameApp.Entry.Config.SkillCommon.GetRandomMagicHitBodyCommonSound();
+                }
+                else if (curDmgInfo.HitType == EHitType.FeiDao)
+                {
+                    sound = GameApp.Entry.Config.SkillCommon.GetRandomFeiDaoHitBodyCommonSound();
                 }
             }
 

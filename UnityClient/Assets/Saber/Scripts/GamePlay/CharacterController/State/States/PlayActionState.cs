@@ -16,6 +16,7 @@ namespace Saber.CharacterController
             SpecialIdle,
             SpecialIdleTransition,
             UseItemNone,
+            ToDressUp,
         }
 
         enum ENormalActionState
@@ -33,6 +34,7 @@ namespace Saber.CharacterController
             NormalAction,
             SpecialIdle,
             SpecialIdleTransition,
+            ToDressUp,
         }
 
         private string m_CurActionName;
@@ -88,6 +90,10 @@ namespace Saber.CharacterController
             else if (m_CurAction == ECurAction.SpecialIdleTransition)
             {
                 UpdateNormalAction();
+            }
+            else if (m_CurAction == ECurAction.ToDressUp)
+            {
+                
             }
             else
             {
@@ -175,6 +181,10 @@ namespace Saber.CharacterController
                 m_CurAction = ECurAction.NormalAction;
                 m_CurActionName = $"Transition{m_CurActionName}";
             }
+            else if (actionType == EActionType.ToDressUp)
+            {
+                ToDressUpItor(onPlayFinish).StartCoroutine();
+            }
             else
             {
                 m_CurAction = ECurAction.NormalAction;
@@ -205,6 +215,25 @@ namespace Saber.CharacterController
                     m_CurAction = ECurAction.None;
                 }
             }
+        }
+
+        IEnumerator ToDressUpItor(Action onPlayFinish)
+        {
+            Vector3 dir = GameApp.Entry.Game.World.CurrentStayingShenKan.transform.right;
+
+            Actor.CAnim.Play("ShenKanRestEnd", force: true);
+            while (Actor.CAnim.IsPlayingOrWillPlay("ShenKanRestEnd", 0.95f))
+            {
+                yield return null;
+            }
+
+            Actor.CAnim.Play("IdleUnarmed", force: true);
+            while (!Actor.CPhysic.AlignForwardTo(dir, 360))
+            {
+                yield return null;
+            }
+            
+            onPlayFinish?.Invoke();
         }
 
         private void UpdateNormalAction()

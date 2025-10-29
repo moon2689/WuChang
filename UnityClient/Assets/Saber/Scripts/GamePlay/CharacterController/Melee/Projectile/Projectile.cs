@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Saber.CharacterController
 {
-    [RequireComponent(typeof(SphereCollider))]
+    [RequireComponent(typeof(CapsuleCollider))]
     public class Projectile : MonoBehaviour
     {
         enum EStage
@@ -22,7 +22,7 @@ namespace Saber.CharacterController
 
         [SerializeField] private WeaponDamageSetting m_WeaponDamageSetting;
 
-        private SphereCollider m_SphereCollider;
+        private CapsuleCollider m_Collider;
         private DamageInfo m_CurDmgInfo = new();
         private SActor m_Actor;
         private float m_TimerHide;
@@ -31,8 +31,8 @@ namespace Saber.CharacterController
 
         private void Awake()
         {
-            m_SphereCollider = GetComponent<SphereCollider>();
-            m_SphereCollider.isTrigger = true;
+            m_Collider = GetComponent<CapsuleCollider>();
+            m_Collider.isTrigger = true;
 
             gameObject.layer = (int)EStaticLayers.Actor;
         }
@@ -54,6 +54,8 @@ namespace Saber.CharacterController
             m_HurtedActors.Add(hurtBox.Actor);
 
             // Debug.Log($"Projectile,{this.name} hit {other.name}", gameObject);
+            m_CurDmgInfo.DamageDirection = transform.forward;
+            m_CurDmgInfo.DamagePosition = transform.position;
             bool succeed = DamageHelper.TryHit(other, m_Actor, m_WeaponDamageSetting, m_CurDmgInfo);
             if (succeed)
             {
@@ -70,10 +72,17 @@ namespace Saber.CharacterController
 
         void Impact()
         {
-            m_EffectImpact.SetActive(true);
-            m_SphereCollider.enabled = false;
-            m_Stage = EStage.Impact;
-            m_TimerHide = 0.5f;
+            if (m_EffectImpact)
+            {
+                m_EffectImpact.SetActive(true);
+                m_Collider.enabled = false;
+                m_Stage = EStage.Impact;
+                m_TimerHide = 0.5f;
+            }
+            else
+            {
+                Hide();
+            }
         }
 
         void Hide()
@@ -83,7 +92,7 @@ namespace Saber.CharacterController
             m_Stage = EStage.Hide;
         }
 
-        public void Throw(SActor owner, SActor target)
+        public void Throw(SActor owner, SActor target, float offsetAngle = 0)
         {
             NodeFollower nodeFollower = GetComponent<NodeFollower>();
             if (nodeFollower)
@@ -103,14 +112,20 @@ namespace Saber.CharacterController
                 m_Direction = owner.transform.forward;
             }
 
+            if (offsetAngle != 0)
+            {
+                m_Direction = Quaternion.AngleAxis(offsetAngle, Vector3.up) * m_Direction;
+            }
+
             m_Direction.Normalize();
             m_TimerHide = m_LifeTime;
 
             transform.rotation = Quaternion.LookRotation(m_Direction);
 
-            m_EffectImpact.SetActive(false);
+            if (m_EffectImpact)
+                m_EffectImpact.SetActive(false);
 
-            m_SphereCollider.enabled = true;
+            m_Collider.enabled = true;
 
             m_Stage = EStage.Fly;
 

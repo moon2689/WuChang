@@ -128,6 +128,41 @@ MonoBehaviour:
     m_Name: 
     m_ClothType: 4
     m_ClassifyID: 6
+  - m_ID: 24
+    m_IsActive: 1
+    m_Name: 
+    m_ClothType: 1
+    m_ClassifyID: 7
+  - m_ID: 25
+    m_IsActive: 1
+    m_Name: 
+    m_ClothType: 2
+    m_ClassifyID: 7
+  - m_ID: 26
+    m_IsActive: 1
+    m_Name: 
+    m_ClothType: 4
+    m_ClassifyID: 7
+  - m_ID: 27
+    m_IsActive: 1
+    m_Name: 
+    m_ClothType: 1
+    m_ClassifyID: 8
+  - m_ID: 28
+    m_IsActive: 1
+    m_Name: 
+    m_ClothType: 2
+    m_ClassifyID: 8
+  - m_ID: 29
+    m_IsActive: 1
+    m_Name: 
+    m_ClothType: 3
+    m_ClassifyID: 8
+  - m_ID: 30
+    m_IsActive: 1
+    m_Name: 
+    m_ClothType: 4
+    m_ClassifyID: 8
   m_Classfies:
   - m_ID: 1
     m_ResName: Default
@@ -147,3 +182,9 @@ MonoBehaviour:
   - m_ID: 6
     m_ResName: JHS
     m_Name: "\u5047\u548C\u5C1A"
+  - m_ID: 7
+    m_ResName: HongLan
+    m_Name: "\u7EA2\u5C9A"
+  - m_ID: 8
+    m_ResName: Toutuo
+    m_Name: "\u5934\u4F57"

@@ -6,6 +6,7 @@ using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine.Serialization;
 using YooAsset;
 
@@ -29,6 +30,12 @@ namespace Saber
             Fast,
         }
 
+        public enum ECameraStyle
+        {
+            Normal,
+            DressUp,
+        }
+
         // comparer for check distances in ray cast hits
         public class RayHitComparer : IComparer
         {
@@ -48,17 +55,18 @@ namespace Saber
         [Header("Base Setting")]
         // How fast the rig will move to keep up with the target's position.
         [SerializeField]
-        float m_MoveSpeed = 10f;
+        private float m_MoveSpeed = 10f;
 
-        [Range(0f, 10f)] [SerializeField] float m_TurnSpeed = 10f; // How fast the rig will rotate from user input.
+        [Range(0f, 10f)] [SerializeField] private float m_TurnSpeed = 10f; // How fast the rig will rotate from user input.
 
         // How much smoothing to apply to the turn input, to reduce mouse-turn jerkiness
-        [SerializeField] float m_TurnSmoothing = 10f;
+        [SerializeField] private float m_TurnSmoothing = 10f;
 
-        [SerializeField] float m_TiltMax = 75f; // The maximum value of the x axis rotation of the pivot.
-        [SerializeField] float m_TiltMin = 45f; // The minimum value of the x axis rotation of the pivot.
+        [SerializeField] private float m_TiltMax = 75f; // The maximum value of the x axis rotation of the pivot.
+        [SerializeField] private float m_TiltMin = 45f; // The minimum value of the x axis rotation of the pivot.
 
-        [SerializeField] Vector2 m_MovementAxis;
+        [SerializeField] private Vector2 m_MovementAxis;
+        [SerializeField] private ECameraStyle m_CameraStyle = ECameraStyle.Normal;
 
         private float m_LookAngle; // The rig's y axis rotation.
         private float m_TiltAngle; // The pivot's x axis rotation.
@@ -164,6 +172,29 @@ namespace Saber
         // used for determining if there is an object between the target and the camera
         public bool Protecting { get; private set; }
 
+        public ECameraStyle CameraStyle
+        {
+            get => m_CameraStyle;
+            set
+            {
+                m_CameraStyle = value;
+                if (m_CameraStyle == ECameraStyle.Normal)
+                {
+                    SetDistance(-3f);
+                    DefaultHeight();
+                }
+                else if (m_CameraStyle == ECameraStyle.DressUp)
+                {
+                    SetDistance(-2.6f);
+                    DefaultHeight();
+                }
+                else
+                {
+                    Debug.LogError($"Unknown camera style:{m_CameraStyle}");
+                }
+            }
+        }
+
 
         public static AssetHandle Create()
         {
@@ -179,8 +210,7 @@ namespace Saber
         public void SetTarget(ITarget target)
         {
             Target = target;
-            m_Height = target.Height * 0.7f;
-            SetHeight(m_Height);
+            DefaultHeight();
             Zoom(0);
         }
 
@@ -194,6 +224,15 @@ namespace Saber
         {
             height = Mathf.Clamp(height, 0.1f, m_Height * 1.5f);
             Pivot.transform.localPosition = new Vector3(0, height, 0);
+        }
+
+        public void DefaultHeight()
+        {
+            if (Target != null)
+            {
+                m_Height = Target.Height * 0.7f;
+                SetHeight(m_Height);
+            }
         }
 
         private void OnDestroy()
@@ -224,9 +263,6 @@ namespace Saber
             if (Time.timeScale < float.Epsilon)
                 return;
 
-            // Move the rig towards target position.
-            transform.position = Vector3.Lerp(transform.position, Target.Position, deltaTime * m_MoveSpeed);
-
             // Adjust the look angle by an amount proportional to the turn speed and horizontal input.
             m_LookAngle += MovementAxis.x * m_TurnSpeed;
 
@@ -237,7 +273,17 @@ namespace Saber
             // Rotate the rig (the root object) around Y axis only:
             m_TransformTargetRot = Quaternion.Euler(0f, m_LookAngle, 0f);
 
-            bool isClosest = CamDistance == -m_ClosestDistance;
+            // Move the rig towards target position.
+            Vector3 tarPos = Target.Position;
+            if (m_CameraStyle == ECameraStyle.DressUp)
+            {
+                float offsetX = CamDistance * Mathf.Tan(Mathf.Deg2Rad * Cam.fieldOfView / 2f) / 2f;
+                tarPos -= m_TransformTargetRot * new Vector3(offsetX, 0);
+            }
+
+            transform.position = Vector3.Lerp(transform.position, tarPos, deltaTime * m_MoveSpeed);
+
+            bool isClosest = CamDistance > -1;
             if (isClosest)
             {
                 float newHeight = Pivot.transform.localPosition.y - MovementAxis.y * deltaTime;
@@ -279,7 +325,8 @@ namespace Saber
         void LateUpdate()
         {
             //HandleFreeMovement(Time.deltaTime);
-            WallStop();
+            if (m_CameraStyle == ECameraStyle.Normal)
+                WallStop();
         }
 
         void FixedUpdate()
@@ -426,8 +473,13 @@ namespace Saber
         public void Zoom(float offset)
         {
             Vector3 pos = CamT.transform.localPosition;
-            pos.z += offset;
-            pos.z = Mathf.Clamp(pos.z, -15, -m_ClosestDistance);
+            SetDistance(pos.z + offset);
+        }
+
+        public void SetDistance(float distance)
+        {
+            Vector3 pos = CamT.transform.localPosition;
+            pos.z = Mathf.Clamp(distance, -15, -m_ClosestDistance);
             CamT.transform.localPosition = pos;
             ResetWithState();
 

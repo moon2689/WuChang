@@ -28,6 +28,7 @@ namespace Saber.CharacterController
         public AudioClip[] m_SoundWeaponHitGround;
         public AudioClip[] m_BoxingHitBodySound;
         public AudioClip[] m_MagicHitBodyCommonSound;
+        public AudioClip[] m_FeiDaoHitBodyCommonSound;
 
         [Header("特效")] public GameObject m_EffectAddYuMao;
         public GameObject[] m_EffectBlood;
@@ -83,6 +84,11 @@ namespace Saber.CharacterController
             return GetRandomSound(m_MagicHitBodyCommonSound);
         }
 
+        public AudioClip GetRandomFeiDaoHitBodyCommonSound()
+        {
+            return GetRandomSound(m_FeiDaoHitBodyCommonSound);
+        }
+        
         public AudioClip GetRandomSound_SwordHitSword()
         {
             return GetRandomSound(m_SoundSwordHitSword);

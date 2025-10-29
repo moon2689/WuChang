@@ -12,7 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb9d103b2e74362b49578d9f2b35094, type: 3}
   m_Name: ComboTime
   m_EditorClassIdentifier: 
-  IsActive: 0
+  IsActive: 1
+--- !u!114 &-4499292808839718467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d72110aa1334503a362701f4b44a40d, type: 3}
+  m_Name: Projectile
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 4238189088615055275, guid: 8efde06271c24464f8fadc18448139a3,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 1.5024371, z: 1.4857802}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 0
+  m_ProjectileType: 1
 --- !u!114 &-4232778479212835981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27,9 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: 55bf0136e4f52d049b641e9e982b6288, type: 3}
-  - {fileID: 8300000, guid: 977b5ecbd2fca674db1df7dc682cc3a2, type: 3}
-  - {fileID: 8300000, guid: 67af835e4a5a4e9479066e8623522f80, type: 3}
+  - {fileID: 8300000, guid: f5eaf7b183103184f819ed7e6a0765b7, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
 --- !u!114 &11400000
@@ -58,7 +79,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 7711123822735244465}
-  - EventTime: 0
+  - EventTime: 0.63898915
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -68,7 +89,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 8532400142098060135}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.57039714, y: 0.62454873}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -76,7 +97,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -8086012850470580048}
-  - EventTime: 0.090252705
+  - EventTime: 0.15162455
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -121,6 +142,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 2782560609804895366}
+  - EventTime: 0.1696751
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -4499292808839718467}
 --- !u!114 &1003579844746450688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
   m_Name: CreateHitBox
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   ObjData:
     TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
       type: 3}
@@ -257,7 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
   m_Name: CanExit
   m_EditorClassIdentifier: 
-  IsActive: 0
+  IsActive: 1
 --- !u!114 &8869762189036398883
 MonoBehaviour:
   m_ObjectHideFlags: 0

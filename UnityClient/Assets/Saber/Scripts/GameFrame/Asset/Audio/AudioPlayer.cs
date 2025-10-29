@@ -32,7 +32,7 @@ namespace Saber
         {
             m_AudioSource = gameObject.GetComponent<AudioSource>();
             m_AudioSource.playOnAwake = false;
-            m_AudioSource.maxDistance = 50;
+            m_AudioSource.maxDistance = 500;
             m_AudioSource.rolloffMode = AudioRolloffMode.Linear;
             Actived = false;
         }

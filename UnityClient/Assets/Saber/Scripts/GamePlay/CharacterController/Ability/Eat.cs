@@ -11,15 +11,8 @@ namespace Saber.CharacterController
         private bool m_Breaked;
         private bool m_CanExit;
 
-        public override bool CanEnter
-        {
-            get
-            {
-                return base.Actor.CStats.HPPotionCount > 0 &&
-                       (CurStateType == EStateType.Idle ||
-                        CurStateType == EStateType.Move);
-            }
-        }
+        public override bool CanEnter => CurStateType == EStateType.Idle || CurStateType == EStateType.Move;
+
 
         public Action OnEated;
 

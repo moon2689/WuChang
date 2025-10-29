@@ -554,8 +554,10 @@ namespace Saber.AI
                         foreach (var item in Actor.CurrentSkill.SkillConfig.m_ChainSkills)
                         {
                             SkillItem skillConfig = Actor.CMelee.SkillConfig.GetSkillItemByID(item.m_SkillID);
-                            if (m_DistanceToEnemy < skillConfig.m_AIPramAttackDistance.maxValue)
+                            if (m_DistanceToEnemy < skillConfig.m_AIPramAttackDistance.maxValue && IsCDColldown(skillConfig))
+                            {
                                 m_ListSkills.Add(skillConfig);
+                            }
                         }
 
                         if (m_ListSkills.Count > 0)

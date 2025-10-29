@@ -10,6 +10,8 @@ namespace CombatEditor
     [CreateAssetMenu(menuName = "AbilityEvents / Projectile")]
     public class AbilityEventObj_Projectile : AbilityEventObj_CreateObjWithHandle
     {
+        public EProjectileType m_ProjectileType = EProjectileType.Single;
+
         //Write the data you need here.
         public override EventTimeType GetEventTimeType()
         {
@@ -29,17 +31,37 @@ namespace CombatEditor
 #endif
     }
 
-//Write you logic here
+    public enum EProjectileType
+    {
+        Single, //发射一个
+        MultiARow, //发射多个，排成一排
+    }
+
+    //Write you logic here
     public partial class AbilityEventEffect_Projectile : AbilityEventEffect
     {
-        private Projectile m_Projectile;
-
-
         public override void StartEffect()
         {
             base.StartEffect();
-            m_Projectile = EventObj.ObjData.CreateObject(Actor).GetComponent<Projectile>();
-            m_Projectile.Throw(this.Actor, base.Actor.AI.LockingEnemy);
+            if (EventObj.m_ProjectileType == EProjectileType.Single)
+            {
+                Projectile p = EventObj.ObjData.CreateObject(Actor).GetComponent<Projectile>();
+                p.Throw(this.Actor, base.Actor.AI.LockingEnemy);
+            }
+            else if (EventObj.m_ProjectileType == EProjectileType.MultiARow)
+            {
+                float angle = -15;
+                for (int i = 0; i < 7; i++)
+                {
+                    Projectile p = EventObj.ObjData.CreateObject(Actor).GetComponent<Projectile>();
+                    p.Throw(this.Actor, base.Actor.AI.LockingEnemy, angle);
+                    angle += 5;
+                }
+            }
+            else
+            {
+                Debug.LogError($"Unknown projectile type:{EventObj.m_ProjectileType}");
+            }
         }
     }
 

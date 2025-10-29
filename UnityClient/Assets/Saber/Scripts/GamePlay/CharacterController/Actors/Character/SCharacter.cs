@@ -281,6 +281,12 @@ namespace Saber.CharacterController
             }
         }
 
+        public override void RecoverOrigin()
+        {
+            base.RecoverOrigin();
+            OnShenKanRest();
+        }
+
         public override void AddYuMao(int value)
         {
             if (value < 1)
