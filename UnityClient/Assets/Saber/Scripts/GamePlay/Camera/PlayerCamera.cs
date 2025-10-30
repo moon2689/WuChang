@@ -325,7 +325,7 @@ namespace Saber
         void LateUpdate()
         {
             //HandleFreeMovement(Time.deltaTime);
-            if (m_CameraStyle == ECameraStyle.Normal)
+            if (CameraStyle == ECameraStyle.Normal)
                 WallStop();
         }
 

@@ -863,6 +863,11 @@ namespace Saber.World
             EndDressUp().StartCoroutine();
         }
 
+        void Wnd_DressUp.IHandler.TakeOffAllClothes()
+        {
+            m_Player.CDressUp.UndressAll();
+        }
+
         #endregion
 
 
@@ -901,6 +906,13 @@ namespace Saber.World
 
         IEnumerator StartDressUp()
         {
+            // 打开界面
+            Wnd_DressUp.Content content = new()
+            {
+                m_ListClothes = GameApp.Entry.Config.ClothInfo.GetAllClothesID(),
+            };
+            GameApp.Entry.UI.CreateWnd<Wnd_DressUp>(content, this, null);
+
             m_WndRest.ActiveRoot = false;
             Vector3 dir = -m_CurrentStayingShenKan.transform.right;
             Quaternion q = Quaternion.LookRotation(dir);
@@ -914,15 +926,6 @@ namespace Saber.World
             {
                 yield return null;
             }
-
-            m_Player.CMelee.CWeapon.ShowOrHideWeapon(false);
-
-            // 打开界面
-            Wnd_DressUp.Content content = new()
-            {
-                m_ListClothes = GameApp.Entry.Config.ClothInfo.GetAllClothesID(),
-            };
-            GameApp.Entry.UI.CreateWnd<Wnd_DressUp>(content, this, null);
         }
 
         IEnumerator EndDressUp()

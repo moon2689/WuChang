@@ -269,6 +269,14 @@ namespace Saber.CharacterController
             OnUndressClothFinished(clothInfo);
         }
 
+        public void UndressAll()
+        {
+            for (int i = m_DressingClothes.Count - 1; i >= 0; --i)
+            {
+                UndressCloth(m_DressingClothes[i].m_ID);
+            }
+        }
+
         private void OnUndressClothFinished(ClothItemInfo clothInfo)
         {
         }

@@ -183,7 +183,9 @@ namespace Saber.CharacterController
             }
             else if (actionType == EActionType.ToDressUp)
             {
+                m_CurAction = ECurAction.ToDressUp;
                 ToDressUpItor(onPlayFinish).StartCoroutine();
+                return;
             }
             else
             {

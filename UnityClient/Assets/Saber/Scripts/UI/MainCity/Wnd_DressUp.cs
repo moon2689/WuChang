@@ -21,6 +21,7 @@ namespace Saber.UI
             void OnClickDressUp(int id, Action onFinished);
             bool IsDressing(int id);
             void OnCloseWnd();
+            void TakeOffAllClothes();
         }
 
         enum EDressUpToggleType
@@ -36,11 +37,15 @@ namespace Saber.UI
 
         [SerializeField] private Button m_BtnConfirm;
         [SerializeField] private Button m_BtnClose;
+        [SerializeField] private Button m_BtnRefresh;
         [SerializeField] private Button m_TempItem;
         [SerializeField] private GridLayoutGroup m_GridClothes;
         [SerializeField] private Button m_ToggleAll;
         [SerializeField] private RectTransform m_ToggleRoot;
-        private List<GameObject> m_goIcons, m_ToggleButtons;
+        [SerializeField] private Transform m_ClassfyItems;
+        [SerializeField] private Button m_TempClassfyItem;
+
+        private List<GameObject> m_goIcons = new(), m_ToggleButtons = new(), m_goClassfyIcons = new();
         private Content m_Content;
         private IHandler m_Handler;
 
@@ -51,12 +56,20 @@ namespace Saber.UI
 
             m_BtnConfirm.onClick.AddListener(OnClickClose);
             m_BtnClose.onClick.AddListener(OnClickClose);
+            m_BtnRefresh.onClick.AddListener(OnClickRefresh);
 
             m_Content = base.m_WndContent as Content;
             m_Handler = base.m_WndHandler as IHandler;
             InitToggles();
             ResetIcons();
             ResetWnd();
+        }
+
+        private void OnClickRefresh()
+        {
+            m_Handler.TakeOffAllClothes();
+            ResetWnd();
+            m_ClassfyItems.gameObject.SetActive(false);
         }
 
         string GetClothTypeString(EDressUpToggleType toggleType)
@@ -75,7 +88,6 @@ namespace Saber.UI
         void InitToggles()
         {
             Array clotheTypes = Enum.GetValues(typeof(EDressUpToggleType));
-            m_ToggleButtons = new();
             m_ToggleAll.gameObject.SetActive(false);
             for (int i = 0; i < clotheTypes.Length; i++)
             {
@@ -130,9 +142,6 @@ namespace Saber.UI
         void ResetIcons()
         {
             m_TempItem.gameObject.SetActive(false);
-
-            if (m_goIcons == null)
-                m_goIcons = new List<GameObject>();
             int sum = 0;
 
             foreach (var clothID in m_Content.m_ListClothes)
@@ -156,7 +165,7 @@ namespace Saber.UI
                 }
 
                 go.SetActive(true);
-                ResetIcon(go, clothInfo);
+                ResetIcon(go, clothInfo, false);
                 ++sum;
             }
 
@@ -166,7 +175,7 @@ namespace Saber.UI
             }
         }
 
-        void ResetIcon(GameObject go, ClothItemInfo clothInfo)
+        void ResetIcon(GameObject go, ClothItemInfo clothInfo, bool isClassfy)
         {
             Button btn = go.GetComponent<Button>();
             RawImage imageIcon = go.transform.Find("Icon").GetComponent<RawImage>();
@@ -181,13 +190,59 @@ namespace Saber.UI
             // name
             textName.text = clothInfo.ClothName;
 
+            // selected
+            bool isSelected = m_Handler.IsDressing(clothInfo.m_ID);
+            GameObject goSelected = go.transform.Find("Selected").gameObject;
+            goSelected.SetActive(isSelected);
+
             // click
             btn.onClick.RemoveAllListeners();
             btn.onClick.AddListener(() =>
             {
                 GameApp.Entry.Game.Audio.PlayCommonClick();
                 m_Handler.OnClickDressUp(clothInfo.m_ID, ResetWnd);
+                if (!isClassfy)
+                    ResetClassfyItems(clothInfo);
             });
+        }
+
+        void ResetClassfyItems(ClothItemInfo selectedCloth)
+        {
+            m_TempClassfyItem.gameObject.SetActive(false);
+            m_ClassfyItems.gameObject.SetActive(true);
+
+            if (m_goClassfyIcons == null)
+                m_goClassfyIcons = new List<GameObject>();
+            int sum = 0;
+
+            foreach (var clothID in m_Content.m_ListClothes)
+            {
+                ClothItemInfo clothInfo = GameApp.Entry.Config.ClothInfo.GetClothByID(clothID);
+                if (!clothInfo.m_IsActive || selectedCloth.m_ClassifyID != clothInfo.m_ClassifyID)
+                {
+                    continue;
+                }
+
+                GameObject go;
+                if (sum < m_goClassfyIcons.Count)
+                {
+                    go = m_goClassfyIcons[sum];
+                }
+                else
+                {
+                    go = UnityEngine.Object.Instantiate(m_TempClassfyItem.gameObject, m_ClassfyItems.transform);
+                    m_goClassfyIcons.Add(go);
+                }
+
+                go.SetActive(true);
+                ResetIcon(go, clothInfo, true);
+                ++sum;
+            }
+
+            for (int i = sum; i < m_goClassfyIcons.Count; i++)
+            {
+                m_goClassfyIcons[i].SetActive(false);
+            }
         }
 
         void ResetWnd()
@@ -196,6 +251,15 @@ namespace Saber.UI
             for (int i = 0; i < m_goIcons.Count; i++)
             {
                 GameObject go = m_goIcons[i];
+                int clothID = int.Parse(go.name);
+                bool isSelected = m_Handler.IsDressing(clothID);
+                GameObject goSelected = go.transform.Find("Selected").gameObject;
+                goSelected.SetActive(isSelected);
+            }
+
+            for (int i = 0; i < m_goClassfyIcons.Count; i++)
+            {
+                GameObject go = m_goClassfyIcons[i];
                 int clothID = int.Parse(go.name);
                 bool isSelected = m_Handler.IsDressing(clothID);
                 GameObject goSelected = go.transform.Find("Selected").gameObject;
