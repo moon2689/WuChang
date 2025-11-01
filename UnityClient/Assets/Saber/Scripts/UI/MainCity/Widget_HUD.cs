@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DuloGames.UI;
 using Saber.Frame;
@@ -10,18 +11,13 @@ namespace Saber.UI
     public class Widget_HUD : WidgetBase
     {
         [SerializeField] private Widget_HPBar m_HpBar;
-        [SerializeField] private Text m_HealthText;
         [SerializeField] private Image m_ImageStamina;
-        [SerializeField] private Text m_StaminaText;
-
+        [SerializeField] private RawImage m_RawImagePower;
         [SerializeField] private Image m_ImageDamage;
-        [SerializeField] private GameObject m_PowerPoint;
-        [SerializeField] private Transform m_PowerPointParent;
 
         //[SerializeField] private RawImage m_playerIcon;
 
         private SActor m_Actor;
-        private List<GameObject> m_PowerPoints = new();
 
 
         void Init()
@@ -77,29 +73,80 @@ namespace Saber.UI
             m_HpBar.CurHp = m_Actor.CStats.CurrentHp;
             m_ImageStamina.fillAmount = m_Actor.CStats.CurrentStamina / m_Actor.CStats.MaxStamina;
 
-            m_HealthText.text = m_Actor.CStats.CurrentHPInt.ToString();
-            m_StaminaText.text = m_Actor.CStats.CurrentStaminaInt.ToString();
+            // m_HealthText.text = m_Actor.CStats.CurrentHPInt.ToString();
+            // m_StaminaText.text = m_Actor.CStats.CurrentStaminaInt.ToString();
         }
 
         void RefreshPowerPoints()
         {
-            for (int i = 0; i < this.m_Actor.CStats.MaxPower; i++)
-            {
-                GameObject go;
-                if (i < m_PowerPoints.Count)
-                {
-                    go = m_PowerPoints[i];
-                }
-                else
-                {
-                    go = GameObject.Instantiate(m_PowerPoint);
-                    m_PowerPoints.Add(go);
-                    go.transform.SetParent(m_PowerPointParent);
-                    go.SetActive(true);
-                }
+            int curPower = m_Actor.CStats.CurrentPower;
+            int maxPower = m_Actor.CStats.MaxPower;
 
-                go.transform.GetChild(0).gameObject.SetActive(i < this.m_Actor.CStats.CurrentPower);
+            int index; //从左下角开始计算
+            if (maxPower == 1)
+            {
+                index = curPower switch
+                {
+                    0 => 15,
+                    1 => 10,
+                };
             }
+            else if (maxPower == 2)
+            {
+                index = curPower switch
+                {
+                    0 => 16,
+                    1 => 11,
+                    2 => 5,
+                };
+            }
+            else if (maxPower == 3)
+            {
+                index = curPower switch
+                {
+                    0 => 17,
+                    1 => 12,
+                    2 => 6,
+                    3 => 9,
+                };
+            }
+            else if (maxPower == 4)
+            {
+                index = curPower switch
+                {
+                    0 => 18,
+                    1 => 13,
+                    2 => 7,
+                    3 => 0,
+                    4 => 2,
+                };
+            }
+            else if (maxPower == 5)
+            {
+                index = curPower switch
+                {
+                    0 => 19,
+                    1 => 14,
+                    2 => 8,
+                    3 => 1,
+                    4 => 3,
+                    5 => 4,
+                };
+            }
+            else
+            {
+                throw new InvalidOperationException("最多只支持5格能量");
+            }
+
+            int rowCount = 4;
+            int columnCount = 5;
+            float cellWidth = 1f / columnCount;
+            float cellHeight = 1f / rowCount;
+            int cellX = index % columnCount;
+            int cellY = Mathf.FloorToInt(index / columnCount);
+            float x = cellX * cellWidth;
+            float y = cellY * cellHeight;
+            m_RawImagePower.uvRect = new Rect(x, y, cellWidth, cellHeight);
         }
 
         void ShowDamageSprite()

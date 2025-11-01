@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Saber.CharacterController
 {
     [RequireComponent(typeof(CapsuleCollider))]
-    public class Projectile : MonoBehaviour
+    public abstract class Projectile : MonoBehaviour
     {
         enum EStage
         {
@@ -15,63 +15,65 @@ namespace Saber.CharacterController
             Hide,
         }
 
-        [SerializeField] private float m_Speed = 10;
-        [SerializeField] private Vector3 m_Direction;
+        [SerializeField] private GameObject m_EffectFly;
         [SerializeField] private GameObject m_EffectImpact;
         [SerializeField] private float m_LifeTime = 2;
-
         [SerializeField] private WeaponDamageSetting m_WeaponDamageSetting;
+        [SerializeField] protected float m_Speed = 15;
 
         private CapsuleCollider m_Collider;
         private DamageInfo m_CurDmgInfo = new();
-        private SActor m_Actor;
+        protected SActor m_Actor;
         private float m_TimerHide;
         private EStage m_Stage;
         private List<SActor> m_HurtedActors = new();
+
+
+        protected abstract void Fly();
 
         private void Awake()
         {
             m_Collider = GetComponent<CapsuleCollider>();
             m_Collider.isTrigger = true;
 
+            Rigidbody rb = GetComponent<Rigidbody>();
+            if (!rb)
+                rb = gameObject.AddComponent<Rigidbody>();
+            rb.useGravity = false;
+            rb.isKinematic = true;
+            rb.mass = 1;
+
             gameObject.layer = (int)EStaticLayers.Actor;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (m_Stage != EStage.Fly)
+            if (other.gameObject.layer == (int)EStaticLayers.Default)
             {
+                Impact();
                 return;
             }
 
             HurtBox hurtBox = other.GetComponent<HurtBox>();
-            bool canDoDmg = hurtBox != null && !m_HurtedActors.Contains(hurtBox.Actor);
+            bool canDoDmg = hurtBox && hurtBox.Actor != m_Actor && !m_HurtedActors.Contains(hurtBox.Actor);
             if (!canDoDmg)
             {
                 return;
             }
+
+            Impact();
 
             m_HurtedActors.Add(hurtBox.Actor);
 
             // Debug.Log($"Projectile,{this.name} hit {other.name}", gameObject);
             m_CurDmgInfo.DamageDirection = transform.forward;
             m_CurDmgInfo.DamagePosition = transform.position;
-            bool succeed = DamageHelper.TryHit(other, m_Actor, m_WeaponDamageSetting, m_CurDmgInfo);
-            if (succeed)
-            {
-                Impact();
-            }
-            else
-            {
-                if (other.gameObject.layer == (int)EStaticLayers.Default)
-                {
-                    Impact();
-                }
-            }
+            DamageHelper.TryHit(other, m_Actor, m_WeaponDamageSetting, m_CurDmgInfo);
         }
 
         void Impact()
         {
+            m_EffectFly.SetActive(false);
             if (m_EffectImpact)
             {
                 m_EffectImpact.SetActive(true);
@@ -85,14 +87,13 @@ namespace Saber.CharacterController
             }
         }
 
-        void Hide()
+        protected void Hide()
         {
             gameObject.SetActive(false);
-            m_Actor = null;
             m_Stage = EStage.Hide;
         }
 
-        public void Throw(SActor owner, SActor target, float offsetAngle = 0)
+        public virtual void Throw(SActor owner, SActor target)
         {
             NodeFollower nodeFollower = GetComponent<NodeFollower>();
             if (nodeFollower)
@@ -101,26 +102,11 @@ namespace Saber.CharacterController
             }
 
             gameObject.SetActive(true);
+            m_EffectFly.SetActive(true);
 
             m_Actor = owner;
-            if (target)
-            {
-                m_Direction = target.transform.position + Vector3.up * target.CPhysic.CenterHeight - transform.position;
-            }
-            else
-            {
-                m_Direction = owner.transform.forward;
-            }
 
-            if (offsetAngle != 0)
-            {
-                m_Direction = Quaternion.AngleAxis(offsetAngle, Vector3.up) * m_Direction;
-            }
-
-            m_Direction.Normalize();
             m_TimerHide = m_LifeTime;
-
-            transform.rotation = Quaternion.LookRotation(m_Direction);
 
             if (m_EffectImpact)
                 m_EffectImpact.SetActive(false);
@@ -132,11 +118,11 @@ namespace Saber.CharacterController
             m_HurtedActors.Clear();
         }
 
-        void Update()
+        protected virtual void Update()
         {
             if (m_Stage == EStage.Fly)
             {
-                transform.position += m_Direction * m_Speed * Time.deltaTime;
+                Fly();
 
                 m_TimerHide -= Time.deltaTime;
                 if (m_TimerHide < 0)

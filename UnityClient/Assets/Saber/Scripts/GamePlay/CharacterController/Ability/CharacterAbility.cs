@@ -23,6 +23,7 @@ namespace Saber.CharacterController
             RegisterAbility(new DrinkMedicine());
             RegisterAbility(new Eat());
             RegisterAbility(new EnchantWeapon());
+            RegisterAbility(new UseSoul());
         }
 
         public bool DrinkMedicine()
@@ -32,9 +33,14 @@ namespace Saber.CharacterController
 
         public bool Eat(Action onEated)
         {
-            return TryEnterAbility<Eat>(EAbilityType.Eat, a => { a.OnEated = onEated; });
+            return TryEnterAbility<Eat>(EAbilityType.Eat, a => { a.OnUse = onEated; });
         }
 
+        public bool UseSoul(Action onUsed)
+        {
+            return TryEnterAbility<UseSoul>(EAbilityType.UseSoul, a => { a.OnUse = onUsed; });
+        }
+        
         public bool EnchantByItem(PropItemInfo item)
         {
             return TryEnterAbility<EnchantWeapon>(EAbilityType.EnchantWeapon, a =>

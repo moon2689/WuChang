@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 757d9b080c65e9847b379b2a8a5ae8ab, type: 3}
-  m_Name: FaShu1
+  m_Name: FaShuMagicSword
   m_EditorClassIdentifier: 
   AbilityType: 0
   Clip: {fileID: -5803542136308226688, guid: 0ed31a0a7c495c64ba838e0521b55200, type: 3}
@@ -97,7 +97,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 2749388054749477768}
-  - EventTime: 0.7615894
+  - EventTime: 0.71192056
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -146,6 +146,7 @@ MonoBehaviour:
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 1
+  m_ProjectileType: 0
 --- !u!114 &4418195607200449895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +169,7 @@ MonoBehaviour:
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 1
+  m_ProjectileType: 0
 --- !u!114 &6409725006207892016
 MonoBehaviour:
   m_ObjectHideFlags: 0

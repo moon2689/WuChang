@@ -32,6 +32,7 @@ namespace Saber.Config
         HealHpContinuous,
         AddSoul,
         Enchant,
+        AddPower,
     }
 
     [Serializable]

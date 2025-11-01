@@ -149,6 +149,7 @@ namespace Saber.CharacterController
         //public SkillAnimEvent CurActivingSkillAnimState { get; set; }
         public EActorCamp Camp { get; set; }
         public bool Invincible { get; set; }
+        public bool AddYuMaoWhenHitted { get; set; }
 
         public HurtBox[] HurtBoxes => GetComponentsInChildren<HurtBox>();
 

@@ -210,6 +210,7 @@ MonoBehaviour:
   m_TiltMax: 75
   m_TiltMin: 45
   m_MovementAxis: {x: 0, y: 0}
+  m_CameraStyle: 0
   m_ClipMoveTime: 0.05
   m_ReturnTime: 0.4
   m_SphereCastRadius: 0.15
@@ -420,7 +421,7 @@ Transform:
   m_GameObject: {fileID: 8425929486912051990}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.2, z: 0}
+  m_LocalPosition: {x: 0, y: 0.86, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

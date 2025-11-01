@@ -35,6 +35,7 @@ namespace CombatEditor
     {
         Single, //发射一个
         MultiARow, //发射多个，排成一排
+        LianHuoZhuStyle, //类似于连火珠，三颗，贝塞尔曲线运动
     }
 
     //Write you logic here
@@ -45,7 +46,7 @@ namespace CombatEditor
             base.StartEffect();
             if (EventObj.m_ProjectileType == EProjectileType.Single)
             {
-                Projectile p = EventObj.ObjData.CreateObject(Actor).GetComponent<Projectile>();
+                ProjectileStraightLine p = EventObj.ObjData.CreateObject(Actor).GetComponent<ProjectileStraightLine>();
                 p.Throw(this.Actor, base.Actor.AI.LockingEnemy);
             }
             else if (EventObj.m_ProjectileType == EProjectileType.MultiARow)
@@ -53,9 +54,25 @@ namespace CombatEditor
                 float angle = -15;
                 for (int i = 0; i < 7; i++)
                 {
-                    Projectile p = EventObj.ObjData.CreateObject(Actor).GetComponent<Projectile>();
-                    p.Throw(this.Actor, base.Actor.AI.LockingEnemy, angle);
+                    ProjectileStraightLine p = EventObj.ObjData.CreateObject(Actor).GetComponent<ProjectileStraightLine>();
+                    p.OffsetAngle = angle;
+                    p.Throw(this.Actor, base.Actor.AI.LockingEnemy);
                     angle += 5;
+                }
+            }
+            else if (EventObj.m_ProjectileType == EProjectileType.LianHuoZhuStyle)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    ProjectileBezierCurve p = EventObj.ObjData.CreateObject(Actor).GetComponent<ProjectileBezierCurve>();
+                    p.OffsetPointStyle = i switch
+                    {
+                        0 => ProjectileBezierCurve.EOffsetPointStyle.Up,
+                        1 => ProjectileBezierCurve.EOffsetPointStyle.Left,
+                        2 => ProjectileBezierCurve.EOffsetPointStyle.Right,
+                        _ => ProjectileBezierCurve.EOffsetPointStyle.Up,
+                    };
+                    p.Throw(this.Actor, base.Actor.AI.LockingEnemy);
                 }
             }
             else

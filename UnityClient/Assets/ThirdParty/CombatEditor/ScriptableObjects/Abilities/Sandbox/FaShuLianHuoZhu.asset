@@ -22,7 +22,24 @@ MonoBehaviour:
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 0
-  m_ProjectileType: 0
+  m_ProjectileType: 2
+--- !u!114 &-6057907968914125385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFX
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: b1edfbe2537d9494eaa6f495cd1ac2a3, type: 3}
+  m_Volume: 1
+  m_TriggerProbability: 100
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,6 +75,69 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -7551488140370797110}
+  - EventTime: 0.61132073
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 1008926881175702309}
+  - EventTime: 0.41886792
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -6057907968914125385}
+  - EventTime: 0
+    EventRange: {x: 0, y: 0.30566037}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 7379333785911899609}
+  - EventTime: 0
+    EventRange: {x: 0.33584905, y: 0.4301887}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 1219859168913678986}
+--- !u!114 &1008926881175702309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
+  m_Name: CanExit
+  m_EditorClassIdentifier: 
+  IsActive: 1
+--- !u!114 &1219859168913678986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f29d956cd14f76ae2ff6fbffccde20, type: 3}
+  m_Name: AlignToEnemy
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_RotateSpeed: 360
 --- !u!114 &1419810572225424478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,3 +152,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   m_RotateSpeed: 720
+--- !u!114 &7379333785911899609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6149b7b95b4a5d8122d3dcd1dfae3e, type: 3}
+  m_Name: Invincible
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_AddYuMaoWhenHittedAtStart: 1

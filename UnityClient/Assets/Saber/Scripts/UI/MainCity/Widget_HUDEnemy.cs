@@ -105,7 +105,7 @@ namespace Saber.UI
                 hpThisSlider = Mathf.Clamp(hpThisSlider, 0, k_HPPerSlider);
 
                 hpBar.Init(thisSliderMaxHP, hpThisSlider);
-                rectTransform.sizeDelta = new Vector2(thisSliderMaxHP * 0.6f, rectTransform.sizeDelta.y);
+                rectTransform.sizeDelta = new Vector2(thisSliderMaxHP * 0.5f, rectTransform.sizeDelta.y);
             }
 
             for (int i = m_SliderCount; i < m_HpBars.Count; i++)

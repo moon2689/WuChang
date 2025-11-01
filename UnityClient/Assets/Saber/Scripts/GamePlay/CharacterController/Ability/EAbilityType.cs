@@ -10,5 +10,6 @@ namespace Saber.CharacterController
         DrinkMedicine,
         Eat,
         EnchantWeapon,
+        UseSoul,
     }
 }

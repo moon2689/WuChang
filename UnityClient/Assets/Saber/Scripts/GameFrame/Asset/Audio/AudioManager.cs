@@ -83,7 +83,7 @@ namespace Saber
                 {
                     if (c != null)
                     {
-                        m_dicAssets.Add(name, c);
+                        m_dicAssets[name] = c;
                         onGetted?.Invoke(c);
                     }
                     else

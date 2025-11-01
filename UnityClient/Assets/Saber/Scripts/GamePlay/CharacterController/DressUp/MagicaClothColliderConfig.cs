@@ -21,6 +21,8 @@ namespace Saber.CharacterController
         public bool m_CalfLeg;
         public bool m_Foot;
 
+        public bool m_GroundPlane;
+
         public List<ColliderComponent> GetMagicClothColliders(SActor actor)
         {
             List<ColliderComponent> list = new();
@@ -128,6 +130,13 @@ namespace Saber.CharacterController
 
                 bone = actor.GetNodeTransform(ENodeType.RightFoot);
                 coms = bone.GetComponentsInChildren<ColliderComponent>();
+                list.AddRange(coms);
+            }
+
+            if (m_GroundPlane)
+            {
+                Transform bone = actor.GetNodeTransform(ENodeType.RootBone);
+                var coms = bone.GetComponentsInChildren<MagicaPlaneCollider>();
                 list.AddRange(coms);
             }
 

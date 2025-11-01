@@ -19,8 +19,22 @@ namespace Saber.AI
         private EAheadInputType m_AheadType;
         private ESkillType m_Key;
         private Vector3 m_DodgeAxis;
+        private float m_Timer;
 
         public bool IsEnabled => m_AheadType != EAheadInputType.None;
+
+        private EAheadInputType AheadType
+        {
+            get => m_AheadType;
+            set
+            {
+                m_AheadType = value;
+                if (m_AheadType != EAheadInputType.None)
+                {
+                    m_Timer = 1;
+                }
+            }
+        }
 
         bool CanAheadInput
         {
@@ -32,8 +46,7 @@ namespace Saber.AI
                     return m_Actor.CurrentSkill.CurrentAttackState != EAttackStates.BeforeAttack;
                 }
 
-                return s == EStateType.Idle || s == EStateType.Move || s == EStateType.Defense ||
-                       s == EStateType.Dodge;
+                return s == EStateType.Defense || s == EStateType.Dodge;
             }
         }
 
@@ -44,25 +57,33 @@ namespace Saber.AI
 
         public bool TryTrigger()
         {
-            if (m_AheadType == EAheadInputType.None)
+            if (AheadType == EAheadInputType.None)
             {
                 return false;
             }
-            else if (m_AheadType == EAheadInputType.Skill)
+
+            m_Timer -= Time.deltaTime;
+            if (m_Timer <= 0)
+            {
+                AheadType = EAheadInputType.None;
+                return false;
+            }
+
+            if (AheadType == EAheadInputType.Skill)
             {
                 return m_Actor.TryTriggerSkill(m_Key);
             }
-            else if (m_AheadType == EAheadInputType.Dodge)
+            else if (AheadType == EAheadInputType.Dodge)
             {
                 return m_Actor.Dodge(m_DodgeAxis);
             }
-            else if (m_AheadType == EAheadInputType.DrinkPotion)
+            else if (AheadType == EAheadInputType.DrinkPotion)
             {
                 return m_Actor.DrinkPotion();
             }
             else
             {
-                Debug.LogError("Unknown type:" + m_AheadType);
+                Debug.LogError("Unknown type:" + AheadType);
             }
 
             return false;
@@ -73,7 +94,7 @@ namespace Saber.AI
             if (CanAheadInput)
             {
                 //Debug.Log("SetData_Skill:" + key);
-                m_AheadType = EAheadInputType.Skill;
+                AheadType = EAheadInputType.Skill;
                 m_Key = key;
             }
         }
@@ -83,7 +104,7 @@ namespace Saber.AI
             if (CanAheadInput)
             {
                 //Debug.Log("SetData_Dodge:" + axis);
-                m_AheadType = EAheadInputType.Dodge;
+                AheadType = EAheadInputType.Dodge;
                 m_DodgeAxis = axis;
             }
         }
@@ -93,14 +114,14 @@ namespace Saber.AI
             if (CanAheadInput)
             {
                 if (m_Actor.CAbility.CurAbilityType != EAbilityType.DrinkMedicine)
-                    m_AheadType = EAheadInputType.DrinkPotion;
+                    AheadType = EAheadInputType.DrinkPotion;
             }
         }
 
         public void Clear()
         {
             //Debug.Log("Clear ahead data");
-            m_AheadType = EAheadInputType.None;
+            AheadType = EAheadInputType.None;
         }
     }
 }

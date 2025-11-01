@@ -34,3 +34,10 @@ MonoBehaviour:
     m_PropType: 4
     m_Param1: 1
     m_Param2: 30
+  - m_ID: 4
+    m_Name: "\u7FBD"
+    m_Description: "\u589E\u52A0\u80FD\u91CF"
+    m_Icon: adhy_S
+    m_PropType: 5
+    m_Param1: 5
+    m_Param2: 0

@@ -688,28 +688,17 @@ namespace Saber.World
                 return false;
             }
 
-            GoNearestShenKanItor().StartCoroutine();
-            return true;
-        }
-
-        IEnumerator GoNearestShenKanItor()
-        {
-            bool wait = true;
-            if (m_Player.PlayAction(PlayActionState.EActionType.ShenKanRest, () => wait = false))
+            if (m_Player.PlayAction(PlayActionState.EActionType.ShenKanRest, () => BackToNearestShenKan()))
             {
                 SetFilmEffect(true);
                 m_Player.CMelee.CWeapon.ShowOrHideWeapon(false);
-                while (wait)
-                {
-                    yield return null;
-                }
-
-                yield return BackToNearestShenKan();
+                return true;
             }
             else
             {
                 GameApp.Entry.UI.ShowTips("当前状态不能执行该操作");
                 GameApp.Entry.Game.Audio.PlaySoundSkillFailed();
+                return false;
             }
         }
 
@@ -760,9 +749,38 @@ namespace Saber.World
 
         #region Wnd_MainCity.IHandler
 
-        public void OnClickMenu()
+        void Wnd_MainCity.IHandler.OnClickMenu()
         {
             GameApp.Entry.UI.CreateWnd<Wnd_Menu>(null, this, null);
+        }
+
+        void Widget_SlotObject.IHandler.OnClickSlot(MainWndSlotData slotData)
+        {
+            if (slotData.m_SlotType == Widget_SlotObject.ESlotDataType.SkillItem)
+            {
+                var skillObj = GameApp.Entry.Game.Player.CMelee[slotData.m_ID];
+                if (skillObj != null)
+                {
+                    GameApp.Entry.Game.PlayerAI.TryTriggerSkill(skillObj.SkillConfig.m_SkillType);
+                }
+            }
+            else if (slotData.m_SlotType == Widget_SlotObject.ESlotDataType.PropItem)
+            {
+                if (GameApp.Entry.Game.Bag.GetItemCount(slotData.m_ID) > 0)
+                {
+                    GameApp.Entry.Game.Bag.UseItem(slotData.m_ID);
+                }
+                else
+                {
+                    m_Player.PlayAction(PlayActionState.EActionType.UseItemNone);
+                    GameApp.Entry.UI.ShowTips("道具数量不足");
+                    GameApp.Entry.Game.Audio.PlaySoundSkillFailed();
+                }
+            }
+            else
+            {
+                Debug.LogError($"Unknown slot type:{slotData.m_SlotType}");
+            }
         }
 
         #endregion

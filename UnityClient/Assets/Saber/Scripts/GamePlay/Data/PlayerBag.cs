@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,10 @@ namespace Saber
 
         private static PlayerBag s_Instance;
         public static PlayerBag Instance => s_Instance ??= new();
+
+        public event Action<Item> OnItemChange;
+        public event Action<Item> OnItemUse;
+
 
         private List<Item> m_Items = new();
 
@@ -79,6 +84,8 @@ namespace Saber
                 item = new(id, count);
                 m_Items.Add(item);
             }
+
+            OnItemChange?.Invoke(item);
         }
 
         public bool UseItem(int id)
@@ -91,6 +98,8 @@ namespace Saber
                     --item.Count;
                     if (item.Count <= 0)
                         m_Items.Remove(item);
+                    OnItemChange?.Invoke(item);
+                    OnItemUse?.Invoke(item);
                     return true;
                 }
             }
@@ -125,6 +134,14 @@ namespace Saber
             {
                 return GameApp.Entry.Game.Player.CAbility.EnchantByItem(item.Config);
             }
+            else if (t == EPropType.AddPower)
+            {
+                return GameApp.Entry.Game.Player.CAbility.UseSoul(() =>
+                {
+                    // 治疗
+                    GameApp.Entry.Game.Player.AddYuMao((int)item.Config.m_Param1);
+                });
+            }
             else
             {
                 Debug.LogError($"Unknown type:{item.Config.m_PropType}");
@@ -149,6 +166,12 @@ namespace Saber
         public PropItemInfo GetItemConfig(int id)
         {
             return GameApp.Entry.Config.PropInfo.m_Props.FirstOrDefault(a => a.m_ID == id);
+        }
+
+        public int GetItemCount(int id)
+        {
+            var data = GetItemByID(id);
+            return data != null ? data.Count : 0;
         }
     }
 }

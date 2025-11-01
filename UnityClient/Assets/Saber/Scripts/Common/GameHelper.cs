@@ -418,7 +418,7 @@ public static class GameHelper
                 c.SetLayerRecursive(layer);
         }
     }
-    
+
     public static void SetRenderingLayerRecursive(this GameObject obj, ERenderingLayers layer)
     {
         if (obj)
@@ -656,7 +656,7 @@ public static class GameHelper
     {
         GameApp.Entry.Unity.StopCoroutine(coroutine);
     }
-    
+
     /// <summary>
     /// 计算概率
     /// </summary>
@@ -665,5 +665,12 @@ public static class GameHelper
     public static bool CalcProbability(int percent)
     {
         return UnityEngine.Random.Range(0, 100) < percent;
+    }
+
+    public static Vector3 CalcBezierCurve(Vector3 p0, Vector3 p1, Vector3 p2, float t)
+    {
+        t = Mathf.Clamp01(t);
+        float oneMinusT = 1 - t;
+        return oneMinusT * oneMinusT * p0 + 2 * oneMinusT * t * p1 + t * t * p2;
     }
 }

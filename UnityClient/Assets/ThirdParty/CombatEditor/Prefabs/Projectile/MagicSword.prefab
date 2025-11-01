@@ -29414,7 +29414,6 @@ Transform:
   - {fileID: 842394501433125523}
   - {fileID: 5256139248494999540}
   - {fileID: 2958956210442287953}
-  - {fileID: 7789604888796277178}
   m_Father: {fileID: 3734412437594389817}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &2958956210842584297
@@ -78446,7 +78445,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7789604888796277183}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -78459,7 +78458,7 @@ Transform:
   - {fileID: 3069946430323533924}
   - {fileID: 6530380957829763551}
   - {fileID: 2262676733680439444}
-  m_Father: {fileID: 2958956210842584298}
+  m_Father: {fileID: 3734412437594389817}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &7789604888796277180
 ParticleSystem:
@@ -88300,8 +88299,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3734412437594389817}
-  - component: {fileID: 8943530028246219536}
   - component: {fileID: 5917250609694744694}
+  - component: {fileID: 6790781327603516832}
   m_Layer: 0
   m_Name: MagicSword
   m_TagString: Untagged
@@ -88322,34 +88321,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7789604888796277178}
   - {fileID: 2958956210842584298}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 40, z: 0}
---- !u!114 &8943530028246219536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8477394280318632219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5769644a8d52407f80c98c8a2acdb70d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Speed: 15
-  m_Direction: {x: 0, y: 0, z: 0}
-  m_EffectImpact: {fileID: 7789604888796277183}
-  m_LifeTime: 2
-  m_WeaponDamageSetting:
-    m_HitType: 3
-    m_WeaponBone: 29
-    m_DamageValue: 20
-    m_ImpactForce: 2
-    m_HitRecover: 0
-    m_ForceWhenGround: {x: 0, y: 0}
-    CanBeTanFan: 0
-    BreakByTanFan: 0
 --- !u!136 &5917250609694744694
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -88369,7 +88344,32 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.2
+  m_Height: 1
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: -0.5}
+--- !u!114 &6790781327603516832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8477394280318632219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0680e87e81ee48db8686c2698baa17fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectFly: {fileID: 2958956210842584303}
+  m_EffectImpact: {fileID: 7789604888796277183}
+  m_LifeTime: 3
+  m_WeaponDamageSetting:
+    m_HitType: 3
+    m_WeaponBone: 29
+    m_DamageValue: 30
+    m_ImpactForce: 3
+    m_HitRecover: 0
+    m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 0
+    BreakByTanFan: 0
+  m_Speed: 15

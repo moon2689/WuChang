@@ -11,9 +11,8 @@ namespace Saber.UI
     public class Wnd_JoyStick : WndBase
         , Widget_JoyStick.IHandler
         , Widget_MoveCamera.IHandler
-        , Widget_SkillButton.IHandler
     {
-        public interface IHandler : IWndHandler
+        public interface IHandler : IWndHandler, Widget_SkillButton.IHandler
         {
             void OnUseStick(Vector2 axis, bool isDragging);
             void OnUseCamStick(float x, float y);
@@ -25,8 +24,6 @@ namespace Saber.UI
 
             void OnClickInteract(ESceneInteractType interactType);
             void OnClickDrinkMedicine();
-            void OnClickSkill(ESkillType type);
-            void OnClickBag();
         }
 
 
@@ -40,8 +37,7 @@ namespace Saber.UI
             m_btnInteract,
             m_ButtonDrinkMedicine,
             m_ButtonMedicineNone,
-            m_ButtonDefense,
-            m_ButtonBag;
+            m_ButtonDefense;
 
         [SerializeField] private Widget_SkillButton m_ButtonSkill1,
             m_ButtonSkill2,
@@ -52,7 +48,23 @@ namespace Saber.UI
         [SerializeField] private Text m_MedicineCount;
         [SerializeField] private GameObject m_Sticks;
 
-        public IHandler Handler { get; set; }
+        private IHandler m_Handler;
+
+
+        public IHandler Handler
+        {
+            get => m_Handler;
+            set
+            {
+                m_Handler = value;
+                if (value != null)
+                {
+                    m_ButtonSkill1.Init(ESkillType.Skill1, value);
+                    m_ButtonSkill2.Init(ESkillType.FaShu2, value);
+                }
+            }
+        }
+
         private ESceneInteractType m_InteractType;
 
 
@@ -89,7 +101,6 @@ namespace Saber.UI
             m_btnInteract.onClick.AddListener(OnClickInteract);
             m_ButtonDrinkMedicine.onClick.AddListener(OnClickDrinkMedicine);
             m_ButtonMedicineNone.onClick.AddListener(OnClickMedicineNone);
-            m_ButtonBag.onClick.AddListener(OnClickBag);
 
             m_btnRoll.AddEvent(EventTriggerType.PointerDown, OnPressDownDodge);
             m_btnRoll.AddEvent(EventTriggerType.PointerUp, OnPressUpDodge);
@@ -101,15 +112,7 @@ namespace Saber.UI
             m_btnLockOn.AddEvent(EventTriggerType.PointerUp, OnPressUpLockOn);
 
             ActiveButtonInteract = false;
-
-            m_ButtonSkill1.Init(ESkillType.Skill1, this);
-            m_ButtonSkill2.Init(ESkillType.FaShu2, this);
             //m_ButtonSkill3.Init(ESkillType.Skill3, this);
-        }
-
-        private void OnClickBag()
-        {
-            Handler?.OnClickBag();
         }
 
         void OnPressDownHeavyAttack(BaseEventData arg0)
@@ -137,11 +140,6 @@ namespace Saber.UI
             Handler?.OnClickDrinkMedicine();
             GameApp.Entry.Game.Audio.PlaySoundSkillFailed();
             GameApp.Entry.UI.ShowTips("药喝光了", 0.1f);
-        }
-
-        void Widget_SkillButton.IHandler.OnClickSkillButton(ESkillType type)
-        {
-            Handler.OnClickSkill(type);
         }
 
         public void RefreshMedicineCount(int count)
@@ -308,11 +306,6 @@ namespace Saber.UI
             if (Input.GetKeyDown(KeyCode.F))
             {
                 m_btnInteract.OnSubmit(null);
-            }
-
-            if (Input.GetKeyDown(KeyCode.M))
-            {
-                m_ButtonBag.OnSubmit(null);
             }
         }
 #endif

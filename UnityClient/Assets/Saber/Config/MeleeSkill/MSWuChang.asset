@@ -17,6 +17,7 @@ MonoBehaviour:
   - m_Active: 1
     m_ID: 1
     m_SkillName: "\u8F7B\u51FB1"
+    m_Icon: 
     m_AnimStates:
     - m_Name: LightAttack1
       m_EventData: {fileID: 11400000, guid: 21b6efb740c967b408e60b0d1419bfcf, type: 2}
@@ -51,6 +52,7 @@ MonoBehaviour:
   - m_Active: 1
     m_ID: 2
     m_SkillName: "\u8F7B\u51FB2"
+    m_Icon: 
     m_AnimStates:
     - m_Name: LightAttack2
       m_EventData: {fileID: 11400000, guid: 7d421da6e57e0fe4499d02def8a8d36b, type: 2}
@@ -85,6 +87,7 @@ MonoBehaviour:
   - m_Active: 1
     m_ID: 3
     m_SkillName: "\u8F7B\u51FB3"
+    m_Icon: 
     m_AnimStates:
     - m_Name: LightAttack3
       m_EventData: {fileID: 11400000, guid: c32564bda27c12b4e9414ea275460241, type: 2}
@@ -119,6 +122,7 @@ MonoBehaviour:
   - m_Active: 1
     m_ID: 4
     m_SkillName: "\u8F7B\u51FB4"
+    m_Icon: 
     m_AnimStates:
     - m_Name: LightAttack4
       m_EventData: {fileID: 11400000, guid: f34581d4edb1cfb40b9fccf737f944c8, type: 2}
@@ -153,6 +157,7 @@ MonoBehaviour:
   - m_Active: 1
     m_ID: 5
     m_SkillName: "\u8F7B\u51FB5"
+    m_Icon: 
     m_AnimStates:
     - m_Name: LightAttack5
       m_EventData: {fileID: 11400000, guid: c84de50a01c826a4badbefb822e93e3f, type: 2}
@@ -187,6 +192,7 @@ MonoBehaviour:
   - m_Active: 1
     m_ID: 6
     m_SkillName: "\u5411\u524D\u8E0F\u6B65\u540E\u8F7B\u51FB"
+    m_Icon: 
     m_AnimStates:
     - m_Name: StepFrontAttack
       m_EventData: {fileID: 11400000, guid: f649358d820478646b00c9d072cca9ea, type: 2}
@@ -221,6 +227,7 @@ MonoBehaviour:
   - m_Active: 1
     m_ID: 7
     m_SkillName: "\u8E0F\u6B65\u540E\u8F7B\u51FB"
+    m_Icon: 
     m_AnimStates:
     - m_Name: StepAttack
       m_EventData: {fileID: 11400000, guid: 1e750ea72d4ad4942b18dfc74759b125, type: 2}
@@ -255,6 +262,7 @@ MonoBehaviour:
   - m_Active: 1
     m_ID: 8
     m_SkillName: "\u51B2\u523A\u540E\u8F7B\u51FB"
+    m_Icon: 
     m_AnimStates:
     - m_Name: DashAttack
       m_EventData: {fileID: 11400000, guid: f143ae5855760874eb7499c702326f41, type: 2}
@@ -289,6 +297,7 @@ MonoBehaviour:
   - m_Active: 1
     m_ID: 9
     m_SkillName: "\u84C4\u529B\u91CD\u51FB"
+    m_Icon: 
     m_AnimStates:
     - m_Name: ChargeAttack
       m_EventData: {fileID: 11400000, guid: 45e3bb3cea5dd0248b0d833ef1fd8c40, type: 2}
@@ -317,6 +326,7 @@ MonoBehaviour:
   - m_Active: 1
     m_ID: 10
     m_SkillName: "\u91CD\u51FB"
+    m_Icon: 
     m_AnimStates:
     - m_Name: HeavyAttack
       m_EventData: {fileID: 11400000, guid: 3c42489d62b488743bdd7fe23ed63b33, type: 2}
@@ -345,6 +355,7 @@ MonoBehaviour:
   - m_Active: 1
     m_ID: 11
     m_SkillName: "\u5F39\u5200\u540E\u8F7B\u51FB"
+    m_Icon: 
     m_AnimStates:
     - m_Name: TanFanCounterAttack
       m_EventData: {fileID: 11400000, guid: 4227e619cbfdcfb44a1af50803038e51, type: 2}
@@ -373,6 +384,7 @@ MonoBehaviour:
   - m_Active: 1
     m_ID: 12
     m_SkillName: "\u6218\u6280"
+    m_Icon: 
     m_AnimStates:
     - m_Name: ZhanJi
       m_EventData: {fileID: 11400000, guid: 6cdec15b21fd3c945b1350d43bee637c, type: 2}
@@ -407,6 +419,7 @@ MonoBehaviour:
   - m_Active: 1
     m_ID: 13
     m_SkillName: "\u5904\u51B3"
+    m_Icon: 
     m_AnimStates: []
     CostStrength: 0
     m_CostPower: 0
@@ -431,6 +444,7 @@ MonoBehaviour:
   - m_Active: 0
     m_ID: 14
     m_SkillName: "\u997F\u6B8D\u904D\u91CE1"
+    m_Icon: 
     m_AnimStates:
     - m_Name: DoubleChop
       m_EventData: {fileID: 11400000, guid: 4b7853feca07eba40b7d1494f9d574df, type: 2}
@@ -459,6 +473,7 @@ MonoBehaviour:
   - m_Active: 0
     m_ID: 15
     m_SkillName: "\u997F\u6B8D\u904D\u91CE2"
+    m_Icon: 
     m_AnimStates:
     - m_Name: DoubleChop2
       m_EventData: {fileID: 11400000, guid: df9e12259360e0a43a58ffdb6fe6ca33, type: 2}
@@ -487,6 +502,7 @@ MonoBehaviour:
   - m_Active: 1
     m_ID: 16
     m_SkillName: "\u5524\u5251\u8BC0"
+    m_Icon: Spell_24001_S
     m_AnimStates:
     - m_Name: MP_Fashu_43
       m_EventData: {fileID: 11400000, guid: 8d51e556ac8cd7c4fb0df7f6fbd6f065, type: 2}
@@ -494,7 +510,7 @@ MonoBehaviour:
     m_CostPower: 1
     m_CanTriggerWhenPowerNotEnough: 0
     m_PowerAddWhenHitted: 0
-    m_CDSeconds: 2
+    m_CDSeconds: 3
     m_SkillType: 14
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
@@ -513,14 +529,15 @@ MonoBehaviour:
   - m_Active: 1
     m_ID: 17
     m_SkillName: "\u8FDE\u706B\u73E0"
+    m_Icon: Spell_24030_S
     m_AnimStates:
     - m_Name: MP_Fashu_70
       m_EventData: {fileID: 11400000, guid: c55f3e7eef3d7b84ea16162697d7ff68, type: 2}
     CostStrength: 0
     m_CostPower: 3
-    m_CanTriggerWhenPowerNotEnough: 1
+    m_CanTriggerWhenPowerNotEnough: 0
     m_PowerAddWhenHitted: 0
-    m_CDSeconds: 0
+    m_CDSeconds: 4
     m_SkillType: 15
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0

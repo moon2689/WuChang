@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using Saber.Config;
 using Saber.Frame;
+using Saber.UI;
 using UnityEngine;
 
 namespace Saber
@@ -16,6 +17,7 @@ namespace Saber
         public bool HasSavePointBefore => m_ProgressData != null && m_ProgressData.m_LastStayingSceneID > 0;
         public int LastStayingSceneID => m_ProgressData.m_LastStayingSceneID;
         public int LastStayingShenKanID => m_ProgressData.m_LastStayingShenKanID;
+        public MainWndSlotData[] SlotsArray => m_ProgressData.m_Slots;
 
         public List<SceneProgressData> SceneProgressDatas => m_ProgressData.m_SceneProgress;
         public int[] Clothes => m_ProgressData.m_Clothes;
@@ -39,8 +41,37 @@ namespace Saber
                     m_LastStayingSceneID = -1,
                     m_Clothes = GameApp.Entry.Config.GameSetting.PlayerStartClothes,
                     m_Items = new PlayerPropItemInfo[0],
+                    m_Slots = new MainWndSlotData[10],
                 };
             }
+
+            if (m_ProgressData.m_Slots == null || m_ProgressData.m_Slots.Length != 10)
+            {
+                m_ProgressData.m_Slots = new MainWndSlotData[10];
+            }
+
+            for (int i = 0; i < m_ProgressData.m_Slots.Length; i++)
+            {
+                if (m_ProgressData.m_Slots[i] == null)
+                {
+                    m_ProgressData.m_Slots[i] = new();
+                }
+            }
+
+            m_ProgressData.m_Slots[0].m_SlotType = Widget_SlotObject.ESlotDataType.PropItem;
+            m_ProgressData.m_Slots[0].m_ID = 2;
+            m_ProgressData.m_Slots[1].m_SlotType = Widget_SlotObject.ESlotDataType.PropItem;
+            m_ProgressData.m_Slots[1].m_ID = 3;
+            m_ProgressData.m_Slots[2].m_SlotType = Widget_SlotObject.ESlotDataType.PropItem;
+            m_ProgressData.m_Slots[2].m_ID = 4;
+            
+            m_ProgressData.m_Slots[5].m_SlotType = Widget_SlotObject.ESlotDataType.PropItem;
+            m_ProgressData.m_Slots[5].m_ID = 1;
+            
+            m_ProgressData.m_Slots[8].m_SlotType = Widget_SlotObject.ESlotDataType.SkillItem;
+            m_ProgressData.m_Slots[8].m_ID = 16;
+            m_ProgressData.m_Slots[9].m_SlotType = Widget_SlotObject.ESlotDataType.SkillItem;
+            m_ProgressData.m_Slots[9].m_ID = 17;
         }
 
         public void Clear()

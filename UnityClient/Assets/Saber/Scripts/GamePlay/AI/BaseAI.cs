@@ -47,5 +47,9 @@ namespace Saber.AI
         {
             Actor.Event_OnDead -= OnDead;
         }
+
+        public virtual void TryTriggerSkill(ESkillType key)
+        {
+        }
     }
 }

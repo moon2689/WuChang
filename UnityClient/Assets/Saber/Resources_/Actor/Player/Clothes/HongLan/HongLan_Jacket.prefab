@@ -115,7 +115,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
     radius:
-      value: 0.08
+      value: 0.2
       useCurve: 1
       curve:
         serializedVersion: 2
@@ -521,6 +521,7 @@ MonoBehaviour:
   m_ThighLeg: 1
   m_CalfLeg: 1
   m_Foot: 1
+  m_GroundPlane: 1
 --- !u!1 &3500215365363624654
 GameObject:
   m_ObjectHideFlags: 0
@@ -2118,6 +2119,7 @@ MonoBehaviour:
   m_ThighLeg: 1
   m_CalfLeg: 1
   m_Foot: 1
+  m_GroundPlane: 0
 --- !u!1 &8856557031418889128
 GameObject:
   m_ObjectHideFlags: 0

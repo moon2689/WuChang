@@ -89,6 +89,12 @@ namespace Saber.AI
 
         private void OnTriggerSkill(ESkillType key)
         {
+            TryTriggerSkill(key);
+        }
+
+        public override void TryTriggerSkill(ESkillType key)
+        {
+            base.TryTriggerSkill(key);
             var tarSkill = GameApp.Entry.Game.Player.CMelee.GetSkillObject(key);
             if (tarSkill.SkillConfig.CostStrength > 0 && Actor.CStats.CurrentStamina <= 0)
             {
@@ -633,7 +639,7 @@ namespace Saber.AI
             }
         }
 
-        void Wnd_JoyStick.IHandler.OnClickSkill(ESkillType type)
+        public void OnClickSkillButton(ESkillType type)
         {
             OnTriggerSkill(type);
         }
@@ -666,10 +672,10 @@ namespace Saber.AI
             }
         }
 
-        void Wnd_JoyStick.IHandler.OnClickBag()
-        {
-            GameApp.Entry.UI.CreateWnd<Wnd_Bag>(null);
-        }
+        // void Wnd_JoyStick.IHandler.OnClickBag()
+        // {
+        //     GameApp.Entry.UI.CreateWnd<Wnd_Bag>(null);
+        // }
 
         #endregion
 

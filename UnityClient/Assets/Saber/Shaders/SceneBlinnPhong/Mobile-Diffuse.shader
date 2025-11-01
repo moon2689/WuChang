@@ -87,6 +87,7 @@ Shader "Saber/Mobile/Diffuse"
                 half4 color = half4(lighting, baseMap.a);
 
                 // sh
+                //_GlossyEnvironmentColor
                 half3 sh = SampleSH(N);
                 color.rgb += sh * albedo;
                 

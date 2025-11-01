@@ -14,7 +14,6 @@ namespace Saber.CharacterController
         private GameHelper.EDir4 m_Dir;
         private Vector3 m_ForwardDir;
         private SCharacter m_Character;
-        private bool m_PerfectDodged;
 
         public override bool ApplyRootMotionSetWhenEnter => true;
         public override bool CanExit => m_CanExit;
@@ -36,22 +35,6 @@ namespace Saber.CharacterController
         public string[] SpecialDodgeFrontAnims { get; set; }
 
 
-        public void OnPerfectDodge()
-        {
-            if (m_PerfectDodged)
-            {
-                return;
-            }
-
-            m_PerfectDodged = true;
-            //m_Character.CRender.ShowOneChaShadow(0.5f);
-            //var setting = GameApp.Entry.Config.GameSetting;
-            //Character.CRender.ShowManyChaShadow(setting.PerfectDodgeShaEffCount, setting.PerfectDodgeShaInterval, setting.PerfectDodgeShaHoldTime);
-            //GameApp.Entry.Game.Audio.Play3DSound("Sound/Skill/PerfectDodge", Actor.transform.position);
-
-            Actor.AddYuMao(1);
-        }
-
         public Dodge() : base(EStateType.Dodge)
         {
         }
@@ -67,6 +50,7 @@ namespace Saber.CharacterController
             Actor.CStats.CostStamina(GameApp.Entry.Config.GameSetting.DodgeCostStamina);
             Actor.CPhysic.EnableSlopeMovement = false;
             Actor.Invincible = true;
+            Actor.AddYuMaoWhenHitted = true;
 
             m_DodgeAnim = GetDodgeAnim(out m_ForwardDir);
             Actor.CAnim.Play(m_DodgeAnim);
@@ -150,6 +134,10 @@ namespace Saber.CharacterController
             if (eventObj.EventType == EAnimRangeEvent.Invincible)
             {
                 Actor.Invincible = enter;
+                if (!enter)
+                {
+                    Actor.AddYuMaoWhenHitted = false;
+                }
             }
             else if (eventObj.EventType == EAnimRangeEvent.CanTriggerSkill)
             {
@@ -168,6 +156,7 @@ namespace Saber.CharacterController
             {
                 m_CanExit = true;
                 Actor.Invincible = false;
+                Actor.AddYuMaoWhenHitted = false;
                 CanSwitchToSprint = true;
             }
             else if (eventObj.EventType == EAnimTriggerEvent.DodgeToSprint)
@@ -181,8 +170,8 @@ namespace Saber.CharacterController
             base.OnExit();
 
             Actor.Invincible = false;
+            Actor.AddYuMaoWhenHitted = false;
             Actor.CPhysic.EnableSlopeMovement = true;
-            m_PerfectDodged = false;
         }
 
         bool ISkillCanTrigger.CanTriggerSkill(SkillItem skill)

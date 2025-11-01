@@ -37,6 +37,7 @@ namespace Saber.CharacterController
         public bool m_Active = true;
         public int m_ID;
         public string m_SkillName;
+        public string m_Icon;
         public SkillAnimStateMachine[] m_AnimStates;
 
         public float CostStrength = 5;

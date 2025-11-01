@@ -230,7 +230,7 @@ namespace Saber
         {
             if (Target != null)
             {
-                m_Height = Target.Height * 0.7f;
+                m_Height = Target.Height * 0.6f;
                 SetHeight(m_Height);
             }
         }

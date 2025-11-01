@@ -154,8 +154,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1418986189047430773}
-  - component: {fileID: 2376390451714719543}
   - component: {fileID: 4654751995084132325}
+  - component: {fileID: 7301044599531085685}
   m_Layer: 0
   m_Name: FeiDao
   m_TagString: Untagged
@@ -180,31 +180,6 @@ Transform:
   - {fileID: 8180756169964462057}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2376390451714719543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4238189088615055275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5769644a8d52407f80c98c8a2acdb70d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Speed: 30
-  m_Direction: {x: 0, y: 0, z: 0}
-  m_EffectImpact: {fileID: 0}
-  m_LifeTime: 2
-  m_WeaponDamageSetting:
-    m_HitType: 4
-    m_WeaponBone: 29
-    m_DamageValue: 20
-    m_ImpactForce: 1
-    m_HitRecover: 0
-    m_ForceWhenGround: {x: 0, y: 0}
-    CanBeTanFan: 1
-    BreakByTanFan: 0
 --- !u!136 &4654751995084132325
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -228,6 +203,31 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7301044599531085685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4238189088615055275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0680e87e81ee48db8686c2698baa17fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectFly: {fileID: 6984121367985327471}
+  m_EffectImpact: {fileID: 0}
+  m_LifeTime: 2
+  m_WeaponDamageSetting:
+    m_HitType: 4
+    m_WeaponBone: 29
+    m_DamageValue: 20
+    m_ImpactForce: 1
+    m_HitRecover: 0
+    m_ForceWhenGround: {x: 0, y: 0}
+    CanBeTanFan: 1
+    BreakByTanFan: 0
+  m_Speed: 30
 --- !u!1001 &7795164365358247998
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -296,6 +296,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7536bfc2e6764b24782f6cf4d972c8d3, type: 3}
+--- !u!1 &6984121367985327471 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7536bfc2e6764b24782f6cf4d972c8d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 7795164365358247998}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7757245633903941589 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7536bfc2e6764b24782f6cf4d972c8d3,

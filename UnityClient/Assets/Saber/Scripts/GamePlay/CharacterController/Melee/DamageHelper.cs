@@ -66,14 +66,14 @@ namespace Saber.CharacterController
                 return false;
             }
 
-            if (enemy.Invincible && enemy.CurrentStateType == EStateType.Dodge && enemy.CStateMachine.CurrentState is Dodge dodge)
-            {
-                dodge.OnPerfectDodge();
-                return false;
-            }
-
             if (enemy.Invincible)
             {
+                if (enemy.AddYuMaoWhenHitted)
+                {
+                    enemy.AddYuMao(1);
+                    enemy.AddYuMaoWhenHitted = false;
+                }
+
                 return false;
             }
 
@@ -115,12 +115,14 @@ namespace Saber.CharacterController
 
             enemy.CMelee.AttackedDamageInfo = curDmgInfo;
 
+            // 卡帧 Freeze Frame.
+            FreezeFrame(dmgMaker, enemy, curDmgInfo);
+
             // 尝试格挡
             if (dmgMaker is SActor actor && TryDefense(actor, hurtBox, curDmgInfo))
+            {
                 return false;
-
-            // 卡帧 Freeze Frame.
-            FreezeFrame(dmgMaker, hurtBox);
+            }
 
             // 扣血
             if (curDmgInfo.DamageValue > 0)
@@ -170,16 +172,17 @@ namespace Saber.CharacterController
         }
 
         // 卡帧
-        static void FreezeFrame(IDamageMaker dmgMaker, HurtBox hurtBox)
+        static void FreezeFrame(IDamageMaker dmgMaker, SActor enemy, DamageInfo curDmgInfo)
         {
-            SActor enemy = hurtBox.Actor;
             float speed = 0.1f;
             float time = 0.1f;
 
             enemy.CAnim.CartonFrames(time, speed);
 
-            if (dmgMaker is SActor actor)
+            if (curDmgInfo.HitType == EHitType.Weapon && dmgMaker is SActor actor)
+            {
                 actor.CAnim.CartonFrames(time, speed);
+            }
             // enemy.m_AnimSpeedExecutor.AddSpeedModifiers(speed, time);
             // actor.m_AnimSpeedExecutor.AddSpeedModifiers(speed, time);
         }

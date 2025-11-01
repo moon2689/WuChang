@@ -106,6 +106,8 @@ namespace Saber.CharacterController
             set { m_CurrentUnbalanceValue = Mathf.Clamp(value, 0, Actor.StatsInfo.m_UnbalanceValue); }
         }
 
+        public float MaxUnbalanceValue => Actor.StatsInfo.m_UnbalanceValue;
+
 
         public ActorBaseStats(SActor actor)
         {

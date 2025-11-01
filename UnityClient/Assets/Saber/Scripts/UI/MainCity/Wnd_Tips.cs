@@ -33,6 +33,7 @@ namespace Saber.UI
         private Queue<TextItem> m_QueueTexts = new();
         private List<TextItem> m_CacheTexts = new();
         private float m_TimerShowTextInterval;
+        private string m_LastShowingText;
 
 
         protected override void Start()
@@ -44,6 +45,21 @@ namespace Saber.UI
 
         public void ShowText(string message, float textTime)
         {
+            if (m_LastShowingText == message)
+            {
+                m_State = EState.ShowText;
+                if (m_TimerShowText < textTime)
+                    m_TimerShowText = textTime;
+                return;
+            }
+
+            var lastOneInQueue = m_QueueTexts.LastOrDefault();
+            if (lastOneInQueue != null && lastOneInQueue.Messenge == message)
+            {
+                lastOneInQueue.ShowingTime = textTime;
+                return;
+            }
+
             TextItem item = m_CacheTexts.FirstOrDefault();
             if (item != null)
             {
@@ -135,6 +151,7 @@ namespace Saber.UI
             m_State = EState.ShowText;
             if (m_TimerShowText < textTime)
                 m_TimerShowText = textTime;
+            m_LastShowingText = item.Messenge;
         }
     }
 }
