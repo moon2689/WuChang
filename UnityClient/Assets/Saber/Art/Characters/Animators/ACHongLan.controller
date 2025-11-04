@@ -197,7 +197,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Atk14
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 760607417326573137}
@@ -508,7 +508,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RangeTime:
     minValue: 0
-    maxValue: 0.5
+    maxValue: 0.6
   m_EventType: 3
 --- !u!1101 &-6838286872555360668
 AnimatorStateTransition:
@@ -645,7 +645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RangeTime:
     minValue: 0
-    maxValue: 0.2
+    maxValue: 0.4
   m_EventType: 3
 --- !u!1101 &-5760964532822653364
 AnimatorStateTransition:
@@ -739,7 +739,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RangeTime:
     minValue: 0
-    maxValue: 0.5
+    maxValue: 0.6
   m_EventType: 3
 --- !u!114 &-5588064189816747492
 MonoBehaviour:
@@ -1637,7 +1637,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RangeTime:
     minValue: 0
-    maxValue: 0.2
+    maxValue: 0.3
   m_EventType: 3
 --- !u!1101 &-1151182453625956113
 AnimatorStateTransition:
@@ -2517,7 +2517,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Atk_18
-  m_Speed: 1
+  m_Speed: 1.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 7320312429409916110}
@@ -3075,7 +3075,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RangeTime:
     minValue: 0
-    maxValue: 0.2
+    maxValue: 0.4
   m_EventType: 3
 --- !u!1102 &5951258346143392008
 AnimatorState:

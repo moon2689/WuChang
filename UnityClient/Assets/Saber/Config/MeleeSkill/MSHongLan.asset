@@ -35,6 +35,10 @@ MonoBehaviour:
       m_BlendTime: 0.5
     - m_SkillID: 24
       m_BlendTime: 0.5
+    - m_SkillID: 27
+      m_BlendTime: 0.5
+    - m_SkillID: 29
+      m_BlendTime: 0.5
     m_ResilienceBeforeAttack: 2
     m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
@@ -98,9 +102,9 @@ MonoBehaviour:
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 5
-      maxValue: 30
+      maxValue: 20
     m_GroupID: 0
-    m_AITriggerCondition: 0
+    m_AITriggerCondition: 3
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
   - m_Active: 0
@@ -274,7 +278,7 @@ MonoBehaviour:
       minValue: 0
       maxValue: 5
     m_GroupID: 2
-    m_AITriggerCondition: 0
+    m_AITriggerCondition: 3
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
   - m_Active: 1
@@ -299,6 +303,10 @@ MonoBehaviour:
     - m_SkillID: 1
       m_BlendTime: 0.1
     - m_SkillID: 26
+      m_BlendTime: 0.1
+    - m_SkillID: 27
+      m_BlendTime: 0.1
+    - m_SkillID: 29
       m_BlendTime: 0.1
     m_ResilienceBeforeAttack: 2
     m_ResilienceAttacking: 2
@@ -337,9 +345,9 @@ MonoBehaviour:
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_Active: 0
+  - m_Active: 1
     m_ID: 12
-    m_SkillName: 
+    m_SkillName: "\u5251\u6C14\u84C4\u529B\u5782\u76F4"
     m_Icon: 
     m_AnimStates:
     - m_Name: atk08
@@ -354,14 +362,14 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_ResilienceBeforeAttack: 1
-    m_ResilienceAttacking: 1
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
-      minValue: 0
-      maxValue: 5
+      minValue: 5
+      maxValue: 50
     m_GroupID: 0
-    m_AITriggerCondition: 0
+    m_AITriggerCondition: 2
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
   - m_Active: 1
@@ -393,19 +401,25 @@ MonoBehaviour:
       m_BlendTime: 0.5
     - m_SkillID: 36
       m_BlendTime: 0.5
+    - m_SkillID: 27
+      m_BlendTime: 0.5
+    - m_SkillID: 29
+      m_BlendTime: 0.5
+    - m_SkillID: 37
+      m_BlendTime: 0.5
     m_ResilienceBeforeAttack: 2
     m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 5
-      maxValue: 30
+      maxValue: 20
     m_GroupID: 0
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_Active: 0
+  - m_Active: 1
     m_ID: 14
-    m_SkillName: 
+    m_SkillName: "\u5251\u6C14\u84C4\u529B\u6A2A\u5411"
     m_Icon: 
     m_AnimStates:
     - m_Name: Atk12_sd3
@@ -420,14 +434,14 @@ MonoBehaviour:
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_ResilienceBeforeAttack: 1
-    m_ResilienceAttacking: 1
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
-      minValue: 0
-      maxValue: 5
+      minValue: 5
+      maxValue: 50
     m_GroupID: 0
-    m_AITriggerCondition: 0
+    m_AITriggerCondition: 2
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
   - m_Active: 0
@@ -483,7 +497,7 @@ MonoBehaviour:
       minValue: 0
       maxValue: 5
     m_GroupID: 0
-    m_AITriggerCondition: 0
+    m_AITriggerCondition: 3
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
   - m_Active: 0
@@ -545,7 +559,7 @@ MonoBehaviour:
       minValue: 0
       maxValue: 7
     m_GroupID: 1
-    m_AITriggerCondition: 0
+    m_AITriggerCondition: 3
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
   - m_Active: 1
@@ -580,7 +594,7 @@ MonoBehaviour:
       minValue: 0
       maxValue: 7
     m_GroupID: 1
-    m_AITriggerCondition: 0
+    m_AITriggerCondition: 3
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
   - m_Active: 0
@@ -661,6 +675,8 @@ MonoBehaviour:
     - m_SkillID: 10
       m_BlendTime: 0.5
     - m_SkillID: 36
+      m_BlendTime: 0.5
+    - m_SkillID: 37
       m_BlendTime: 0.5
     m_ResilienceBeforeAttack: 2
     m_ResilienceAttacking: 2
@@ -782,6 +798,10 @@ MonoBehaviour:
       m_BlendTime: 0.6
     - m_SkillID: 24
       m_BlendTime: 0.6
+    - m_SkillID: 27
+      m_BlendTime: 0.5
+    - m_SkillID: 29
+      m_BlendTime: 0.5
     m_ResilienceBeforeAttack: 2
     m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
@@ -792,9 +812,9 @@ MonoBehaviour:
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_Active: 0
+  - m_Active: 1
     m_ID: 27
-    m_SkillName: 
+    m_SkillName: "\u5251\u6C14\u5FEB"
     m_Icon: 
     m_AnimStates:
     - m_Name: Atk12_a_b
@@ -808,20 +828,26 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
-    m_ChainSkills: []
-    m_ResilienceBeforeAttack: 1
-    m_ResilienceAttacking: 1
+    m_ChainSkills:
+    - m_SkillID: 10
+      m_BlendTime: 0.5
+    - m_SkillID: 22
+      m_BlendTime: 0.1
+    - m_SkillID: 24
+      m_BlendTime: 0.1
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 5
+      maxValue: 6
     m_GroupID: 0
-    m_AITriggerCondition: 0
+    m_AITriggerCondition: 2
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_Active: 0
+  - m_Active: 1
     m_ID: 28
-    m_SkillName: 
+    m_SkillName: "\u540E\u64A4\u5E76\u4E0A\u64A9\u52511"
     m_Icon: 
     m_AnimStates:
     - m_Name: Atk12_b_a
@@ -835,9 +861,13 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
-    m_ChainSkills: []
-    m_ResilienceBeforeAttack: 1
-    m_ResilienceAttacking: 1
+    m_ChainSkills:
+    - m_SkillID: 22
+      m_BlendTime: 0.6
+    - m_SkillID: 24
+      m_BlendTime: 0.6
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
@@ -846,9 +876,9 @@ MonoBehaviour:
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_Active: 0
+  - m_Active: 1
     m_ID: 29
-    m_SkillName: 
+    m_SkillName: "\u5251\u6C14\u5FEB\u540E\u64A4"
     m_Icon: 
     m_AnimStates:
     - m_Name: Atk12_b_b
@@ -862,15 +892,21 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
-    m_ChainSkills: []
-    m_ResilienceBeforeAttack: 1
-    m_ResilienceAttacking: 1
+    m_ChainSkills:
+    - m_SkillID: 10
+      m_BlendTime: 0.5
+    - m_SkillID: 22
+      m_BlendTime: 0.5
+    - m_SkillID: 24
+      m_BlendTime: 0.5
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 5
+      maxValue: 6
     m_GroupID: 0
-    m_AITriggerCondition: 0
+    m_AITriggerCondition: 2
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
   - m_Active: 1
@@ -902,19 +938,21 @@ MonoBehaviour:
       m_BlendTime: 0.5
     - m_SkillID: 36
       m_BlendTime: 0.5
+    - m_SkillID: 37
+      m_BlendTime: 0.5
     m_ResilienceBeforeAttack: 2
     m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 5
-      maxValue: 30
+      maxValue: 20
     m_GroupID: 0
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_Active: 0
+  - m_Active: 1
     m_ID: 31
-    m_SkillName: 
+    m_SkillName: "\u53CC\u5251\u7A81\u523A"
     m_Icon: 
     m_AnimStates:
     - m_Name: Atk13_a_b
@@ -928,20 +966,22 @@ MonoBehaviour:
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
-    m_ChainSkills: []
-    m_ResilienceBeforeAttack: 1
-    m_ResilienceAttacking: 1
+    m_ChainSkills:
+    - m_SkillID: 32
+      m_BlendTime: 0.3
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 5
+      maxValue: 15
     m_GroupID: 0
-    m_AITriggerCondition: 0
+    m_AITriggerCondition: 2
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_Active: 0
+  - m_Active: 1
     m_ID: 32
-    m_SkillName: 
+    m_SkillName: "\u4E94\u8FDE\u65A9"
     m_Icon: 
     m_AnimStates:
     - m_Name: Atk14
@@ -954,21 +994,23 @@ MonoBehaviour:
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
-    m_FirstSkillOfCombo: 1
-    m_ChainSkills: []
-    m_ResilienceBeforeAttack: 1
-    m_ResilienceAttacking: 1
+    m_FirstSkillOfCombo: 0
+    m_ChainSkills:
+    - m_SkillID: 35
+      m_BlendTime: 0.5
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 5
+      maxValue: 6
     m_GroupID: 0
-    m_AITriggerCondition: 0
+    m_AITriggerCondition: 2
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_Active: 0
+  - m_Active: 1
     m_ID: 33
-    m_SkillName: 
+    m_SkillName: "\u5251\u6C14\u4E8C\u9636\u6BB5\u8F6C\u6362"
     m_Icon: 
     m_AnimStates:
     - m_Name: Atk15_a
@@ -977,20 +1019,20 @@ MonoBehaviour:
     m_CostPower: 0
     m_CanTriggerWhenPowerNotEnough: 0
     m_PowerAddWhenHitted: 0
-    m_CDSeconds: 0
+    m_CDSeconds: 45
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
     m_ChainSkills: []
-    m_ResilienceBeforeAttack: 1
-    m_ResilienceAttacking: 1
+    m_ResilienceBeforeAttack: 4
+    m_ResilienceAttacking: 4
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 5
+      maxValue: 50
     m_GroupID: 0
-    m_AITriggerCondition: 0
+    m_AITriggerCondition: 1
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
   - m_Active: 0
@@ -1020,9 +1062,9 @@ MonoBehaviour:
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_Active: 0
+  - m_Active: 1
     m_ID: 35
-    m_SkillName: 
+    m_SkillName: "\u8DF3\u5288"
     m_Icon: 
     m_AnimStates:
     - m_Name: Atk16
@@ -1031,20 +1073,20 @@ MonoBehaviour:
     m_CostPower: 0
     m_CanTriggerWhenPowerNotEnough: 0
     m_PowerAddWhenHitted: 0
-    m_CDSeconds: 0
+    m_CDSeconds: 30
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
-    m_FirstSkillOfCombo: 1
+    m_FirstSkillOfCombo: 0
     m_ChainSkills: []
-    m_ResilienceBeforeAttack: 1
-    m_ResilienceAttacking: 1
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
       maxValue: 5
     m_GroupID: 0
-    m_AITriggerCondition: 0
+    m_AITriggerCondition: 2
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
   - m_Active: 1
@@ -1058,7 +1100,7 @@ MonoBehaviour:
     m_CostPower: 0
     m_CanTriggerWhenPowerNotEnough: 0
     m_PowerAddWhenHitted: 0
-    m_CDSeconds: 30
+    m_CDSeconds: 20
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
@@ -1071,12 +1113,12 @@ MonoBehaviour:
       minValue: 0
       maxValue: 10
     m_GroupID: 0
-    m_AITriggerCondition: 0
+    m_AITriggerCondition: 3
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
-  - m_Active: 0
+  - m_Active: 1
     m_ID: 37
-    m_SkillName: 
+    m_SkillName: "\u6254\u98DE\u5200\u5E76\u8FDE\u65A9"
     m_Icon: 
     m_AnimStates:
     - m_Name: Atk_18
@@ -1085,19 +1127,21 @@ MonoBehaviour:
     m_CostPower: 0
     m_CanTriggerWhenPowerNotEnough: 0
     m_PowerAddWhenHitted: 0
-    m_CDSeconds: 0
+    m_CDSeconds: 10
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
     m_FirstSkillOfCombo: 1
-    m_ChainSkills: []
-    m_ResilienceBeforeAttack: 1
-    m_ResilienceAttacking: 1
+    m_ChainSkills:
+    - m_SkillID: 35
+      m_BlendTime: 0.5
+    m_ResilienceBeforeAttack: 2
+    m_ResilienceAttacking: 3
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 5
+      maxValue: 10
     m_GroupID: 0
-    m_AITriggerCondition: 0
+    m_AITriggerCondition: 2
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0

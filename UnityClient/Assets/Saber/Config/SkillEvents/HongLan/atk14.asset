@@ -38,7 +38,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
   m_Name: CanExit
   m_EditorClassIdentifier: 
-  IsActive: 0
+  IsActive: 1
 --- !u!114 &-5190861091160122718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,12 +81,12 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 0
     m_WeaponBone: 28
-    m_DamageValue: 5
+    m_DamageValue: 30
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1
-    BreakByTanFan: 1
+    BreakByTanFan: 0
 --- !u!114 &-1590045426337690962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,11 +142,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: 55bf0136e4f52d049b641e9e982b6288, type: 3}
-  - {fileID: 8300000, guid: 977b5ecbd2fca674db1df7dc682cc3a2, type: 3}
-  - {fileID: 8300000, guid: 67af835e4a5a4e9479066e8623522f80, type: 3}
+  - {fileID: 8300000, guid: 6d0ccf6d2f9eac2458c9a95354f05cd1, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
+  m_FollowAnim: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +164,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0, y: 0.42}
+    EventRange: {x: 0, y: 0.23666666}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -173,7 +172,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 6831069435991220263}
-  - EventTime: 0.49666667
+  - EventTime: 0.67333335
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -183,7 +182,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -7880986325533757326}
   - EventTime: 0
-    EventRange: {x: 0.3, y: 0.35}
+    EventRange: {x: 0.5466667, y: 0.57666665}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -191,7 +190,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 2864495541337757469}
-  - EventTime: 0.093333334
+  - EventTime: 0.20333333
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -281,6 +280,29 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 4017142262268760841}
+  - EventTime: 0
+    EventRange: {x: 0.23666666, y: 0.44666666}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 211714090159365590}
+--- !u!114 &211714090159365590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f29d956cd14f76ae2ff6fbffccde20, type: 3}
+  m_Name: AlignToEnemy2
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_RotateSpeed: 90
 --- !u!114 &471457873936895910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,7 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
   m_Name: SFXVoice
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   clips:
   - {fileID: 8300000, guid: 230ca5e51939b1f478519d63a401bff6, type: 3}
   - {fileID: 8300000, guid: efcf476ab86845643b2d895517ca5189, type: 3}
@@ -317,6 +339,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 54a1f43b5cfb2344184d561ea7a3b7ac, type: 3}
   m_Volume: 1
   m_TriggerProbability: 20
+  m_FollowAnim: 0
 --- !u!114 &2570334206675157212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,12 +369,12 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 0
     m_WeaponBone: 29
-    m_DamageValue: 5
+    m_DamageValue: 30
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1
-    BreakByTanFan: 1
+    BreakByTanFan: 0
 --- !u!114 &2864495541337757469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,7 +387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb9d103b2e74362b49578d9f2b35094, type: 3}
   m_Name: ComboTime
   m_EditorClassIdentifier: 
-  IsActive: 0
+  IsActive: 1
 --- !u!114 &4017142262268760841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,12 +417,12 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 0
     m_WeaponBone: 28
-    m_DamageValue: 5
+    m_DamageValue: 30
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1
-    BreakByTanFan: 1
+    BreakByTanFan: 0
 --- !u!114 &4677543955029087407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,12 +452,12 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 0
     m_WeaponBone: 29
-    m_DamageValue: 5
+    m_DamageValue: 30
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1
-    BreakByTanFan: 1
+    BreakByTanFan: 0
 --- !u!114 &5580635834188673506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,12 +487,12 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 0
     m_WeaponBone: 29
-    m_DamageValue: 5
+    m_DamageValue: 30
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1
-    BreakByTanFan: 1
+    BreakByTanFan: 0
 --- !u!114 &6831069435991220263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,4 +506,4 @@ MonoBehaviour:
   m_Name: AlignToEnemy
   m_EditorClassIdentifier: 
   IsActive: 1
-  m_RotateSpeed: 720
+  m_RotateSpeed: 360

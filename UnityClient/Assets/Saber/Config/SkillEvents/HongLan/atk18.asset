@@ -27,11 +27,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: 55bf0136e4f52d049b641e9e982b6288, type: 3}
-  - {fileID: 8300000, guid: 977b5ecbd2fca674db1df7dc682cc3a2, type: 3}
-  - {fileID: 8300000, guid: 67af835e4a5a4e9479066e8623522f80, type: 3}
+  - {fileID: 8300000, guid: c0ec0493f9d4fba479152fe63f6a6e01, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
+  m_FollowAnim: 1
 --- !u!114 &-8312853326987978638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53,6 +52,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 54a1f43b5cfb2344184d561ea7a3b7ac, type: 3}
   m_Volume: 1
   m_TriggerProbability: 20
+  m_FollowAnim: 0
 --- !u!114 &-5492478964264215808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,6 +79,29 @@ MonoBehaviour:
   ColliderSize: {x: 1, y: 1, z: 1}
   Radius: 1.2312667
   Height: 1
+--- !u!114 &-3325112866070591135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d72110aa1334503a362701f4b44a40d, type: 3}
+  m_Name: Projectile
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 4238189088615055275, guid: 8efde06271c24464f8fadc18448139a3,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 1.502437, z: 1.48578}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 0
+  m_ProjectileType: 1
 --- !u!114 &-2311824863350210637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,12 +145,12 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 0
     m_WeaponBone: 29
-    m_DamageValue: 5
+    m_DamageValue: 30
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1
-    BreakByTanFan: 1
+    BreakByTanFan: 0
 --- !u!114 &-1961681127276804459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
   m_Name: CanExit
   m_EditorClassIdentifier: 
-  IsActive: 0
+  IsActive: 1
 --- !u!114 &-424598555804036045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,7 +219,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -2311824863350210637}
-  - EventTime: 0
+  - EventTime: 0.70678335
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -206,7 +229,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -1937311202359370909}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.595186, y: 0.61050326}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -214,7 +237,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 9208845435010483048}
-  - EventTime: 0
+  - EventTime: 0.3522976
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -250,6 +273,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 7923736647447829983}
+  - EventTime: 0
+    EventRange: {x: 0.5010941, y: 0.5142232}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 8677315683260766474}
   - EventTime: 0
     EventRange: {x: 0.39606127, y: 0.53829324}
     EventMultiRange:
@@ -287,15 +319,6 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: -2146495000965079724}
   - EventTime: 0
-    EventRange: {x: 0.5010941, y: 0.5142232}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 8677315683260766474}
-  - EventTime: 0
     EventRange: {x: 0.33041576, y: 0.54704595}
     EventMultiRange:
     - 0.2
@@ -304,6 +327,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -1961681127276804459}
+  - EventTime: 0.08752735
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -3325112866070591135}
 --- !u!114 &259754339539862739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,12 +365,12 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 0
     m_WeaponBone: 29
-    m_DamageValue: 5
+    m_DamageValue: 30
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1
-    BreakByTanFan: 1
+    BreakByTanFan: 0
 --- !u!114 &2258662636668878181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,12 +415,12 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 0
     m_WeaponBone: 29
-    m_DamageValue: 5
+    m_DamageValue: 30
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1
-    BreakByTanFan: 1
+    BreakByTanFan: 0
 --- !u!114 &8378364522498498703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,12 +476,12 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 0
     m_WeaponBone: 29
-    m_DamageValue: 5
+    m_DamageValue: 30
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
     CanBeTanFan: 1
-    BreakByTanFan: 1
+    BreakByTanFan: 0
 --- !u!114 &9208845435010483048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,4 +494,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb9d103b2e74362b49578d9f2b35094, type: 3}
   m_Name: ComboTime
   m_EditorClassIdentifier: 
-  IsActive: 0
+  IsActive: 1

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CombatEditor;
+using Saber.AI;
 using Saber.Config;
 using Saber.Frame;
 using UnityEngine;
@@ -98,7 +99,7 @@ namespace Saber.CharacterController
                     return true;
                 }
 
-                if (GameApp.Entry.Config.TestGame.DebugFight)
+                if (GameApp.Entry.Config.TestGame.DebugFight && Actor.AI is TestSkill)
                 {
                     return true;
                 }

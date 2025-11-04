@@ -78,7 +78,7 @@ public class UnBlinnPhongUniversalShaderGUI : ShaderGUI
 
         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
         {
-            m_MaterialEditor.ShaderProperty(FindProperty("_BaseMap", m_Properties), "基础图");
+            m_MaterialEditor.ShaderProperty(FindProperty("_MainTex", m_Properties), "基础图");
             m_MaterialEditor.ShaderProperty(FindProperty("_BaseColor", m_Properties), "基础颜色");
 
             if (m_CurRenderMode == ERenderMode.固体裁剪)

@@ -50,7 +50,7 @@ public class UnBlinnPhongHairShaderGUI : ShaderGUI
 
         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
         {
-            m_MaterialEditor.ShaderProperty(FindProperty("_BaseMap", m_Properties), "基础图");
+            m_MaterialEditor.ShaderProperty(FindProperty("_MainTex", m_Properties), "基础图");
             m_MaterialEditor.ShaderProperty(FindProperty("_BaseColor", m_Properties), "基础颜色");
             m_MaterialEditor.ShaderProperty(m_cutoffProp, "裁剪值");
             m_CurLightMode = GetCurrentLightMode();

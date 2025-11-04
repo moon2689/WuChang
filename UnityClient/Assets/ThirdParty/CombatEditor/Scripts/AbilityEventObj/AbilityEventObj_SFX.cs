@@ -13,6 +13,7 @@ namespace CombatEditor
         public List<AudioClip> clips;
         public float m_Volume = 1;
         [Range(0, 100)] public int m_TriggerProbability = 100;
+        public bool m_FollowAnim;
 
         public override EventTimeType GetEventTimeType()
         {
@@ -42,8 +43,10 @@ namespace CombatEditor
             if (UnityEngine.Random.Range(0, 100) < EventObj.m_TriggerProbability)
             {
                 AudioClip clip = EventObj.clips[Random.Range(0, EventObj.clips.Count)];
-                //Actor.PlaySound(clip);
-                m_AudioPlayer = GameApp.Entry.Game.Audio.Play3DSound(clip, Actor.transform.position);
+                if (EventObj.m_FollowAnim)
+                    Actor.PlaySound(clip);
+                else
+                    m_AudioPlayer = GameApp.Entry.Game.Audio.Play3DSound(clip, Actor.transform.position);
             }
         }
 

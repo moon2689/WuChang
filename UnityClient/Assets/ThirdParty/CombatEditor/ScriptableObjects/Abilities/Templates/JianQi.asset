@@ -1,6 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6897331125144604440
+--- !u!114 &-9057364837422485527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfb9d103b2e74362b49578d9f2b35094, type: 3}
+  m_Name: ComboTime
+  m_EditorClassIdentifier: 
+  IsActive: 1
+--- !u!114 &-8717378790130502314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f29d956cd14f76ae2ff6fbffccde20, type: 3}
+  m_Name: AlignToEnemy
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  m_RotateSpeed: 1080
+--- !u!114 &-6706902851693534686
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13,7 +40,7 @@ MonoBehaviour:
   m_Name: AttackStates
   m_EditorClassIdentifier: 
   IsActive: 1
---- !u!114 &-3668389627441791741
+--- !u!114 &-3967165604688475982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -34,8 +61,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 54a1f43b5cfb2344184d561ea7a3b7ac, type: 3}
   m_Volume: 1
   m_TriggerProbability: 20
-  m_FollowAnim: 0
---- !u!114 &-1920711742261852789
+--- !u!114 &-1208505291584898619
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,128 +70,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7f29d956cd14f76ae2ff6fbffccde20, type: 3}
-  m_Name: AlignToEnemy
+  m_Script: {fileID: 11500000, guid: b781d06c00f873041aca107545370fa8, type: 3}
+  m_Name: DynamicTrail
   m_EditorClassIdentifier: 
-  IsActive: 1
-  m_RotateSpeed: 1080
---- !u!114 &-1787401172085441599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
-  m_Name: SFXHuiWu
-  m_EditorClassIdentifier: 
-  IsActive: 1
-  clips:
-  - {fileID: 8300000, guid: a93ebca82e6215e4f9ef27ba6d819709, type: 3}
-  m_Volume: 1
-  m_TriggerProbability: 100
-  m_FollowAnim: 0
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 757d9b080c65e9847b379b2a8a5ae8ab, type: 3}
-  m_Name: atk12ab
-  m_EditorClassIdentifier: 
-  AbilityType: 0
-  Clip: {fileID: -5888973439077438795, guid: ebe5caca48b15a74baa3fc4d810ed0fb, type: 3}
-  PreviewPercentageRange: {x: 0, y: 1}
-  loopCount: 0
-  events:
-  - EventTime: 0
-    EventRange: {x: 0, y: 0.25742576}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: -1920711742261852789}
-  - EventTime: 0.519802
-    EventRange: {x: 0, y: 1}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 2551247449341059104}
-  - EventTime: 0
-    EventRange: {x: 0.33168316, y: 0.38118812}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 4713501794668530522}
-  - EventTime: 0.25247526
-    EventRange: {x: 0, y: 1}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: -1787401172085441599}
-  - EventTime: 0
-    EventRange: {x: 0, y: 1}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 8234062411117470595}
-  - EventTime: 0
-    EventRange: {x: 0, y: 1}
-    EventMultiRange:
-    - 0.21782178
-    - 0.4009901
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: -6897331125144604440}
-  - EventTime: 0
-    EventRange: {x: 0, y: 1}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 898575965855044638}
-  - EventTime: 0.15346535
-    EventRange: {x: 0, y: 1}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: -3668389627441791741}
-  - EventTime: 0.25247526
-    EventRange: {x: 0, y: 1}
-    EventMultiRange:
-    - 0.2
-    - 0.4
-    - 0.6
-    - 0.8
-    Previewable: 0
-    Obj: {fileID: 7730132680022222711}
---- !u!114 &898575965855044638
+  IsActive: 0
+  m_WeaponBone: 29
+  m_NotTriggerWhenPowerEnough: 0
+--- !u!114 &-298394523739553466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,9 +109,159 @@ MonoBehaviour:
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
-    m_ShakeScreenWhenHitted: 0
     CanBeTanFan: 1
     BreakByTanFan: 1
+--- !u!114 &-144131616150174263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
+  m_Name: CanExit
+  m_EditorClassIdentifier: 
+  IsActive: 1
+--- !u!114 &-46882681829606008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
+  m_Name: SFXHuiWu
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  clips:
+  - {fileID: 8300000, guid: a93ebca82e6215e4f9ef27ba6d819709, type: 3}
+  m_Volume: 1
+  m_TriggerProbability: 100
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 757d9b080c65e9847b379b2a8a5ae8ab, type: 3}
+  m_Name: JianQi
+  m_EditorClassIdentifier: 
+  AbilityType: 0
+  Clip: {fileID: -5888973439077438795, guid: ebe5caca48b15a74baa3fc4d810ed0fb, type: 3}
+  PreviewPercentageRange: {x: 0, y: 1}
+  loopCount: 0
+  events:
+  - EventTime: 0
+    EventRange: {x: 0, y: 0.24752475}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -8717378790130502314}
+  - EventTime: 0.74752474
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -144131616150174263}
+  - EventTime: 0
+    EventRange: {x: 0.38613862, y: 0.4108911}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -9057364837422485527}
+  - EventTime: 0.16336633
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -46882681829606008}
+  - EventTime: 0
+    EventRange: {x: 0.18811882, y: 0.38118812}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -1208505291584898619}
+  - EventTime: 0
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.1980198
+    - 0.4009901
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -6706902851693534686}
+  - EventTime: 0
+    EventRange: {x: 0.26237625, y: 0.28217822}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -298394523739553466}
+  - EventTime: 0.12871288
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -3967165604688475982}
+  - EventTime: 0.25247526
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 27023536223814854}
+--- !u!114 &27023536223814854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d72110aa1334503a362701f4b44a40d, type: 3}
+  m_Name: Projectile
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 8477394280318632219, guid: b5f382a950fe35a4698fe4a91d9b74d2,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0.06961694, y: 1.0757359, z: 1.1910667}
+    Rot: {x: -0.013314273, y: -0.0735103, z: -0.33433178, w: -0.93948984}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 1
+  m_ProjectileType: 0
 --- !u!114 &1559773831988922797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,70 +288,6 @@ MonoBehaviour:
   ColliderSize: {x: 1, y: 1, z: 1}
   Radius: 1.2312667
   Height: 1
---- !u!114 &2551247449341059104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
-  m_Name: CanExit
-  m_EditorClassIdentifier: 
-  IsActive: 1
---- !u!114 &4713501794668530522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfb9d103b2e74362b49578d9f2b35094, type: 3}
-  m_Name: ComboTime
-  m_EditorClassIdentifier: 
-  IsActive: 1
---- !u!114 &7730132680022222711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d72110aa1334503a362701f4b44a40d, type: 3}
-  m_Name: Projectile
-  m_EditorClassIdentifier: 
-  IsActive: 1
-  ObjData:
-    TargetObj: {fileID: 8477394280318632219, guid: b5f382a950fe35a4698fe4a91d9b74d2,
-      type: 3}
-    controlType: 0
-    Offset: {x: 0.24587172, y: 0.7876032, z: 0.22390284}
-    Rot: {x: -0.014031854, y: -0.073376715, z: -0.34349486, w: -0.9361785}
-    TargetNode: 2
-    FollowNode: 1
-    RotateByNode: 1
-  m_ProjectileType: 0
---- !u!114 &8234062411117470595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b781d06c00f873041aca107545370fa8, type: 3}
-  m_Name: DynamicTrail
-  m_EditorClassIdentifier: 
-  IsActive: 0
-  m_WeaponBone: 29
-  m_NotTriggerWhenPowerEnough: 0
 --- !u!114 &9220194657374161253
 MonoBehaviour:
   m_ObjectHideFlags: 0

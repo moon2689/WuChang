@@ -124,6 +124,15 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -3354534855696370645}
+  - EventTime: 0
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.4205298
+    - 0.74172187
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: 6891808960152722268}
 --- !u!114 &2749388054749477768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,6 +193,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   m_RotateSpeed: 720
+--- !u!114 &6891808960152722268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b6cfcfadd54440b975c2de0758518c, type: 3}
+  m_Name: AttackStates
+  m_EditorClassIdentifier: 
+  IsActive: 1
 --- !u!114 &7311610474679421518
 MonoBehaviour:
   m_ObjectHideFlags: 0

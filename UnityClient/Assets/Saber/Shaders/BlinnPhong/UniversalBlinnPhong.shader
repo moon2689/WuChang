@@ -10,7 +10,7 @@ Shader "Un/BlinnPhong/Universal"
         [Toggle(_ALPHATEST_ON)] _AlphaClip ("Alpha Clip", Float) = 0
         _Cutoff ("Alpha Cutoff", Range(0.0, 1.0)) = 0.5
         
-        _BaseMap ("Base Map", 2D) = "white" {}
+        _MainTex ("Base Map", 2D) = "white" {}
         _BaseColor ("Base Color", Color) = (1, 1, 1, 1)
         _RampMap ("Toon Ramp (RGB)", 2D) = "white" {}
     }
@@ -61,11 +61,11 @@ Shader "Un/BlinnPhong/Universal"
                 float3 positionWS : TEXCOORD2;
             };
 
-            TEXTURE2D(_BaseMap);        SAMPLER(sampler_BaseMap);
+            TEXTURE2D(_MainTex);        SAMPLER(sampler_MainTex);
             TEXTURE2D(_RampMap);        SAMPLER(sampler_RampMap);
 
             CBUFFER_START(UnityPerMaterial)
-                float4 _BaseMap_ST;
+                float4 _MainTex_ST;
                 float4 _BaseColor;
                 float _Cutoff;
                 float _Transparency;
@@ -77,7 +77,7 @@ Shader "Un/BlinnPhong/Universal"
                 
                 VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz);
                 output.positionCS = vertexInput.positionCS;
-                output.uv = TRANSFORM_TEX(input.uv, _BaseMap);
+                output.uv = TRANSFORM_TEX(input.uv, _MainTex);
                 output.positionWS = vertexInput.positionWS;
                 
                 VertexNormalInputs normalInput = GetVertexNormalInputs(input.normalOS);
@@ -96,7 +96,7 @@ Shader "Un/BlinnPhong/Universal"
             half4 frag(Varyings input) : SV_Target
             {
                 // 采样纹理
-                half4 baseMap = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv);
+                half4 baseMap = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
                 half3 albedo = baseMap.rgb * _BaseColor.rgb;
                 half alpha = baseMap.a * _BaseColor.a;
                 

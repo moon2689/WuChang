@@ -21,8 +21,6 @@ namespace Saber.CharacterController
         private float m_TotalTime;
         private float m_Timer;
         private Vector3 m_LastPos;
-        private bool m_CurveMoving;
-        private Vector3 m_StraightMoveDir;
 
 
         public EOffsetPointStyle OffsetPointStyle { get; set; }
@@ -60,38 +58,23 @@ namespace Saber.CharacterController
             m_LastPos = transform.position;
 
             transform.rotation = Quaternion.LookRotation(m_Pos2 - m_Pos1);
-            m_CurveMoving = true;
         }
 
         protected override void Fly()
         {
-            if (m_CurveMoving)
-            {
-                m_Timer += Time.deltaTime;
-                float t = m_Timer / m_TotalTime;
+            m_Timer += Time.deltaTime;
+            float t = m_Timer / m_TotalTime;
 
-                Vector3 p3 = m_Pos3Trans ? m_Pos3Trans.position : m_Pos3;
-                Vector3 curPos = GameHelper.CalcBezierCurve(m_Pos1, m_Pos2, p3, t);
-                Vector3 dir = curPos - m_LastPos;
-                transform.position = curPos;
-                transform.rotation = Quaternion.LookRotation(dir);
-                m_LastPos = curPos;
+            Vector3 p3 = m_Pos3Trans ? m_Pos3Trans.position : m_Pos3;
+            Vector3 curPos = GameHelper.CalcBezierCurve(m_Pos1, m_Pos2, p3, t);
+            Vector3 dir = curPos - m_LastPos;
+            transform.position = curPos;
+            transform.rotation = Quaternion.LookRotation(dir);
+            m_LastPos = curPos;
 
-                if (t >= 1)
-                {
-                    m_CurveMoving = false;
-                    m_Timer = 2;
-                    m_StraightMoveDir = (dir.normalized - Vector3.up * 0.2f).normalized;
-                }
-            }
-            else
+            if (t >= 1)
             {
-                transform.Translate(m_StraightMoveDir * m_Speed * Time.deltaTime);
-                m_Timer -= Time.deltaTime;
-                if (m_Timer < 0)
-                {
-                    Hide();
-                }
+                Impact();
             }
         }
     }

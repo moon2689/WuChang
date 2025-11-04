@@ -353,7 +353,7 @@ namespace Saber
             Vector3 lockPos = LockTarget.LockPosition;
             Vector3 viewPoint = Cam.WorldToViewportPoint(lockPos);
             outScreen = viewPoint.x < 0.1f || viewPoint.x > 0.9f || viewPoint.y < 0.1f || viewPoint.y > 0.9f;
-            outCenterRect = viewPoint.x < 0.45f || viewPoint.x > 0.6f || viewPoint.y < 0.6f || viewPoint.y > 0.8f;
+            outCenterRect = viewPoint.x < 0.5f || viewPoint.x > 0.7f || viewPoint.y < 0.6f || viewPoint.y > 0.8f;
             //Debug.Log($"ViewPoint:{viewPoint} outScreen:{outScreen} outCenterRect:{outCenterRect}");
         }
 
@@ -419,7 +419,8 @@ namespace Saber
 
             Vector3 dirToLockTarget = LockTarget.Position - Target.Position;
             Vector3 lockDirRight = Vector3.Cross(dirToLockTarget, Vector3.down).normalized;
-            Vector3 tarPos = Target.Position + lockDirRight * 0.5f; //摄像机位置偏向于主角右边
+            float offsetDis = 1f;
+            Vector3 tarPos = Target.Position + lockDirRight * offsetDis; //摄像机位置偏向于主角右边
             transform.position = Vector3.Lerp(transform.position, tarPos, deltaTime * m_MoveSpeed);
 
             // 锁定目标时，仍可手动调整摄像机方向
@@ -436,7 +437,7 @@ namespace Saber
 
             if (m_LookAtLockTargetType != ELookAtLockTargetType.None)
             {
-                Vector3 newLockDir = LockTarget.LockPosition - (Target.Position + Vector3.up * Target.Height + lockDirRight * 0.5f);
+                Vector3 newLockDir = LockTarget.LockPosition - (Target.Position + Vector3.up * Target.Height + lockDirRight * offsetDis);
 
                 // 垂直方向
                 Vector3 projectDir = Vector3.ProjectOnPlane(newLockDir, transform.right);

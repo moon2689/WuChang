@@ -36,7 +36,7 @@ namespace Saber.World
         }
 
 
-        public Action<bool> Event_OnStartOrEndFightingBoss;
+        public Action<SMonster> Event_OnStartOrEndFightingBoss;
 
 
         private SActor m_Player;
@@ -72,7 +72,7 @@ namespace Saber.World
         //public Vector3 Date => m_AzureTime != null ? m_AzureTime.GetDate() : Vector3.zero;
 
         public Light MainLight { get; private set; }
-        public SActor CurrentFightingBoss { get; private set; }
+        public SMonster CurrentFightingBoss { get; private set; }
         public SceneBaseInfo SceneInfo => m_SceneInfo;
         public ScenePointShenKan CurrentStayingShenKan => m_CurrentStayingShenKan;
         public int CurrentStayingShenKanID => m_CurrentStayingShenKan != null ? m_CurrentStayingShenKan.m_ID : 0;
@@ -560,32 +560,32 @@ namespace Saber.World
 
         void OnActorSetLockingEnemy(SActor owner, SActor enemy)
         {
-            if (owner.BaseInfo.m_ActorType == EActorType.Boss)
+            if (owner.BaseInfo.m_ActorType == EActorType.Boss && owner is SMonster monster)
             {
-                OnBeginBossFighting(enemy == m_Player ? owner : null);
+                OnBeginBossFighting(enemy == m_Player ? monster : null);
             }
         }
 
-        void OnBeginBossFighting(SActor isFightingBoss)
+        void OnBeginBossFighting(SMonster fightingBoss)
         {
-            CurrentFightingBoss = isFightingBoss;
+            CurrentFightingBoss = fightingBoss;
             Event_OnStartOrEndFightingBoss?.Invoke(CurrentFightingBoss);
 
             foreach (var p in m_ScenePoints)
             {
                 if (p.m_PointType == EScenePointType.ShenKan)
                 {
-                    p.SetActive(!isFightingBoss);
+                    p.SetActive(!fightingBoss);
                 }
                 else if (p.m_PointType == EScenePointType.Portal)
                 {
-                    p.SetActive(!isFightingBoss);
+                    p.SetActive(!fightingBoss);
                 }
                 else if (p.m_PointType == EScenePointType.MonsterBornPosition && p is ScenePointMonster monserPoint)
                 {
                     if (monserPoint.Actor != CurrentFightingBoss)
                     {
-                        monserPoint.SetActive(!isFightingBoss);
+                        monserPoint.SetActive(!fightingBoss);
                     }
                 }
             }

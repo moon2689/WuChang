@@ -31,11 +31,8 @@ MonoBehaviour:
       m_IsBodyHuge: 0
       m_PhysicMaterialType: 0
       m_ChestHeight: 1
-      m_TurnRotSpeed: 0
-      m_JumpForceVertical: 10
       m_OpenSlopeMovement: 0
       m_OpenPlatformMovement: 0
-      m_CanClimb: 0
     m_SkillConfig: {fileID: 11400000, guid: 2dd4a07326a9339468b917fca33f5d42, type: 2}
     m_WeaponPrefabs:
     - m_WeaponPrefabResPath: 
@@ -55,6 +52,9 @@ MonoBehaviour:
   m_MonsterInfo:
     m_CanDefense: 0
     m_DodgeType: 7
+    m_BattleMusic:
+    - Sound/BGM/BattleHongLan1
+    - Sound/BGM/BattleHongLan2
     m_SpecialIdls: []
     m_SpecialDodgeBackAnims:
     - FleeBack
@@ -68,16 +68,6 @@ MonoBehaviour:
       m_DefaultAI: 4
       m_WarningRange: 10
       m_LostFocusRange: 50
-      m_StalemateStayTime: {x: 0.3, y: 3}
-      m_RandomMoveTime: {x: 1, y: 3}
-      m_SprintTimeBeforeAttack: {x: 0.5, y: 2}
-      m_DodgeDamagePercent: 80
-      m_DodgePercentAfterAttack: 50
-      m_DodgePercentAfterStalemate: 10
-      m_TurnDirWhenNotFaceToEnemy: 0
-      m_ContinueAttackPercentAfterAttack: 50
-      m_AttackPercentAfterDodge: 50
-      m_AIAttackStyleWhenTooFar: 1
       m_EventsBeforeFighting:
       - EventType: 0
         m_ParamFloat: 0
@@ -88,3 +78,24 @@ MonoBehaviour:
         m_ParamFloat: 0
         m_ParamInt: 1
         m_ParamStrng: 
+      m_AttackConfig:
+      - m_StalemateStayTime: {x: 0.3, y: 3}
+        m_RandomMoveTime: {x: 1, y: 3}
+        m_SprintTimeBeforeAttack: {x: 0.5, y: 2}
+        m_DodgeDamagePercent: 80
+        m_DodgePercentAfterAttack: 50
+        m_DodgePercentAfterStalemate: 10
+        m_TurnDirWhenNotFaceToEnemy: 0
+        m_ContinueAttackPercentAfterAttack: 50
+        m_AttackPercentAfterDodge: 50
+        m_AIAttackStyleWhenTooFar: 1
+      - m_StalemateStayTime: {x: 0.3, y: 1}
+        m_RandomMoveTime: {x: 1, y: 3}
+        m_SprintTimeBeforeAttack: {x: 0.5, y: 1}
+        m_DodgeDamagePercent: 80
+        m_DodgePercentAfterAttack: 80
+        m_DodgePercentAfterStalemate: 10
+        m_TurnDirWhenNotFaceToEnemy: 0
+        m_ContinueAttackPercentAfterAttack: 90
+        m_AttackPercentAfterDodge: 90
+        m_AIAttackStyleWhenTooFar: 1

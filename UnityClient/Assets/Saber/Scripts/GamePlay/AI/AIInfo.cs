@@ -10,6 +10,15 @@ namespace Saber.AI
         public float m_WarningRange = 10;
         public float m_LostFocusRange = 10;
 
+        public MonsterFightingEvent[] m_EventsBeforeFighting;
+        public MonsterFightingEvent[] m_EventsOnBossStageToTwo;
+
+        public AIAttackConfig[] m_AttackConfig = new AIAttackConfig[1];
+    }
+
+    [Serializable]
+    public class AIAttackConfig
+    {
         public Vector2 m_StalemateStayTime = new(0.3f, 3f);
         public Vector2 m_RandomMoveTime = new(1f, 3f);
         public Vector2 m_SprintTimeBeforeAttack = new(1f, 3f);
@@ -22,9 +31,6 @@ namespace Saber.AI
         public int m_ContinueAttackPercentAfterAttack = 50;
         public int m_AttackPercentAfterDodge = 50;
         public EAIAttackStyleWhenTooFar m_AIAttackStyleWhenTooFar;
-
-        public MonsterFightingEvent[] m_EventsBeforeFighting;
-        public MonsterFightingEvent[] m_EventsOnBossStageToTwo;
     }
 
     [Flags]

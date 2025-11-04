@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using Saber.CharacterController;
 using Saber.Frame;
+using Saber.UI;
 using UnityEngine.Rendering.UI;
 
 namespace Saber.AI
@@ -77,6 +78,8 @@ namespace Saber.AI
                 m_CurSkill.Add(firstSkill);
                 AddComboSkills(firstSkill);
             }
+
+            m_TestSkillGUI.SetMsg($"当前技能：{m_CurSkill[0].m_SkillName}({m_CurSkill[0].m_ID})");
         }
 
         void AddComboSkills(SkillItem skillItem)
@@ -104,7 +107,8 @@ namespace Saber.AI
                 if (succeed)
                 {
                     m_SB.Length = 0;
-                    m_SB.AppendLine($"序号\t技能名");
+                    m_SB.AppendLine($"当前技能：{m_CurSkill[0].m_SkillName}({m_CurSkill[0].m_ID})");
+                    m_SB.AppendLine("序号\t技能名");
                     for (int i = 0; i < m_CurSkill.Count; i++)
                     {
                         var item = m_CurSkill[i];
@@ -142,61 +146,5 @@ namespace Saber.AI
         }
     }
 
-    public class TestSkillGUI : MonoBehaviour
-    {
-        public Action OnClickPrevious;
-        public Action OnClickNext;
-
-        private GUIStyle m_StyleButton;
-        private GUIStyle m_LabelStyle;
-        private string m_Msg;
-
-        public static TestSkillGUI Create()
-        {
-            GameObject go = new(nameof(TestSkillGUI));
-            return go.AddComponent<TestSkillGUI>();
-        }
-
-        private void Awake()
-        {
-            m_LabelStyle = new()
-            {
-                fontSize = 40,
-                normal =
-                {
-                    textColor = Color.white
-                }
-            };
-        }
-
-        void OnGUI()
-        {
-            if (m_StyleButton == null)
-            {
-                m_StyleButton = new GUIStyle(GUI.skin.button);
-                m_StyleButton.fontSize = 40;
-            }
-
-            if (GUI.Button(new Rect(200, 0, 180, 90), "上一个", m_StyleButton))
-            {
-                OnClickPrevious?.Invoke();
-            }
-
-            if (GUI.Button(new Rect(390, 0, 180, 90), "下一个", m_StyleButton))
-            {
-                OnClickNext?.Invoke();
-            }
-
-            if (!string.IsNullOrEmpty(m_Msg))
-            {
-                GUI.Box(new Rect(0, 100, 500, 500), "");
-                GUI.Label(new Rect(0, 110, 500, 40), m_Msg, m_LabelStyle);
-            }
-        }
-
-        public void SetMsg(string msg)
-        {
-            m_Msg = msg;
-        }
-    }
+    
 }

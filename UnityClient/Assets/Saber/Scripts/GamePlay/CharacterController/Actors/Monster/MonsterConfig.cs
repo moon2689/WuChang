@@ -16,6 +16,7 @@ namespace Saber.CharacterController
     {
         public bool m_CanDefense;
         public EDodgeType m_DodgeType;
+        public string[] m_BattleMusic;
 
         public string[] m_SpecialIdls;
         public string[] m_SpecialDodgeBackAnims;

@@ -19,6 +19,7 @@ using UnityEngine;
 	        EditorGUILayout.PropertyField(serializedObject.FindProperty("clips"));
 	        EditorGUILayout.PropertyField(serializedObject.FindProperty("m_Volume"));
 	        EditorGUILayout.PropertyField(serializedObject.FindProperty("m_TriggerProbability"));
+	        EditorGUILayout.PropertyField(serializedObject.FindProperty("m_FollowAnim"));
 	
 	        if (EditorGUI.EndChangeCheck())
 	        {

@@ -2,6 +2,7 @@ using System;
 using Saber.Frame;
 using System.Collections;
 using System.IO;
+using Saber.CharacterController;
 using Saber.Config;
 using Saber.World;
 using UnityEngine;
@@ -36,24 +37,43 @@ namespace Saber.Director
             GameApp.Entry.Game.World.Event_OnStartOrEndFightingBoss = OnStartOrEndFightingBoss;
         }
 
-        private void OnStartOrEndFightingBoss(bool isFightingBoss)
+        private void OnStartOrEndFightingBoss(SMonster fightingBoss)
         {
-            if (isFightingBoss)
+            if (fightingBoss)
             {
-                string bossBGM = GameApp.Entry.Game.World.CurrentFightingBoss.BaseInfo.m_BossBattleMusic;
-                if (string.IsNullOrEmpty(bossBGM))
-                {
-                    bossBGM = GameApp.Entry.Config.MusicInfo.m_CommonBattleMusic;
-                }
-
-                string bgmName = Path.GetFileNameWithoutExtension(bossBGM);
-                if (GameApp.Entry.Game.Audio.CurBGMName != bgmName)
-                    GameApp.Entry.Game.Audio.PlayBGM(bossBGM, 0.5f, true, null);
+                PlayBossBGM(fightingBoss);
+                fightingBoss.Event_OnEnterBossStage2 -= OnEnterBossStage2;
+                fightingBoss.Event_OnEnterBossStage2 += OnEnterBossStage2;
             }
             else
             {
                 GameApp.Entry.Game.Audio.StopBGM();
             }
+        }
+
+        void PlayBossBGM(SMonster fightingBoss)
+        {
+            int bgmIndex = fightingBoss.BossStage - 1;
+            string bossBGM = null;
+            if (fightingBoss.m_MonsterInfo.m_BattleMusic != null &&
+                fightingBoss.m_MonsterInfo.m_BattleMusic.Length > bgmIndex)
+            {
+                bossBGM = fightingBoss.m_MonsterInfo.m_BattleMusic[bgmIndex];
+            }
+
+            if (string.IsNullOrEmpty(bossBGM))
+            {
+                bossBGM = GameApp.Entry.Config.MusicInfo.m_CommonBattleMusic;
+            }
+
+            string bgmName = Path.GetFileNameWithoutExtension(bossBGM);
+            if (GameApp.Entry.Game.Audio.CurBGMName != bgmName)
+                GameApp.Entry.Game.Audio.PlayBGM(bossBGM, 0.5f, true, null);
+        }
+
+        private void OnEnterBossStage2(SMonster boss)
+        {
+            PlayBossBGM(boss);
         }
 
         void StartBGM()

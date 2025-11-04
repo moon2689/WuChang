@@ -21,8 +21,8 @@ namespace Saber.UI
         [SerializeField] private Image m_IconLockFill;
         [SerializeField] private GameObject m_IconLockDecapitate;
 
-        [SerializeField] private GameObject[] m_SlotsArray;
-        [SerializeField] private Widget_SlotObject m_SlotObject;
+        [SerializeField] private GameObject m_SlotTemplate;
+        [SerializeField] private Transform m_SlotParent;
         [SerializeField] private SpriteAtlas m_AtlasPropIcons;
         [SerializeField] private SpriteAtlas m_AtlasSkillIcons;
 
@@ -36,12 +36,13 @@ namespace Saber.UI
             m_Handler = base.m_WndHandler as IHandler;
             m_BtnMenu.onClick.AddListener(OnClickMenu);
 
-            m_SlotObject.gameObject.SetActive(false);
-            m_SlotObjects = new Widget_SlotObject[m_SlotsArray.Length];
+            m_SlotTemplate.gameObject.SetActive(false);
+            m_SlotObjects = new Widget_SlotObject[10];
             for (int i = 0; i < m_SlotObjects.Length; i++)
             {
-                GameObject go = GameObject.Instantiate(m_SlotObject.gameObject, m_SlotsArray[i].transform);
+                GameObject go = GameObject.Instantiate(m_SlotTemplate, m_SlotParent);
                 go.transform.localPosition = Vector3.zero;
+                go.SetActive(true);
                 m_SlotObjects[i] = go.GetComponent<Widget_SlotObject>();
                 m_SlotObjects[i].Init(GameApp.Entry.Game.ProgressMgr.SlotsArray[i], m_Handler, m_AtlasPropIcons, m_AtlasSkillIcons);
             }

@@ -53,6 +53,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f5eaf7b183103184f819ed7e6a0765b7, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
+  m_FollowAnim: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +186,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 54a1f43b5cfb2344184d561ea7a3b7ac, type: 3}
   m_Volume: 1
   m_TriggerProbability: 20
+  m_FollowAnim: 0
 --- !u!114 &4939926945594100997
 MonoBehaviour:
   m_ObjectHideFlags: 0

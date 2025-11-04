@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Saber.AI;
@@ -8,6 +9,8 @@ namespace Saber.CharacterController
 {
     public class SMonster : SActor
     {
+        public event Action<SMonster> Event_OnEnterBossStage2;
+        
         [SerializeField] public MonsterConfig m_MonsterConfig;
 
         private MonsterStateMachine m_CStates;
@@ -61,6 +64,8 @@ namespace Saber.CharacterController
                 {
                     enemyAI.OnEnterBossStageTwo();
                 }
+                
+                Event_OnEnterBossStage2?.Invoke(this);
             }
         }
 

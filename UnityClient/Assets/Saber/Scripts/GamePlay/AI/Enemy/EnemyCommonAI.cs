@@ -15,6 +15,8 @@ namespace Saber.AI
         private Queue<SkillItem> m_LastSkill = new();
         private SkillItem m_CurrentSkill;
         private List<SkillItem> m_CheckedWhetherDodgeSkills = new();
+        private SkillItem m_NextSkill;
+        private AIAttackConfig m_AIAttackConfig;
 
 
         bool WhetherEnemyCanAttackMe
@@ -31,6 +33,7 @@ namespace Saber.AI
 
         protected override void OnStart()
         {
+            m_AIAttackConfig = Monster.m_MonsterInfo.m_AIInfo.m_AttackConfig[0];
             base.OnStart();
             ToSearchEnemy();
         }
@@ -39,19 +42,17 @@ namespace Saber.AI
         public override void OnEnterBossStageTwo()
         {
             base.OnEnterBossStageTwo();
+            
+            m_AIAttackConfig = Monster.m_MonsterInfo.m_AIInfo.m_AttackConfig[1];
 
             // 触发BOSS二阶段转换技能
             if (Monster.BaseInfo.m_ActorType == EActorType.Boss)
             {
                 foreach (SkillItem skill in Actor.Skills)
                 {
-                    if (skill.m_FirstSkillOfCombo &&
-                        skill.m_AITriggerCondition == EAITriggerSkillCondition.OnEnterBossStageTwo &&
-                        IsCDColldown(skill) &&
-                        SatifyTriggerCondition(skill))
+                    if (skill.m_FirstSkillOfCombo && skill.m_AITriggerCondition == EAITriggerSkillCondition.OnEnterBossStageTwo)
                     {
-                        m_CurrentSkill = skill;
-                        SwitchCoroutine(AttackItor());
+                        m_NextSkill = skill;
                         break;
                     }
                 }
@@ -94,6 +95,7 @@ namespace Saber.AI
         /// <summary>战斗开始</summary>
         protected override void OnFoundEnemy(EFoundEnemyType foundType)
         {
+            m_NextSkill = null;
             ToStalemate();
         }
 
@@ -165,7 +167,7 @@ namespace Saber.AI
             }
 
             // 朝向敌人
-            if (Monster.m_MonsterInfo.m_AIInfo.m_TurnDirWhenNotFaceToEnemy && !IsFaceToEnemy())
+            if (m_AIAttackConfig.m_TurnDirWhenNotFaceToEnemy && !IsFaceToEnemy())
             {
                 wait = true;
                 if (Actor.PlayAction(PlayActionState.EActionType.FaceToLockingEnemy, () => wait = false))
@@ -177,7 +179,7 @@ namespace Saber.AI
                 }
             }
 
-            Vector2 stayTime = Monster.m_MonsterInfo.m_AIInfo.m_StalemateStayTime;
+            Vector2 stayTime = m_AIAttackConfig.m_StalemateStayTime;
             float timerStay = UnityEngine.Random.Range(stayTime.x, stayTime.y);
             float moveTimer = 0;
             m_CheckedWhetherDodgeSkills.Clear();
@@ -199,7 +201,7 @@ namespace Saber.AI
                 {
                     if (Monster.m_MonsterInfo.CanDodge &&
                         m_DistanceToEnemy < Monster.m_MonsterInfo.m_AIInfo.m_WarningRange &&
-                        CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_DodgePercentAfterStalemate))
+                        CalcProbability(m_AIAttackConfig.m_DodgePercentAfterStalemate))
                     {
                         ToDodge();
                     }
@@ -217,7 +219,7 @@ namespace Saber.AI
                     LockingEnemy.CurrentSkill != null &&
                     !m_CheckedWhetherDodgeSkills.Contains(LockingEnemy.CurrentSkill.SkillConfig))
                 {
-                    if (CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_DodgeDamagePercent))
+                    if (CalcProbability(m_AIAttackConfig.m_DodgeDamagePercent))
                     {
                         ToDodge();
                         yield break;
@@ -237,7 +239,7 @@ namespace Saber.AI
                 if (Actor.CurrentStateType == EStateType.Idle || moveTimer < 0)
                 {
                     RandomMove();
-                    Vector3 randomMoveTime = Monster.m_MonsterInfo.m_AIInfo.m_RandomMoveTime;
+                    Vector3 randomMoveTime = m_AIAttackConfig.m_RandomMoveTime;
                     moveTimer = UnityEngine.Random.Range(randomMoveTime.x, randomMoveTime.y);
                 }
 
@@ -326,6 +328,12 @@ namespace Saber.AI
 
         bool SatifyTriggerCondition(SkillItem skill)
         {
+            bool isCDDown = IsCDColldown(skill);
+            if (!isCDDown)
+            {
+                return false;
+            }
+
             if (skill.m_AITriggerCondition == EAITriggerSkillCondition.None)
             {
                 return true;
@@ -348,14 +356,24 @@ namespace Saber.AI
 
         void ToAttack()
         {
+            m_CurrentSkill = null;
+
             if (LockingEnemy.IsDead)
             {
                 ToStalemate();
                 return;
             }
 
+            if (m_NextSkill != null && SatifyTriggerCondition(m_NextSkill))
+            {
+                m_CurrentSkill = m_NextSkill;
+                m_NextSkill = null;
+            }
 
-            m_CurrentSkill = GetInRangeRandomSkill();
+            if (m_CurrentSkill == null)
+            {
+                m_CurrentSkill = GetInRangeRandomSkill();
+            }
 
             if (m_CurrentSkill != null)
             {
@@ -363,7 +381,7 @@ namespace Saber.AI
             }
             else
             {
-                EAIAttackStyleWhenTooFar attackStyle = Monster.m_MonsterInfo.m_AIInfo.m_AIAttackStyleWhenTooFar;
+                EAIAttackStyleWhenTooFar attackStyle = m_AIAttackConfig.m_AIAttackStyleWhenTooFar;
                 if (attackStyle == EAIAttackStyleWhenTooFar.UseLongestRangeSkill)
                 {
                     m_CurrentSkill = GetLongestAttackRangeSkill(); //找攻击距离最大的技能
@@ -397,11 +415,7 @@ namespace Saber.AI
             m_ListSkills.Clear();
             foreach (SkillItem skill in Actor.Skills)
             {
-                if (skill.m_FirstSkillOfCombo &&
-                    IsCDColldown(skill) &&
-                    !IsRepeatSkill(skill) &&
-                    SatifyTriggerCondition(skill) &&
-                    skill.InRange(m_DistanceToEnemy))
+                if (skill.m_FirstSkillOfCombo && !IsRepeatSkill(skill) && SatifyTriggerCondition(skill) && skill.InRange(m_DistanceToEnemy))
                 {
                     m_ListSkills.Add(skill);
                 }
@@ -419,10 +433,7 @@ namespace Saber.AI
             SkillItem tarSkill = null;
             foreach (SkillItem skill in Actor.Skills)
             {
-                if (skill.m_FirstSkillOfCombo &&
-                    IsCDColldown(skill) &&
-                    SatifyTriggerCondition(skill) &&
-                    !IsRepeatSkill(skill))
+                if (skill.m_FirstSkillOfCombo && SatifyTriggerCondition(skill) && !IsRepeatSkill(skill))
                 {
                     if (skill.m_AIPramAttackDistance.maxValue > maxAttackDistance)
                     {
@@ -437,9 +448,7 @@ namespace Saber.AI
                 maxAttackDistance = float.MinValue;
                 foreach (SkillItem skill in Actor.Skills)
                 {
-                    if (skill.m_FirstSkillOfCombo &&
-                        IsCDColldown(skill) &&
-                        SatifyTriggerCondition(skill))
+                    if (skill.m_FirstSkillOfCombo && SatifyTriggerCondition(skill))
                     {
                         if (skill.m_AIPramAttackDistance.maxValue > maxAttackDistance)
                         {
@@ -458,10 +467,7 @@ namespace Saber.AI
             m_ListSkills.Clear();
             foreach (SkillItem skill in Actor.Skills)
             {
-                if (skill.m_FirstSkillOfCombo &&
-                    IsCDColldown(skill) &&
-                    SatifyTriggerCondition(skill) &&
-                    !IsRepeatSkill(skill))
+                if (skill.m_FirstSkillOfCombo && SatifyTriggerCondition(skill) && !IsRepeatSkill(skill))
                 {
                     m_ListSkills.Add(skill);
                 }
@@ -471,9 +477,7 @@ namespace Saber.AI
             {
                 foreach (SkillItem skill in Actor.Skills)
                 {
-                    if (skill.m_FirstSkillOfCombo &&
-                        IsCDColldown(skill) &&
-                        SatifyTriggerCondition(skill))
+                    if (skill.m_FirstSkillOfCombo && SatifyTriggerCondition(skill))
                     {
                         m_ListSkills.Add(skill);
                     }
@@ -489,7 +493,7 @@ namespace Saber.AI
         /// <summary>冲刺后攻击</summary>
         IEnumerator SprintAndAttackItor()
         {
-            Vector2 sprintTime = Monster.m_MonsterInfo.m_AIInfo.m_SprintTimeBeforeAttack;
+            Vector2 sprintTime = m_AIAttackConfig.m_SprintTimeBeforeAttack;
             float timerSprint = UnityEngine.Random.Range(sprintTime.x, sprintTime.y);
             while (true)
             {
@@ -554,7 +558,7 @@ namespace Saber.AI
                         foreach (var item in Actor.CurrentSkill.SkillConfig.m_ChainSkills)
                         {
                             SkillItem skillConfig = Actor.CMelee.SkillConfig.GetSkillItemByID(item.m_SkillID);
-                            if (m_DistanceToEnemy < skillConfig.m_AIPramAttackDistance.maxValue && IsCDColldown(skillConfig))
+                            if (m_DistanceToEnemy < skillConfig.m_AIPramAttackDistance.maxValue && SatifyTriggerCondition(skillConfig))
                             {
                                 m_ListSkills.Add(skillConfig);
                             }
@@ -591,13 +595,13 @@ namespace Saber.AI
 
         void TriggerNewStateOnAttackFinished()
         {
-            if (Monster.m_MonsterInfo.m_AIInfo.m_TurnDirWhenNotFaceToEnemy && !IsFaceToEnemy())
+            if (m_AIAttackConfig.m_TurnDirWhenNotFaceToEnemy && !IsFaceToEnemy())
             {
                 ToStalemate();
             }
             else if (LockingEnemy.IsInSpecialStun)
             {
-                if (Monster.m_MonsterInfo.CanDodge && CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_DodgePercentAfterAttack))
+                if (Monster.m_MonsterInfo.CanDodge && CalcProbability(m_AIAttackConfig.m_DodgePercentAfterAttack))
                 {
                     ToDodge();
                 }
@@ -608,18 +612,18 @@ namespace Saber.AI
             }
             else if (Monster.m_MonsterInfo.CanDodge &&
                      m_DistanceToEnemy < Monster.m_MonsterInfo.m_AIInfo.m_WarningRange &&
-                     CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_DodgePercentAfterAttack))
+                     CalcProbability(m_AIAttackConfig.m_DodgePercentAfterAttack))
             {
                 ToDodge();
             }
             else if (Monster.m_MonsterInfo.CanDodge &&
                      WhetherEnemyCanAttackMe &&
-                     CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_DodgeDamagePercent))
+                     CalcProbability(m_AIAttackConfig.m_DodgeDamagePercent))
 
             {
                 ToDodge();
             }
-            else if (CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_ContinueAttackPercentAfterAttack))
+            else if (CalcProbability(m_AIAttackConfig.m_ContinueAttackPercentAfterAttack))
             {
                 ToAttack();
             }
@@ -671,11 +675,11 @@ namespace Saber.AI
                     {
                         if (Monster.m_MonsterInfo.CanDodge &&
                             WhetherEnemyCanAttackMe &&
-                            CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_DodgeDamagePercent))
+                            CalcProbability(m_AIAttackConfig.m_DodgeDamagePercent))
                         {
                             ToDodge();
                         }
-                        else if (CalcProbability(Monster.m_MonsterInfo.m_AIInfo.m_AttackPercentAfterDodge))
+                        else if (CalcProbability(m_AIAttackConfig.m_AttackPercentAfterDodge))
                         {
                             ToAttack();
                         }

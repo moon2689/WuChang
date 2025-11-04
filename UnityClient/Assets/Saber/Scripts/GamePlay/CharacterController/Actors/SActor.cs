@@ -343,6 +343,10 @@ namespace Saber.CharacterController
 
         protected virtual void Update()
         {
+            if (IsDead)
+            {
+                return;
+            }
             CBuff?.Update(Time.deltaTime);
             CStats?.Update(Time.deltaTime);
             AI?.Update();

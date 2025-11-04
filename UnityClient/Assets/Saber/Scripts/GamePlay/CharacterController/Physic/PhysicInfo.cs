@@ -22,37 +22,10 @@ namespace Saber.CharacterController
         public EPhysicMaterialType m_PhysicMaterialType;
         public float m_ChestHeight = 1;
 
-        public ETurnRotationSpeed m_TurnRotSpeed;
-
-        public float m_JumpForceVertical = 10f;
         public bool m_OpenSlopeMovement;
         public bool m_OpenPlatformMovement;
-        public bool m_CanClimb;
-        
-
-        public float TurnRotSpeedRate
-        {
-            get
-            {
-                return m_TurnRotSpeed switch
-                {
-                    ETurnRotationSpeed.Fast => 1,
-                    ETurnRotationSpeed.Medium => 0.75f,
-                    ETurnRotationSpeed.Slow => 0.5f,
-                    _ => throw new InvalidOperationException(),
-                };
-            }
-        }
     }
 
-    [Serializable]
-    public enum ETurnRotationSpeed
-    {
-        Fast,
-        Medium,
-        Slow,
-    }
-    
     [Serializable]
     public enum EPhysicMaterialType
     {

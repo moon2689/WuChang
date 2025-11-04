@@ -115,14 +115,20 @@ namespace Saber.CharacterController
 
             enemy.CMelee.AttackedDamageInfo = curDmgInfo;
 
-            // 卡帧 Freeze Frame.
-            FreezeFrame(dmgMaker, enemy, curDmgInfo);
-
             // 尝试格挡
-            if (dmgMaker is SActor actor && TryDefense(actor, hurtBox, curDmgInfo))
+            if (dmgMaker is SActor actor && TryDefense(actor, hurtBox, curDmgInfo, out bool isTanFanSucceed))
             {
+                if (!isTanFanSucceed)
+                {
+                    // 卡帧 Freeze Frame.
+                    FreezeFrame(dmgMaker, enemy, curDmgInfo);
+                }
+
                 return false;
             }
+
+            // 卡帧 Freeze Frame.
+            FreezeFrame(dmgMaker, enemy, curDmgInfo);
 
             // 扣血
             if (curDmgInfo.DamageValue > 0)
@@ -187,8 +193,9 @@ namespace Saber.CharacterController
             // actor.m_AnimSpeedExecutor.AddSpeedModifiers(speed, time);
         }
 
-        static bool TryDefense(SActor actor, HurtBox hurtBox, DamageInfo curDmgInfo)
+        static bool TryDefense(SActor actor, HurtBox hurtBox, DamageInfo curDmgInfo, out bool isTanFanSucceed)
         {
+            isTanFanSucceed = false;
             bool hitTypeCanBeDefense = curDmgInfo.HitType == EHitType.Weapon || curDmgInfo.HitType == EHitType.FeiDao;
             if (!hitTypeCanBeDefense)
             {
@@ -211,6 +218,7 @@ namespace Saber.CharacterController
                     if (curDmgInfo.DamageConfig.BreakByTanFan)
                         actor.OnParried(defenseState.Actor); //被弹反打断技能
                     defenseState.OnTanFanSucceed(actor, curDmgInfo);
+                    isTanFanSucceed = true;
                     return true;
                 }
             }
@@ -320,23 +328,11 @@ namespace Saber.CharacterController
                 GameApp.Entry.Game.Effect.CreateEffect(prefabBlood, null, hitPos, hitDir, 0.6f);
             }
 
-            /*
-            // shake camera
-            if (actor.IsPlayer && GameApp.Entry.Config.GameSetting.m_ShakeCameraHitOther)
+            // 振屏
+            if (curDmgInfo.DamageConfig.m_ShakeScreenWhenHitted)
             {
-                float duration = GameApp.Entry.Config.GameSetting.m_ShakeCameraDuratiHitOther;
-                float amount = GameApp.Entry.Config.GameSetting.m_ShakeCameraAmountHitOther;
-                float speed = GameApp.Entry.Config.GameSetting.m_ShakeCameraSpeedHitOther;
-                GameApp.Entry.Game.PlayerCamera.ShakeCamera(duration, amount, speed);
+                GameApp.Entry.Game.PlayerCamera.ShakeCamera(0.2f, 0.8f, 5f);
             }
-            else if (enemy.IsPlayer && GameApp.Entry.Config.GameSetting.m_ShakeCameraOnHurt)
-            {
-                float duration = GameApp.Entry.Config.GameSetting.m_ShakeCameraDurationOnHurt;
-                float amount = GameApp.Entry.Config.GameSetting.m_ShakeCameraAmountOnHurt;
-                float speed = GameApp.Entry.Config.GameSetting.m_ShakeCameraSpeedOnHurt;
-                GameApp.Entry.Game.PlayerCamera.ShakeCamera(duration, amount, speed);
-            }
-            */
         }
 
         static void PlayHitSound(bool block, HurtBox hurtBox, DamageInfo curDmgInfo)

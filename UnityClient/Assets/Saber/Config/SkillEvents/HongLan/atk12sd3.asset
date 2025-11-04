@@ -13,6 +13,31 @@ MonoBehaviour:
   m_Name: ComboTime
   m_EditorClassIdentifier: 
   IsActive: 1
+--- !u!114 &-8372808504598066806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca2229d21ed65194bac74b8298b11290, type: 3}
+  m_Name: Particles
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 883157226942159327, guid: a000f8631a5c03545b13f9030703fe20,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 0, z: 0}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 24
+    FollowNode: 1
+    RotateByNode: 0
+  TimeType: 2
+  m_HoldTime: 1
+  OnlyTriggerWhenPowerEnough: 0
 --- !u!114 &-7154675694283737129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75df4da46dd09c44bb149336749072c8, type: 3}
   m_Name: CreateHitBox
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   ObjData:
     TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
       type: 3}
@@ -46,6 +71,7 @@ MonoBehaviour:
     m_ImpactForce: 1
     m_HitRecover: 0
     m_ForceWhenGround: {x: 0, y: 0}
+    m_ShakeScreenWhenHitted: 0
     CanBeTanFan: 1
     BreakByTanFan: 1
 --- !u!114 &-6607186194863448169
@@ -60,7 +86,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
   m_Name: CanExit
   m_EditorClassIdentifier: 
-  IsActive: 0
+  IsActive: 1
+--- !u!114 &-5297676216963397955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d72110aa1334503a362701f4b44a40d, type: 3}
+  m_Name: Projectile
+  m_EditorClassIdentifier: 
+  IsActive: 1
+  ObjData:
+    TargetObj: {fileID: 8477394280318632219, guid: b5f382a950fe35a4698fe4a91d9b74d2,
+      type: 3}
+    controlType: 0
+    Offset: {x: 0, y: 1.0263368, z: 0.47497657}
+    Rot: {x: 0, y: 0, z: 0, w: 1}
+    TargetNode: 2
+    FollowNode: 1
+    RotateByNode: 1
+  m_ProjectileType: 0
 --- !u!114 &-4032681986454683258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b781d06c00f873041aca107545370fa8, type: 3}
   m_Name: DynamicTrail
   m_EditorClassIdentifier: 
-  IsActive: 1
+  IsActive: 0
   m_WeaponBone: 29
   m_NotTriggerWhenPowerEnough: 0
 --- !u!114 &-2127672936423072555
@@ -86,17 +135,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
-  m_Name: SFXVoice
+  m_Name: SFXCharge
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: 230ca5e51939b1f478519d63a401bff6, type: 3}
-  - {fileID: 8300000, guid: efcf476ab86845643b2d895517ca5189, type: 3}
-  - {fileID: 8300000, guid: 63f8db787c056fe40907ce268acbacde, type: 3}
-  - {fileID: 8300000, guid: bfa2d35afbc1c0f4f9a4bcc2fa8527d5, type: 3}
-  - {fileID: 8300000, guid: 54a1f43b5cfb2344184d561ea7a3b7ac, type: 3}
+  - {fileID: 8300000, guid: f72477a11eccedc468163f6d0427dbfd, type: 3}
   m_Volume: 1
-  m_TriggerProbability: 20
+  m_TriggerProbability: 100
+  m_FollowAnim: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +161,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0, y: 0.09538461}
+    EventRange: {x: 0, y: 0.48615384}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -162,8 +208,8 @@ MonoBehaviour:
   - EventTime: 0
     EventRange: {x: 0, y: 1}
     EventMultiRange:
-    - 0.2
-    - 0.4
+    - 0.39076924
+    - 0.5846154
     - 0.6
     - 0.8
     Previewable: 0
@@ -177,7 +223,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -7154675694283737129}
-  - EventTime: 0.055384614
+  - EventTime: 0.17230769
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -186,6 +232,24 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -2127672936423072555}
+  - EventTime: 0.48307693
+    EventRange: {x: 0, y: 1}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -5297676216963397955}
+  - EventTime: 0.16923077
+    EventRange: {x: 0.16923077, y: 0.40615386}
+    EventMultiRange:
+    - 0.2
+    - 0.4
+    - 0.6
+    - 0.8
+    Previewable: 0
+    Obj: {fileID: -8372808504598066806}
 --- !u!114 &2757808024051083676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,11 +264,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: 55bf0136e4f52d049b641e9e982b6288, type: 3}
-  - {fileID: 8300000, guid: 977b5ecbd2fca674db1df7dc682cc3a2, type: 3}
-  - {fileID: 8300000, guid: 67af835e4a5a4e9479066e8623522f80, type: 3}
+  - {fileID: 8300000, guid: a93ebca82e6215e4f9ef27ba6d819709, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
+  m_FollowAnim: 0
 --- !u!114 &4256733436796213739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,7 +320,7 @@ MonoBehaviour:
   m_Name: AlignToEnemy
   m_EditorClassIdentifier: 
   IsActive: 1
-  m_RotateSpeed: 1080
+  m_RotateSpeed: 720
 --- !u!114 &7773537591753171860
 MonoBehaviour:
   m_ObjectHideFlags: 0

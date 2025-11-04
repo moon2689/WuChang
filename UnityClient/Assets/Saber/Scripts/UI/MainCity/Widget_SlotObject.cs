@@ -12,6 +12,8 @@ namespace Saber.UI
 {
     public class Widget_SlotObject : WidgetBase
     {
+        private const float k_UsePropCDTime = 1;
+
         public enum ESlotDataType
         {
             None,
@@ -65,7 +67,7 @@ namespace Saber.UI
             m_Handler = handler;
             m_AtlasProp = atlasProp;
             m_AtlasSkill = atlasSkill;
-            gameObject.SetActive(IsValid);
+            m_Button.gameObject.SetActive(IsValid);
             InitItor().StartCoroutine();
         }
 
@@ -148,7 +150,7 @@ namespace Saber.UI
             if (obj.ID == m_MainWndSlotData.m_ID)
             {
                 m_ToUpdateCD = true;
-                m_TimerUseProp = 1;
+                m_TimerUseProp = k_UsePropCDTime;
             }
         }
 
@@ -172,8 +174,9 @@ namespace Saber.UI
             m_TimerUseProp -= Time.deltaTime;
 
             m_RootCoolTime.SetActive(true);
-            m_ImageCooldown.fillAmount = m_TimerUseProp;
-            m_TextCooldown.text = Mathf.CeilToInt(1 - m_TimerUseProp).ToString();
+            float fillAmount = m_TimerUseProp / k_UsePropCDTime;
+            m_ImageCooldown.fillAmount = fillAmount;
+            m_TextCooldown.text = Mathf.CeilToInt(1 - fillAmount).ToString();
         }
 
         #endregion
@@ -185,7 +188,7 @@ namespace Saber.UI
             m_SkillObj = GameApp.Entry.Game.Player.CMelee[m_MainWndSlotData.m_ID];
             if (m_SkillObj == null)
             {
-                gameObject.SetActive(false);
+                Debug.LogError($"m_SkillObj == null,id:{m_MainWndSlotData.m_ID}");
                 return;
             }
 

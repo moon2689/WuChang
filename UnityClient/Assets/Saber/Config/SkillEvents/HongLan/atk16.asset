@@ -38,7 +38,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb9d103b2e74362b49578d9f2b35094, type: 3}
   m_Name: ComboTime
   m_EditorClassIdentifier: 
-  IsActive: 0
+  IsActive: 1
 --- !u!114 &-403255966821940771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,7 +72,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0.4271523, y: 0.589404}
+    EventRange: {x: 0, y: 0.589404}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -80,7 +80,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 5481132818589821208}
-  - EventTime: 0
+  - EventTime: 0.79801327
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -90,7 +90,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 4704881468067894535}
   - EventTime: 0
-    EventRange: {x: 0, y: 1}
+    EventRange: {x: 0.6192053, y: 0.6523179}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -98,7 +98,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: -5131305343750427906}
-  - EventTime: 0
+  - EventTime: 0.45695364
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -119,8 +119,8 @@ MonoBehaviour:
   - EventTime: 0
     EventRange: {x: 0, y: 1}
     EventMultiRange:
-    - 0.1986755
-    - 0.40066224
+    - 0.30132452
+    - 0.6655629
     - 0.6
     - 0.8
     Previewable: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 3971785030888785608}
-  - EventTime: 0
+  - EventTime: 0.18874173
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -194,12 +194,13 @@ MonoBehaviour:
   m_WeaponDamageSetting:
     m_HitType: 0
     m_WeaponBone: 29
-    m_DamageValue: 5
-    m_ImpactForce: 1
+    m_DamageValue: 60
+    m_ImpactForce: 2
     m_HitRecover: 5
     m_ForceWhenGround: {x: 0, y: 0}
-    CanBeTanFan: 1
-    BreakByTanFan: 1
+    m_ShakeScreenWhenHitted: 0
+    CanBeTanFan: 0
+    BreakByTanFan: 0
 --- !u!114 &4704881468067894535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e12a250df4f4f57a486f147da79815a, type: 3}
   m_Name: CanExit
   m_EditorClassIdentifier: 
-  IsActive: 0
+  IsActive: 1
 --- !u!114 &5481132818589821208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +227,7 @@ MonoBehaviour:
   m_Name: AlignToEnemy
   m_EditorClassIdentifier: 
   IsActive: 1
-  m_RotateSpeed: 1080
+  m_RotateSpeed: 360
 --- !u!114 &5561864089830747934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,11 +268,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: 55bf0136e4f52d049b641e9e982b6288, type: 3}
-  - {fileID: 8300000, guid: 977b5ecbd2fca674db1df7dc682cc3a2, type: 3}
-  - {fileID: 8300000, guid: 67af835e4a5a4e9479066e8623522f80, type: 3}
+  - {fileID: 8300000, guid: a1b91d7d376a93845ade01817b751918, type: 3}
   m_Volume: 1
   m_TriggerProbability: 100
+  m_FollowAnim: 0
 --- !u!114 &6104759526391697498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,17 +282,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073a54f545724964c8ee238ce71cd583, type: 3}
-  m_Name: SFXVoice
+  m_Name: SFXRoll
   m_EditorClassIdentifier: 
   IsActive: 1
   clips:
-  - {fileID: 8300000, guid: 230ca5e51939b1f478519d63a401bff6, type: 3}
-  - {fileID: 8300000, guid: efcf476ab86845643b2d895517ca5189, type: 3}
-  - {fileID: 8300000, guid: 63f8db787c056fe40907ce268acbacde, type: 3}
-  - {fileID: 8300000, guid: bfa2d35afbc1c0f4f9a4bcc2fa8527d5, type: 3}
-  - {fileID: 8300000, guid: 54a1f43b5cfb2344184d561ea7a3b7ac, type: 3}
+  - {fileID: 8300000, guid: a62703b3d181a514198fa51cdb497764, type: 3}
   m_Volume: 1
-  m_TriggerProbability: 20
+  m_TriggerProbability: 100
+  m_FollowAnim: 0
 --- !u!114 &7581536647680791920
 MonoBehaviour:
   m_ObjectHideFlags: 0

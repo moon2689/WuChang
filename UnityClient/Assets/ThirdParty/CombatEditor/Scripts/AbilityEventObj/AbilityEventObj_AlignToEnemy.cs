@@ -91,7 +91,7 @@ namespace CombatEditor
 
             if (Actor.AI.LockingEnemy != null)
             {
-                Actor.CPhysic.AlignForwardTo(Actor.DesiredLookDir, EventObj.m_RotateSpeed * Actor.PhysicInfo.TurnRotSpeedRate);
+                Actor.CPhysic.AlignForwardTo(Actor.DesiredLookDir, EventObj.m_RotateSpeed);
             }
         }
     }

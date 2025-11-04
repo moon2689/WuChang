@@ -20,10 +20,11 @@ namespace Saber.CharacterController
         [SerializeField] private float m_LifeTime = 2;
         [SerializeField] private WeaponDamageSetting m_WeaponDamageSetting;
         [SerializeField] protected float m_Speed = 15;
+        [SerializeField] private bool m_DestroyOnHit = true;
 
         private CapsuleCollider m_Collider;
         private DamageInfo m_CurDmgInfo = new();
-        protected SActor m_Actor;
+        private SActor m_Actor;
         private float m_TimerHide;
         private EStage m_Stage;
         private List<SActor> m_HurtedActors = new();
@@ -50,7 +51,8 @@ namespace Saber.CharacterController
         {
             if (other.gameObject.layer == (int)EStaticLayers.Default)
             {
-                Impact();
+                if (m_DestroyOnHit)
+                    Impact();
                 return;
             }
 
@@ -61,7 +63,8 @@ namespace Saber.CharacterController
                 return;
             }
 
-            Impact();
+            if (m_DestroyOnHit)
+                Impact();
 
             m_HurtedActors.Add(hurtBox.Actor);
 
@@ -71,7 +74,7 @@ namespace Saber.CharacterController
             DamageHelper.TryHit(other, m_Actor, m_WeaponDamageSetting, m_CurDmgInfo);
         }
 
-        void Impact()
+        protected void Impact()
         {
             m_EffectFly.SetActive(false);
             if (m_EffectImpact)

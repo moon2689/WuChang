@@ -50,11 +50,8 @@ namespace CombatEditor
             }
 
             CharacterConfigRect = new Rect(AbilityRect.x, AbilityRect.y, AbilityRect.width - Width_Scroll, LineHeight);
-            float width = SelectedController == null
-                ? CharacterConfigRect.width
-                : CharacterConfigRect.width - LineHeight;
-            Rect CharacterSelectRect = new Rect(CharacterConfigRect.x, CharacterConfigRect.y, width,
-                CharacterConfigRect.height);
+            float width = SelectedController == null ? CharacterConfigRect.width : CharacterConfigRect.width - LineHeight;
+            Rect CharacterSelectRect = new Rect(CharacterConfigRect.x, CharacterConfigRect.y, width, CharacterConfigRect.height);
             LastSelectedControllerName = "SelectController";
             if (SelectedController != null)
             {
@@ -68,8 +65,19 @@ namespace CombatEditor
             if (GUI.Button(CharacterSelectRect, new GUIContent(LastSelectedControllerName)))
             {
                 //PaintControllerSelectMenu();
-                SwitchToSkillEditScene();
-                PaintControllerSelectMenuFromAssets();
+                if (SelectedController==null)
+                {
+                    SwitchToSkillEditScene();
+                    PaintControllerSelectMenuFromAssets();
+                }
+                else
+                {
+                    if (EditorUtility.DisplayDialog("", "需要先退出再切换其它角色，是否退出？", "退出","不退出"))
+                    {
+                        //SaveControllersFromSceneToAsset();
+                        SaberTools.OpenScene_Launcher();
+                    }
+                }
             }
 
             if (SelectedController != null)

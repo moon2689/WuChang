@@ -7,6 +7,7 @@ using System.Text;
 using CombatEditor;
 using RootMotion.FinalIK;
 using Saber.CharacterController;
+using Saber.Frame;
 using Unity.Collections;
 using UnityEngine;
 using UnityEditor;
@@ -22,6 +23,14 @@ public static class WuChangTools
     static MD5 s_md5;
 
     static MD5 MD5Obj => s_md5 ??= MD5.Create();
+
+    [MenuItem("Saber/WUCH/Game/Boss enter stage 2")]
+    static void BossEnterStage2()
+    {
+        var enemy = GameApp.Entry.Game.Player.AI.LockingEnemy;
+        float damage = enemy.CStats.MaxHp / 2f;
+        enemy.CStats.TakeDamage(damage);
+    }
 
     [MenuItem("Saber/WUCH/Add Hurt Box")]
     static void AddHurtBoxes()
