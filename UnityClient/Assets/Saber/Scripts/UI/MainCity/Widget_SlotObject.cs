@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using System.Linq;
 using Saber.Frame;
 using Saber.CharacterController;
+using Saber.Config;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -18,7 +20,7 @@ namespace Saber.UI
         {
             None,
             PropItem,
-            SkillItem,
+            TheurgyItem,
         }
 
         public interface IHandler
@@ -42,6 +44,7 @@ namespace Saber.UI
 
         private MainWndSlotData m_MainWndSlotData;
         private BaseSkill m_SkillObj;
+        private TheurgyItemInfo m_TheurgyItemInfo;
         private bool m_ToUpdateCD;
         private IHandler m_Handler;
         private SpriteAtlas m_AtlasProp, m_AtlasSkill;
@@ -58,7 +61,8 @@ namespace Saber.UI
 
         public void ClickSlot()
         {
-            m_Handler.OnClickSlot(m_MainWndSlotData);
+            if (IsValid)
+                m_Handler.OnClickSlot(m_MainWndSlotData);
         }
 
         public void Init(MainWndSlotData slotData, IHandler handler, SpriteAtlas atlasProp, SpriteAtlas atlasSkill)
@@ -67,7 +71,6 @@ namespace Saber.UI
             m_Handler = handler;
             m_AtlasProp = atlasProp;
             m_AtlasSkill = atlasSkill;
-            m_Button.gameObject.SetActive(IsValid);
             InitItor().StartCoroutine();
         }
 
@@ -78,7 +81,14 @@ namespace Saber.UI
                 yield return null;
             }
 
-            if (m_MainWndSlotData.m_SlotType == ESlotDataType.SkillItem)
+            Reset();
+        }
+
+        public void Reset()
+        {
+            m_Button.gameObject.SetActive(IsValid);
+
+            if (m_MainWndSlotData.m_SlotType == ESlotDataType.TheurgyItem)
             {
                 InitSkillData();
             }
@@ -93,7 +103,7 @@ namespace Saber.UI
             base.OnDestroy();
             if (m_MainWndSlotData != null)
             {
-                if (m_MainWndSlotData.m_SlotType == ESlotDataType.SkillItem)
+                if (m_MainWndSlotData.m_SlotType == ESlotDataType.TheurgyItem)
                 {
                     if (GameApp.Entry.Game.Player)
                     {
@@ -118,7 +128,7 @@ namespace Saber.UI
 
             if (m_ToUpdateCD)
             {
-                if (m_MainWndSlotData.m_SlotType == ESlotDataType.SkillItem)
+                if (m_MainWndSlotData.m_SlotType == ESlotDataType.TheurgyItem)
                 {
                     if (m_SkillObj != null)
                         UpdateSkillCD();
@@ -185,7 +195,7 @@ namespace Saber.UI
 
         void InitSkillData()
         {
-            m_SkillObj = GameApp.Entry.Game.Player.CMelee[m_MainWndSlotData.m_ID];
+            m_SkillObj = GameApp.Entry.Game.Player.CMelee.GetTheurgy(m_MainWndSlotData.m_ID, out m_TheurgyItemInfo);
             if (m_SkillObj == null)
             {
                 Debug.LogError($"m_SkillObj == null,id:{m_MainWndSlotData.m_ID}");
@@ -206,7 +216,7 @@ namespace Saber.UI
                 m_PowerPoints[i].SetActive(i < m_SkillObj.SkillConfig.m_CostPower);
             }
 
-            m_Icon.sprite = m_IconGray.sprite = m_AtlasSkill.GetSprite(m_SkillObj.SkillConfig.m_Icon);
+            m_Icon.sprite = m_IconGray.sprite = m_AtlasSkill.GetSprite(m_TheurgyItemInfo.m_Icon);
         }
 
         private void OnSkillTrigger()

@@ -51,7 +51,7 @@ MonoBehaviour:
   m_MagicHitBodyCommonSound:
   - {fileID: 8300000, guid: a556ef3b74ebce245baa3e3178ddd32d, type: 3}
   m_FeiDaoHitBodyCommonSound:
-  - {fileID: 8300000, guid: 0b897948fbc47394f8bf5382a1e09c9d, type: 3}
+  - {fileID: 8300000, guid: dcf1c1d7e88239d4187147d4d260a48a, type: 3}
   m_EffectAddYuMao: {fileID: 6589205166322888823, guid: 9c5d30c2d871b4549925f25b51d27ce8,
     type: 3}
   m_EffectBlood:

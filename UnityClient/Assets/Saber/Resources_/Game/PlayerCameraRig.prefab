@@ -206,6 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MoveSpeed: 10
   m_TurnSpeed: 10
+  m_MaxDistance: 5
   m_TurnSmoothing: 10
   m_TiltMax: 75
   m_TiltMin: 45

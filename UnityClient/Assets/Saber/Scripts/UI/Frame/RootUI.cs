@@ -30,6 +30,7 @@ namespace Saber.UI
         public CanvasScaler CanvasScalerObj => m_CanvasScaler ??= transform.GetComponent<CanvasScaler>();
         public CanvasGroup CanvasGroupObj => m_CanvasGroupObj ??= transform.GetComponent<CanvasGroup>();
         public EventSystem EventSystemObj => m_EventSystemObj ??= transform.GetComponentInChildren<EventSystem>();
+
         public Vector2 ScaleRatio => new Vector2(CanvasScalerObj.referenceResolution.x / Screen.width,
             CanvasScalerObj.referenceResolution.y / Screen.height);
 
@@ -76,23 +77,88 @@ namespace Saber.UI
 
         void RegisterWndIns(WndBase wnd)
         {
-            if (wnd != null && !m_Wnds.Contains(wnd))
+            if (wnd == null)
+                return;
+
+            if (m_Wnds.Contains(wnd))
             {
-                m_Wnds.Add(wnd);
+                m_Wnds.Remove(wnd);
+            }
+
+            m_Wnds.Add(wnd);
+
+            if (wnd.WindowMode == EWindowMode.Exclusive)
+            {
+                foreach (var w in m_Wnds)
+                {
+                    if (w.WindowMode == EWindowMode.Normal)
+                    {
+                        bool except = wnd.ExceptWndWhenExclusiveMode != null && wnd.ExceptWndWhenExclusiveMode.Contains(w.name);
+                        if (!except)
+                            w.gameObject.SetActive(false);
+                    }
+                }
             }
         }
 
         void UnRegisterWndIns(WndBase wnd)
         {
+            if (wnd.WindowMode == EWindowMode.Exclusive)
+            {
+                int index = m_Wnds.IndexOf(wnd);
+                bool hasExclusiveWndInTop = false;
+                for (int i = index + 1; i < m_Wnds.Count; i++)
+                {
+                    if (m_Wnds[i].WindowMode == EWindowMode.Exclusive)
+                    {
+                        hasExclusiveWndInTop = true;
+                        break;
+                    }
+                }
+
+                if (!hasExclusiveWndInTop)
+                {
+                    foreach (var w in m_Wnds)
+                    {
+                        if (w.WindowMode == EWindowMode.Normal)
+                            w.gameObject.SetActive(true);
+                    }
+                }
+            }
+
             m_Wnds.Remove(wnd);
         }
 
-        public void HideAllWnd(params WndBase[] except)
+        public void HideAllNormalWnd(params string[] exceptWnds)
+        {
+            foreach (var w in m_Wnds)
+            {
+                if (w.WindowMode == EWindowMode.Normal)
+                {
+                    bool except = exceptWnds != null && exceptWnds.Contains(w.name);
+                    if (!except)
+                        w.gameObject.SetActive(false);
+                }
+            }
+        }
+
+        public void RevertHideAllNormalWnd()
+        {
+            foreach (var w in m_Wnds)
+            {
+                if (w.WindowMode == EWindowMode.Normal)
+                {
+                    w.gameObject.SetActive(true);
+                }
+            }
+        }
+
+        public void HideAllWnd(params string[] except)
         {
             for (int i = 0; i < m_Wnds.Count; i++)
             {
                 var w = m_Wnds[i];
-                int index = Array.FindIndex(except, e => e == w);
+                int index = Array.FindIndex(except, e => e == w.name);
                 bool isExcept = index > -1;
                 if (!isExcept)
                     w.IsShow = false;
@@ -125,6 +191,18 @@ namespace Saber.UI
             if (wnd)
             {
                 wnd.Destroy();
+            }
+        }
+        
+        public void DestroyAllWnd(params string[] except)
+        {
+            for (int i = 0; i < m_Wnds.Count; i++)
+            {
+                var w = m_Wnds[i];
+                int index = Array.FindIndex(except, e => e == w.name);
+                bool isExcept = index > -1;
+                if (!isExcept)
+                    w.Destroy();
             }
         }
 

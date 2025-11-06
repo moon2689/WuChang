@@ -16,6 +16,8 @@ namespace Saber.UI
         }
 
         protected virtual bool PauseGame => false;
+        public virtual EWindowMode WindowMode => EWindowMode.Normal;
+        public virtual string[] ExceptWndWhenExclusiveMode => null;
 
 
         public static AssetHandle Create<T>(WndContent content, IWndHandler handler, Action<T> onCreated) where T : WndBase, new()
@@ -32,6 +34,7 @@ namespace Saber.UI
                 rectTrans.offsetMax = Vector2.zero;
 
                 T wnd = go.GetComponent<T>();
+                wnd.name = name;
                 wnd.m_WndContent = content;
                 wnd.m_WndHandler = handler;
                 wnd.OnAwake();
@@ -74,5 +77,12 @@ namespace Saber.UI
             base.OnDestroy();
             RootUI.UnRegisterWnd(this);
         }
+    }
+
+    public enum EWindowMode
+    {
+        Normal,
+        Exclusive,
+        AlwaysOpen,
     }
 }

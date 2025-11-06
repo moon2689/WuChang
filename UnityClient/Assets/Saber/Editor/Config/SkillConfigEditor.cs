@@ -132,7 +132,6 @@ public class SkillConfigEditor : EditorBase
         item.m_Active = EditorGUILayout.Toggle("激活？", item.m_Active);
         item.m_ID = EditorGUILayout.IntField("ID：", item.m_ID);
         item.m_SkillName = EditorGUILayout.TextField("技能名：", item.m_SkillName);
-        item.m_Icon = EditorGUILayout.TextField("图标：", item.m_Icon);
 
         item.m_TriggerCondition = (ETriggerCondition)EditorGUILayout.EnumPopup("触发条件:", item.m_TriggerCondition);
         if (item.m_TriggerCondition == ETriggerCondition.InAir)

@@ -37,6 +37,9 @@ namespace Saber.Director
             Wnd_Login wndLogin = null;
             yield return GameApp.Entry.UI.CreateWnd<Wnd_Login>(null, this, w => wndLogin = w);
 
+            // close other wnd
+            RootUI.Instance.DestroyAllWnd(nameof(Wnd_Login), nameof(Wnd_Tips));
+            yield return null;
             RootUI.Instance.HideBackground();
 
             // 进度

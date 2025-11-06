@@ -233,7 +233,7 @@ namespace Saber.CharacterController
 
             OnSkillTrigger?.Invoke();
 
-            if (SkillConfig.IsFaShu)
+            if (SkillConfig.IsTheurgy)
             {
                 Actor.CMelee.CWeapon.ShowOrHideWeapon(false);
             }

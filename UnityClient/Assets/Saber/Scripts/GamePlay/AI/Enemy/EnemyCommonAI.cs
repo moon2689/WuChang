@@ -42,7 +42,7 @@ namespace Saber.AI
         public override void OnEnterBossStageTwo()
         {
             base.OnEnterBossStageTwo();
-            
+
             m_AIAttackConfig = Monster.m_MonsterInfo.m_AIInfo.m_AttackConfig[1];
 
             // 触发BOSS二阶段转换技能
@@ -53,6 +53,7 @@ namespace Saber.AI
                     if (skill.m_FirstSkillOfCombo && skill.m_AITriggerCondition == EAITriggerSkillCondition.OnEnterBossStageTwo)
                     {
                         m_NextSkill = skill;
+                        ToAttack();
                         break;
                     }
                 }
@@ -358,7 +359,7 @@ namespace Saber.AI
         {
             m_CurrentSkill = null;
 
-            if (LockingEnemy.IsDead)
+            if (LockingEnemy && LockingEnemy.IsDead)
             {
                 ToStalemate();
                 return;

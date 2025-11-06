@@ -54,4 +54,4 @@ MonoBehaviour:
     m_Count: 1
   - m_ID: 4
     m_Count: 3
-  m_WarningRange: 30
+  m_WarningRange: 50

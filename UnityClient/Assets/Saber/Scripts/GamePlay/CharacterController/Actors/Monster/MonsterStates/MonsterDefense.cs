@@ -4,8 +4,19 @@ using UnityEngine;
 
 namespace Saber.CharacterController
 {
-    public class MonsterDefense : DefenseBase
+    public class MonsterDefense : ActorStateBase
     {
+        protected enum EState
+        {
+            None,
+            DefenseStart,
+            DefenseLoop,
+            DefenseEnd,
+            DefenseHit,
+            DefenseBroken,
+        }
+
+        protected EState m_CurState;
         private float m_TimerAlign;
         private bool m_AutoExit;
 
@@ -13,6 +24,11 @@ namespace Saber.CharacterController
         public override bool CanEnter => Actor.CPhysic.Grounded;
         public override bool CanExit => m_CurState == EState.DefenseLoop;
 
+        
+        public MonsterDefense() : base(EStateType.Defense)
+        {
+        }
+        
 
         public override void Enter()
         {
@@ -24,6 +40,22 @@ namespace Saber.CharacterController
             m_TimerAlign = 0.1f;
 
             Actor.CAnim.Play("DefenseStart");
+        }
+        
+        private bool CanDefense(SActor enemy)
+        {
+            if (m_CurState == EState.DefenseEnd || m_CurState == EState.DefenseBroken)
+            {
+                return false;
+            }
+
+            bool isFaceToFace = Vector3.Dot(Actor.transform.forward, enemy.transform.forward) < 0;
+            if (!isFaceToFace)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public override void OnStay()

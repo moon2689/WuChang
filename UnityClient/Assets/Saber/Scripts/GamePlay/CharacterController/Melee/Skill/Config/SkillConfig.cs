@@ -37,7 +37,6 @@ namespace Saber.CharacterController
         public bool m_Active = true;
         public int m_ID;
         public string m_SkillName;
-        public string m_Icon;
         public SkillAnimStateMachine[] m_AnimStates;
 
         public float CostStrength = 5;
@@ -68,7 +67,8 @@ namespace Saber.CharacterController
         public bool IsAirSkill => m_TriggerCondition == ETriggerCondition.InAir;
 
 
-        public bool IsFaShu
+        /// <summary>是否是法术</summary>
+        public bool IsTheurgy
         {
             get
             {

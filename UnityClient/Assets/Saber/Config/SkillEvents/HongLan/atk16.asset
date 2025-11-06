@@ -72,7 +72,7 @@ MonoBehaviour:
   loopCount: 0
   events:
   - EventTime: 0
-    EventRange: {x: 0, y: 0.589404}
+    EventRange: {x: 0.40066224, y: 0.589404}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -80,7 +80,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 5481132818589821208}
-  - EventTime: 0.79801327
+  - EventTime: 0.77483445
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -126,7 +126,7 @@ MonoBehaviour:
     Previewable: 0
     Obj: {fileID: 563463585523831555}
   - EventTime: 0
-    EventRange: {x: 0.5066225, y: 0.5264901}
+    EventRange: {x: 0.5, y: 0.5331126}
     EventMultiRange:
     - 0.2
     - 0.4
@@ -182,14 +182,14 @@ MonoBehaviour:
     TargetObj: {fileID: 2557966978344939087, guid: c6a9fb10072c9ae418ef50c8af6092cc,
       type: 3}
     controlType: 0
-    Offset: {x: 0, y: 0.75898385, z: 1.1384761}
+    Offset: {x: 0, y: 0.850541, z: 1.1384766}
     Rot: {x: 0, y: 0, z: 0, w: 1}
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 0
-  ColliderOffset: {x: 0, y: 0, z: 0}
+  ColliderOffset: {x: 0, y: 0, z: -0.022889614}
   ColliderSize: {x: 1, y: 1, z: 1}
-  Radius: 1
+  Radius: 1.5219333
   Height: 1
   m_WeaponDamageSetting:
     m_HitType: 0

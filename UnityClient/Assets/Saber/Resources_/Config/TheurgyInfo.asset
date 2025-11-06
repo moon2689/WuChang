@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b27d22d65ea46da9cfa62db50dece70, type: 3}
+  m_Name: TheurgyInfo
+  m_EditorClassIdentifier: 
+  m_TheurgyArray:
+  - m_ID: 1
+    m_Name: "\u5524\u5251\u8BC0"
+    m_Description: "\u5524\u51FA\u4E8C\u9053\u5251\u5149\u5C04\u5411\u654C\u4EBA"
+    m_Icon: Spell_24001_S
+    m_SkillID: 16
+  - m_ID: 2
+    m_Name: "\u8FDE\u706B\u73E0"
+    m_Description: "\u5524\u51FA\u4E09\u56E2\u706B\u7403\u5C04\u5411\u654C\u4EBA"
+    m_Icon: Spell_24030_S
+    m_SkillID: 17

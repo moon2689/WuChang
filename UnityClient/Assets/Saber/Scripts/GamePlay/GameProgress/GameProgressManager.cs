@@ -57,21 +57,6 @@ namespace Saber
                     m_ProgressData.m_Slots[i] = new();
                 }
             }
-
-            m_ProgressData.m_Slots[0].m_SlotType = Widget_SlotObject.ESlotDataType.PropItem;
-            m_ProgressData.m_Slots[0].m_ID = 2;
-            m_ProgressData.m_Slots[1].m_SlotType = Widget_SlotObject.ESlotDataType.PropItem;
-            m_ProgressData.m_Slots[1].m_ID = 3;
-            m_ProgressData.m_Slots[2].m_SlotType = Widget_SlotObject.ESlotDataType.PropItem;
-            m_ProgressData.m_Slots[2].m_ID = 4;
-            
-            m_ProgressData.m_Slots[5].m_SlotType = Widget_SlotObject.ESlotDataType.PropItem;
-            m_ProgressData.m_Slots[5].m_ID = 1;
-            
-            m_ProgressData.m_Slots[8].m_SlotType = Widget_SlotObject.ESlotDataType.SkillItem;
-            m_ProgressData.m_Slots[8].m_ID = 16;
-            m_ProgressData.m_Slots[9].m_SlotType = Widget_SlotObject.ESlotDataType.SkillItem;
-            m_ProgressData.m_Slots[9].m_ID = 17;
         }
 
         public void Clear()

@@ -196,7 +196,7 @@ MonoBehaviour:
     - 0.8
     Previewable: 0
     Obj: {fileID: 3614796615857510757}
-  - EventTime: 0.8651163
+  - EventTime: 0.81860465
     EventRange: {x: 0, y: 1}
     EventMultiRange:
     - 0.2
@@ -344,8 +344,8 @@ MonoBehaviour:
     TargetObj: {fileID: 8477394280318632219, guid: b5f382a950fe35a4698fe4a91d9b74d2,
       type: 3}
     controlType: 0
-    Offset: {x: 0.054481704, y: 0.9579416, z: 0.62776446}
-    Rot: {x: -1.3866824e-12, y: -1.3333327e-12, z: 0.26407254, w: 0.9645028}
+    Offset: {x: 0.0544817, y: 0.9579416, z: 0.62776446}
+    Rot: {x: -0.00001624681, y: -0.00003257007, z: 0.8635687, w: 0.50423115}
     TargetNode: 2
     FollowNode: 1
     RotateByNode: 1

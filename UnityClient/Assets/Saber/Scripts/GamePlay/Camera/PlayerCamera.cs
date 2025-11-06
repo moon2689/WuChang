@@ -59,6 +59,7 @@ namespace Saber
 
         [Range(0f, 10f)] [SerializeField] private float m_TurnSpeed = 10f; // How fast the rig will rotate from user input.
 
+        [SerializeField] private float m_MaxDistance = 10f;
         // How much smoothing to apply to the turn input, to reduce mouse-turn jerkiness
         [SerializeField] private float m_TurnSmoothing = 10f;
 
@@ -480,7 +481,7 @@ namespace Saber
         public void SetDistance(float distance)
         {
             Vector3 pos = CamT.transform.localPosition;
-            pos.z = Mathf.Clamp(distance, -15, -m_ClosestDistance);
+            pos.z = Mathf.Clamp(distance, -m_MaxDistance, -m_ClosestDistance);
             CamT.transform.localPosition = pos;
             ResetWithState();
 

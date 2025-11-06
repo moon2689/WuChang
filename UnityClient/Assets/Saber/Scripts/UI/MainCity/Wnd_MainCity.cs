@@ -22,7 +22,6 @@ namespace Saber.UI
         [SerializeField] private GameObject m_IconLockDecapitate;
 
         [SerializeField] private GameObject m_SlotTemplate;
-        [SerializeField] private Transform m_SlotParent;
         [SerializeField] private SpriteAtlas m_AtlasPropIcons;
         [SerializeField] private SpriteAtlas m_AtlasSkillIcons;
 
@@ -40,11 +39,20 @@ namespace Saber.UI
             m_SlotObjects = new Widget_SlotObject[10];
             for (int i = 0; i < m_SlotObjects.Length; i++)
             {
-                GameObject go = GameObject.Instantiate(m_SlotTemplate, m_SlotParent);
+                GameObject go = GameObject.Instantiate(m_SlotTemplate, m_SlotTemplate.transform.parent);
                 go.transform.localPosition = Vector3.zero;
                 go.SetActive(true);
+                go.name = i.ToString();
                 m_SlotObjects[i] = go.GetComponent<Widget_SlotObject>();
                 m_SlotObjects[i].Init(GameApp.Entry.Game.ProgressMgr.SlotsArray[i], m_Handler, m_AtlasPropIcons, m_AtlasSkillIcons);
+            }
+        }
+
+        public void ResetSlots()
+        {
+            foreach (var slot in m_SlotObjects)
+            {
+                slot.Reset();
             }
         }
 

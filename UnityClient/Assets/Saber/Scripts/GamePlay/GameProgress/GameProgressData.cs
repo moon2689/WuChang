@@ -29,5 +29,31 @@ namespace Saber
     {
         public Widget_SlotObject.ESlotDataType m_SlotType = Widget_SlotObject.ESlotDataType.None;
         public int m_ID;
+
+        public void Clear()
+        {
+            m_SlotType = Widget_SlotObject.ESlotDataType.None;
+            m_ID = 0;
+        }
+
+        public void SwitchData(MainWndSlotData target)
+        {
+            var slotType = target.m_SlotType;
+            var id = target.m_ID;
+            target.m_SlotType = m_SlotType;
+            target.m_ID = m_ID;
+            m_SlotType = slotType;
+            m_ID = id;
+        }
+
+        public bool IsEqual(MainWndSlotData target)
+        {
+            if (target == null)
+            {
+                return false;
+            }
+
+            return m_SlotType == target.m_SlotType && m_ID == target.m_ID;
+        }
     }
 }

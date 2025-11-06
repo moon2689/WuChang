@@ -308,6 +308,8 @@ MonoBehaviour:
       m_BlendTime: 0.1
     - m_SkillID: 29
       m_BlendTime: 0.1
+    - m_SkillID: 37
+      m_BlendTime: 0.5
     m_ResilienceBeforeAttack: 2
     m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
@@ -356,7 +358,7 @@ MonoBehaviour:
     m_CostPower: 0
     m_CanTriggerWhenPowerNotEnough: 0
     m_PowerAddWhenHitted: 0
-    m_CDSeconds: 0
+    m_CDSeconds: 20
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
@@ -367,8 +369,8 @@ MonoBehaviour:
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 5
-      maxValue: 50
-    m_GroupID: 0
+      maxValue: 20
+    m_GroupID: 3
     m_AITriggerCondition: 2
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
@@ -407,12 +409,14 @@ MonoBehaviour:
       m_BlendTime: 0.5
     - m_SkillID: 37
       m_BlendTime: 0.5
+    - m_SkillID: 31
+      m_BlendTime: 0.5
     m_ResilienceBeforeAttack: 2
     m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 5
-      maxValue: 20
+      maxValue: 30
     m_GroupID: 0
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0
@@ -428,7 +432,7 @@ MonoBehaviour:
     m_CostPower: 0
     m_CanTriggerWhenPowerNotEnough: 0
     m_PowerAddWhenHitted: 0
-    m_CDSeconds: 0
+    m_CDSeconds: 20
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
@@ -439,8 +443,8 @@ MonoBehaviour:
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 5
-      maxValue: 50
-    m_GroupID: 0
+      maxValue: 20
+    m_GroupID: 3
     m_AITriggerCondition: 2
     m_SkipSomeAnimWhenUsePower: 0
     m_EnchantedWhenUsePower: 0
@@ -823,7 +827,7 @@ MonoBehaviour:
     m_CostPower: 0
     m_CanTriggerWhenPowerNotEnough: 0
     m_PowerAddWhenHitted: 0
-    m_CDSeconds: 0
+    m_CDSeconds: 20
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
@@ -835,12 +839,16 @@ MonoBehaviour:
       m_BlendTime: 0.1
     - m_SkillID: 24
       m_BlendTime: 0.1
+    - m_SkillID: 37
+      m_BlendTime: 0.5
+    - m_SkillID: 1
+      m_BlendTime: 0.5
     m_ResilienceBeforeAttack: 2
     m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 6
+      maxValue: 8
     m_GroupID: 0
     m_AITriggerCondition: 2
     m_SkipSomeAnimWhenUsePower: 0
@@ -887,7 +895,7 @@ MonoBehaviour:
     m_CostPower: 0
     m_CanTriggerWhenPowerNotEnough: 0
     m_PowerAddWhenHitted: 0
-    m_CDSeconds: 0
+    m_CDSeconds: 20
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0
@@ -899,12 +907,16 @@ MonoBehaviour:
       m_BlendTime: 0.5
     - m_SkillID: 24
       m_BlendTime: 0.5
+    - m_SkillID: 37
+      m_BlendTime: 0.5
+    - m_SkillID: 1
+      m_BlendTime: 0.5
     m_ResilienceBeforeAttack: 2
     m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 0
-      maxValue: 6
+      maxValue: 8
     m_GroupID: 0
     m_AITriggerCondition: 2
     m_SkipSomeAnimWhenUsePower: 0
@@ -940,12 +952,18 @@ MonoBehaviour:
       m_BlendTime: 0.5
     - m_SkillID: 37
       m_BlendTime: 0.5
+    - m_SkillID: 27
+      m_BlendTime: 0.5
+    - m_SkillID: 29
+      m_BlendTime: 0.5
+    - m_SkillID: 31
+      m_BlendTime: 0.5
     m_ResilienceBeforeAttack: 2
     m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
       minValue: 5
-      maxValue: 20
+      maxValue: 30
     m_GroupID: 0
     m_AITriggerCondition: 0
     m_SkipSomeAnimWhenUsePower: 0
@@ -973,8 +991,8 @@ MonoBehaviour:
     m_ResilienceAttacking: 2
     m_ResilienceAfterAttack: 0
     m_AIPramAttackDistance:
-      minValue: 0
-      maxValue: 15
+      minValue: 3
+      maxValue: 10
     m_GroupID: 0
     m_AITriggerCondition: 2
     m_SkipSomeAnimWhenUsePower: 0
@@ -1019,7 +1037,7 @@ MonoBehaviour:
     m_CostPower: 0
     m_CanTriggerWhenPowerNotEnough: 0
     m_PowerAddWhenHitted: 0
-    m_CDSeconds: 45
+    m_CDSeconds: 60
     m_SkillType: 0
     m_TriggerCondition: 0
     UseGravityWhenInAir: 0

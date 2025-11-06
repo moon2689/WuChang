@@ -355,7 +355,7 @@ namespace Saber.CharacterController
                 m_AnimSpeedExecutor = new AnimSpeedExecutor(this);
             m_AnimSpeedExecutor.Execute();
 
-            UpdateTimeMultiplier();
+            ActorSoundFollowAnim();
         }
 
         public void Destroy()
@@ -639,14 +639,14 @@ namespace Saber.CharacterController
             m_PlayingSounds.Add(audioPlayer);
         }
 
-        void UpdateTimeMultiplier()
+        void ActorSoundFollowAnim()
         {
             for (int i = 0; i < m_PlayingSounds.Count; i++)
             {
                 var p = m_PlayingSounds[i];
                 if (p != null)
                 {
-                    p.AudioSource.pitch = TimeMultiplier;
+                    p.AudioSource.pitch = CAnim.AnimatorObj.speed;
                 }
             }
         }

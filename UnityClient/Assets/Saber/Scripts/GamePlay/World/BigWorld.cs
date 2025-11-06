@@ -18,9 +18,7 @@ using YooAsset;
 namespace Saber.World
 {
     public class BigWorld : Wnd_MainCity.IHandler
-        , Wnd_Menu.IHandler
-        , Wnd_SelectWeapon.IHandler
-        , Wnd_DressUp.IHandler
+        , Wnd_CharacterInfo.IHandler
         , Portal.IHandler
         , ShenKan.IHandler
         , Wnd_Rest.IHandler
@@ -119,7 +117,7 @@ namespace Saber.World
                 yield return GameApp.Entry.UI.CreateWnd<Wnd_Loading>(w => m_WndLoading = w);
 
             yield return GameApp.Entry.UI.CreateWnd<Wnd_JoyStick>(null, null, w => m_WndJoyStick = w);
-            m_WndJoyStick.Default();
+            //m_WndJoyStick.Default();
 
             // scene
             yield return LoadScene().StartCoroutine();
@@ -600,9 +598,13 @@ namespace Saber.World
                 m_WndJoyStick.ActiveSticks = !open;
             }
 
-            if (m_WndMainCity)
+            if (open)
             {
-                m_WndMainCity.gameObject.SetActive(!open);
+                RootUI.Instance.HideAllNormalWnd(nameof(Wnd_JoyStick));
+            }
+            else
+            {
+                RootUI.Instance.RevertHideAllNormalWnd();
             }
         }
 
@@ -751,14 +753,14 @@ namespace Saber.World
 
         void Wnd_MainCity.IHandler.OnClickMenu()
         {
-            GameApp.Entry.UI.CreateWnd<Wnd_Menu>(null, this, null);
+            GameApp.Entry.UI.CreateWnd<Wnd_CharacterInfo>(null, this, null);
         }
 
         void Widget_SlotObject.IHandler.OnClickSlot(MainWndSlotData slotData)
         {
-            if (slotData.m_SlotType == Widget_SlotObject.ESlotDataType.SkillItem)
+            if (slotData.m_SlotType == Widget_SlotObject.ESlotDataType.TheurgyItem)
             {
-                var skillObj = GameApp.Entry.Game.Player.CMelee[slotData.m_ID];
+                var skillObj = GameApp.Entry.Game.Player.CMelee.GetTheurgy(slotData.m_ID, out _);
                 if (skillObj != null)
                 {
                     GameApp.Entry.Game.PlayerAI.TryTriggerSkill(skillObj.SkillConfig.m_SkillType);
@@ -786,21 +788,26 @@ namespace Saber.World
         #endregion
 
 
-        #region Wnd_Menu.IHandler
+        #region Wnd_CharacterInfo.IHandler
 
-        void Wnd_Menu.IHandler.OnClickToMainWnd()
+        void Wnd_CharacterInfo.IHandler.OnClickExitGame()
         {
             GameApp.Entry.Game.ProgressMgr.Save();
             DirectorLogin dirLogin = new();
             GameApp.Instance.TryEnterNextDir(dirLogin);
         }
 
+        void Wnd_CharacterInfo.IHandler.OnSlotChange()
+        {
+            m_WndMainCity.ResetSlots();
+        }
+
+        /*
         void Wnd_Menu.IHandler.OnClickSave()
         {
             GameApp.Entry.Game.ProgressMgr.Save();
         }
 
-        /*
         void Wnd_SelectEnemy.IHandler.OnClickConfirm(ActorItemInfo enemyInfo, int option)
         {
             EEnemyAIType fightType = (EEnemyAIType)option;
@@ -847,10 +854,10 @@ namespace Saber.World
 
         #endregion
 
-
+        /*
         #region Wnd_DressUp.IHandler
 
-        void Wnd_DressUp.IHandler.OnClickDressUp(int id, Action onFinished)
+        void Widget_DressUp.IHandler.OnClickDressUp(int id, Action onFinished)
         {
             if (m_Player.CDressUp != null)
             {
@@ -866,7 +873,7 @@ namespace Saber.World
             }
         }
 
-        bool Wnd_DressUp.IHandler.IsDressing(int id)
+        bool Widget_DressUp.IHandler.IsDressing(int id)
         {
             if (m_Player.CDressUp != null)
             {
@@ -876,17 +883,18 @@ namespace Saber.World
             return false;
         }
 
-        void Wnd_DressUp.IHandler.OnCloseWnd()
+        void Widget_DressUp.IHandler.OnCloseWnd()
         {
             EndDressUp().StartCoroutine();
         }
 
-        void Wnd_DressUp.IHandler.TakeOffAllClothes()
+        void Widget_DressUp.IHandler.TakeOffAllClothes()
         {
             m_Player.CDressUp.UndressAll();
         }
 
         #endregion
+        */
 
 
         #region Wnd_Rest.IHandler
@@ -924,12 +932,14 @@ namespace Saber.World
 
         IEnumerator StartDressUp()
         {
+            /*
             // 打开界面
             Wnd_DressUp.Content content = new()
             {
                 m_ListClothes = GameApp.Entry.Config.ClothInfo.GetAllClothesID(),
             };
             GameApp.Entry.UI.CreateWnd<Wnd_DressUp>(content, this, null);
+            */
 
             m_WndRest.ActiveRoot = false;
             Vector3 dir = -m_CurrentStayingShenKan.transform.right;

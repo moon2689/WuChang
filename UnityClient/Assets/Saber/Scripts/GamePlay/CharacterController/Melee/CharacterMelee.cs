@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using RootMotion.FinalIK;
+using Saber.Config;
+using Saber.Frame;
 
 namespace Saber.CharacterController
 {
@@ -353,6 +355,17 @@ namespace Saber.CharacterController
             {
                 w.EndPowerEnchanted();
             }
+        }
+
+        public BaseSkill GetTheurgy(int theurgyID, out TheurgyItemInfo theurgyItemInfo)
+        {
+            theurgyItemInfo = GameApp.Entry.Config.TheurgyInfo.m_TheurgyArray.FirstOrDefault(a => a.m_ID == theurgyID);
+            if (theurgyItemInfo == null)
+            {
+                return null;
+            }
+
+            return this[theurgyItemInfo.m_SkillID];
         }
     }
 }

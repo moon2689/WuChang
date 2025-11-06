@@ -1058,6 +1058,31 @@ public static class WuChangTools
         Debug.Log("all done");
     }
 
+    [MenuItem("Saber/WUCH/Skill/Print Used groups")]
+    static void PrintUsedGroups()
+    {
+        List<string> assets = GetSelectedAssets<SkillConfig>("*.asset");
+        StringBuilder sb = new();
+        foreach (var asset in assets)
+        {
+            SkillConfig obj = AssetDatabase.LoadAssetAtPath<SkillConfig>(asset);
+            sb.Append(obj.name);
+            sb.Append(":");
+            List<int> groups = new();
+            foreach (var item in obj.m_SkillItems)
+            {
+                if (item.m_GroupID > 0 && !groups.Contains(item.m_GroupID))
+                {
+                    groups.Add(item.m_GroupID);
+                }
+            }
+
+            sb.Append(string.Join(',', groups.ToArray()));
+        }
+
+        Debug.Log(sb.ToString());
+    }
+
     [MenuItem("Saber/WUCH/UI/Move Sprites")]
     static void MoveUISprites()
     {
