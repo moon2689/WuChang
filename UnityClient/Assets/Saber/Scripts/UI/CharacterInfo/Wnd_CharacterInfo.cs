@@ -19,6 +19,7 @@ namespace Saber.UI
         {
             void OnClickExitGame();
             void OnSlotChange();
+            void OnSwitchDressUp(bool enter);
         }
 
 
@@ -32,8 +33,9 @@ namespace Saber.UI
         [SerializeField] private SpriteAtlas m_AtlasPropIcons;
         [SerializeField] private SpriteAtlas m_AtlasSkillIcons;
         [SerializeField] private Widget_Theurgy m_Theurgy;
+        [SerializeField] private Widget_Gesture m_Gesture;
 
-
+        private static int s_LastSelectedToggleIndex;
         private IHandler m_Handler;
         private Widget_SlotPreview[] m_SlotObjects;
 
@@ -67,6 +69,7 @@ namespace Saber.UI
             // 初始化物品，法术页
             m_Bag.Init(this, Destroy);
             m_Theurgy.Init(this, Destroy);
+            m_Gesture.Init(Destroy);
 
             // 当Toggle切换
             Toggle[] toggles = m_ToggleGroup.GetComponentsInChildren<Toggle>();
@@ -78,9 +81,19 @@ namespace Saber.UI
                     if (isOn)
                     {
                         m_SlotRoot.SetActive(index == 0 || index == 1);
-                        m_Background.SetActive(index != 2);
+
+                        bool inDressUp = index == 2;
+                        m_Background.SetActive(!inDressUp);
+                        m_Handler.OnSwitchDressUp(inDressUp);
+
+                        s_LastSelectedToggleIndex = index;
                     }
                 });
+            }
+
+            if (s_LastSelectedToggleIndex >= 1 && s_LastSelectedToggleIndex < toggles.Length)
+            {
+                toggles[s_LastSelectedToggleIndex].isOn = true;
             }
         }
 
@@ -88,6 +101,7 @@ namespace Saber.UI
         {
             GameApp.Entry.Game.Audio.Play2DSound("Sound/UI/ActorInfoWndClose");
             base.Destroy();
+            m_Handler.OnSwitchDressUp(false);
         }
 
         void OnClickExitGameButton()

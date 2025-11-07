@@ -17,6 +17,7 @@ namespace Saber.Frame
         public MusicInfo MusicInfo { get; private set; }
         public PropInfo PropInfo { get; set; }
         public TheurgyInfo TheurgyInfo { get; set; }
+        public GestureInfo GestureInfo { get; set; }
 
 
         public IEnumerator LoadAsync()
@@ -30,6 +31,7 @@ namespace Saber.Frame
             yield return GameApp.Entry.Asset.LoadAsset<MusicInfo>("Config/MusicInfo", s => MusicInfo = s);
             yield return GameApp.Entry.Asset.LoadAsset<PropInfo>("Config/PropInfo", s => PropInfo = s);
             yield return GameApp.Entry.Asset.LoadAsset<TheurgyInfo>("Config/TheurgyInfo", s => TheurgyInfo = s);
+            yield return GameApp.Entry.Asset.LoadAsset<GestureInfo>("Config/GestureInfo", s => GestureInfo = s);
 
             yield return null;
             ClothInfo.Init();

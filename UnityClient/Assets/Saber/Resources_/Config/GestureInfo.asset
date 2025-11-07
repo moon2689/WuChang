@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cab048c8526fa4287b40c08a743e01, type: 3}
+  m_Name: GestureInfo
+  m_EditorClassIdentifier: 
+  m_Gestures:
+  - m_ID: 1
+    m_Name: "\u62B1\u62F3"
+    m_Icon: pose_BaoQuan
+    m_Anim: BaoQuan
+  - m_ID: 2
+    m_Name: "\u62DB\u624B"
+    m_Icon: pose_Beckon
+    m_Anim: Beckon
+  - m_ID: 3
+    m_Name: "\u6320\u5934"
+    m_Icon: pose_Flounder
+    m_Anim: Flounder
+  - m_ID: 4
+    m_Name: "\u73A9\u73A9\u5177"
+    m_Icon: pose_HoldToy
+    m_Anim: Player_HoldToy
+  - m_ID: 5
+    m_Name: "\u753B\u5708\u5708"
+    m_Icon: pose_HuaQuanQuan
+    m_Anim: HuaQuanQuan
+  - m_ID: 6
+    m_Name: "\u6DF7\u5143\u638C"
+    m_Icon: pose_HunYuanZhuang
+    m_Anim: HunYuanZhuang
+  - m_ID: 7
+    m_Name: "\u6CA1\u95EE\u9898"
+    m_Icon: pose_NoProblem
+    m_Anim: NoProblem
+  - m_ID: 8
+    m_Name: "\u773A\u671B"
+    m_Icon: pose_Overlook
+    m_Anim: Player_Overlook
+  - m_ID: 9
+    m_Name: "\u5938\u8D5E"
+    m_Icon: pose_PaoGe
+    m_Anim: PaoGe
+  - m_ID: 10
+    m_Name: "\u5411\u4E0B\u6307"
+    m_Icon: pose_PointDown
+    m_Anim: Point_Down
+  - m_ID: 11
+    m_Name: "\u5411\u524D\u6307"
+    m_Icon: pose_PointForward
+    m_Anim: Point_Forward
+  - m_ID: 12
+    m_Name: "\u5411\u4E0A\u6307"
+    m_Icon: pose_PointUp
+    m_Anim: Point_Up
+  - m_ID: 13
+    m_Name: "\u4F5C\u63D6"
+    m_Icon: pose_Pray
+    m_Anim: Pray
+  - m_ID: 14
+    m_Name: "\u5DF2\u89E3\u51B3"
+    m_Icon: pose_Resolve
+    m_Anim: Resolve
+  - m_ID: 15
+    m_Name: "\u8FFD\u8E2A\uFF0C\u68C0\u67E5\u571F\u58E4"
+    m_Icon: pose_RibSoil
+    m_Anim: Player_RubSoil
+  - m_ID: 16
+    m_Name: "\u796D\u7940"
+    m_Icon: pose_Sacrifice
+    m_Anim: Sacrifice
+  - m_ID: 17
+    m_Name: "\u6C34\u8896\u821E"
+    m_Icon: pose_ShuiXiu
+    m_Anim: ShuiXiu
+  - m_ID: 18
+    m_Name: "\u7977\u544A"
+    m_Icon: pose_SignumCrucis
+    m_Anim: SignumCrucis
+  - m_ID: 19
+    m_Name: "\u4F38\u61D2\u8170"
+    m_Icon: pose_Stretch
+    m_Anim: Stretch

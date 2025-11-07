@@ -318,12 +318,16 @@ namespace Saber.AI
 
             yield return null;
 
-            Actor.PlayAction(PlayActionState.EActionType.ShenKanActive, () =>
+            wait = true;
+            Actor.PlayAction(PlayActionState.EActionType.ShenKanActive, () => wait = false);
+            while (wait)
             {
-                Actor.CMelee.CWeapon.ShowOrHideWeapon(true);
-                GameApp.Entry.Game.World.SetFilmEffect(false);
-                onWorshiped?.Invoke();
-            });
+                yield return null;
+            }
+
+            Actor.CMelee.CWeapon.ShowOrHideWeapon(true);
+            GameApp.Entry.Game.World.SetFilmEffect(false);
+            onWorshiped?.Invoke();
 
             m_PlayingAction = false;
         }

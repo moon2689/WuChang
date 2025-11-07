@@ -308,8 +308,12 @@ namespace Saber.CharacterController
             Actor.CPhysic.UseGravity = true;
 
             Actor.CMelee.EndPowerEnchanted();
-            Actor.CMelee.CWeapon.ShowOrHideWeapon(true);
 
+            if (SkillConfig.IsTheurgy)
+            {
+                Actor.CMelee.CWeapon.ShowOrHideWeapon(true);
+            }
+            
             /*
             if (Actor.CurrentWeapons != null)
             {

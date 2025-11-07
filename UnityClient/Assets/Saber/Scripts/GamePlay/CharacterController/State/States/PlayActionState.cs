@@ -16,7 +16,7 @@ namespace Saber.CharacterController
             SpecialIdle,
             SpecialIdleTransition,
             UseItemNone,
-            ToDressUp,
+            Gesture,
         }
 
         enum ENormalActionState
@@ -34,7 +34,6 @@ namespace Saber.CharacterController
             NormalAction,
             SpecialIdle,
             SpecialIdleTransition,
-            ToDressUp,
         }
 
         private string m_CurActionName;
@@ -90,10 +89,6 @@ namespace Saber.CharacterController
             else if (m_CurAction == ECurAction.SpecialIdleTransition)
             {
                 UpdateNormalAction();
-            }
-            else if (m_CurAction == ECurAction.ToDressUp)
-            {
-                
             }
             else
             {
@@ -181,11 +176,10 @@ namespace Saber.CharacterController
                 m_CurAction = ECurAction.NormalAction;
                 m_CurActionName = $"Transition{m_CurActionName}";
             }
-            else if (actionType == EActionType.ToDressUp)
+            else if (actionType == EActionType.Gesture)
             {
-                m_CurAction = ECurAction.ToDressUp;
-                ToDressUpItor(onPlayFinish).StartCoroutine();
-                return;
+                m_CurActionName = animName;
+                m_CurAction = ECurAction.NormalAction;
             }
             else
             {
@@ -211,31 +205,12 @@ namespace Saber.CharacterController
             else if (m_NormalActionState == ENormalActionState.Playing)
             {
                 Vector3 dirToEnemy = Actor.AI.LockingEnemy.transform.position - Actor.transform.position;
-                if (Actor.CPhysic.AlignForwardTo(dirToEnemy, 360))// || !Actor.CAnim.IsReallyPlaying(m_CurActionName))
+                if (Actor.CPhysic.AlignForwardTo(dirToEnemy, 360)) // || !Actor.CAnim.IsReallyPlaying(m_CurActionName))
                 {
                     Exit();
                     m_CurAction = ECurAction.None;
                 }
             }
-        }
-
-        IEnumerator ToDressUpItor(Action onPlayFinish)
-        {
-            Vector3 dir = GameApp.Entry.Game.World.CurrentStayingShenKan.transform.right;
-
-            Actor.CAnim.Play("ShenKanRestEnd", force: true);
-            while (Actor.CAnim.IsPlayingOrWillPlay("ShenKanRestEnd", 0.95f))
-            {
-                yield return null;
-            }
-
-            Actor.CAnim.Play("IdleUnarmed", force: true);
-            while (!Actor.CPhysic.AlignForwardTo(dir, 360))
-            {
-                yield return null;
-            }
-            
-            onPlayFinish?.Invoke();
         }
 
         private void UpdateNormalAction()
@@ -289,7 +264,6 @@ namespace Saber.CharacterController
                 GameApp.Entry.Unity.DoActionOneFrameLater(m_OnPlayActionEnd);
                 m_OnPlayActionEnd = null;
             }
-            Actor.CMelee.CWeapon.ShowOrHideWeapon(true);
         }
     }
 }

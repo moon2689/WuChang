@@ -318,6 +318,11 @@ namespace Saber
             LookAtTarget(m_Target.Rotation.eulerAngles.y);
         }
 
+        public void LookAtTargetFront()
+        {
+            LookAtTarget(180 + m_Target.Rotation.eulerAngles.y);
+        }
+
         public void ResetPosition()
         {
             transform.position = Target.Position;

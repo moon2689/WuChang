@@ -600,11 +600,11 @@ namespace Saber.World
 
             if (open)
             {
-                RootUI.Instance.HideAllNormalWnd(nameof(Wnd_JoyStick));
+                RootUI.Instance.HideAllWnd(nameof(Wnd_JoyStick));
             }
             else
             {
-                RootUI.Instance.RevertHideAllNormalWnd();
+                RootUI.Instance.RevertHideAllWnd();
             }
         }
 
@@ -802,99 +802,42 @@ namespace Saber.World
             m_WndMainCity.ResetSlots();
         }
 
-        /*
-        void Wnd_Menu.IHandler.OnClickSave()
-        {
-            GameApp.Entry.Game.ProgressMgr.Save();
-        }
+        private bool m_InDressUp;
 
-        void Wnd_SelectEnemy.IHandler.OnClickConfirm(ActorItemInfo enemyInfo, int option)
+        void Wnd_CharacterInfo.IHandler.OnSwitchDressUp(bool enter)
         {
-            EEnemyAIType fightType = (EEnemyAIType)option;
-            CreateEnemy(enemyInfo.m_ID, fightType, 1);
-        }
-
-        void CreateEnemy(int id, EEnemyAIType aiType, int count)
-        {
-            if (id < 0)
+            if (enter)
             {
-                return;
-            }
+                m_InDressUp = true;
 
-            for (int i = 0; i < count; i++)
+                m_Player.CMelee.CWeapon.ShowOrHideWeapon(false);
+
+                GameApp.Entry.Game.PlayerCamera.LookAtTargetFront();
+                GameApp.Entry.Game.PlayerCamera.CameraStyle = PlayerCamera.ECameraStyle.DressUp;
+
+                m_Player.CAnim.Play("IdleUnarmed", force: true);
+
+                m_WndJoyStick.gameObject.SetActive(true);
+                m_WndJoyStick.ActiveSticks = false;
+            }
+            else if (m_InDressUp)
             {
-                Vector3 rayOriginPos = m_Player.transform.position +
-                                       m_Player.transform.forward * 10 +
-                                       m_Player.transform.right * (-count / 2f + i) +
-                                       Vector3.up * 100;
-                Vector3 pos;
-                if (Physics.Raycast(rayOriginPos, Vector3.down, out var hitInfo, 200, EStaticLayers.Default.GetLayerMask()))
-                {
-                    pos = hitInfo.point;
-                }
-                else
-                {
-                    pos = m_Player.transform.position + Vector3.up * 10;
-                }
+                m_InDressUp = false;
 
-                var ai = aiType.CreateEnemyAI();
-                var enemy = SActor.Create(id, pos, Quaternion.identity, ai, EActorCamp.Monster);
-                //enemy.CStats.ResetMaxHP(GameApp.Entry.Config.GameSetting.EnemyMaxHP);
-                enemy.Event_OnDead += OnOtherActorDead;
+                GameApp.Entry.Game.PlayerCamera.CameraStyle = PlayerCamera.ECameraStyle.Normal;
 
-                if (id == m_PlayerID)
-                {
-                    enemy.SetVariantColor(Color.red);
-                }
+                m_Player.CMelee.CWeapon.ShowOrHideWeapon(true);
 
-                RegisterOtherActor(enemy);
+                m_Player.CAnim.Play("Idle", force: true);
+
+                m_WndJoyStick.gameObject.SetActive(false);
+                m_WndJoyStick.ActiveSticks = true;
+
+                GameApp.Entry.Game.ProgressMgr.Save();
             }
-        }
-        */
-
-        #endregion
-
-        /*
-        #region Wnd_DressUp.IHandler
-
-        void Widget_DressUp.IHandler.OnClickDressUp(int id, Action onFinished)
-        {
-            if (m_Player.CDressUp != null)
-            {
-                if (m_Player.CDressUp.IsDressing(id))
-                {
-                    m_Player.CDressUp.UndressCloth(id);
-                    onFinished?.Invoke();
-                }
-                else
-                {
-                    m_Player.CDressUp.DressCloth(id, onFinished);
-                }
-            }
-        }
-
-        bool Widget_DressUp.IHandler.IsDressing(int id)
-        {
-            if (m_Player.CDressUp != null)
-            {
-                return m_Player.CDressUp.IsDressing(id);
-            }
-
-            return false;
-        }
-
-        void Widget_DressUp.IHandler.OnCloseWnd()
-        {
-            EndDressUp().StartCoroutine();
-        }
-
-        void Widget_DressUp.IHandler.TakeOffAllClothes()
-        {
-            m_Player.CDressUp.UndressAll();
         }
 
         #endregion
-        */
 
 
         #region Wnd_Rest.IHandler
@@ -917,76 +860,6 @@ namespace Saber.World
         void Wnd_Rest.IHandler.OnClickTransmit(int sceneID, int shenKanID)
         {
             TransmitItor(sceneID, shenKanID).StartCoroutine();
-        }
-
-        void Wnd_Rest.IHandler.OnClickDressUp()
-        {
-            if (m_Player.CDressUp == null)
-            {
-                Debug.LogError("m_Player.CDressUp == null");
-                return;
-            }
-
-            StartDressUp().StartCoroutine();
-        }
-
-        IEnumerator StartDressUp()
-        {
-            /*
-            // 打开界面
-            Wnd_DressUp.Content content = new()
-            {
-                m_ListClothes = GameApp.Entry.Config.ClothInfo.GetAllClothesID(),
-            };
-            GameApp.Entry.UI.CreateWnd<Wnd_DressUp>(content, this, null);
-            */
-
-            m_WndRest.ActiveRoot = false;
-            Vector3 dir = -m_CurrentStayingShenKan.transform.right;
-            Quaternion q = Quaternion.LookRotation(dir);
-            GameApp.Entry.Game.PlayerCamera.LookAtTarget(q.eulerAngles.y);
-            GameApp.Entry.Game.PlayerCamera.CameraStyle = PlayerCamera.ECameraStyle.DressUp;
-
-            // 人物站立起来
-            bool wait = true;
-            m_Player.PlayAction(PlayActionState.EActionType.ToDressUp, () => wait = false);
-            while (wait)
-            {
-                yield return null;
-            }
-        }
-
-        IEnumerator EndDressUp()
-        {
-            Vector3 dir = -m_CurrentStayingShenKan.transform.forward;
-            Quaternion q = Quaternion.LookRotation(dir);
-            GameApp.Entry.Game.PlayerCamera.LookAtTarget(q.eulerAngles.y);
-            GameApp.Entry.Game.PlayerCamera.CameraStyle = PlayerCamera.ECameraStyle.Normal;
-            yield return null;
-
-            GameApp.Entry.Game.ProgressMgr.Save();
-            yield return null;
-
-            // 
-            bool wait = true;
-            Vector3 shenKanRestPos = CurrentStayingShenKan.GetShenKanFixedPos(out _);
-            m_Player.CStateMachine.SetPosAndForward(shenKanRestPos, -CurrentStayingShenKan.transform.forward, () => wait = false);
-            while (wait)
-            {
-                yield return null;
-            }
-
-            m_Player.CMelee.CWeapon.ShowOrHideWeapon(false);
-            yield return null;
-
-            wait = true;
-            m_Player.PlayAction(PlayActionState.EActionType.ShenKanRest, () => wait = false);
-            while (wait)
-            {
-                yield return null;
-            }
-
-            m_WndRest.ActiveRoot = true;
         }
 
         IEnumerator TransmitItor(int sceneID, int shenKanID)
