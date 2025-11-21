@@ -163,6 +163,26 @@ MonoBehaviour:
     m_Name: 
     m_ClothType: 4
     m_ClassifyID: 8
+  - m_ID: 31
+    m_IsActive: 1
+    m_Name: 
+    m_ClothType: 1
+    m_ClassifyID: 9
+  - m_ID: 32
+    m_IsActive: 1
+    m_Name: 
+    m_ClothType: 2
+    m_ClassifyID: 9
+  - m_ID: 33
+    m_IsActive: 1
+    m_Name: 
+    m_ClothType: 3
+    m_ClassifyID: 9
+  - m_ID: 34
+    m_IsActive: 1
+    m_Name: 
+    m_ClothType: 4
+    m_ClassifyID: 9
   m_Classfies:
   - m_ID: 1
     m_ResName: Default
@@ -188,3 +208,6 @@ MonoBehaviour:
   - m_ID: 8
     m_ResName: Toutuo
     m_Name: "\u5934\u4F57"
+  - m_ID: 9
+    m_ResName: YHXN
+    m_Name: "\u5B8C\u7F8E\u65B0\u5A18"
