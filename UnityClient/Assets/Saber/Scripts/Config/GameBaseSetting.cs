@@ -23,7 +23,12 @@ namespace Saber.Config
         }
         
         public bool EditorUseBundleAsset;
-        
-        
+        public EGameStyle GameStyle;
+    }
+
+    public enum EGameStyle
+    {
+        WUCH,
+        DebugAsset,
     }
 }

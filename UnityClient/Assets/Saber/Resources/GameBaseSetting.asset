@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: GameBaseSetting
   m_EditorClassIdentifier: 
   EditorUseBundleAsset: 0
+  GameStyle: 0

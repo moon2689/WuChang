@@ -57,7 +57,7 @@ Shader "Un/BlinnPhong/Universal"
             {
                 float4 positionCS : SV_POSITION;
                 float2 uv : TEXCOORD0;
-                float4 normalWS : TEXCOORD1;
+                float3 normalWS : TEXCOORD1;
                 float3 positionWS : TEXCOORD2;
             };
 
@@ -83,12 +83,14 @@ Shader "Un/BlinnPhong/Universal"
                 VertexNormalInputs normalInput = GetVertexNormalInputs(input.normalOS);
                 output.normalWS.xyz = normalInput.normalWS;
 
+                /*
                 // fog
                 half fogFactor = 0;
                 #if !defined(_FOG_FRAGMENT)
                     fogFactor = ComputeFogFactor(o.positionCS.z);
                 #endif
                 output.normalWS.w = fogFactor;
+                */
                 
                 return output;
             }
@@ -125,15 +127,17 @@ Shader "Un/BlinnPhong/Universal"
                     diffuseLighting *= rampTex.rgb;
                 #endif
                 
-                half3 env = _GlossyEnvironmentColor.rgb * albedo; //half3 sh = SampleSH(N); or _GlossyEnvironmentColor ?
+                //half3 env = _GlossyEnvironmentColor.rgb * albedo; //half3 sh = SampleSH(N); or _GlossyEnvironmentColor ?
                 
-                half3 lighting = diffuseLighting + env;
+                half3 lighting = diffuseLighting;// + env;
                 color.rgb = lighting;
 
+                /*
                 // fog
                 half fogFactor = input.normalWS.w;
                 float fogCoord = InitializeInputDataFog(float4(input.positionWS, 1.0), fogFactor);
                 color.rgb = MixFog(color.rgb, fogCoord);
+                */
                 
                 return color;
             }

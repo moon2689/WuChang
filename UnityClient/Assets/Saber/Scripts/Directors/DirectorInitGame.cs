@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using Saber.Config;
 using Saber.Frame;
 using Saber.UI;
 using UnityEngine;
@@ -39,6 +41,23 @@ namespace Saber.Director
             yield return null;
 
             m_NextDir = new DirectorLogin();
+        }
+
+        public override void Enter()
+        {
+            var gameStyle = GameBaseSetting.Instance.GameStyle;
+            if (gameStyle == EGameStyle.WUCH)
+            {
+                base.Enter();
+            }
+            else if (gameStyle == EGameStyle.DebugAsset)
+            {
+                DebugAssetMgr.Create();
+            }
+            else
+            {
+                throw new InvalidOperationException($"Unknown game style:{gameStyle}");
+            }
         }
     }
 }

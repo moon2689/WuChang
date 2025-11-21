@@ -59,6 +59,10 @@ Shader "Unlit/VFXGeneralShader"
         [HDR]_WidthColor("WidthColor",Color) = (1,1,1,1)
         _Uspeed_DissolveTex("DissolveTex_PannerSpeedU",float) = 0
         _Vspeed_DissolveTex("DissolveTex_PannerSpeedV",float) = 0
+        
+        // 模糊
+        [Toggle(_BLUR_ON)]_BlurOn("模糊开关",int) =0
+        _BlurSize ("Blur Size", Range(0, 10)) = 1
 
         _Stencil ("Stencil ID", Float) = 0
         _StencilComp ("Stencil Comparison", Float) = 8
@@ -108,6 +112,7 @@ Shader "Unlit/VFXGeneralShader"
             #pragma shader_feature_local      _DISSOLVE
             #pragma shader_feature_local      _DISSOLVEPLUS
             #pragma shader_feature      _CLIP_ON
+            #pragma shader_feature_local      _BLUR_ON
 
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
@@ -177,6 +182,10 @@ Shader "Unlit/VFXGeneralShader"
             half _ReverseDissolve;
             half _Uspeed_DissolveTex;
             half _Vspeed_DissolveTex;
+
+            float4 _MainTex_TexelSize;
+            float _BlurSize;
+            
 
             inline float Smoothstep_Simple(half c,half minValue, half maxValue)
             {
@@ -268,8 +277,38 @@ Shader "Unlit/VFXGeneralShader"
                 sincos(_MainTexRotationAngle * 0.0174, mainTexAngle_sin, mainTexAngle_cos);
                 float2 rotatedUv = mul(uv_Main - _Pivot_MainTex.xy, float2x2(mainTexAngle_cos, -mainTexAngle_sin, mainTexAngle_sin, mainTexAngle_cos)); //旋转矩阵
                 float2 mainTexPanner = rotatedUv + _Pivot_MainTex.xy;
-                float4 mainTexFinal = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, mainTexPanner);
+                float4 mainTexFinal;
+
+                #if _BLUR_ON
+                // 优化的5x5高斯核
+                const float weights[3] = {0.4026, 0.2442, 0.0545};
+
+                half4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, mainTexPanner) * weights[0];
+                float2 texelSize = _MainTex_TexelSize.xy * _BlurSize;
+                
+                // 同时处理水平和垂直方向
+                for(int x = 1; x <= 2; x++)
+                {
+                    for(int y = 1; y <= 2; y++)
+                    {
+                        if(x == 0 && y == 0)
+                            continue;
+                        
+                        float2 offset = float2(x, y) * texelSize;
+                        float weight = weights[x] * weights[y] * 2.0; // 对称权重
+                        
+                        col += SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, mainTexPanner + offset) * weight;
+                        col += SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, mainTexPanner - offset) * weight;
+                    }
+                }
+                return col;
+                
+                mainTexFinal = col;
+                #else
+                mainTexFinal = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, mainTexPanner);
                 mainTexFinal.a = lerp(mainTexFinal.a, mainTexFinal.r, _MainTexAlpha);
+                #endif
+                
                 finalColor = mainTexFinal * i.vertexColor * _Brightness * _MainTexColor;
                 //#endif
 

@@ -160,6 +160,8 @@ public class VFXGeneralShaderGUI : ShaderGUI
     private MaterialProperty _Uspeed_DissolveTex = null;
     private MaterialProperty _Vspeed_DissolveTex = null;
 
+    private MaterialProperty _BlurSize = null;
+    
     #endregion
 
     #region 自定义下拉菜单样式
@@ -266,6 +268,8 @@ public class VFXGeneralShaderGUI : ShaderGUI
         _WidthColor = FindProperty(WidthColorName, properties);
         _Uspeed_DissolveTex = FindProperty(UspeedDissolveTexName, properties);
         _Vspeed_DissolveTex = FindProperty(VspeedDissolveTexName, properties);
+
+        _BlurSize = FindProperty("_BlurSize", properties);
     }
 
     public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] properties)
@@ -376,6 +380,38 @@ public class VFXGeneralShaderGUI : ShaderGUI
         {
             EditorGUI.indentLevel++;
             GUI_DissolveTex(material, properties);
+            EditorGUI.indentLevel--;
+        }
+
+        EditorGUILayout.EndVertical();
+
+        #endregion
+
+        #region 模糊
+
+        EditorGUILayout.BeginVertical((EditorStyles.helpBox));
+        bool oldBlurEnable = material.GetInt("_BlurOn") == 1;
+        bool newBlurEnable = EditorGUILayout.Toggle("启用模糊", oldBlurEnable);
+        if (oldBlurEnable != newBlurEnable)
+        {
+            material.SetInt("_BlurOn", newBlurEnable ? 1 : 0);
+            if (newBlurEnable)
+            {
+                material.EnableKeyword("_BLUR_ON");
+            }
+            else
+            {
+                material.DisableKeyword("_BLUR_ON");
+            }
+
+            EditorUtility.SetDirty(material);
+            AssetDatabase.SaveAssets();
+        }
+
+        if (newBlurEnable)
+        {
+            EditorGUI.indentLevel++;
+            m_MaterialEditon.ShaderProperty(_BlurSize, "模糊尺寸");
             EditorGUI.indentLevel--;
         }
 
