@@ -60,6 +60,7 @@ namespace Saber
         [Range(0f, 10f)] [SerializeField] private float m_TurnSpeed = 10f; // How fast the rig will rotate from user input.
 
         [SerializeField] private float m_MaxDistance = 10f;
+
         // How much smoothing to apply to the turn input, to reduce mouse-turn jerkiness
         [SerializeField] private float m_TurnSmoothing = 10f;
 
@@ -425,7 +426,7 @@ namespace Saber
 
             Vector3 dirToLockTarget = LockTarget.Position - Target.Position;
             Vector3 lockDirRight = Vector3.Cross(dirToLockTarget, Vector3.down).normalized;
-            float offsetDis = 1f;
+            float offsetDis = Mathf.Lerp(0.3f, 1, Mathf.Clamp01(dirToLockTarget.magnitude / 5f));
             Vector3 tarPos = Target.Position + lockDirRight * offsetDis; //摄像机位置偏向于主角右边
             transform.position = Vector3.Lerp(transform.position, tarPos, deltaTime * m_MoveSpeed);
 
