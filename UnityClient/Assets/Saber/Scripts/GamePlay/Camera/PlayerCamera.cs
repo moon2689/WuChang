@@ -224,7 +224,7 @@ namespace Saber
 
         void SetHeight(float height)
         {
-            height = Mathf.Clamp(height, 0.1f, m_Height * 1.5f);
+            height = Mathf.Clamp(height, 0.1f, Target.Height + 0.1f);
             Pivot.transform.localPosition = new Vector3(0, height, 0);
         }
 
