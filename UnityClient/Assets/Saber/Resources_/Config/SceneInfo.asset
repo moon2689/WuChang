@@ -15,7 +15,7 @@ MonoBehaviour:
   m_Scenes:
   - m_Name: "\u6C99\u6F20"
     m_ID: 1
-    m_ResName: MEPDesert
+    m_ResName: MEPDesertFog
     m_SkyboxType: 0
     m_OpenPostprocess: 1
     m_ShadowDistance: 50

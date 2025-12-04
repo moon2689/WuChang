@@ -32,12 +32,21 @@ Shader "Saber/WuChang/Terrain Lit Desert"
 
     SubShader
     {
-        Tags { "Queue" = "Geometry-100" "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "UniversalMaterialType" = "Lit" "IgnoreProjector" = "False" "TerrainCompatible" = "True"}
+        Tags 
+        { 
+            "Queue" = "Geometry-100" 
+            "RenderType" = "Opaque" 
+            "RenderPipeline" = "UniversalPipeline" 
+            "UniversalMaterialType" = "Lit" 
+            "IgnoreProjector" = "False" 
+            "TerrainCompatible" = "True"
+        }
 
         Pass
         {
             Name "ForwardLit"
             Tags { "LightMode" = "UniversalForward" }
+            
             HLSLPROGRAM
             #pragma target 3.0
 
@@ -84,6 +93,55 @@ Shader "Saber/WuChang/Terrain Lit Desert"
             ENDHLSL
         }
 
+        Pass
+        {
+            Name "DesertFogLit"
+            Tags { "LightMode" = "DesertFog" }
+            ZWrite Off
+            
+            HLSLPROGRAM
+            #pragma target 3.0
+
+            #pragma vertex SplatmapVertFog
+            #pragma fragment SplatmapFragmentFog
+
+            // -------------------------------------
+            // Universal Pipeline keywords
+            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
+            #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
+            #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
+            #pragma multi_compile_fragment _ _REFLECTION_PROBE_BLENDING
+            #pragma multi_compile_fragment _ _SHADOWS_SOFT
+            #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
+            #pragma multi_compile _ SHADOWS_SHADOWMASK
+            #pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
+            #pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
+            #pragma multi_compile_fragment _ _LIGHT_LAYERS
+            #pragma multi_compile_fragment _ _LIGHT_COOKIES
+            #pragma multi_compile _ _FORWARD_PLUS
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RenderingLayers.hlsl"
+
+            // -------------------------------------
+            // Unity defined keywords
+            #pragma multi_compile _ DIRLIGHTMAP_COMBINED
+            #pragma multi_compile _ LIGHTMAP_ON
+            #pragma multi_compile _ DYNAMICLIGHTMAP_ON
+            #pragma multi_compile_fog
+            #pragma multi_compile_fragment _ DEBUG_DISPLAY
+            #pragma multi_compile_instancing
+            #pragma instancing_options assumeuniformscaling nomatrices nolightprobe nolightmap
+
+            #pragma shader_feature_local_fragment _TERRAIN_BLEND_HEIGHT
+            #pragma shader_feature_local _NORMALMAP
+            #pragma shader_feature_local_fragment _MASKMAP
+            // Sample normal in pixel shader when doing instancing
+            #pragma shader_feature_local _TERRAIN_INSTANCED_PERPIXEL_NORMAL
+
+            #include "TerrainLitInput.hlsl"
+            #include "TerrainLitPasses.hlsl"
+            ENDHLSL
+        }
+        
         Pass
         {
             Name "ShadowCaster"

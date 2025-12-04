@@ -5,6 +5,8 @@
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/UnityGBuffer.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DBuffer.hlsl"
+#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
+#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareOpaqueTexture.hlsl"
 
 struct Attributes
 {
@@ -48,6 +50,8 @@ struct Varyings
 #endif
 
     float4 clipPos                  : SV_POSITION;
+
+    float2 someFactor               : TEXCOORD10;
     UNITY_VERTEX_OUTPUT_STEREO
 };
 
@@ -441,6 +445,104 @@ void SplatmapFragment(
 #endif
 }
 
+
+Varyings SplatmapVertFog(Attributes v)
+{
+    Varyings o = (Varyings)0;
+
+    UNITY_SETUP_INSTANCE_ID(v);
+    UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+    float4 posOS = v.positionOS;
+    posOS.y += 0.6;
+    TerrainInstancing(posOS, v.normalOS, v.texcoord);
+
+    VertexPositionInputs Attributes = GetVertexPositionInputs(posOS.xyz);
+
+    o.uvMainAndLM.xy = v.texcoord;
+    o.uvMainAndLM.zw = v.texcoord * unity_LightmapST.xy + unity_LightmapST.zw;
+
+    #ifndef TERRAIN_SPLAT_BASEPASS
+        o.uvSplat01.xy = TRANSFORM_TEX(v.texcoord, _Splat0);
+        o.uvSplat01.zw = TRANSFORM_TEX(v.texcoord, _Splat1);
+        o.uvSplat23.xy = TRANSFORM_TEX(v.texcoord, _Splat2);
+        o.uvSplat23.zw = TRANSFORM_TEX(v.texcoord, _Splat3);
+    #endif
+
+#if defined(DYNAMICLIGHTMAP_ON)
+    o.dynamicLightmapUV = v.texcoord * unity_DynamicLightmapST.xy + unity_DynamicLightmapST.zw;
+#endif
+
+    #if defined(_NORMALMAP) && !defined(ENABLE_TERRAIN_PERPIXEL_NORMAL)
+        half3 viewDirWS = GetWorldSpaceNormalizeViewDir(Attributes.positionWS);
+        float4 vertexTangent = float4(cross(float3(0, 0, 1), v.normalOS), 1.0);
+        VertexNormalInputs normalInput = GetVertexNormalInputs(v.normalOS, vertexTangent);
+
+        o.normal = half4(normalInput.normalWS, viewDirWS.x);
+        o.tangent = half4(normalInput.tangentWS, viewDirWS.y);
+        o.bitangent = half4(normalInput.bitangentWS, viewDirWS.z);
+    #else
+        o.normal = TransformObjectToWorldNormal(v.normalOS);
+        o.vertexSH = SampleSH(o.normal);
+    #endif
+
+    half fogFactor = 0;
+    #if !defined(_FOG_FRAGMENT)
+        fogFactor = ComputeFogFactor(Attributes.positionCS.z);
+    #endif
+
+    #ifdef _ADDITIONAL_LIGHTS_VERTEX
+        o.fogFactorAndVertexLight.x = fogFactor;
+        o.fogFactorAndVertexLight.yzw = VertexLighting(Attributes.positionWS, o.normal.xyz);
+    #else
+        o.fogFactor = fogFactor;
+    #endif
+
+    o.positionWS = Attributes.positionWS;
+    o.clipPos = Attributes.positionCS;
+
+    #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
+        o.shadowCoord = GetShadowCoord(Attributes);
+    #endif
+
+    float pixelDepth = -TransformWorldToView(o.positionWS).z;
+    o.someFactor.x = pixelDepth;
+
+    return o;
+}
+
+half4 SplatmapFragmentFog(Varyings IN) : SV_Target0
+{
+    UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN);
+
+    // 深度，与Opaque color
+    float2 screenUV = GetNormalizedScreenSpaceUV(IN.clipPos);
+    float3 sceneColor = SampleSceneColor(screenUV);
+    float rawDepth = SampleSceneDepth(screenUV);
+    //float3 posWSInner = ComputeWorldSpacePosition(screenUV, rawDepth, UNITY_MATRIX_I_VP);
+    //float depthRate = saturate((IN.positionWS.y - posWSInner.y)/1.5);
+    float depth = LinearEyeDepth(rawDepth, _ZBufferParams);
+    float disToWaterSurface = max(depth - IN.someFactor.x, 0);
+    float depthRate = saturate(disToWaterSurface / 2);
+    //albedo = sceneColor;//lerp(sceneColor, albedo, depthRate);
+
+    half4 outColor;
+    outColor.rgb = lerp(sceneColor, half3(0.83,0.68,0.4), depthRate);
+    outColor.a = 1;
+
+    // 边缘光
+    Light mainLight = GetMainLight();
+    float3 viewDir = GetWorldSpaceNormalizeViewDir(IN.positionWS);
+    //float rim = journeyRimLight(IN.normal, viewDir, mainLight.direction, 20);
+    float rim = 1 - saturate(dot(IN.normal, viewDir));
+    rim = pow(rim, 20);
+    float NoL = saturate(dot(IN.normal, mainLight.direction));
+    rim *= NoL;
+    float3 rimLight = rim * half3(1,0.62,0);
+    outColor.rgb += rimLight;
+    //outColor.rgb = rim;
+    return outColor;
+}
+    
 // Shadow pass
 
 // Shadow Casting Light geometric parameters. These variables are used when applying the shadow Normal Bias and are set by UnityEngine.Rendering.Universal.ShadowUtils.SetupShadowCasterConstantBuffer in com.unity.render-pipelines.universal/Runtime/ShadowUtils.cs
