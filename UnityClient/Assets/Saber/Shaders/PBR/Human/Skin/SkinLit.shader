@@ -24,15 +24,11 @@ Shader "Saber/Human/Skin Lit"
         _WetNormalMap ("Wet Normal Map", 2D) = "bump" {}
         _RainSpeed("Rain Speed", float) = 1
         
-        [Header(Clip body)]
-        _ClipBodyMaskMap("Clip Body Mask Map", 2D) = "black" {}
-        
         [Space(20)]
         [Toggle] _SSS("SSS on?", Float) = 1
         [Toggle] _PCFShadow("PCF shadow on?", Float) = 0
         [Toggle] _DetailNormal("Detail Normal on?", Float) = 0
         [Toggle] _Wet ("Is Wet", float) = 0
-        [Toggle] _ClipBody ("Clip Body", float) = 0
     }
 
     SubShader
@@ -80,7 +76,6 @@ Shader "Saber/Human/Skin Lit"
             #pragma multi_compile _ _PCFSHADOW_ON
             #pragma multi_compile _ _DETAILNORMAL_ON
             #pragma multi_compile _ _WET_ON
-            #pragma multi_compile _ _CLIPBODY_ON
 
             // -------------------------------------
             // Universal Pipeline keywords

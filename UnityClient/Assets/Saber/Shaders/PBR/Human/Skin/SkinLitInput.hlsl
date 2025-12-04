@@ -24,7 +24,6 @@ TEXTURE2D(_PreIntegratedSSSMap);SAMPLER(sampler_PreIntegratedSSSMap);
 TEXTURE2D(_DetailNormalMap);    SAMPLER(sampler_DetailNormalMap);
 TEXTURE2D(_WetMap);             SAMPLER(sampler_WetMap);
 TEXTURE2D(_WetNormalMap);       SAMPLER(sampler_WetNormalMap);
-TEXTURE2D(_ClipBodyMaskMap);       SAMPLER(sampler_ClipBodyMaskMap);
 
 
 SurfaceData InitializeStandardLitSurfaceData(float2 uv)
@@ -69,12 +68,6 @@ SurfaceData InitializeStandardLitSurfaceData(float2 uv)
     surfaceData.normalTS = lerp(surfaceData.normalTS, tangentWetNormal, rainMask);
     surfaceData.smoothness = lerp(surfaceData.smoothness, 0.9, rainMask);
 #endif
-
-    #if _CLIPBODY_ON
-    half4 clipMaskMap = SAMPLE_TEXTURE2D(_ClipBodyMaskMap, sampler_ClipBodyMaskMap, uv);
-    half clipMask = clipMaskMap.r;
-    clip(clipMask - 0.5);
-    #endif
 
     return surfaceData;
 }

@@ -46,8 +46,8 @@ namespace Saber.CharacterController
                     m_MoveSpeedV = EMoveSpeedV.Run;
                 }
 
-                if (CurrentStateType == EStateType.Move &&
-                    CRender.IsInWater &&
+                if (GameApp.Entry.Config.GameSetting.OnlyCanWalkWhenInWater &&
+                    CurrentStateType == EStateType.Move && CRender.IsInWater &&
                     (m_MoveSpeedV == EMoveSpeedV.Sprint || m_MoveSpeedV == EMoveSpeedV.Run))
                 {
                     m_MoveSpeedV = EMoveSpeedV.Walk;

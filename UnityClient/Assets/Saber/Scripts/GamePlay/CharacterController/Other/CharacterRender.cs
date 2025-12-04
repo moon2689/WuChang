@@ -185,8 +185,9 @@ namespace Saber.CharacterController
                 go.transform.localScale = Vector3.one;
                 go.transform.localRotation = Quaternion.identity;
                 go.SetActive(false);
-                WaterWaveRenderer.SetActiveCamera(false);
+                WaterWaveRenderer.SetActiveCamera(IsInWater);
                 m_WaterWaveParticle = go;
+                m_WaterWaveParticle.SetActive(IsInWater);
             });
         }
 
@@ -199,18 +200,18 @@ namespace Saber.CharacterController
 
             if (active)
             {
-                m_WaterWaveParticle.SetActive(true);
+                if (m_WaterWaveParticle)
+                    m_WaterWaveParticle.SetActive(true);
                 WaterWaveRenderer.SetActiveCamera(true);
             }
             else
             {
-                m_CoroutineHideWaterWaveParticle =
-                    GameApp.Entry.Unity.DoDelayAction(5, () =>
-                    {
-                        m_WaterWaveParticle.SetActive(false);
-                        WaterWaveRenderer.SetActiveCamera(false);
-                        m_CoroutineHideWaterWaveParticle = null;
-                    });
+                m_CoroutineHideWaterWaveParticle = GameApp.Entry.Unity.DoDelayAction(5, () =>
+                {
+                    m_WaterWaveParticle.SetActive(false);
+                    WaterWaveRenderer.SetActiveCamera(false);
+                    m_CoroutineHideWaterWaveParticle = null;
+                });
             }
         }
 

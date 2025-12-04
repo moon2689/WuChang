@@ -483,7 +483,12 @@ namespace Saber.World
             }
             else
             {
-                throw new InvalidOperationException($"Unknown load type:{m_LoadType}");
+                ScenePoint point = m_ScenePoints.FirstOrDefault(a => a.m_PointType == EScenePointType.PlayerBornPosition);
+                if (point != null)
+                {
+                    return point.GetFixedBornPos(out rot);
+                }
+                Debug.LogError($"Unknown load type:{m_LoadType}");
             }
 
             rot = Quaternion.identity;

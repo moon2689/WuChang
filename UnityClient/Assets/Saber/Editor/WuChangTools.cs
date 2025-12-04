@@ -7,11 +7,14 @@ using System.Text;
 using CombatEditor;
 using RootMotion.FinalIK;
 using Saber.CharacterController;
+using Saber.Config;
 using Saber.Frame;
+using Saber.World;
 using Unity.Collections;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Animations;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.WSA;
 
@@ -23,6 +26,35 @@ public static class WuChangTools
     static MD5 s_md5;
 
     static MD5 MD5Obj => s_md5 ??= MD5.Create();
+
+    [MenuItem("Saber/WUCH/Config/SyncScenePointsConfig")]
+    static void SyncScenePointsConfig()
+    {
+        SceneInfo sceneInfo = AssetDatabase.LoadAssetAtPath<SceneInfo>("Assets/Saber/Resources_/Config/SceneInfo.asset");
+        List<ShenKanInfo> listShenKans = new();
+        foreach (ScenePointShenKan p in GameObject.FindObjectsOfType<ScenePointShenKan>())
+        {
+            ShenKanInfo shenKanInfo = new()
+            {
+                m_ID = p.m_ID,
+                m_Name = p.m_PointName,
+            };
+            listShenKans.Add(shenKanInfo);
+        }
+
+        List<int> listPortal = new();
+        foreach (var p in GameObject.FindObjectsOfType<ScenePointPortal>())
+        {
+            listPortal.Add(p.m_ID);
+        }
+
+        var sceneItem = sceneInfo.m_Scenes.First(a => a.m_ResName == SceneManager.GetActiveScene().name);
+        sceneItem.m_ShenKans = listShenKans.ToArray();
+        sceneItem.m_Portals = listPortal.ToArray();
+        EditorUtility.SetDirty(sceneInfo);
+
+        Debug.Log("SyncToSceneConfig finished", sceneInfo);
+    }
 
     [MenuItem("Saber/WUCH/Game/Boss enter stage 2")]
     static void BossEnterStage2()

@@ -26,6 +26,7 @@ namespace Saber.Config
         public AudioClip[] m_SoundFootStepSnow;
         public PlayerPropItemInfo[] m_ShenKanRestRecItems;
         public float m_WarningRange = 30;
+        public bool OnlyCanWalkWhenInWater;
 
         public AudioClip GetRandomVoiceTired()
         {
