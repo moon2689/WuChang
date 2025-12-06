@@ -2,20 +2,6 @@
 #define UNIVERSAL_FORWARD_LIT_PASS_INCLUDED
 
 #include "CommonLitLighting.hlsl"
-/*
-#if defined(LOD_FADE_CROSSFADE)
-    #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/LODCrossFade.hlsl"
-#endif
-
-// GLES2 has limited amount of interpolators
-#if defined(_PARALLAXMAP) && !defined(SHADER_API_GLES)
-#define REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR
-#endif
-
-#if (defined(_NORMALMAP) || (defined(_PARALLAXMAP) && !defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR))) || defined(_DETAIL)
-#define REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR
-#endif
-*/
 
 // keep this file in sync with LitGBufferPass.hlsl
 
@@ -33,15 +19,9 @@ struct Attributes
 struct Varyings
 {
     float2 uv                       : TEXCOORD0;
-
-//#if defined(REQUIRES_WORLD_SPACE_POS_INTERPOLATOR)
     float3 positionWS               : TEXCOORD1;
-//#endif
-
     float3 normalWS                 : TEXCOORD2;
-//#if defined(REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR)
     half4 tangentWS                : TEXCOORD3;    // xyz: tangent, w: sign
-//#endif
 
 #ifdef _ADDITIONAL_LIGHTS_VERTEX
     half4 fogFactorAndVertexLight   : TEXCOORD5; // x: fogFactor, yzw: vertex light
@@ -52,12 +32,6 @@ struct Varyings
 #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
     float4 shadowCoord              : TEXCOORD6;
 #endif
-
-    /*
-#if defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
-    half3 viewDirTS                : TEXCOORD7;
-#endif
-    */
 
     DECLARE_LIGHTMAP_OR_SH(staticLightmapUV, vertexSH, 8);
 #ifdef DYNAMICLIGHTMAP_ON
@@ -116,19 +90,6 @@ void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData
 
     inputData.normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(input.positionCS);
     inputData.shadowMask = SAMPLE_SHADOWMASK(input.staticLightmapUV);
-
-    /*
-    #if defined(DEBUG_DISPLAY)
-    #if defined(DYNAMICLIGHTMAP_ON)
-    inputData.dynamicLightmapUV = input.dynamicLightmapUV;
-    #endif
-    #if defined(LIGHTMAP_ON)
-    inputData.staticLightmapUV = input.staticLightmapUV;
-    #else
-    inputData.vertexSH = input.vertexSH;
-    #endif
-    #endif
-    */
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -162,21 +123,9 @@ Varyings LitPassVertex(Attributes input)
 
     // already normalized from normal transform to WS.
     output.normalWS = normalInput.normalWS;
-//#if defined(REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR) || defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
     real sign = input.tangentOS.w * GetOddNegativeScale();
     half4 tangentWS = half4(normalInput.tangentWS.xyz, sign);
-//#endif
-//#if defined(REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR)
     output.tangentWS = tangentWS;
-//#endif
-
-    /*
-#if defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
-    half3 viewDirWS = GetWorldSpaceNormalizeViewDir(vertexInput.positionWS);
-    half3 viewDirTS = GetViewDirectionTangentSpace(tangentWS, output.normalWS, viewDirWS);
-    output.viewDirTS = viewDirTS;
-#endif
-    */
 
     OUTPUT_LIGHTMAP_UV(input.staticLightmapUV, unity_LightmapST, output.staticLightmapUV);
 #ifdef DYNAMICLIGHTMAP_ON
@@ -189,9 +138,7 @@ Varyings LitPassVertex(Attributes input)
     output.fogFactor = fogFactor;
 #endif
 
-//#if defined(REQUIRES_WORLD_SPACE_POS_INTERPOLATOR)
     output.positionWS = vertexInput.positionWS;
-//#endif
 
 #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
     output.shadowCoord = GetShadowCoord(vertexInput);
@@ -210,38 +157,14 @@ half4 LitPassFragment(Varyings input) : SV_Target0
 
     SurfaceData surfaceData;
     InitializeStandardLitSurfaceData(input.uv, surfaceData);
-    //outColor = surfaceData.emission.rgbb;return;
-
-    /*
-#ifdef LOD_FADE_CROSSFADE
-    LODFadeCrossFade(input.positionCS);
-#endif
-    */
 
     InputData inputData;
     InitializeInputData(input, surfaceData.normalTS, inputData);
-    //SETUP_DEBUG_TEXTURE_DATA(inputData, input.uv, _BaseMap);
-
-    /*
-#ifdef _DBUFFER
-    ApplyDecalToSurfaceData(input.positionCS, surfaceData, inputData);
-#endif
-    */
 
     half4 color = UniversalFragmentPBR(inputData, surfaceData);
     color.rgb = MixFog(color.rgb, inputData.fogCoord);
-    //color.a = OutputAlpha(color.a, IsSurfaceTypeTransparent(_Surface));
-    //color.a = 1;
-    //color = surfaceData.metallic;
-
+    
     return color;
-
-    /*
-#ifdef _WRITE_RENDERING_LAYERS
-    uint renderingLayers = GetMeshRenderingLayer();
-    outRenderingLayers = float4(EncodeMeshRenderingLayer(renderingLayers), 0, 0, 0);
-#endif
-    */
 }
 
 #endif

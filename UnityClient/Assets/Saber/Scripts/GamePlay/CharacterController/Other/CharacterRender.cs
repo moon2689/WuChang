@@ -34,8 +34,8 @@ namespace Saber.CharacterController
             {
                 m_IsInWater = value;
                 ActiveWaterWave(value);
-                AdjustMaterialByWater(value);
-                GetWet(value);
+                //AdjustMaterialByWater(value);
+                //GetWet(value);
             }
         }
 

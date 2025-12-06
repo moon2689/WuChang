@@ -44,30 +44,6 @@ half3 LightingPhysicallyBased(BRDFData brdfData, half3 lightColor, half3 lightDi
 
     half3 brdf = brdfData.diffuse;
     brdf += brdfData.specular * DirectBRDFSpecular(brdfData, normalWS, lightDirectionWS, viewDirectionWS);
-    /*
-#ifndef _SPECULARHIGHLIGHTS_OFF
-    [branch] if (!specularHighlightsOff)
-    {
-        brdf += brdfData.specular * DirectBRDFSpecular(brdfData, normalWS, lightDirectionWS, viewDirectionWS);
-
-#if defined(_CLEARCOAT) || defined(_CLEARCOATMAP)
-        // Clear coat evaluates the specular a second timw and has some common terms with the base specular.
-        // We rely on the compiler to merge these and compute them only once.
-        half brdfCoat = kDielectricSpec.r * DirectBRDFSpecular(brdfDataClearCoat, normalWS, lightDirectionWS, viewDirectionWS);
-
-            // Mix clear coat and base layer using khronos glTF recommended formula
-            // https://github.com/KhronosGroup/glTF/blob/master/extensions/2.0/Khronos/KHR_materials_clearcoat/README.md
-            // Use NoV for direct too instead of LoH as an optimization (NoV is light invariant).
-            half NoV = saturate(dot(normalWS, viewDirectionWS));
-            // Use slightly simpler fresnelTerm (Pow4 vs Pow5) as a small optimization.
-            // It is matching fresnel used in the GI/Env, so should produce a consistent clear coat blend (env vs. direct)
-            half coatFresnel = kDielectricSpec.x + kDielectricSpec.a * Pow4(1.0 - NoV);
-
-        brdf = brdf * (1.0 - clearCoatMask * coatFresnel) + brdfCoat * clearCoatMask;
-#endif // _CLEARCOAT
-    }
-#endif // _SPECULARHIGHLIGHTS_OFF
-    */
 
     return brdf * radiance;
 }
@@ -76,46 +52,6 @@ half3 LightingPhysicallyBased(BRDFData brdfData, Light light, half3 normalWS, ha
 {
     return LightingPhysicallyBased(brdfData, light.color, light.direction, light.distanceAttenuation * light.shadowAttenuation, normalWS, viewDirectionWS);
 }
-
-/*
-// Backwards compatibility
-half3 LightingPhysicallyBased(BRDFData brdfData, Light light, half3 normalWS, half3 viewDirectionWS)
-{
-    #ifdef _SPECULARHIGHLIGHTS_OFF
-    bool specularHighlightsOff = true;
-#else
-    bool specularHighlightsOff = false;
-#endif
-    const BRDFData noClearCoat = (BRDFData)0;
-    return LightingPhysicallyBased(brdfData, noClearCoat, light, normalWS, viewDirectionWS, 0.0, specularHighlightsOff);
-}
-
-half3 LightingPhysicallyBased(BRDFData brdfData, half3 lightColor, half3 lightDirectionWS, half lightAttenuation, half3 normalWS, half3 viewDirectionWS)
-{
-    Light light;
-    light.color = lightColor;
-    light.direction = lightDirectionWS;
-    light.distanceAttenuation = lightAttenuation;
-    light.shadowAttenuation   = 1;
-    return LightingPhysicallyBased(brdfData, light, normalWS, viewDirectionWS);
-}
-
-half3 LightingPhysicallyBased(BRDFData brdfData, Light light, half3 normalWS, half3 viewDirectionWS, bool specularHighlightsOff)
-{
-    const BRDFData noClearCoat = (BRDFData)0;
-    return LightingPhysicallyBased(brdfData, noClearCoat, light, normalWS, viewDirectionWS, 0.0, specularHighlightsOff);
-}
-
-half3 LightingPhysicallyBased(BRDFData brdfData, half3 lightColor, half3 lightDirectionWS, half lightAttenuation, half3 normalWS, half3 viewDirectionWS, bool specularHighlightsOff)
-{
-    Light light;
-    light.color = lightColor;
-    light.direction = lightDirectionWS;
-    light.distanceAttenuation = lightAttenuation;
-    light.shadowAttenuation   = 1;
-    return LightingPhysicallyBased(brdfData, light, viewDirectionWS, specularHighlightsOff, specularHighlightsOff);
-}
-*/
 
 half3 VertexLighting(float3 positionWS, half3 normalWS)
 {
@@ -232,11 +168,7 @@ half3 CalculateBlinnPhong(Light light, InputData inputData, SurfaceData surfaceD
     lightSpecularColor += LightingSpecular(attenuatedLightColor, light.direction, inputData.normalWS, inputData.viewDirectionWS, half4(surfaceData.specular, 1), smoothness);
     #endif
 
-// #if _ALPHAPREMULTIPLY_ON
-//     return lightDiffuseColor * surfaceData.albedo * surfaceData.alpha + lightSpecularColor;
-// #else
     return lightDiffuseColor * surfaceData.albedo + lightSpecularColor;
-// #endif
 }
 
 half3 GlobalIlluminationCommonLit(BRDFData brdfData, half3 bakedGI, half occlusion, float3 positionWS,
@@ -251,12 +183,6 @@ half3 GlobalIlluminationCommonLit(BRDFData brdfData, half3 bakedGI, half occlusi
 
     half3 color = EnvironmentBRDF(brdfData, indirectDiffuse, indirectSpecular, fresnelTerm);
 
-    /*
-    if (IsOnlyAOLightingFeatureEnabled())
-    {
-        color = half3(1,1,1); // "Base white" for AO debug lighting mode
-    }
-    */
     return color * occlusion;
 }
 
@@ -300,29 +226,10 @@ inline void InitializeBRDFDataCommonLit(inout SurfaceData surfaceData, out BRDFD
 ////////////////////////////////////////////////////////////////////////////////
 half4 UniversalFragmentPBR(InputData inputData, SurfaceData surfaceData)
 {
-    /*
-    #if defined(_SPECULARHIGHLIGHTS_OFF)
-    bool specularHighlightsOff = true;
-    #else
-    bool specularHighlightsOff = false;
-    #endif
-    */
-
     BRDFData brdfData;
 
     // NOTE: can modify "surfaceData"...
     InitializeBRDFDataCommonLit(surfaceData, brdfData);
-
-    /*
-    #if defined(DEBUG_DISPLAY)
-    half4 debugColor;
-
-    if (CanDebugOverrideOutputColor(inputData, surfaceData, brdfData, debugColor))
-    {
-        return debugColor;
-    }
-    #endif
-    */
 
     // Clear-coat calculation...
     //BRDFData brdfDataClearCoat = CreateClearCoatBRDFData(surfaceData, brdfData);
