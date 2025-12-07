@@ -7,15 +7,9 @@ Shader "Saber/Unlit/Beer Glass"
         _RefractionIntensity("Refraction Intensity", float) = 1
         _RefractionColor ("Refraction Color", Color) = (0,0,0,0)
         _ThicknessMap ("Thickness Map", 2D) = "black" {}
-        /*
-        _DirtyMap ("Dirty Map", 2D) = "black" {}
-        _DirtyIntensity("Dirty Intensity", Range(0, 1)) = 1
-        _LogoMap ("Logo Map", 2D) = "black" {}
-        _LogoIntensity("Logo Intensity", Range(0, 1)) = 1
-        */
         
+        [Toggle] _Blur ("Blur?", Float) = 0
         _Distortion("Distortion", float) = 1
-        
         _BlurSpread("Blur Spread", float) = 1
     }
 
@@ -40,6 +34,7 @@ Shader "Saber/Unlit/Beer Glass"
             #pragma multi_compile_instancing
             #pragma instancing_options renderinglayer
             #pragma multi_compile _ DOTS_INSTANCING_ON
+            #pragma multi_compile _ _BLUR_ON
 
             #pragma vertex Vertex
             #pragma fragment Fragment
@@ -51,8 +46,6 @@ Shader "Saber/Unlit/Beer Glass"
             CBUFFER_START(UnityPerMaterial)
             float _RefractionIntensity;
             half4 _RefractionColor;
-            // float _DirtyIntensity;
-            // float _LogoIntensity;
             half4 _CameraOpaqueTexture_TexelSize;
             float _Distortion;
             float _BlurSpread;
@@ -61,8 +54,6 @@ Shader "Saber/Unlit/Beer Glass"
 			TEXTURE2D(_MatcapReflection);   SAMPLER(sampler_MatcapReflection);
             TEXTURE2D(_MatcapRefraction);   SAMPLER(sampler_MatcapRefraction);
             TEXTURE2D(_ThicknessMap);       SAMPLER(sampler_ThicknessMap);
-            // TEXTURE2D(_DirtyMap);           SAMPLER(sampler_DirtyMap);
-            // TEXTURE2D(_LogoMap);            SAMPLER(sampler_LogoMap);
             
 
             struct Attributes
@@ -81,35 +72,7 @@ Shader "Saber/Unlit/Beer Glass"
                 float4 uv : TEXCOORD1;
                 UNITY_VERTEX_INPUT_INSTANCE_ID
             };
-
-            /*
-            // 改进的叉积Matcap UV计算
-            float2 CalculateCrossMatcapUV(float3 worldPos, float3 worldNormal)
-            {
-                // 转换为视图空间
-                float3 normalVS = mul(UNITY_MATRIX_IT_MV, float4(worldNormal, 0)).xyz;
-                normalVS = normalize(normalVS);
-                
-                // 视图空间位置（从顶点到相机）
-                float3 positionVS = mul(UNITY_MATRIX_MV, float4(worldPos, 1)).xyz;
-                
-                // 计算视图方向（从顶点指向相机）
-                float3 viewDirVS = normalize(-positionVS);
-                
-                // 十字叉积
-                float3 crossPN = cross(viewDirVS, normalVS);
-                
-                // 可选：根据法线z分量调整强度（减少边缘失真）
-                float normalZ = normalVS.z;
-                float edgeFactor = saturate(abs(normalZ) * 2);
-                
-                // 映射到UV
-                float2 uv = float2(-crossPN.y, crossPN.x);
-                uv *= lerp(1.0, 0.5, edgeFactor); // 边缘处缩小
-                
-                return uv * 0.5 + 0.5;
-            }
-            */
+            
 
             // 十字叉积Matcap UV
             float2 CalcMatcapUV(float3 normalWS, float4 positionOS)
@@ -151,15 +114,13 @@ Shader "Saber/Unlit/Beer Glass"
 
                 // 采样厚度图
                 half4 thickness = SAMPLE_TEXTURE2D(_ThicknessMap, sampler_ThicknessMap, input.uv.xy);
-                //half4 dirtyMap = SAMPLE_TEXTURE2D(_DirtyMap, sampler_DirtyMap, input.uv.xy);
-                //half4 logoMap = SAMPLE_TEXTURE2D(_LogoMap, sampler_LogoMap, input.uv.xy);
 
                 // 计算菲涅尔
                 float3 N = normalize(input.normalWS);
                 float3 V = GetWorldSpaceNormalizeViewDir(input.positionWS.xyz);
                 float NoV = dot(N, V);
                 half rim = 1 - saturate(NoV);
-                half refraction = (thickness + rim) * _RefractionIntensity;// + dirtyMap.r * _DirtyIntensity + logoMap.r * _LogoIntensity;
+                half refraction = (thickness + rim) * _RefractionIntensity;
 
                 // 计算折射
                 float2 refractionUV = saturate(matcapUV + refraction);
@@ -175,32 +136,89 @@ Shader "Saber/Unlit/Beer Glass"
                 a = max(refractionColor.r, a);
                 color.a = saturate(a);
 
-                //color = half4(refractionColor, 1);
-                //color = half4(refraction.xxx, 1);
-
                 // 扭曲效果
                 float2 screenUV = GetNormalizedScreenSpaceUV(input.positionCS);
                 screenUV += N.xy * _CameraOpaqueTexture_TexelSize.xy * _Distortion * refraction;
-
                 float3 sceneColor;
+                
+                #if _BLUR_ON
+                float totalWeight = 0;
                 for (int i = -2; i <= 2; ++i)
                 {
                     for (int j = -2; j <= 2; ++j)
                     {
-                        float2 uvOffset = _CameraOpaqueTexture_TexelSize.xy * float2(i,j) * _BlurSpread;
-                        sceneColor += SampleSceneColor(screenUV + uvOffset);      
+                        float2 offset = float2(i,j) * _BlurSpread;
+                        float weight = 1 / (1 + length(offset) * 2);
+                        float2 uvOffset = _CameraOpaqueTexture_TexelSize.xy * offset;
+                        sceneColor += SampleSceneColor(screenUV + uvOffset) * weight;
+                        totalWeight += weight;
                     }    
                 }
-                sceneColor /= 25;
-                //float3 sceneColor = SampleSceneColor(screenUV);
+                sceneColor /= totalWeight;
+                #else
+                sceneColor = SampleSceneColor(screenUV);
+                #endif
                 
                 color.rgb = lerp(sceneColor.rgb, color.rgb, color.a);
+                //color.a = 0.9;
                 
                 return color;
             }
             
             ENDHLSL
         }
+
+        Pass
+        {
+            Name "ShadowCaster"
+            Tags
+            {
+                "LightMode" = "ShadowCaster"
+            }
+
+            // -------------------------------------
+            // Render State Commands
+            ZWrite On
+            ZTest LEqual
+            ColorMask 0
+            //Cull[_Cull]
+
+            HLSLPROGRAM
+            #pragma target 2.0
+
+            // -------------------------------------
+            // Shader Stages
+            #pragma vertex ShadowPassVertex
+            #pragma fragment ShadowPassFragment
+
+            // -------------------------------------
+            // Material Keywords
+            //#pragma shader_feature_local_fragment _ALPHATEST_ON
+            //#pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+
+            // -------------------------------------
+            // Universal Pipeline keywords
+
+            // -------------------------------------
+            // Unity defined keywords
+            //#pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
+
+            // This is used during shadow map generation to differentiate between directional and punctual light shadows, as they use different formulas to apply Normal Bias
+            #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
+
+            // -------------------------------------
+            // Includes
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
+            ENDHLSL
+        }
+
+
 
     }
     
