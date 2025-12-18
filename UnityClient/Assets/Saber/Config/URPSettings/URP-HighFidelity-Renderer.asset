@@ -58,6 +58,21 @@ MonoBehaviour:
   m_Active: 0
   blitMaterial: {fileID: 2100000, guid: cf6ab374e3080fa49b6f1077567c7ceb, type: 2}
   renderPassEvent: 350
+--- !u!114 &-3203755674060079122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f587c964419ae347bc4e79962563977, type: 3}
+  m_Name: URPFeatureSceneScan
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  m_Settings:
+    m_Mat: {fileID: 2100000, guid: f9c82dc7b8b4a3c44b73da9259066cb2, type: 2}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,7 +92,8 @@ MonoBehaviour:
   m_RendererFeatures:
   - {fileID: 775820156733157611}
   - {fileID: -9188459404156781571}
-  m_RendererFeatureMap: ebf0aa735244c40afd3b23beda087c80
+  - {fileID: -3203755674060079122}
+  m_RendererFeatureMap: ebf0aa735244c40afd3b23beda087c80eebf814c30f989d3
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}

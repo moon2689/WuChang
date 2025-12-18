@@ -22,8 +22,8 @@ MonoBehaviour:
   IKBoneForceOnHit: 3
   RecoverUnbalanceValueDelaySeconds: 4
   RecoverUnbalanceSpeed: 10
-  MaxHPPotionCount: 5
-  HPPotionRecoverRate: 0.5
+  MaxHPPotionCount: 10
+  HPPotionRecoverRate: 0.8
   m_VoiceTired:
   - {fileID: 8300000, guid: a839d3f8dfd4a984ea10cb68a6f435dd, type: 3}
   - {fileID: 8300000, guid: e2202e4466a37e14f84e86f07ad2a8b2, type: 3}
@@ -55,3 +55,4 @@ MonoBehaviour:
   - m_ID: 4
     m_Count: 3
   m_WarningRange: 50
+  OnlyCanWalkWhenInWater: 0

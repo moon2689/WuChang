@@ -1,4 +1,4 @@
-Shader "Saber/Hovl/Particles/Lightning"
+Shader "Saber/Other/Hovl/Particles/Lightning"
 {
 	Properties
 	{	

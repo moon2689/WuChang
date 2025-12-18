@@ -1,4 +1,4 @@
-Shader "Saber/Hovl/Particles/DissolveNoise"
+Shader "Saber/Other/Hovl/Particles/DissolveNoise"
 {
 	Properties
 	{

@@ -1,4 +1,4 @@
-Shader "Saber/Hovl/Particles/Add_Fresnel"
+Shader "Saber/Other/Hovl/Particles/Add_Fresnel"
 {
 	Properties
 	{

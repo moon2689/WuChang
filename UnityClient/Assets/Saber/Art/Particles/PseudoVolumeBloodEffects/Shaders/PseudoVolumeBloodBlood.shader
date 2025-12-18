@@ -1,4 +1,4 @@
-Shader "Saber/Effects/PseudoVolumeBlood"
+Shader "Saber/Other/Effects/PseudoVolumeBlood"
 {
     Properties
     {

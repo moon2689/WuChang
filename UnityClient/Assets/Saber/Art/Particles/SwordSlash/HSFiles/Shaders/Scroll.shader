@@ -1,4 +1,4 @@
-Shader "Saber/Hovl/Particles/Scroll"
+Shader "Saber/Other/Hovl/Particles/Scroll"
 {
 	Properties
 	{

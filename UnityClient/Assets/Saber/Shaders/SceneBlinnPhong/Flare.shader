@@ -1,4 +1,4 @@
-Shader "Saber/FX/Flare"
+Shader "Saber/Other/FX/Flare"
 {
     Properties
     {

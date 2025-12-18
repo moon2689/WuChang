@@ -1,6 +1,6 @@
 // Made with Amplify Shader Editor v1.9.6.3
 // Available at the Unity Asset Store - http://u3d.as/y3X 
-Shader "Saber/Vefects/SH_VFX_T_DissolveAdd_New"
+Shader "Saber/Other/Vefects/SH_VFX_T_DissolveAdd_New"
 {
 	Properties
 	{
