@@ -13,6 +13,7 @@ Shader "Saber/Unlit/Slime/Slime Body"
         _VertexAnimNoise("Vertex Animation Noise", 2D) = "black"
         _VertexAnimIntensity("Vertex Animation Intensity", float) = 0.1
         _VertexAnimTilling("Vertex Animation Tilling", Vector) = (1,1,1,1)
+        _VertexAnimSpeed("Vertex Animation Speed", Vector) = (0,0,0,0)
     }
     SubShader
     {
@@ -51,6 +52,7 @@ Shader "Saber/Unlit/Slime/Slime Body"
             float3 _FlowNoiseSpeed;
             float _VertexAnimIntensity;
             float3 _VertexAnimTilling;
+            float3 _VertexAnimSpeed;
             CBUFFER_END
 
             struct Attributes
@@ -84,7 +86,8 @@ Shader "Saber/Unlit/Slime/Slime Body"
                 UNITY_SETUP_INSTANCE_ID(input);
                 UNITY_TRANSFER_INSTANCE_ID(input, output);
                 
-                float3 positionOSOffset = input.positionOS.xyz * _VertexAnimTilling.xyz + _Time.x * _FlowNoiseSpeed.xyz;
+                float3 positionWS = TransformObjectToWorld(input.positionOS.xyz);
+                float3 positionOSOffset = positionWS.xyz * _VertexAnimTilling.xyz + _Time.x * _VertexAnimSpeed;
                 half4 noiseXY = SAMPLE_TEXTURE2D_LOD(_VertexAnimNoise, sampler_VertexAnimNoise, positionOSOffset.xy, 0);
                 half4 noiseXZ = SAMPLE_TEXTURE2D_LOD(_VertexAnimNoise, sampler_VertexAnimNoise, positionOSOffset.xz, 0);
                 half4 noiseYZ = SAMPLE_TEXTURE2D_LOD(_VertexAnimNoise, sampler_VertexAnimNoise, positionOSOffset.yz, 0);
@@ -99,18 +102,19 @@ Shader "Saber/Unlit/Slime/Slime Body"
                 half4 noiseValue = noiseXY * normalWeight.z + noiseXZ * normalWeight.y + noiseYZ * normalWeight.x;
                 noiseValue = noiseValue * _VertexAnimIntensity * 0.01 * input.color.r;
                 
-                float3 positionOS = input.positionOS.xyz + noiseValue;
+                float downWeight = saturate(dot(normalWS, float3(0,-0.2,0))) + 1;
+                float3 finalPosWS = positionWS.xyz + noiseValue * (normalWS + float3(0,-0.2,0)) * downWeight;
+                float3 positionOS = TransformWorldToObject(finalPosWS);
 
                 output.positionCS = TransformObjectToHClip(positionOS);
                 output.uv = input.uv;
                 
                 normalOS += noiseValue;
                 VertexNormalInputs normalData = GetVertexNormalInputs(normalOS);
-                output.positionWS = TransformObjectToWorld(positionOS);
+                output.positionWS = finalPosWS;
                 output.normalWS = normalData.normalWS;
                 output.tangentWS = normalData.tangentWS;
                 output.bitangentWS = normalData.bitangentWS;
-                
                 output.color = input.color;
 
                 return output;
@@ -153,7 +157,8 @@ Shader "Saber/Unlit/Slime/Slime Body"
                 color.rgb = baseMap.rgb * matcapMap.rgb * _MatcapIntensity;
                 
                 // emission
-                color.rgb += emissionMap.rgb;
+                float rim = 1 - saturate(dot(N, V));
+                color.rgb += emissionMap.rgb * rim * 5;
                 
                 return color;
             }
