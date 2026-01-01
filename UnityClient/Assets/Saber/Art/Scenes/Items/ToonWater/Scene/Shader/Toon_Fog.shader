@@ -10,14 +10,17 @@ Shader "Saber/Unlit/Toon Water/Toon_Fog"
     {
         Tags
         {
-            "RenderType" = "Opaque"
+            "RenderType" = "Transparent"
             "RenderPipeline" = "UniversalPipeline"
-            "Queue" = "Geometry"
+            "Queue" = "Transparent"
         }
         LOD 100
 
         Pass
         {
+            ZWrite Off
+            Blend SrcAlpha OneMinusSrcAlpha
+            
             HLSLPROGRAM
             #pragma vertex UnlitPassVertex
             #pragma fragment UnlitPassFragment
