@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Matcap:
-        m_Texture: {fileID: 2800000, guid: 3853098d4c91c9f48bcf803c738f23cd, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1e550fab742abdb46aa1a7d22ae37303, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatcapAdd:
