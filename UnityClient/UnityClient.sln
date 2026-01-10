@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicaClothV2", "MagicaClot
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicaClothV2.Editor", "MagicaClothV2.Editor.csproj", "{676922b0-0752-481c-d672-58db4de2e0cf}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanarReflections6", "PlanarReflections6.csproj", "{6b1d39da-02d6-d860-eb78-67bfbcacab79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanarReflections6_Editor", "PlanarReflections6_Editor.csproj", "{5c5c7605-84dc-3a67-ba46-6fd73817661c}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicaCloth2UPMImporterShaderGraph", "MagicaCloth2UPMImporterShaderGraph.csproj", "{ef89f4e6-6dc3-d96d-b955-e5a90b51d9b4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicaClothV2UPMImporterCollections", "MagicaClothV2UPMImporterCollections.csproj", "{58fa8ce7-fa1a-1d90-b018-81798b2bfefd}"
@@ -28,6 +32,10 @@ Global
 		{0ffda53e-ec7f-421d-0993-7a4688b1fa99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{676922b0-0752-481c-d672-58db4de2e0cf}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{676922b0-0752-481c-d672-58db4de2e0cf}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6b1d39da-02d6-d860-eb78-67bfbcacab79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6b1d39da-02d6-d860-eb78-67bfbcacab79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5c5c7605-84dc-3a67-ba46-6fd73817661c}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5c5c7605-84dc-3a67-ba46-6fd73817661c}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ef89f4e6-6dc3-d96d-b955-e5a90b51d9b4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ef89f4e6-6dc3-d96d-b955-e5a90b51d9b4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58fa8ce7-fa1a-1d90-b018-81798b2bfefd}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
