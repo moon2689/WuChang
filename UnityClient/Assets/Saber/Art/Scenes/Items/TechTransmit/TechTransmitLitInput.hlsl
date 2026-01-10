@@ -13,6 +13,8 @@ float _DissolveAmount;
 float _DissolveAmountOffset;
 float _DissolveAmountSpread;
 float _EdgeWidth;
+float3 _DissolveNoiseScale;
+half4 _EdgeColor;
 CBUFFER_END
 
 TEXTURE2D(_BaseMap);

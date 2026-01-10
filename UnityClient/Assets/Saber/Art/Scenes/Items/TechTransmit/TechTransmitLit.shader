@@ -7,11 +7,15 @@ Shader "Saber/PBR/TechTransmit Lit"
         _MaskMap("Mask Map", 2D) = "black" {}
         
         [Header(Dissolve)]
+        [Toggle] _AutoPlay("Auto Play?", float) = 0
         _DissolveAmount("Dissolve Amount", Range(0,1)) = 0
         _DissolveAmountOffset("Dissolve Amount Offset", float) = 0
         _DissolveAmountSpread("Dissolve Amount Spread", float) = 1
         
+        _DissolveNoiseScale("Dissolve Noise Scale", Vector) = (1,1,1)
+
         _EdgeWidth("Edge Width", float) = 0.2
+        [HDR] _EdgeColor("Edge Color", Color) = (1,1,1,1)
     }
 
     SubShader
@@ -52,6 +56,7 @@ Shader "Saber/PBR/TechTransmit Lit"
             // -------------------------------------
             // Material Keywords
             //#pragma shader_feature_local _NORMALMAP
+            #pragma shader_feature_fragment _AUTOPLAY_ON
 
             // -------------------------------------
             // Universal Pipeline keywords

@@ -5,6 +5,7 @@
 #if defined(LOD_FADE_CROSSFADE)
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/LODCrossFade.hlsl"
 #endif
+#include "../TheBookOfShaders/Noise.hlsl"
 
 
 // keep this file in sync with LitGBufferPass.hlsl
@@ -102,17 +103,26 @@ Varyings LitPassVertex(Attributes input)
     return output;
 }
 
-void Dissolve(Varyings input, out half4 debug)
+half3 Dissolve(Varyings input)
 {
+    float dissolveAmount;
+    #if _AUTOPLAY_ON
+    dissolveAmount = frac(_Time.x * 2);
+    #else
+    dissolveAmount = _DissolveAmount;
+    #endif
+    
+    float noise = snoise(input.positionWS * _DissolveNoiseScale) * 0.5 + 0.5;
+    
     float offsetPosY = input.pivotPosWS.y - input.positionWS.y;
-    float dissolveValue = _DissolveAmountOffset + offsetPosY - (_DissolveAmount * 2 - 1);
+    float dissolveValue = _DissolveAmountOffset + offsetPosY - (dissolveAmount * 2 - 1);
+    dissolveValue -= noise * 0.3;
     dissolveValue /= _DissolveAmountSpread;
     
     clip(dissolveValue - 0.5);
     
     float edgeValue = 1 - saturate(distance(dissolveValue, 0.5) / _EdgeWidth);
-    
-    debug = edgeValue.xxxx;
+    return edgeValue * _EdgeColor.rgb;
 }
 
 // Used in Standard (Physically Based) shader
@@ -146,9 +156,8 @@ half4 LitPassFragment(
     outRenderingLayers = float4(EncodeMeshRenderingLayer(renderingLayers), 0, 0, 0);
     #endif
 
-    half4 debug;
-    Dissolve(input, debug);
-    return debug;
+    half3 edgeColor = Dissolve(input);
+    color.rgb += edgeColor;
 
     return color;
 }

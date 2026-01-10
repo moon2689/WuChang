@@ -87,6 +87,7 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _AlphaToMask: 0
+    - _AutoPlay: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -96,8 +97,8 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DissolveAmount: 0.36
-    - _DissolveAmountOffset: 1.5
+    - _DissolveAmount: 0
+    - _DissolveAmountOffset: 1.49
     - _DissolveAmountSpread: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
@@ -122,6 +123,8 @@ Material:
     m_Colors:
     - _BaseColor: {r: 0.2158605, g: 0.2158605, b: 0.2158605, a: 1}
     - _Color: {r: 0.21586046, g: 0.21586046, b: 0.21586046, a: 1}
+    - _DissolveNoiseScale: {r: 200, g: 1, b: 1, a: 1}
+    - _EdgeColor: {r: 0, g: 2.6344395, b: 3.482202, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
